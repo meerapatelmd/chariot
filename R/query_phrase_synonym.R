@@ -1,6 +1,6 @@
-#' Query based on search terms that does not write to catalogue
-#' @param ... vector of phrases to collectively feed into the LIKE sql statement
-#' @return resultset as a dataframe with all column types as character and trimmed white space
+#' Query based on search terms in the concept synonym table
+#' @param phrase vector of phrases to collectively feed into the LIKE sql statement
+#' @return resultset as a dataframe with all column types
 #' @importFrom mySeagull connect_to_local_postgres
 #' @import DBI
 #' @importFrom rubix call_mr_clean

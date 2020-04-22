@@ -2,16 +2,16 @@
 % Please edit documentation in R/query_phrase_synonym.R
 \name{query_phrase_synonym}
 \alias{query_phrase_synonym}
-\title{Query based on search terms that does not write to catalogue}
+\title{Query based on search terms in the concept synonym table}
 \usage{
 query_phrase_synonym(phrase, limit = NULL, type = c("like", "exact"))
 }
 \arguments{
-\item{...}{vector of phrases to collectively feed into the LIKE sql statement}
+\item{phrase}{vector of phrases to collectively feed into the LIKE sql statement}
 }
 \value{
-resultset as a dataframe with all column types as character and trimmed white space
+resultset as a dataframe with all column types
 }
 \description{
-Query based on search terms that does not write to catalogue
+Query based on search terms in the concept synonym table
 }
