@@ -11,17 +11,17 @@ query_phrase_synonym <-
         function(phrase, limit = NULL, type = c("like", "exact")) {
                 if (type == "exact") {
                         if (is.null(limit)) {
-                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_name = '", phrase, "';")
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name = '", phrase, "';")
                         } else {
-                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_name = '", phrase, "' ")
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name = '", phrase, "' ")
                                 sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
                         }
 
                 } else if (type == "like") {
                         if (is.null(limit)) {
-                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_name LIKE '%", phrase, "%';")
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", phrase, "%';")
                         } else {
-                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_name LIKE '%", phrase, "%' ")
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", phrase, "%' ")
                                 sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
                         }
                 }
