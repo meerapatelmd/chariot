@@ -4,7 +4,12 @@
 \alias{query_phrase_synonym}
 \title{Query based on search terms in the concept synonym table}
 \usage{
-query_phrase_synonym(phrase, limit = NULL, type = c("like", "exact"))
+query_phrase_synonym(
+  phrase,
+  limit = NULL,
+  type = c("like", "exact"),
+  case_insensitive = TRUE
+)
 }
 \arguments{
 \item{phrase}{vector of phrases to collectively feed into the LIKE sql statement}

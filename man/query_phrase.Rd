@@ -4,7 +4,12 @@
 \alias{query_phrase}
 \title{Query based on search terms that does not write to catalogue}
 \usage{
-query_phrase(phrase, limit = NULL, type = c("like", "exact"))
+query_phrase(
+  phrase,
+  limit = NULL,
+  type = c("like", "exact"),
+  case_insensitive = TRUE
+)
 }
 \arguments{
 \item{...}{vector of phrases to collectively feed into the LIKE sql statement}
