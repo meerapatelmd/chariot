@@ -1,8 +1,11 @@
-
-
-
-
-
+#' Merge OMOP concept elements into a single string
+#' @description All elements of the CONCEPT table are included except for the dates.
+#' @param concept_dataframe output from concept table
+#' @param into name of the column that the new combined string will be in
+#' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
+#' @import dplyr
+#' @import tidyr
+#' @export
 
 
 merge_omop_concept_elements <-
@@ -22,7 +25,7 @@ merge_omop_concept_elements <-
                                          "invalid_reason"),
                                        suffix)
                 
-                bind_cols(concept_dataframe,
+                dplyr::bind_cols(concept_dataframe,
                 concept_dataframe %>%
                     dplyr::select(all_of(column_names)) %>%
                     dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
