@@ -1,9 +1,9 @@
 #' Query based on search terms in the concept synonym table
 #' @param phrase vector of phrases to collectively feed into the LIKE sql statement
 #' @return resultset as a dataframe with all column types
-#' @importFrom mySeagull connect_to_local_postgres
-#' @import DBI
-#' @import dplyr
+#' @importFrom seagull write_query_where_in
+#' @importFrom dplyr left_join
+#' @importFrom dplyr select
 #' @export
 
 query_phrase_synonym <-

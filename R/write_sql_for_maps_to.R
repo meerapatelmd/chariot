@@ -1,13 +1,13 @@
-#' Search the relationships of a concept id
+#' Search for the "Maps to" relationship of a concept id
 #' @param concept_id omop concept_id
 #' @export
 
-write_sql_for_maps_to_relationships <-
+write_sql_for_maps_to <-
     function(concept_id) {
         sql_statement <-
             paste0("SELECT c.*,
                                        cr.concept_id_2,
-                                       cr.relationship_id,
+                                       cr.relationship_id as cr_relationship_id,
                                        cr.invalid_reason as cr_invalid_reason
                                FROM concept c 
                                LEFT JOIN concept_relationship cr 

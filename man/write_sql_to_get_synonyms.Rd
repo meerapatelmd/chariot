@@ -8,6 +8,8 @@ write_sql_to_get_synonyms(concept_id, language_concept_id = c("4180186"))
 }
 \arguments{
 \item{concept_id}{omop concept_id}
+
+\item{language_concept_id}{language concept id for the synonyms. Defaults to English only.}
 }
 \description{
 Get all synonyms of a concept id

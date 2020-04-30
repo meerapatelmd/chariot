@@ -1,5 +1,6 @@
 #' Get all synonyms of a concept id
 #' @param concept_id omop concept_id
+#' @param language_concept_id language concept id for the synonyms. Defaults to English only.
 #' @export
 
 write_sql_to_get_synonyms <-

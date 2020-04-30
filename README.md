@@ -1,6 +1,13 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-04-30 17:51:44
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_code.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-04-30 17:51:44
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_code.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-04-30 17:49:07
 Local R Script:	~/GitHub/Public-Packages/chariot/DESCRIPTION
 Typewrite Message:	No deleted files in this repo.
