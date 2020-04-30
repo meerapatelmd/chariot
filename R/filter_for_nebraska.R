@@ -1,7 +1,6 @@
 #' Returns all possible OMOP domains in Athena
 #' @return dataframe of unique `domain_id` variables from the `concept` table
-#' @importFrom mySeagull connect_to_local_postgres
-#' @import DBI
+#' @importFrom dplyr filter
 #' @export
 
 filter_for_nebraska <-
