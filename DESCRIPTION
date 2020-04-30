@@ -13,3 +13,6 @@ RoxygenNote: 7.1.0
 Imports: 
     DBI,
     seagull
+Remotes:
+    patelm9/seagull
+    
