@@ -3,7 +3,6 @@
 #' @return resultset as a dataframe with all column types
 #' @importFrom mySeagull connect_to_local_postgres
 #' @import DBI
-#' @importFrom rubix call_mr_clean
 #' @import dplyr
 #' @export
 
@@ -27,11 +26,18 @@ query_phrase_synonym <-
                     }
                 }
                 
-                conn_to_athena <- mySeagull::connect_to_local_postgres(dbname = "athena")
-                resultset <- DBI::dbGetQuery(conn = conn_to_athena,
-                                             statement = sql_statement)
-                DBI::dbDisconnect(conn_to_athena)
-                return(resultset)
+                resultset <- query_athena(sql_statement = sql_statement)
+                
+                sql_statement <- seagull::write_query_where_in(table_name = "concept",
+                                                               column_name = "concept_id",
+                                                               where_in_vector = resultset$concept_id)
+                
+                output <- query_athena(sql_statement)
+                output <- 
+                    output %>%
+                    dplyr::left_join(resultset %>%
+                                         dplyr::select(-language_concept_id))
+                return(output)
             } else {
                 if (type == "exact") {
                     if (is.null(limit)) {
@@ -50,11 +56,18 @@ query_phrase_synonym <-
                     }
                 }
                 
-                conn_to_athena <- mySeagull::connect_to_local_postgres(dbname = "athena")
-                resultset <- DBI::dbGetQuery(conn = conn_to_athena,
-                                             statement = sql_statement)
-                DBI::dbDisconnect(conn_to_athena)
-                return(resultset)
+                resultset <- query_athena(sql_statement = sql_statement)
+                
+                sql_statement <- seagull::write_query_where_in(table_name = "concept",
+                                                               column_name = "concept_id",
+                                                               where_in_vector = resultset$concept_id)
+                
+                output <- query_athena(sql_statement)
+                output <- 
+                    output %>%
+                    dplyr::left_join(resultset %>%
+                                         dplyr::select(-language_concept_id))
+                return(output)
             }
                
         }
