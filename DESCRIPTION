@@ -12,7 +12,10 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
     DBI,
-    seagull
+    seagull,
+    dplyr,
+    tidyr,
+    purrr,
+    stringr
 Remotes:
     patelm9/seagull
-    
