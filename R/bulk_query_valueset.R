@@ -3,7 +3,7 @@
 #' @param valueset vector of permissible values to search
 #' @param type the type of query to perform. Defaults to "exact".
 #' @importFrom purrr map
-#' @importFrom purr set_names
+#' @importFrom purrr set_names
 #' @importFrom purrr transpose
 #' @export
 
