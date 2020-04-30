@@ -3,37 +3,64 @@
 #' @return resultset as a dataframe with all column types as character and trimmed white space
 #' @importFrom mySeagull connect_to_local_postgres
 #' @import DBI
+#' @importFrom rubix call_mr_clean
 #' @import dplyr
 #' @export
 
 query_string_as_vector_synonym <-
-        function(string, split = " ", limit = NULL) {
-                Args <- strsplit(string, split = split)
+        function(string, split = " ", limit = NULL, case_insensitive = TRUE) {
+            
+                Args <- strsplit(string, split = split) %>%
+                            unlist()
                 
-                        if (is.null(limit)) {
-                                for (i in 1:length(Args)) {
-                                        if (i == 1) {
-                                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", Args[[1]], "%'")
-                                        } else {
-                                                sql_statement <- paste0(sql_statement,
-                                                                        paste0(" AND concept_synonym_name LIKE '%", Args[[i]], "%'"))
-                                        }
-                                }
-                                sql_statement <- paste0(sql_statement, ";")
-                        } else {
-                                for (i in 1:length(Args)) {
-                                        if (i == 1) {
-                                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", Args[[1]], "%'")
-                                        } else {
-                                                sql_statement <- paste0(sql_statement,
-                                                                        paste0(" AND concept_synonym_name LIKE '%", Args[[i]], "%'"))
-                                        }
-                                }
-                                sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                if (case_insensitive == FALSE) {
+                    if (is.null(limit)) {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND concept_synonym_name LIKE '%", Args[[i]], "%'"))
+                            }
                         }
+                        sql_statement <- paste0(sql_statement, ";")
+                    } else {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE concept_synonym_name LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND concept_synonym_name LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                    }
+                } else {
+                    Args <- lapply(Args, tolower)
+                    if (is.null(limit)) {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE LOWER(concept_synonym_name) LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND LOWER(concept_synonym_name) LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, ";")
+                    } else {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept_synonym WHERE LOWER(concept_synonym_name) LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND LOWER(concept_synonym_name) LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                    }
+                }
 
                 resultset <- query_athena(sql_statement = sql_statement)
-                
                 sql_statement <- seagull::write_query_where_in(table_name = "concept",
                                                                column_name = "concept_id",
                                                                where_in_vector = resultset$concept_id)
@@ -45,3 +72,5 @@ query_string_as_vector_synonym <-
                                          dplyr::select(-language_concept_id))
                 return(output)
         }
+
+

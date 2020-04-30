@@ -4,7 +4,12 @@
 \alias{query_string_as_vector_synonym}
 \title{Query based on search terms that does not write to catalogue}
 \usage{
-query_string_as_vector_synonym(string, split = " ", limit = NULL)
+query_string_as_vector_synonym(
+  string,
+  split = " ",
+  limit = NULL,
+  case_insensitive = TRUE
+)
 }
 \arguments{
 \item{...}{vector of phrases to collectively feed into the LIKE sql statement}

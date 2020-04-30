@@ -8,31 +8,60 @@
 #' @export
 
 query_string_as_vector <-
-        function(string, split = " ", limit = NULL) {
-                Args <- strsplit(string, split = split)
+        function(string, split = " ", limit = NULL, case_insensitive = TRUE) {
+            
+                Args <- strsplit(string, split = split) %>%
+                            unlist()
                 
-                        if (is.null(limit)) {
-                                for (i in 1:length(Args)) {
-                                        if (i == 1) {
-                                                sql_statement <- paste0("SELECT * FROM public.concept WHERE concept_name LIKE '%", Args[[1]], "%'")
-                                        } else {
-                                                sql_statement <- paste0(sql_statement,
-                                                                        paste0(" AND concept_name LIKE '%", Args[[i]], "%'"))
-                                        }
-                                }
-                                sql_statement <- paste0(sql_statement, ";")
-                        } else {
-                                for (i in 1:length(Args)) {
-                                        if (i == 1) {
-                                                sql_statement <- paste0("SELECT * FROM public.concept WHERE concept_name LIKE '%", Args[[1]], "%'")
-                                        } else {
-                                                sql_statement <- paste0(sql_statement,
-                                                                        paste0(" AND concept_name LIKE '%", Args[[i]], "%'"))
-                                        }
-                                }
-                                sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                if (case_insensitive == FALSE) {
+                    if (is.null(limit)) {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept WHERE concept_name LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND concept_name LIKE '%", Args[[i]], "%'"))
+                            }
                         }
+                        sql_statement <- paste0(sql_statement, ";")
+                    } else {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept WHERE concept_name LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND concept_name LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                    }
+                } else {
+                    Args <- lapply(Args, tolower)
+                    if (is.null(limit)) {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept WHERE LOWER(concept_name) LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND LOWER(concept_name) LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, ";")
+                    } else {
+                        for (i in 1:length(Args)) {
+                            if (i == 1) {
+                                sql_statement <- paste0("SELECT * FROM public.concept WHERE LOWER(concept_name) LIKE '%", Args[[1]], "%'")
+                            } else {
+                                sql_statement <- paste0(sql_statement,
+                                                        paste0(" AND LOWER(concept_name) LIKE '%", Args[[i]], "%'"))
+                            }
+                        }
+                        sql_statement <- paste0(sql_statement, "LIMIT ", limit, ";")
+                    }
+                }
 
                 resultset <- query_athena(sql_statement = sql_statement)
                 return(resultset)
         }
+
+
