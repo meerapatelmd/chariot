@@ -4,7 +4,7 @@
 
 write_sql_to_get_relationships <-
     function(concept_ids) {
-        if (length(concept_id) == 1) {
+        if (length(concept_ids) == 1) {
             sql_statement <-
                 paste0("SELECT c.*,
                                         cr.relationship_id,
