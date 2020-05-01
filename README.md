@@ -1,6 +1,16 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-04-30 21:57:13
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-04-30 18:59:39
+Local R Script:	~/GitHub/Public-Packages/chariot/NAMESPACE
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-04-30 18:59:39
+Local R Script:	~/GitHub/Public-Packages/chariot/NAMESPACE
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-04-30 18:57:18
 Local R Script:	~/GitHub/Public-Packages/chariot/R/bulk_query_valueset.R
 Typewrite Message:	No deleted files in this repo.
