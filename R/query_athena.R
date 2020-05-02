@@ -6,7 +6,12 @@
 
 query_athena <-
         function(sql_statement) {
+            resultset <- load_cached_query(key=sql_statement)
+            if (is.null(resultset)) {
                 conn <- seagull::connect_to_local_postgres(dbname = "athena")
                 resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
-                return(resultset)
+                cache_query(resultset, key=sql_statement)
+                DBI::dbDisconnect(conn)
+            }
+            return(resultset)
         }

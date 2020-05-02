@@ -8,6 +8,7 @@
 
 cache_query <-
     function(object, key) {
+        key = list(key)
         x <-
             R.cache::saveCache(object=object,
                                key=key,
