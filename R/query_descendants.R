@@ -3,10 +3,10 @@
 #' @export
 
 query_descendants <-
-    function(ancestor_concept_id,
+    function(ancestor_concept_ids,
              max_levels_of_separation = NULL) {
         
-            sql <- write_sql_for_descendants(ancestor_concept_id = ancestor_concept_id,
+            sql <- write_sql_for_descendants(ancestor_concept_ids = ancestor_concept_ids,
                                              max_levels_of_separation = max_levels_of_separation)
             
             resultset <- query_athena(sql)

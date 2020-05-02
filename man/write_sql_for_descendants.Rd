@@ -4,10 +4,13 @@
 \alias{write_sql_for_descendants}
 \title{Write SQL to get OMOP Concept Descendants}
 \usage{
-write_sql_for_descendants(ancestor_concept_id, max_levels_of_separation = NULL)
+write_sql_for_descendants(
+  ancestor_concept_ids,
+  max_levels_of_separation = NULL
+)
 }
 \arguments{
-\item{ancestor_concept_id}{OMOP concept id of the ancestor concept}
+\item{ancestor_concept_ids}{A vector of 1 or more OMOP concept id of the ancestor concept}
 
 \item{max_levels_of_separation}{Optional. Integer of the maximum levels of separation.}
 }

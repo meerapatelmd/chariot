@@ -1,6 +1,20 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-05-01 20:04:06
+Local R Script:	~/GitHub/Public-Packages/chariot/R/write_sql_for_descendants.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-01 20:04:06
+Local R Script:	~/GitHub/Public-Packages/chariot/R/write_sql_for_descendants.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-01 11:48:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-01 11:48:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-01 11:45:24
 Local R Script:	~/GitHub/Public-Packages/chariot/R/write_sql_for_descendants.R
 Typewrite Message:	No deleted files in this repo.
