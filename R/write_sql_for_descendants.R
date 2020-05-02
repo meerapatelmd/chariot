@@ -2,7 +2,7 @@
 #' @description This function returns the SQL statement that can be used to query on either a cloud or local instance of the OMOP vocabulary.
 #' @param ancestor_concept_ids A vector of 1 or more OMOP concept id of the ancestor concept
 #' @param max_levels_of_separation Optional. Integer of the maximum levels of separation. 
-#' @importFrom seagull 
+#' @importFrom seagull write_where_in_string
 #' @export
 
 write_sql_for_descendants <-
