@@ -16,6 +16,7 @@ Imports:
     dplyr,
     tidyr,
     purrr,
-    stringr
+    stringr,
+    R.cache
 Remotes:
     patelm9/seagull
