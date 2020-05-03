@@ -1,4 +1,5 @@
 #' Generic query function
+#' @description This is the low level function that is wrapped for more specific queries. The resultset is cached using the R.cache package
 #' @param sql_statement SQL statement
 #' @importFrom seagull connect_to_local_postgres
 #' @importFrom DBI dbGetQuery

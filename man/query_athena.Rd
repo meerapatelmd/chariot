@@ -10,5 +10,5 @@ query_athena(sql_statement)
 \item{sql_statement}{SQL statement}
 }
 \description{
-Generic query function
+This is the low level function that is wrapped for more specific queries. The resultset is cached using the R.cache package
 }

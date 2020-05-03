@@ -1,6 +1,16 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-05-03 18:11:13
+Local R Script:	~/GitHub/Public-Packages/chariot/R/load_athena_query.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-03 13:27:16
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-03 13:27:16
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-03 13:18:40
 Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
 Typewrite Message:	No deleted files in this repo.
