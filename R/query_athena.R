@@ -13,9 +13,8 @@ query_athena <-
                 resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
                 cache_query(resultset, key=sql_statement)
                 DBI::dbDisconnect(conn)
-                return(resultset)
             } else {
                 secretary::typewrite_bold("Loading resultset from cache", line_number = 0)
-                return(resultset)
             }
+            return(resultset)
         }
