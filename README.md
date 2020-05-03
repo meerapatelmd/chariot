@@ -1,6 +1,20 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-05-03 13:18:40
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-03 13:18:40
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-02 20:37:04
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_rxnorm.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-02 20:37:04
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_rxnorm.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-02 20:36:18
 Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_rxnorm.R
 Typewrite Message:	No deleted files in this repo.
