@@ -1,6 +1,29 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-05-02 20:08:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_phrase.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-02 20:08:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_phrase.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-02 19:56:50
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	NOTE: TEST
+Timestamp:	2020-05-02 19:56:31
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-02 19:56:04
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-02 19:52:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-02 19:52:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-02 19:45:40
 Local R Script:	~/GitHub/Public-Packages/chariot/R/load_cached_query.R
 Typewrite Message:	No deleted files in this repo.

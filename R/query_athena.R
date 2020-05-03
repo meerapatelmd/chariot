@@ -2,6 +2,7 @@
 #' @param sql_statement SQL statement
 #' @importFrom seagull connect_to_local_postgres
 #' @importFrom DBI dbGetQuery
+#' @importFrom secretary typewrite_bold
 #' @export
 
 query_athena <-
@@ -12,6 +13,9 @@ query_athena <-
                 resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
                 cache_query(resultset, key=sql_statement)
                 DBI::dbDisconnect(conn)
+                return(resultset)
+            } else {
+                secretary::typewrite_bold("Loading resultset from cache", line_number = 0)
+                return(resultset)
             }
-            return(resultset)
         }
