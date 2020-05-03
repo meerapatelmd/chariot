@@ -1,6 +1,16 @@
 2020-04-28 13:07:55 	File Created
 
 # Typewrite Messages
+Timestamp:	2020-05-02 20:36:18
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_rxnorm.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-02 20:14:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-02 20:14:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_athena.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-02 20:08:15
 Local R Script:	~/GitHub/Public-Packages/chariot/R/query_phrase.R
 Typewrite Message:	No deleted files in this repo.
