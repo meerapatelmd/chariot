@@ -17,6 +17,10 @@ Imports:
     tidyr,
     purrr,
     stringr,
-    R.cache
+    R.cache,
+    rubix,
+    secretary
 Remotes:
-    patelm9/seagull
+    patelm9/seagull,
+    patelm9/rubix,
+    patelm9/secretary
