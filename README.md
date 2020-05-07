@@ -8,3 +8,12 @@ This package queries a local Postgres instance using files manually downloaded f
 ## Procedure  
 Run the scripts in this repo according to the README https://github.com/OHDSI/CommonDataModel/tree/master/PostgreSQL. At step 2, the csv can be loaded through the Import option in Postgres.app into the appropriate table. Note that you will have many empty CDM tables since you will only have the vocabulary tables at hand (as opposed to all the clinical data from your institutional database). I usually drop these tables at the end.
 
+
+# Typewrite Messages
+Timestamp:	2020-05-06 21:40:00
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_concept_id.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-05 21:41:46
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_vocab_relationships.R
+Typewrite Message:	No deleted files in this repo.
+
