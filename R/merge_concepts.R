@@ -8,7 +8,7 @@
 #' @export
 
 
-merge_omop_concept_elements <-
+merge_concepts <-
             function(concept_dataframe, into, suffix = NULL) {
                 
                 into <- dplyr::enquo(into)
