@@ -10,6 +10,20 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-10 18:36:48
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_valid.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-10 18:36:48
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_valid.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-10 18:33:23
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_valid.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-10 18:33:23
+Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_valid.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-10 17:15:36
 Local R Script:	~/GitHub/Public-Packages/chariot/R/filter_for_valid.R
 Typewrite Message:	Loading resultset from cache

@@ -9,7 +9,7 @@ filter_for_valid <-
             if (rm_columns == TRUE) {
                 dataframe %>%
                     dplyr::filter(is.na(invalid_reason)) %>%
-                    dplyr::select(-valid_start_date, -valid_end_date, -invalid_reason)
+                    dplyr::select(-valid_start_date, -valid_end_date)
             } else {
                 dataframe %>%
                     dplyr::filter(is.na(invalid_reason)) 
