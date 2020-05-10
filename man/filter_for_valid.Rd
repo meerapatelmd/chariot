@@ -4,10 +4,10 @@
 \alias{filter_for_valid}
 \title{Returns all possible OMOP domains in Athena}
 \usage{
-filter_for_valid(dataframe)
+filter_for_valid(dataframe, rm_columns = TRUE)
 }
 \value{
-dataframe of unique `domain_id` variables from the `concept` table
+dataframe of unique `domain_id` variables from the `concept` table. If `rm_columns` = TRUE, removes all the columns that are irrelevant if all valids are filtered for (date, invalid_reason column itself.)
 }
 \description{
 Returns all possible OMOP domains in Athena

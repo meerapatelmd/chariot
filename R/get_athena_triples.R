@@ -1,14 +1,12 @@
 #' Get RDF-Style Triples from the Athena vocabulary
+#' @export
 #' 
-#' 
 
+get_athena_triples <-
+    function(vocabulary_id = "RxNorm",
+             limit = 1000) {
 
-
-
-
-limit = 10000
-
-distinct_classes_c1 <- query_athena("SELECT DISTINCT vocabulary_id,concept_class_id FROM concept;")
+distinct_classes_c1 <- query_athena(paste0("SELECT DISTINCT vocabulary_id,concept_class_id FROM concept WHERE vocabulary_id = '", vocabulary_id, "';"))
 
 output <- data.frame()
 while (nrow(distinct_classes_c1) > 0) {
@@ -28,3 +26,12 @@ while (nrow(distinct_classes_c1) > 0) {
         distinct_classes_c1 %>%
         dplyr::slice(-1)
 }
+
+output_relationships <-
+    left_join_df(dataframe = output %>%
+                     dplyr::select(concept_id),
+                 athena_table = "concept_relationship",
+                 athena_column = "concept_id_1")
+
+
+    }
