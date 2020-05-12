@@ -10,6 +10,174 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-11 22:48:49
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_family_tree.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-11 22:46:33
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:33
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:46:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:15
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:44:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:02
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:42:00
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:29
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:40:29
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:39:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:36:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:28:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:28:10
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:08:44
+Local R Script:	~/GitHub/Public-Packages/chariot/R/derive_family_tree.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 22:05:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/derive_family_tree.R
+Typewrite Message:	ERROR: No descendants with a max_levels_of_separation == 1 in the input dataframe.
 Timestamp:	2020-05-11 21:47:12
 Local R Script:	~/GitHub/Public-Packages/chariot/R/merge_concepts.R
 Typewrite Message:	No deleted files in this repo.
