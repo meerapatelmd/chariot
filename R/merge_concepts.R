@@ -8,7 +8,8 @@
 #' @export
 
 merge_concepts <-
-            function(concept_dataframe, into, suffix = NULL) {
+            function(concept_dataframe, into, suffix = NULL, shorthand = FALSE) {
+                
                 
                 into <- dplyr::enquo(into)
                 
@@ -24,6 +25,7 @@ merge_concepts <-
                                          "invalid_reason"),
                                        suffix)
                 
+                if (shorthand == FALSE) {
                 
                 date_columns <- grep("valid.*date", colnames(concept_dataframe), value = TRUE)
                 
@@ -69,6 +71,26 @@ merge_concepts <-
                                      contains("concept_class_id"),
                                      sep = " "))
                 }
+                
+                } else {
+                    column_names <- grep("valid.*date", column_names, value = TRUE, invert = TRUE)
+                    dplyr::bind_cols(concept_dataframe,
+                                     concept_dataframe %>%
+                                         dplyr::select(all_of(column_names)) %>%
+                                         dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
+                                         dplyr::mutate_at(vars(contains("standard_concept")), function(x) paste0("[", x, "]")) %>%
+                                         dplyr::mutate_at(vars(contains("invalid_reason")), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
+                                         dplyr::select_at(vars(!matches("valid.*date"))) %>%
+                                         tidyr::unite(col = !!into,
+                                                      contains("invalid_reason"),
+                                                      contains("standard_concept"),
+                                                      contains("concept_id"),
+                                                      contains("concept_name"),
+                                                      sep = " ")
+                    )
+                }
+                
             }
+
 
 

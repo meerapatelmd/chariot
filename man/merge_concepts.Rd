@@ -4,7 +4,7 @@
 \alias{merge_concepts}
 \title{Merge OMOP concept elements into a single string}
 \usage{
-merge_concepts(concept_dataframe, into, suffix = NULL)
+merge_concepts(concept_dataframe, into, suffix = NULL, shorthand = FALSE)
 }
 \arguments{
 \item{concept_dataframe}{output from concept table}
