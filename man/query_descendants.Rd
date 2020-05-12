@@ -4,7 +4,11 @@
 \alias{query_descendants}
 \title{Query descendants for a given concept_id}
 \usage{
-query_descendants(ancestor_concept_ids, max_levels_of_separation = NULL)
+query_descendants(
+  ancestor_concept_ids,
+  max_levels_of_separation = NULL,
+  plot = FALSE
+)
 }
 \arguments{
 \item{ancestor_concept_ids}{A vector of 1 or more OMOP concept id of the ancestor concept}

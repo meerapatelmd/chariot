@@ -10,6 +10,185 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-12 00:06:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-12 00:06:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-12 00:05:47
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:05:47
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:05:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:05:32
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:05:19
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:05:19
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:00:18
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:00:09
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:59:17
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:59:17
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:58:41
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:58:41
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:58:18
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:58:18
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:57:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:57:54
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:57:10
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:57:10
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:56:26
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:56:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:56:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:56:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:55:07
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:55:07
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:51:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:51:30
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:51:20
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:51:19
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:50:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:50:11
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:50:02
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:49:56
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:49:56
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:52
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:52
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:44
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:44
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:10
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:48:10
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:39
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:12
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:12
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:47:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:46:38
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:46:38
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:46:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:46:14
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:45:23
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:45:23
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:43:45
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:43:45
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:43:33
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:38:08
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-11 23:06:02
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-11 23:06:02
+Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
+Typewrite Message:	No untracked files in this repo.
+
 Timestamp:	2020-05-11 22:48:49
 Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_family_tree.R
 Typewrite Message:	No deleted files in this repo.
