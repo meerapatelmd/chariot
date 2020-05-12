@@ -10,6 +10,25 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-12 00:10:21
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No deleted files in this repo.
+Timestamp:	2020-05-12 00:10:21
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	No untracked files in this repo.
+
+Timestamp:	2020-05-12 00:10:00
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:09:25
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:08:51
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 00:08:51
+Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
+Typewrite Message:	Loading resultset from cache
 Timestamp:	2020-05-12 00:06:11
 Local R Script:	~/GitHub/Public-Packages/chariot/R/query_descendants.R
 Typewrite Message:	No deleted files in this repo.
