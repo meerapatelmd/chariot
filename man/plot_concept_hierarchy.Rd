@@ -6,8 +6,8 @@
 \usage{
 plot_concept_hierarchy(
   concept_id,
-  generations_before = 2,
-  generations_after = 2
+  generations_before = 0,
+  generations_after = 0
 )
 }
 \arguments{
