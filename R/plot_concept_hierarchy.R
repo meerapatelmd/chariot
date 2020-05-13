@@ -10,15 +10,19 @@
 #' @export
 
 plot_concept_hierarchy <-
-    function(concept_id, generations_before = 0, generations_after = 0) {
+    function(concept_id, 
+             generations_before = 0, 
+             generations_after = 0) {
         
         if (generations_after > 0) {
             output_descendants <- list()
+            
             df_a <-
                 query_concept_id(concept_id) %>%
                 merge_concepts("Parent Concept", shorthand = TRUE) %>%
                 dplyr::select(parent_concept_id = concept_id,
                               `Parent Concept`)
+            
             df_b <-
                 query_descendants(concept_id, max_levels_of_separation = 1) %>%
                 filter_for_valid() %>%
@@ -27,11 +31,10 @@ plot_concept_hierarchy <-
                               child_concept_id = descendant_concept_id) %>%
                 dplyr::select(parent_concept_id, child_concept_id, `Child Concept`)
             
-            output_descendants[[1]] <-
-                dplyr::left_join(df_a,
-                                 df_b)
+            output_descendants[[1]] <- 
+                    dplyr::left_join(df_a,df_b)
             
-            generations_after <- generations_after-1
+            #generations_after <- generations_after-1
             
             if (generations_after > 1) {
                 for (i in 1:generations_after) {
@@ -56,7 +59,7 @@ plot_concept_hierarchy <-
                     
                     output_descendants[[next_output_index]] <- dplyr::left_join(df_a,
                                                                                 df_b) %>%
-                        dplyr::distinct()
+                                                                                dplyr::distinct()
                     
                 }
                 output_descendants <- dplyr::bind_rows(output_descendants)
@@ -121,24 +124,25 @@ plot_concept_hierarchy <-
         }
         
         
-        output <- dplyr::bind_rows(output_ancestors,
+        output <- 
+            dplyr::bind_rows(output_ancestors,
                                    output_descendants) %>%
-                    dplyr::filter_all(all_vars(!is.na(.)))  %>%
+            dplyr::filter_all(all_vars(!is.na(.)))  %>%
             dplyr::rename(child = `Child Concept`,
                           parent = `Parent Concept`)
         
         concept <-
-            output %>%
-            tidyr::pivot_longer(cols = c("parent",
-                                         "child"),
-                                names_to = "concept_level",
-                                values_to = "concept") %>%
-            dplyr::select(concept) %>%
-            dplyr::distinct() %>%
-            rubix::filter_at_grepl(col = concept,
-                                   grepl_phrase = paste0(" ", concept_id, " ")) %>%
-            unlist() %>%
-            unname()
+                    output %>%
+                    tidyr::pivot_longer(cols = c("parent",
+                                                 "child"),
+                                        names_to = "concept_level",
+                                        values_to = "concept") %>%
+                    dplyr::select(concept) %>%
+                    dplyr::distinct() %>%
+                    rubix::filter_at_grepl(col = concept,
+                                           grepl_phrase = paste0(" ", concept_id, " ")) %>%
+                    unlist() %>%
+                    unname()
         
         ggenealogy::plotAncDes(concept, output, generations_before, generations_after)
         
