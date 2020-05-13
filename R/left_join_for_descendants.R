@@ -1,0 +1,36 @@
+#' Left Join Ancestors to a dataframe of concept_ids
+#' @importFrom dplyr select
+#' @importFrom dplyr rename_at
+#' @importFrom dplyr distinct
+#' @export
+
+left_join_for_descendants <-
+    function(dataframe,
+             ancestor_id_column = NULL) {
+        
+        if (!is.null(ancestor_id_column)) {
+            dataframe <-
+                dataframe %>%
+                dplyr::select(all_of(ancestor_id_column))
+        }
+        
+        descendants <-
+            left_join_df(dataframe = dataframe,
+                                  athena_table = "concept_ancestor",
+                                  athena_column = "ancestor_concept_id")
+        
+        descendants_detail <-
+            left_join_df_to_concept(dataframe = descendants %>%
+                                        dplyr::select(descendant_concept_id)) %>%
+            dplyr::select(-descendant_concept_id) %>%
+            rubix::rename_all_with_prefix("descendant_")
+        
+        
+        final_descendants <-
+            dplyr::left_join(descendants,
+                             descendants_detail) %>%
+            dplyr::select(-ancestor_concept_id)
+        
+        return(final_descendants)
+        
+    }

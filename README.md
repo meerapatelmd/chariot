@@ -10,6 +10,15 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-12 21:47:42
+Local R Script:	~/GitHub/Public-Packages/chariot/R/left_join_for_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 21:45:36
+Local R Script:	~/GitHub/Public-Packages/chariot/R/left_join_for_descendants.R
+Typewrite Message:	Loading resultset from cache
+Timestamp:	2020-05-12 21:39:01
+Local R Script:	~/GitHub/Public-Packages/chariot/R/left_join_for_ancestors.R
+Typewrite Message:	Loading resultset from cache
 Timestamp:	2020-05-12 00:10:21
 Local R Script:	~/GitHub/Public-Packages/chariot/R/query_ancestors.R
 Typewrite Message:	No deleted files in this repo.
