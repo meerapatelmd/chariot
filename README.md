@@ -10,6 +10,10 @@ Run the scripts in this repo according to the README https://github.com/OHDSI/Co
 
 
 # Typewrite Messages
+Timestamp:	2020-05-13 01:59:40
+Local R Script:	~/GitHub/Public-Packages/chariot/R/left_join_df_for_concept2.R
+Typewrite Message:	No modified files in this repo.
+
 Timestamp:	2020-05-13 00:09:15
 Local R Script:	~/GitHub/Public-Packages/chariot/R/plot_concept_hierarchy.R
 Typewrite Message:	No deleted files in this repo.
