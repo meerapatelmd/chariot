@@ -13,7 +13,7 @@ unmerge_concepts(dataframe, concept_col, remove = TRUE, r_trimws = TRUE)
 
 \item{remove}{remove argument passed to the tidyr extract function. If TRUE, removes concept_col in output.}
 
-\item{r_trimws}{Due to some of the aggregate transformations with "\n" and other edits in Excel, r_trimws is an argument that if TRUE, trimws the right whitespace of the freshly unmerged columns for any trailing carriage returns.}
+\item{r_trimws}{Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trimws the right whitespace of the freshly unmerged columns for any trailing carriage returns.}
 }
 \description{
 This function unmerges an OMOP concept string created by the merge_omop_concept_elements function

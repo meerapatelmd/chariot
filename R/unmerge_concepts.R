@@ -3,7 +3,7 @@
 #' @param dataframe dataframe
 #' @param concept_col column that contains the output from the merge_omop_concept_elements function
 #' @param remove remove argument passed to the tidyr extract function. If TRUE, removes concept_col in output.
-#' @param r_trimws Due to some of the aggregate transformations with "\n" and other edits in Excel, r_trimws is an argument that if TRUE, trimws the right whitespace of the freshly unmerged columns for any trailing carriage returns.
+#' @param r_trimws Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trimws the right whitespace of the freshly unmerged columns for any trailing carriage returns.
 #' @importFrom tidyr extract
 #' @importFrom dplyr enquo
 #' @importFrom dplyr mutate_at
