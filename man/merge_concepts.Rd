@@ -4,7 +4,14 @@
 \alias{merge_concepts}
 \title{Merge OMOP concept elements into a single string}
 \usage{
-merge_concepts(concept_dataframe, into, suffix = NULL, shorthand = FALSE)
+merge_concepts(
+  concept_dataframe,
+  into,
+  suffix = NULL,
+  prefix = NULL,
+  shorthand = FALSE,
+  remove = TRUE
+)
 }
 \arguments{
 \item{concept_dataframe}{output from concept table}
@@ -12,7 +19,13 @@ merge_concepts(concept_dataframe, into, suffix = NULL, shorthand = FALSE)
 \item{into}{name of the column that the new combined string will be in}
 
 \item{suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
+
+\item{prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
+
+\item{shorthand}{This only returns the validity, standard, concept_id, and concept_name as a string. Please note that this merge cannot be unmerged using the unmerge_concepts function.}
+
+\item{remove}{remove argument passed to tidyr::unite. The removed concept_id column is added back in later if this is TRUE.}
 }
 \description{
-All elements of the CONCEPT table are included except for the dates.
+All elements of the CONCEPT table are included except for the dates. While this function and unmerge_concepts are meant to be the inverse of one another, it is important to note that this function will select for only the columns in the input that match the pattern of {prefix}column_name{suffix} and therefore may need to be rejoined to the input after completion. The inverse unmerge_concepts will not remove any columns in the output. It uses the tidyr::extract function to operate directly on the provided column.
 }
