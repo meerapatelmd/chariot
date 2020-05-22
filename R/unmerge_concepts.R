@@ -30,7 +30,7 @@ unmerge_concepts <-
                                                 "domain_id",
                                                 "concept_class_id"),
                                        regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])") %>%
-                        dplyr::mutate_at(vars(!matches(concept_col)), stringr::str_remove_all, "^\\[|\\]$") %>%
+                        dplyr::mutate_at(vars(!(!!concept_col)), stringr::str_remove_all, "^\\[|\\]$") %>%
                         dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", "") %>%
                         dplyr::select(concept_id,
                                       concept_name,
