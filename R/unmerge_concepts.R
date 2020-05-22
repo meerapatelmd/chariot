@@ -29,19 +29,37 @@ unmerge_concepts <-
                                                 "concept_code", 
                                                 "domain_id",
                                                 "concept_class_id"),
-                                       regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])") %>%
-                        dplyr::mutate_at(vars(!(!!concept_col)), stringr::str_remove_all, "^\\[|\\]$") %>%
-                        dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", "") %>%
-                        dplyr::select(concept_id,
-                                      concept_name,
-                                      domain_id,
-                                      vocabulary_id,
-                                      concept_class_id,
-                                      standard_concept,
-                                      concept_code,
-                                      invalid_reason,
-                                      dplyr::everything())
-                    
+                                       regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])")
+                    if (remove == FALSE) {
+                            output <-
+                                output %>% 
+                                dplyr::mutate_at(vars(!(!!concept_col)), stringr::str_remove_all, "^\\[|\\]$") %>%
+                                dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", "") %>%
+                                dplyr::select(concept_id,
+                                              concept_name,
+                                              domain_id,
+                                              vocabulary_id,
+                                              concept_class_id,
+                                              standard_concept,
+                                              concept_code,
+                                              invalid_reason,
+                                              dplyr::everything())
+                                
+                    } else {
+                            output <-
+                                output %>%
+                                dplyr::mutate_all(stringr::str_remove_all, "^\\[|\\]$") %>%
+                                dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", "") %>%
+                                dplyr::select(concept_id,
+                                              concept_name,
+                                              domain_id,
+                                              vocabulary_id,
+                                              concept_class_id,
+                                              standard_concept,
+                                              concept_code,
+                                              invalid_reason,
+                                              dplyr::everything())
+                    }
                     
                     if (r_trimws == TRUE) {
                         
