@@ -1,10 +1,11 @@
 #' Merge OMOP concept elements into a single string
 #' @description All elements of the CONCEPT table are included except for the dates. While this function and unmerge_concepts are meant to be the inverse of one another, it is important to note that this function will select for only the columns in the input that match the pattern of {prefix}column_name{suffix} and therefore may need to be rejoined to the input after completion. The inverse unmerge_concepts will not remove any columns in the output. It uses the tidyr::extract function to operate directly on the provided column.
 #' @param concept_dataframe output from concept table
-#' @param into name of the column that the new combined string will be in
+#' @param into name of the column that the new combined string will be in 
+#' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged. 
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
 #' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
-#' @param keep_cols TRUE if all the non-concept table columns in the input dataframe is desired in the output
+#' @param keep_other_cols TRUE if all the non-concept table columns in the input dataframe is desired in the output
 #' @param shorthand This only returns the validity, standard, concept_id, and concept_name as a string. Please note that this merge cannot be unmerged using the unmerge_concepts function.
 #' @import dplyr
 #' @import tidyr
@@ -13,13 +14,17 @@
 merge_concepts <-
             function(concept_dataframe, 
                      into, 
+                     ...,
                      suffix = NULL, 
                      prefix = NULL,
                      keep_cols = TRUE,
                      shorthand = FALSE) {
                 
                                 # Enquo output column name
-                                into <- dplyr::enquo(into)
+                                into <- dplyr::enquo(into) 
+                                
+                                # Preserve columns
+                                preserve_cols <- dplyr::enquos(...)
                                 
                                 # Generating a list of concept table columns that includes prefixes and suffixes 
                                 column_names <- paste0(prefix,
@@ -77,9 +82,18 @@ merge_concepts <-
                                 
                                 add_back_concept_id_col <- paste0(prefix, "concept_id", suffix)
 
-                                output <- bind_cols(concept_dataframe %>%
+                                output <- dplyr::bind_cols(concept_dataframe %>%
                                                                   dplyr::select(all_of(add_back_concept_id_col)),
                                                               output)
+                                
+                                if (!missing(...)) {
+                                        
+                                        output <- 
+                                                dplyr::bind_cols(output,
+                                                                 concept_dataframe %>%
+                                                                     dplyr::select(!!!preserve_cols))
+                                    
+                                }
 
                                 if (keep_cols == TRUE)  {
 
@@ -94,5 +108,4 @@ merge_concepts <-
                                 return(output)
                             
             }
-
 
