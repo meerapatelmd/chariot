@@ -7,10 +7,10 @@
 
 load_cached_query <-
     function(key) {
-        key <- list(key)
-        x <-
-        R.cache::loadCache(key=key,
-                           dirs="athena",
-                           onError="error")
-        return(x)
+                key <- list(key)
+                x <-
+                R.cache::loadCache(key=key,
+                                   dirs="athena",
+                                   onError="error")
+                return(x)
     }

@@ -12,21 +12,38 @@ left_join_df_to_concept <-
              dataframe_column = NULL,
              concept_column = "concept_id") {
         
-        table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
         
-        if (is.null(dataframe_column)) {
-            dataframe_column <- colnames(dataframe)[1]
-        }
-        
-        seagull::create_table_via_temp_file(dataframe = dataframe,
-                                            table_name = table_name,
-                                            dbname = "athena")
-        
-        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN concept c ON c.", concept_column, " = ", dataframe_column))
-        
-        
-        seagull::drop_table(table_name = table_name,
-                            dbname = "athena")
+                if (is.null(dataframe_column)) {
+                    
+                            dataframe_column <- colnames(dataframe)[1]
+                }
+            
+                # Loading cache
+                output <-
+                load_cached_join(function_name = "left_join_df_to_concept",
+                                 left_vector = dataframe,
+                                 right_table_name = "concept",
+                                 right_column_name = concept_column)
+                
+                if (is.null(output)) {
+                    
+                            seagull::create_table_via_temp_file(dataframe = dataframe,
+                                                                table_name = table_name,
+                                                                dbname = "athena")
+                            
+                            output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN concept c ON c.", concept_column, " = ", dataframe_column))
+                            
+                            
+                            seagull::drop_table(table_name = table_name,
+                                                dbname = "athena")
+                            
+                            cache_join(function_name = "left_join_df_to_concept",
+                                       left_vector = dataframe,
+                                       right_table_name = "concept",
+                                       right_column_name = concept_column,
+                                       object = output)
+                }
         
         
         return(output)

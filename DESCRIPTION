@@ -24,3 +24,7 @@ Remotes:
     patelm9/seagull,
     patelm9/rubix,
     patelm9/secretary
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

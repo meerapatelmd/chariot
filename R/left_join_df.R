@@ -17,18 +17,36 @@ left_join_df <-
         
         if (is.null(dataframe_column)) {
             dataframe_column <- colnames(dataframe)[1]
+            
         }
         
-        seagull::create_table_via_temp_file(dataframe = dataframe,
-                                            table_name = table_name,
-                                            dbname = "athena")
+        #Loading cache
+        output <-
+            load_cached_join(function_name = "left_join_df",
+                             left_vector = dataframe,
+                             right_table_name = athena_table,
+                             right_column_name = athena_column)
         
-        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column))
         
-        
-        seagull::drop_table(table_name = table_name,
-                            dbname = "athena")
-        
+        if (is.null(output)) { 
+                
+            seagull::create_table_via_temp_file(dataframe = dataframe,
+                                                table_name = table_name,
+                                                dbname = "athena")
+            
+            output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column))
+            
+            
+            seagull::drop_table(table_name = table_name,
+                                dbname = "athena")
+            
+            cached_join(function_name = "left_join_df",
+                             left_vector = dataframe,
+                             right_table_name = athena_table,
+                             right_column_name = athena_column,
+                        object = output)
+            
+        }
         
         return(output)
     }
