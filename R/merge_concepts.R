@@ -64,7 +64,7 @@ merge_concepts <-
                                                              dplyr::select(any_of(column_names)) %>%
                                                              dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
                                                              dplyr::mutate_at(vars(contains("standard_concept")), function(x) paste0("[", x, "]")) %>%
-                                                             dplyr::mutate_at(vars(contains("invalid_reason")), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
+                                                             dplyr::mutate_at(vars(contains("invalid_reason")), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>% 
                                                              tidyr::unite(col = !!into,
                                                                           contains("invalid_reason"),
                                                                           contains("standard_concept"),
