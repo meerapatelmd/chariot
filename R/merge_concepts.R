@@ -4,7 +4,7 @@
 #' @param into name of the column that the new combined string will be in
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
 #' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
-#' @param remove remove argument passed to tidyr::unite. The removed concept_id column is added back in later if this is TRUE.
+#' @param keep_cols TRUE if all the non-concept table columns in the input dataframe is desired in the output
 #' @param shorthand This only returns the validity, standard, concept_id, and concept_name as a string. Please note that this merge cannot be unmerged using the unmerge_concepts function.
 #' @import dplyr
 #' @import tidyr
@@ -15,8 +15,8 @@ merge_concepts <-
                      into, 
                      suffix = NULL, 
                      prefix = NULL,
-                     shorthand = FALSE,
-                     remove = TRUE) {
+                     keep_cols = TRUE,
+                     shorthand = FALSE) {
                 
                                 # Enquo output column name
                                 into <- dplyr::enquo(into)
@@ -56,7 +56,7 @@ merge_concepts <-
                                                      contains("domain_id"),
                                                      contains("concept_class_id"),
                                                      sep = " ",
-                                                     remove = remove)
+                                                     remove = TRUE)
                     
                 } else {
                                 output <-
@@ -71,20 +71,31 @@ merge_concepts <-
                                                                           contains("concept_id"),
                                                                           contains("concept_name"),
                                                                           sep = " ",
-                                                                          remove = remove)
+                                                                          remove = TRUE)
                                 
                 }
                                 
-                                if (remove == TRUE) {
-                                        add_back_concept_id_col <- paste0(prefix, "concept_id", suffix)
-                                        output <- 
-                                            bind_cols(concept_dataframe %>%
-                                                          dplyr::select(all_of(add_back_concept_id_col)),
-                                                      output)
+                                add_back_concept_id_col <- paste0(prefix, "concept_id", suffix)
+
+                                output <- bind_cols(concept_dataframe %>%
+                                                                  dplyr::select(all_of(add_back_concept_id_col)),
+                                                              output)
+
+                                if (keep_cols == TRUE)  {
+
+                                            output <-
+                                                bind_cols(output,
+                                                          concept_dataframe %>%
+                                                            dplyr::select(-(all_of(column_names))))
+
+
                                 }
                                 
                                 return(output)
                             
             }
 
+
+
+TEST_MERGE <- merge_concepts(test_df, "Test", keep_cols = FALSE)
 
