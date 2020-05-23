@@ -12,5 +12,5 @@ This function returns a matrix of ancestors by descendants to view if a group of
 \examples{
 # Random immunosuppressant concept ids
 immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723") 
-return_ancestor_matrix(immunosuppressant_concept_ids)
+return_ancestor_matrix (immunosuppressant_concept_ids)
 }
