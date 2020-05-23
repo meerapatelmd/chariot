@@ -40,7 +40,7 @@ left_join_df <-
             seagull::drop_table(table_name = table_name,
                                 dbname = "athena")
             
-            cached_join(function_name = "left_join_df",
+            cache_join(function_name = "left_join_df",
                              left_vector = dataframe,
                              right_table_name = athena_table,
                              right_column_name = athena_column,
