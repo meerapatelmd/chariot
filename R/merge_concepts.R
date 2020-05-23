@@ -96,6 +96,3 @@ merge_concepts <-
             }
 
 
-
-TEST_MERGE <- merge_concepts(test_df, "Test", keep_cols = FALSE)
-
