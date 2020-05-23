@@ -25,8 +25,8 @@ query_descendants <-
                 
                 output <-
                 resultset %>%
-                    merge_concepts(into = "child", shorthand = TRUE) %>%
-                    rubix::mutate_new_cols_if_not_exist(column_name = "parent",
+                    merge_concepts(into = "child", shorthand = TRUE) %>% 
+                    rubix::mutate_if_not_exist(column_name = "parent",
                                                         value = parent) %>%
                     dplyr::select(parent, child) %>%
                     dplyr::distinct() %>%
