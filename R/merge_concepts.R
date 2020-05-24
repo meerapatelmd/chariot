@@ -18,7 +18,7 @@ merge_concepts <-
                      suffix = NULL, 
                      prefix = NULL,
                      keep_cols = TRUE,
-                     shorthand = FALSE) {
+                     shorthand = NULL) {
                 
                                 # Enquo output column name
                                 into <- dplyr::enquo(into) 
@@ -64,17 +64,22 @@ merge_concepts <-
                                                      remove = TRUE)
                     
                 } else {
+                    
+                        
                                 output <-
                                             concept_dataframe %>%
                                                              dplyr::select(any_of(column_names)) %>%
                                                              dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
                                                              dplyr::mutate_at(vars(contains("standard_concept")), function(x) paste0("[", x, "]")) %>%
                                                              dplyr::mutate_at(vars(contains("invalid_reason")), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>% 
+                                    dplyr::mutate_at(vars(contains("vocabulary")), function(x) paste0("[", x, "]")) %>%
+                                                            dplyr::select_at(vars(!matches("valid.*date"))) %>%
                                                              tidyr::unite(col = !!into,
                                                                           contains("invalid_reason"),
                                                                           contains("standard_concept"),
                                                                           contains("concept_id"),
                                                                           contains("concept_name"),
+                                                                          contains("vocabulary_id"),
                                                                           sep = " ",
                                                                           remove = TRUE)
                                 

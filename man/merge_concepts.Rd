@@ -11,7 +11,7 @@ merge_concepts(
   suffix = NULL,
   prefix = NULL,
   keep_cols = TRUE,
-  shorthand = FALSE
+  shorthand = NULL
 )
 }
 \arguments{
