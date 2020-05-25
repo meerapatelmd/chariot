@@ -17,8 +17,8 @@ merge_concepts <-
                      ...,
                      suffix = NULL, 
                      prefix = NULL,
-                     keep_cols = TRUE,
-                     shorthand = NULL) {
+                     keep_other_cols = TRUE,
+                     shorthand = FALSE) {
                 
                                 # Enquo output column name
                                 into <- dplyr::enquo(into) 
@@ -100,7 +100,7 @@ merge_concepts <-
                                     
                                 }
 
-                                if (keep_cols == TRUE)  {
+                                if (keep_other_cols == TRUE)  {
 
                                             output <-
                                                 bind_cols(output,
