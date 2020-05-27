@@ -4,7 +4,12 @@
 \alias{left_join_all_relatives}
 \title{Get all Ancestors and Descendants of a set of concept ids}
 \usage{
-left_join_all_relatives(dataframe, id_column = NULL)
+left_join_all_relatives(
+  dataframe,
+  id_column = NULL,
+  ancestor_level = NULL,
+  descendant_level = NULL
+)
 }
 \description{
 Get all Ancestors and Descendants of a set of concept ids

@@ -9,7 +9,9 @@
 
 left_join_all_relatives <-
     function(dataframe,
-             id_column = NULL) {
+             id_column = NULL,
+             ancestor_level = NULL,
+             descendant_level = NULL) {
         
             if (!is.null(id_column)) {
                     dataframe <-
@@ -19,34 +21,39 @@ left_join_all_relatives <-
         
             
             ##Ancestors 
-            anc <- left_join_for_ancestors(dataframe = dataframe)
+            anc <- 
+                left_join_for_ancestors(dataframe = dataframe,
+                                           level = ancestor_level)
+            
             final_anc <-
-                anc %>%
-                rubix::rename_all_with_replace(pattern = "ancestor_",
-                                               replacement = "relative_") %>%
-                dplyr::mutate(relative_type = "A")
+                    anc %>%
+                    rubix::rename_all_with_replace(pattern = "ancestor_",
+                                                   replacement = "relative_") %>%
+                    dplyr::mutate(relative_type = "A")
             
             ##Descendants
-            des <- left_join_for_descendants(dataframe = dataframe)
+            des <- 
+                left_join_for_descendants(dataframe = dataframe,
+                                             level = descendant_level)
             final_des <-
-                des %>%
-                rubix::rename_all_with_replace(pattern = "descendant_",
-                                               replacement = "relative_") %>%
-                dplyr::mutate(relative_type = "D")
+                    des %>%
+                    rubix::rename_all_with_replace(pattern = "descendant_",
+                                                   replacement = "relative_") %>%
+                    dplyr::mutate(relative_type = "D")
             
             ##Combining
             final <- dplyr::bind_rows(final_anc,
                                       final_des) %>%
-                dplyr::filter_at(vars(relative_concept_id,
-                                      relative_concept_name,
-                                      relative_domain_id,
-                                      relative_vocabulary_id,
-                                      relative_concept_class_id,
-                                      relative_concept_code,
-                                      relative_valid_start_date,
-                                      relative_valid_end_date),
-                                 all_vars(!is.na(.))) %>%
-                    dplyr::distinct()
+                            dplyr::filter_at(vars(relative_concept_id,
+                                                  relative_concept_name,
+                                                  relative_domain_id,
+                                                  relative_vocabulary_id,
+                                                  relative_concept_class_id,
+                                                  relative_concept_code,
+                                                  relative_valid_start_date,
+                                                  relative_valid_end_date),
+                                             all_vars(!is.na(.))) %>%
+                                dplyr::distinct()
             
             return(final)
             
