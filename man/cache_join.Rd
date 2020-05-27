@@ -9,7 +9,8 @@ cache_join(
   function_name,
   left_vector,
   right_table_name,
-  right_column_name
+  right_column_name,
+  ...
 )
 }
 \arguments{

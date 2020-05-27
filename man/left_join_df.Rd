@@ -4,7 +4,14 @@
 \alias{left_join_df}
 \title{Join a dataframe object with Athena's concept table}
 \usage{
-left_join_df(dataframe, dataframe_column = NULL, athena_table, athena_column)
+left_join_df(
+  dataframe,
+  dataframe_column = NULL,
+  athena_table,
+  athena_column,
+  where_athena_col = NULL,
+  where_athena_col_equals = NULL
+)
 }
 \arguments{
 \item{dataframe}{dataframe to join}

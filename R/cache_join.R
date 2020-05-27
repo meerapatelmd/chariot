@@ -7,11 +7,12 @@
 #' @export
 
 cache_join <-
-    function(object, function_name, left_vector, right_table_name, right_column_name) {
+    function(object, function_name, left_vector, right_table_name, right_column_name, ...) {
             key = list(function_name,
                        left_vector,
                        right_table_name,
-                       right_column_name)
+                       right_column_name,
+                       ...)
             x <-
                 R.cache::saveCache(object=object,
                                    key=key,

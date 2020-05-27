@@ -4,7 +4,7 @@
 \alias{left_join_for_ancestors}
 \title{Left Join Ancestors to a dataframe of concept_ids}
 \usage{
-left_join_for_ancestors(dataframe, descendant_id_column = NULL)
+left_join_for_ancestors(dataframe, descendant_id_column = NULL, level = NULL)
 }
 \description{
 Left Join Ancestors to a dataframe of concept_ids

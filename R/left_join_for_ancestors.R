@@ -6,7 +6,8 @@
 
 left_join_for_ancestors <-
     function(dataframe,
-             descendant_id_column = NULL) {
+             descendant_id_column = NULL,
+             level = NULL) {
         
         if (!is.null(descendant_id_column)) {
             dataframe <-
@@ -14,16 +15,35 @@ left_join_for_ancestors <-
                 dplyr::select(all_of(descendant_id_column))
         }
         
-        ancestors <-
-            left_join_df(dataframe = dataframe,
-                                  athena_table = "concept_ancestor",
-                                  athena_column = "descendant_concept_id")
-        
-        ancestors_detail <-
-            left_join_df_to_concept(dataframe = ancestors %>%
-                                                    dplyr::select(ancestor_concept_id)) %>%
-            dplyr::select(-ancestor_concept_id) %>%
-            rubix::rename_all_with_prefix("ancestor_")
+        if (is.null(level)) {
+                ancestors <-
+                    left_join_df(dataframe = dataframe,
+                                 athena_table = "concept_ancestor",
+                                 athena_column = "descendant_concept_id")
+                
+                ancestors_detail <-
+                    left_join_df_to_concept(dataframe = ancestors %>%
+                                                dplyr::select(ancestor_concept_id)) %>%
+                    dplyr::select(-ancestor_concept_id) %>%
+                    rubix::rename_all_with_prefix("ancestor_")
+        } else {
+            
+                ancestors <-
+                    left_join_df(dataframe = dataframe,
+                                 athena_table = "concept_ancestor",
+                                 athena_column = "descendant_concept_id",
+                                 where_athena_col = "max_levels_of_separation",
+                                 where_athena_col_equals = level)
+                
+                
+                ancestors_detail <-
+                    left_join_df_to_concept(dataframe = ancestors %>%
+                                                dplyr::select(ancestor_concept_id)) %>%
+                    dplyr::select(-ancestor_concept_id) %>%
+                    rubix::rename_all_with_prefix("ancestor_")
+            
+            
+        }
         
         final_ancestors <-
             dplyr::left_join(ancestors,
