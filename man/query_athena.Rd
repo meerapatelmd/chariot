@@ -4,7 +4,7 @@
 \alias{query_athena}
 \title{Generic query function}
 \usage{
-query_athena(sql_statement)
+query_athena(sql_statement, verbose = FALSE)
 }
 \arguments{
 \item{sql_statement}{SQL statement}

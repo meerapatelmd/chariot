@@ -7,7 +7,7 @@
 #' @export
 
 query_athena <-
-        function(sql_statement) {
+        function(sql_statement, verbose = FALSE) {
             resultset <- tryCatch(load_cached_query(key=sql_statement),
                                   error = function(e) NULL)
             if (is.null(resultset)) {
@@ -16,7 +16,10 @@ query_athena <-
                 cache_query(resultset, key=sql_statement)
                 DBI::dbDisconnect(conn)
             } else {
-                secretary::typewrite_bold("Loading resultset from cache", line_number = 0)
+                if (verbose) {
+                    
+                    secretary::typewrite_bold("Loading resultset from cache", line_number = 0)
+                }
             }
             return(resultset)
         }
