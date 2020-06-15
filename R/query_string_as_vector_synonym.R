@@ -9,7 +9,8 @@ query_string_as_vector_synonym <-
         function(string, split = " ", limit = NULL, case_insensitive = TRUE, verbose = TRUE) {
             
                 Args <- strsplit(string, split = split) %>%
-                            unlist()
+                            unlist() %>%
+                            centipede::no_blank()
                 
                 #Removing terminal punctuation
                 Args <- stringr::str_remove_all(Args, pattern = "[[:punct:]]{1}$")
