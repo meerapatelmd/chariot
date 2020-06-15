@@ -6,10 +6,19 @@
 #' @export
 
 query_string_as_vector_synonym <-
-        function(string, split = " ", limit = NULL, case_insensitive = TRUE) {
+        function(string, split = " ", limit = NULL, case_insensitive = TRUE, verbose = TRUE) {
             
                 Args <- strsplit(string, split = split) %>%
                             unlist()
+                
+                #Removing terminal punctuation
+                Args <- stringr::str_remove_all(Args, pattern = "[[:punct:]]{1}$")
+                
+                if (verbose) {
+                    secretary::typewrite(crayon::bold("Vector:"))
+                    Args %>%
+                        purrr::map(secretary::typewrite, tabs = 1)
+                }
                 
                 if (case_insensitive == FALSE) {
                     if (is.null(limit)) {

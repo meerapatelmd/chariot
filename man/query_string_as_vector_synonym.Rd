@@ -8,7 +8,8 @@ query_string_as_vector_synonym(
   string,
   split = " ",
   limit = NULL,
-  case_insensitive = TRUE
+  case_insensitive = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
