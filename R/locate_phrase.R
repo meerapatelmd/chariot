@@ -1,8 +1,8 @@
-#' Spellcheck a phrase
+#' Locates the vocabulary table and search type where the phrase is first found
 #' @description Useful if a simple search isn't returning results.
 #' @export
 
-spellcheck_phrase <- 
+locate_phrase <- 
     function(phrase) {
         
                 exact_results <- query_phrase(phrase = phrase,
@@ -35,13 +35,13 @@ spellcheck_phrase <-
                                             
                                         } else {
                                             
-                                                return("Found in Synonym Like")
+                                                return("Synonym Like")
                                             
                                         }
                                     
                                 } else {
                                     
-                                        return("Found in Synonym Exact")
+                                        return("Synonym Exact")
                                     
                                 }
                             
@@ -49,14 +49,14 @@ spellcheck_phrase <-
                         } else {
                             
                             
-                                return("Found in Like")
+                                return("Like")
                             
                         }
                     
                     
                 } else {
                     
-                        return("Found in Exact")
+                        return("Exact")
                     
                 }
         
