@@ -31,17 +31,17 @@ spellcheck_phrase <-
                                         
                                         if (nrow(synonym_like_results) == 0) {
                                             
-                                                return("Passed")
+                                                return("Not Found")
                                             
                                         } else {
                                             
-                                                return("Not Passed")
+                                                return("Found in Synonym Like")
                                             
                                         }
                                     
                                 } else {
                                     
-                                        return("Not Passed")
+                                        return("Found in Synonym Exact")
                                     
                                 }
                             
@@ -49,14 +49,14 @@ spellcheck_phrase <-
                         } else {
                             
                             
-                                return("Not Passed")
+                                return("Found in Like")
                             
                         }
                     
                     
                 } else {
                     
-                        return("Not Passed")
+                        return("Found in Exact")
                     
                 }
         
