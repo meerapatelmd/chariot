@@ -23,7 +23,8 @@ left_join_for_descendants <-
                         
                         descendants_detail <-
                                 left_join_df_to_concept(dataframe = descendants %>%
-                                                            dplyr::select(descendant_concept_id)) %>%
+                                                            dplyr::select(descendant_concept_id),
+                                                        include_synonyms = FALSE) %>%
                                 dplyr::select(-descendant_concept_id) %>%
                                 rubix::rename_all_with_prefix("descendant_")
         
@@ -38,7 +39,8 @@ left_join_for_descendants <-
                     
                     descendants_detail <-
                                 left_join_df_to_concept(dataframe = descendants %>%
-                                                            dplyr::select(descendant_concept_id)) %>%
+                                                            dplyr::select(descendant_concept_id),
+                                                        include_synonyms = FALSE) %>%
                                 dplyr::select(-descendant_concept_id) %>%
                                 rubix::rename_all_with_prefix("descendant_")
                     
@@ -46,7 +48,8 @@ left_join_for_descendants <-
         }
         final_descendants <-
             dplyr::left_join(descendants,
-                             descendants_detail) %>%
+                             descendants_detail,
+                             by = "descendant_concept_id") %>%
             dplyr::select(-ancestor_concept_id)
         
         return(final_descendants)
