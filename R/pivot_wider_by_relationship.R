@@ -9,36 +9,33 @@
 #' @importFrom dplyr distinct
 #' @export
 
-pivot_wider_by_relationship_domain <-
+pivot_wider_by_relationship <-
     function(dataframe,
              concept_id_col = NULL,
              include_count = TRUE) {
         
         
             output <- left_join_relationship(dataframe = dataframe,
-                                             dataframe_column = concept_id_col,
-                                             merge_concept_2 = FALSE)
+                                             dataframe_column = concept_id_col)
             
-            output <- 
-                output %>%
-                rubix::rename_all_remove("_2$") %>%
-                merge_concepts(into = "Concept_2",
-                               domain_id)
             
             final_output <-
-            output %>%
-            tidyr::pivot_wider(id_cols = concept_id_1,
-                               names_from = domain_id,
+                output %>%
+                tidyr::pivot_wider(id_cols = concept_id_1,
+                               names_from = relationship_id,
                                values_from = Concept_2,
-                               values_fn = list(Concept_2 = function(x) paste(unique(x)[1:250] %>% centipede::no_na(), collapse = "\n"))) %>%
+                               values_fn = list(Concept_2 = function(x) paste(unique(x)[1:250] %>% 
+                                                                                  centipede::no_na(), 
+                                                                              collapse = "\n"))) %>%
                 dplyr::mutate_all(substring, 1, 25000)
+            
             
             if (include_count) {
                 
                 final_output_count <-
                     output %>%
                     tidyr::pivot_wider(id_cols = concept_id_1,
-                                       names_from = domain_id,
+                                       names_from = relationship_id,
                                        values_from = Concept_2,
                                        values_fn = list(Concept_2 = function(x) length(unique(x)))) %>%
                     dplyr::rename_at(vars(!(concept_id_1)),
@@ -55,6 +52,5 @@ pivot_wider_by_relationship_domain <-
                 return(final_output)
             }
         
-
         
     }

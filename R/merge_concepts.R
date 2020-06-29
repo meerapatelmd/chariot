@@ -105,7 +105,7 @@ merge_concepts <-
                                             output <-
                                                 bind_cols(output,
                                                           concept_dataframe %>%
-                                                            dplyr::select(-(all_of(column_names))))
+                                                            dplyr::select(-(any_of(column_names))))
 
 
                                 }

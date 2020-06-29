@@ -36,7 +36,7 @@ unmerge_concepts <-
                     output <-
                         output %>% 
                                 dplyr::mutate_at(vars(all_of(new_cols)), stringr::str_remove_all, "^\\[|\\]$") %>%
-                                dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", "NA") %>%
+                                dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
                                 dplyr::select(concept_id,
                                               concept_name,
                                               domain_id,

@@ -15,6 +15,7 @@ left_join_df <-
              where_athena_col = NULL,
              where_athena_col_equals = NULL) {
         
+        
         table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
         
         if (is.null(dataframe_column)) {

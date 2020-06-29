@@ -11,7 +11,8 @@
 
 pivot_wider_by_relationship_vocab <-
     function(dataframe,
-             concept_id_col = NULL) {
+             concept_id_col = NULL,
+             include_count = TRUE) {
         
         
             output <- left_join_relationship(dataframe = dataframe,
@@ -24,12 +25,40 @@ pivot_wider_by_relationship_vocab <-
                 merge_concepts(into = "Concept_2",
                                vocabulary_id)
             
+            
+            final_output <<-
             output %>%
             tidyr::pivot_wider(id_cols = concept_id_1,
                                names_from = vocabulary_id,
                                values_from = Concept_2,
-                               values_fn = list(Concept_2 = function(x) paste(unique(x)[1:250], collapse = "\n"))) %>%
+                               values_fn = list(Concept_2 = 
+                                                    function(x) paste(unique(x)[1:250] %>% 
+                                                                          centipede::no_na(), 
+                                                                            collapse = "\n"))) %>%
                 dplyr::mutate_all(substring, 1, 25000)
+            
+            
+            if (include_count) {
+                
+                final_output_count <<-
+                    output %>%
+                    tidyr::pivot_wider(id_cols = concept_id_1,
+                                       names_from = vocabulary_id,
+                                       values_from = Concept_2,
+                                       values_fn = list(Concept_2 = function(x) length(unique(x)))) %>%
+                    dplyr::rename_at(vars(!(concept_id_1)),
+                                     function(x) paste0(x, " Count"))
+                
+                final_output <- 
+                    dplyr::left_join(final_output,
+                                     final_output_count,
+                                     by = "concept_id_1") 
+                
+                return(final_output)
+                
+            } else {
+                return(final_output)
+            }
         
 
         

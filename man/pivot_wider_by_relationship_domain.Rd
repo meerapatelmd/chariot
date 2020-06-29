@@ -4,7 +4,11 @@
 \alias{pivot_wider_by_relationship_domain}
 \title{Get all Loinc System (Specimen) Types for a Lab}
 \usage{
-pivot_wider_by_relationship_domain(dataframe, concept_id_col = NULL)
+pivot_wider_by_relationship_domain(
+  dataframe,
+  concept_id_col = NULL,
+  include_count = TRUE
+)
 }
 \arguments{
 \item{dataframe}{input data}
