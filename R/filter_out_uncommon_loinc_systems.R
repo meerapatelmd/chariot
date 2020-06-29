@@ -3,7 +3,7 @@
 #' @importFrom rubix filter_at_grepl
 #' @export
 
-filter_out_uncommon_loinc_systems <-
+return_uncommon_loinc_systems <-
     function(dataframe, loinc_systems_col) {
         
             loinc_systems_col <- dplyr::enquo(loinc_systems_col)

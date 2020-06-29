@@ -91,6 +91,17 @@ merge_concepts <-
                                                                   dplyr::select(all_of(add_back_concept_id_col)),
                                                               output)
                                 
+                                # All NA concepts are not merged into a strip and returns a single NA
+                                output <- 
+                                    output %>%
+                                    dplyr::mutate_at(vars(!!into),
+                                                     function(x) ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
+                                                                              x,
+                                                                              ignore.case = FALSE),
+                                                                        NA_character_,
+                                                                        x))
+                                    
+                                
                                 if (!missing(...)) {
                                         
                                         output <- 

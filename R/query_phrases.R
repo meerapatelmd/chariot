@@ -7,10 +7,11 @@
 
 query_phrases <- 
         function(phrases, 
-                 limit = NULL, 
                  type = c("like", "exact"), 
+                 limit = NULL, 
                  case_insensitive = TRUE,
-                 set_names_to = NULL)  
+                 set_names_to = NULL,
+                 return_valid_only = TRUE)  
             {
             
                 if (is.null(set_names)) {
@@ -19,7 +20,8 @@ query_phrases <-
                             rubix::map_names_set(function(x) query_phrase(x,
                                                                           limit = limit,
                                                                           type = type,
-                                                                          case_insensitive = case_insensitive))
+                                                                          case_insensitive = case_insensitive,
+                                                                          return_valid_only = return_valid_only))
                     
                 } else {
                     
@@ -27,7 +29,8 @@ query_phrases <-
                             purrr::map(function(x) query_phrase(x,
                                                                           limit = limit,
                                                                           type = type,
-                                                                          case_insensitive = case_insensitive)) %>%
+                                                                          case_insensitive = case_insensitive,
+                                                                return_valid_only = return_valid_only)) %>%
                             purrr::set_names(set_names_to)
                         
                 }

@@ -6,9 +6,10 @@
 \usage{
 query_phrase(
   phrase,
-  limit = NULL,
   type = c("like", "exact"),
-  case_insensitive = TRUE
+  limit = NULL,
+  case_insensitive = TRUE,
+  return_valid_only = TRUE
 )
 }
 \arguments{

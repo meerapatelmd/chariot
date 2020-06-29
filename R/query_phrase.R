@@ -4,7 +4,11 @@
 #' @export
 
 query_phrase <-
-        function(phrase, limit = NULL, type = c("like", "exact"), case_insensitive = TRUE) {
+        function(phrase, 
+                 type = c("like", "exact"), 
+                 limit = NULL,
+                 case_insensitive = TRUE,
+                 return_valid_only = TRUE) {
             if (case_insensitive == FALSE) {
                 if (type == "exact") {
                     if (is.null(limit)) {
@@ -44,6 +48,12 @@ query_phrase <-
             }
             
             resultset <- query_athena(sql_statement = sql_statement)
-            return(resultset)
+            
+            if (return_valid_only) {
+                resultset %>%
+                    return_valid()
+            } else {
+                return(resultset)
+            }
               
         }
