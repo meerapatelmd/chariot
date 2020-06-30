@@ -8,7 +8,7 @@
 #' @export
 
 search_cdm_for_concept_id <- 
-    function(conn, schema = NULL) {
+    function(conn, concept_id, schema = NULL) {
         
             cdm_tables2 <-
                 DatabaseConnector::dbListTables(conn = conn,

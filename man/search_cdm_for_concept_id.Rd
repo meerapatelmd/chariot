@@ -4,7 +4,7 @@
 \alias{search_cdm_for_concept_id}
 \title{Search CDM instance for a concept_id}
 \usage{
-search_cdm_for_concept_id(conn, schema = NULL)
+search_cdm_for_concept_id(conn, concept_id, schema = NULL)
 }
 \description{
 Search CDM instance for a concept_id
