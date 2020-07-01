@@ -1,9 +1,10 @@
-#' Query all HemOnc regimens with more than 2 components
+#' Query montherapies in HemOnc
 #' @importFrom rubix filter_at_grepl
 #' @importFrom rubix arrange_by_nchar
 #' @export
 
-query_n_hemonc_component_regs <-
+
+hemonc_monotherapy <-
     function(component) {
         
         output <-
@@ -11,7 +12,7 @@ query_n_hemonc_component_regs <-
         
         output %>%
             rubix::filter_at_grepl(concept_name,
-                                   grepl_phrase = ", ") %>%
+                                   grepl_phrase = "monotherapy") %>%
             rubix::arrange_by_nchar(nchar_col = concept_name) %>%
             filter_for_hemonc()
     }

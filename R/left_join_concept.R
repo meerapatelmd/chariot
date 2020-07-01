@@ -7,15 +7,15 @@
 #' @importFrom seagull drop_table
 #' @export
 
-left_join_df_to_concept <-
-    function(dataframe,
-             dataframe_column = NULL,
+left_join_concept <-
+    function(.data,
+             .col = NULL,
              concept_column = "concept_id",
              include_synonyms = TRUE) {
                 
                 output <-
-                left_join_df(dataframe = dataframe,
-                             dataframe_column = dataframe_column,
+                left_join_df(dataframe = .data,
+                             dataframe_column = .col,
                              athena_table = "concept",
                              athena_column = concept_column)
 
@@ -23,13 +23,13 @@ left_join_df_to_concept <-
                 if (include_synonyms) {
 
                         output_b <-
-                                left_join_df(dataframe,
-                                             dataframe_column = dataframe_column,
+                                left_join_df(.data,
+                                             dataframe_column = .col,
                                              athena_table = "concept_synonym",
                                              athena_column = "concept_id") %>%
                                 dplyr::filter(language_concept_id == "4180186") %>%
                                 # deduping
-                                dplyr::select(concept_id, concept_synonym_name) %>%
+                                dplyr::select(concept_id,concept_synonym_name) %>%
                                 dplyr::distinct()
 
                     # Combine concept and concept_synonym resultsets and filter out values where the synonym and concept_name are the same

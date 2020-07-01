@@ -8,25 +8,29 @@ left_join_for_ancestors <-
     function(dataframe,
              descendant_id_column = NULL,
              level = NULL) {
-
+        
+        if (!is.null(descendant_id_column)) {
+            dataframe <-
+                dataframe %>%
+                dplyr::select(all_of(descendant_id_column))
+        }
+        
         if (is.null(level)) {
                 ancestors <-
                     left_join_df(dataframe = dataframe,
-                                 dataframe_column = descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id")
                 
                 ancestors_detail <-
-                    left_join_concept(ancestors %>%
-                                          dplyr::select(ancestor_concept_id),
-                                          include_synonyms = FALSE) %>%
+                    left_join_df_to_concept(dataframe = ancestors %>%
+                                                dplyr::select(ancestor_concept_id),
+                                            include_synonyms = FALSE) %>%
                     dplyr::select(-ancestor_concept_id) %>%
                     rubix::rename_all_with_prefix("ancestor_")
         } else {
             
                 ancestors <-
                     left_join_df(dataframe = dataframe,
-                                 dataframe_column = descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id",
                                  where_athena_col = "max_levels_of_separation",
@@ -34,7 +38,7 @@ left_join_for_ancestors <-
                 
                 
                 ancestors_detail <-
-                    left_join_concept(ancestors %>%
+                    left_join_df_to_concept(dataframe = ancestors %>%
                                                 dplyr::select(ancestor_concept_id),
                                             include_synonyms = FALSE) %>%
                     dplyr::select(-ancestor_concept_id) %>%

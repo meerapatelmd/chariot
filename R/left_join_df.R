@@ -8,71 +8,41 @@
 #' @export
 
 left_join_df <-
-    function(dataframe,
-             dataframe_column = NULL,
+    function(.data,
+             .column = NULL,
              athena_table,
              athena_column,
              where_athena_col = NULL,
              where_athena_col_equals = NULL) {
         
         
-        table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
-        
-        if (is.null(dataframe_column)) {
-            dataframe_column <- colnames(dataframe)[1]
-            
-        }
-        
-        #Loading cache
-        output <-
-            load_cached_join(function_name = "left_join_df",
-                             left_vector = dataframe,
-                             right_table_name = athena_table,
-                             right_column_name = athena_column,
-                             where_athena_col = where_athena_col,
-                             where_athena_col_equals = where_athena_col_equals)
-        
-        
-        if (is.null(output)) { 
-            
-            seagull::create_table_via_temp_file(dataframe = dataframe,
-                                                table_name = table_name,
-                                                dbname = "athena")
-            
-            if (is.null(where_athena_col)) {
+                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
                 
-                        
-                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column))
-                        
-                        
-                        seagull::drop_table(table_name = table_name,
-                                            dbname = "athena")
-                        
-                        cache_join(function_name = "left_join_df",
-                                         left_vector = dataframe,
-                                         right_table_name = athena_table,
-                                         right_column_name = athena_column,
-                                    object = output)
-                        
+                if (is.null(dataframe_column)) {
+                    
+                    dataframe_column <- colnames(dataframe)[1]
+                    
+                }
+                
+                conn <- connect_athena()
+                DatabaseConnector::dbWriteTable(conn = conn,
+                                                name = table_name,
+                                                value = dataframe)
+                dc_athena(conn = conn)
+
+            if (is.null(where_athena_col)) {
+                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column),
+                                           cache_resultset = FALSE)
                         
             } else {
                     
-                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)))
+                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+                                               cache_resultset = FALSE)
                         
-                        seagull::drop_table(table_name = table_name,
-                                            dbname = "athena")
-                        
-                        cache_join(function_name = "left_join_df",
-                                   left_vector = dataframe,
-                                   right_table_name = athena_table,
-                                   right_column_name = athena_column,
-                                   where_athena_col = where_athena_col,
-                                   where_athena_col_equals = where_athena_col_equals,
-                                   object = output)
                     
             }
-            
-        }
-        
+                
+            drop_left_join_tables()
+
         return(output)
     }

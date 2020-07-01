@@ -11,80 +11,49 @@ left_join_relationship <-
     function(dataframe,
              dataframe_column = NULL,
              merge_concept_2 = TRUE) {
-        
-                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
-        
-                if (is.null(dataframe_column)) {
                     
-                            dataframe_column <- colnames(dataframe)[1]
-                }
-            
-                # Loading cache
-                output <-
-                load_cached_join(function_name = "left_join_relationship",
-                                 left_vector = dataframe,
-                                 right_table_name = "concept_relationship",
-                                 right_column_name = "concept_id_1")
+                    output_a <-
+                    left_join_df(dataframe = dataframe,
+                                 dataframe_column = dataframe_column,
+                                 athena_table = "concept_relationship",
+                                 athena_column = "concept_id_1") %>%
+                                # select for only the concept_relationship table fields
+                                dplyr::select(concept_id_1:last_col()) %>%
+                                # remove all invalid relationships and the dates 
+                                dplyr::filter(is.na(invalid_reason)) %>%
+                                dplyr::select(-valid_start_date, -valid_end_date, -invalid_reason) %>%  
+                                dplyr::distinct() %>%
+                                # Remove all NA rows
+                                dplyr::filter_all(all_vars(!is.na(.)))
                 
-                if (is.null(output)) {
-                    
-                            seagull::create_table_via_temp_file(dataframe = dataframe,
-                                                                table_name = table_name,
-                                                                dbname = "athena")
-                            
-                            output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN concept_relationship c ON c.concept_id_1 = ", dataframe_column))
-                            
-                            
-                            seagull::drop_table(table_name = table_name,
-                                                dbname = "athena")
-                            
-                            cache_join(function_name = "left_join_relationship",
-                                       left_vector = dataframe,
-                                       right_table_name = "concept_relationship",
-                                       right_column_name = "concept_id_1",
-                                       object = output)
-                }
-                
-                # Removing original dataframe_column because it is now concept_id_1
-                output <- 
-                    output %>%
-                    dplyr::select(-(!!dataframe_column))
-                
-                # Removing all invalid relationships and the dates
-                output <- 
-                    output %>%
-                    dplyr::filter(is.na(invalid_reason)) %>%
-                    dplyr::select(-valid_start_date, -valid_end_date, -invalid_reason) %>%
-                    dplyr::distinct() %>%
-                    # Remove all NA rows
-                    dplyr::filter_all(all_vars(!is.na(.)))
-                
-                # Getting concept_id_2 information
-                output_2 <- 
-                    left_join_concept_id(output %>%
-                                             dplyr::select(concept_id_2),
-                                         include_synonyms = FALSE)
-                
-                if (merge_concept_2) {
-                    
-                        output_2 <- 
-                            output_2 %>%
-                            chariot::merge_concepts(into = "Concept_2") %>%
-                            dplyr::select(-concept_id)
-
-                } else {
-                    
-                        output_2 <- 
-                            output_2 %>%
-                            dplyr::select(-concept_id_2) %>%
-                            rubix::rename_all_suffix("_2")
+                    # Getting concept_id_2 information
+                    output_b <- 
+                        left_join_concept(output_a %>%
+                                                 dplyr::select(concept_id_2),
+                                          concept_column = "concept_id",
+                                          include_synonyms = FALSE)
                     
                     
-                }
+                    # Merging concept 2
+                    if (merge_concept_2) {
+                        
+                            output_b <- 
+                                output_b %>%
+                                chariot::merge_concepts(into = "Concept2") %>%
+                                dplyr::select(-concept_id)
+    
+                    } else {
+                        
+                            output_b <- 
+                                    output_b %>%
+                                    dplyr::select(-concept_id_2) %>%
+                                    rubix::rename_all_suffix("_2")
+                        
+                    }
                 
                 # Merging final output
-                output %>%
-                    dplyr::left_join(output_2, by = "concept_id_2") %>%
+                output_a %>%
+                    dplyr::left_join(output_b, by = "concept_id_2") %>%
                     dplyr::distinct()
 
     }

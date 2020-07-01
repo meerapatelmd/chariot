@@ -1,7 +1,8 @@
-#' Get all Loinc System (Specimen) Types for a Lab
+#' Pivot all relatives of a set of concepts
 #' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
 #' @param concept_id_col The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
 #' @param dataframe input data
+#' @param names_from concept table column to be pivoted on
 #' @examples 
 #' Random immunosuppressant concept ids
 #' immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723") 
@@ -13,12 +14,19 @@
 #' @export
 
 pivot_relative <-
-    function(dataframe,
+    function(.data,
              concept_id_col = NULL,
              names_from,
              include_count = TRUE) {
         
-            output <- left_join_all_relatives(dataframe = dataframe,
+        
+        if (missing(names_from)) {
+            
+                stop('argument "names_from" is missing, with no default')
+            
+        }
+        
+            output <- left_join_all_relatives(dataframe = .data,
                                               id_column = concept_id_col)
             
             if (is.null(concept_id_col)) {

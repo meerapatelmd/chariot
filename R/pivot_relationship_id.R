@@ -1,7 +1,7 @@
 #' Get all Loinc System (Specimen) Types for a Lab
 #' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
 #' @param concept_id_col The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
-#' @param dataframe input data
+#' @param .data input data
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
@@ -10,12 +10,13 @@
 #' @export
 
 pivot_relationship_id <-
-    function(dataframe,
+    function(.data,
              concept_id_col = NULL,
              include_count = TRUE) {
         
         
-            output <- left_join_relationship(dataframe = dataframe,
+        
+            output <- left_join_relationship(dataframe = .data,
                                              dataframe_column = concept_id_col)
             
             

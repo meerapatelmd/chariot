@@ -4,20 +4,25 @@
 #' @importFrom dplyr distinct
 #' @export
 
-left_join_for_descendants <-
+left_join_for_descendants0 <-
     function(dataframe,
              ancestor_id_column = NULL,
              level = NULL) {
         
+        if (!is.null(ancestor_id_column)) {
+                        dataframe <-
+                                dataframe %>%
+                                dplyr::select(all_of(ancestor_id_column))
+        }
+        
         if (is.null(level)) {
                         descendants <-
                                 left_join_df(dataframe = dataframe,
-                                             dataframe_column = ancestor_id_column,
                                                       athena_table = "concept_ancestor",
                                                       athena_column = "ancestor_concept_id")
                         
                         descendants_detail <-
-                                left_join_concept(descendants %>%
+                                left_join_df_to_concept(dataframe = descendants %>%
                                                             dplyr::select(descendant_concept_id),
                                                         include_synonyms = FALSE) %>%
                                 dplyr::select(-descendant_concept_id) %>%
@@ -27,14 +32,13 @@ left_join_for_descendants <-
             
                     descendants <-
                                 left_join_df(dataframe = dataframe,
-                                             dataframe_column = ancestor_id_column,
                                              athena_table = "concept_ancestor",
                                              athena_column = "ancestor_concept_id",
                                              where_athena_col = "max_levels_of_separation",
                                              where_athena_col_equals = level)
                     
                     descendants_detail <-
-                                left_join_concept(descendants %>%
+                                left_join_df_to_concept(dataframe = descendants %>%
                                                             dplyr::select(descendant_concept_id),
                                                         include_synonyms = FALSE) %>%
                                 dplyr::select(-descendant_concept_id) %>%

@@ -9,15 +9,22 @@
 #' @importFrom dplyr distinct
 #' @export
 
-pivot_concept_2 <-
-    function(dataframe,
+pivot_concept2 <-
+    function(.data,
              concept_id_col = NULL,
              names_from,
              include_count = TRUE) {
         
+        
+        if (missing(names_from)) {
+            
+            stop('argument "names_from" is missing, with no default')
+            
+        }
+        
             names_from <- paste0(names_from, "_2")
         
-            output <- left_join_relationship(dataframe = dataframe,
+            output <- left_join_relationship(dataframe = .data,
                                              dataframe_column = concept_id_col,
                                              merge_concept_2 = FALSE) %>%
                         merge_concepts(into = Concept_2,
