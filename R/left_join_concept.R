@@ -14,8 +14,8 @@ left_join_concept <-
              include_synonyms = TRUE) {
                 
                 output <-
-                left_join_df(dataframe = .data,
-                             dataframe_column = .col,
+                left_join_df(.data = .data,
+                             .col = .col,
                              athena_table = "concept",
                              athena_column = concept_column)
 
@@ -24,7 +24,7 @@ left_join_concept <-
 
                         output_b <-
                                 left_join_df(.data,
-                                             dataframe_column = .col,
+                                             .col = .col,
                                              athena_table = "concept_synonym",
                                              athena_column = "concept_id") %>%
                                 dplyr::filter(language_concept_id == "4180186") %>%

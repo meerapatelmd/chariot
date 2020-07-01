@@ -7,7 +7,7 @@
 #' @importFrom seagull drop_table
 #' @export
 
-left_join_concept_id <-
+dep_left_join_concept_id <-
     function(dataframe,
              dataframe_column = NULL,
              concept_column = "concept_id",

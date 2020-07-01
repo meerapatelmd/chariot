@@ -8,13 +8,13 @@
 #' @export
 
 left_join_relationship <-
-    function(dataframe,
-             dataframe_column = NULL,
-             merge_concept_2 = TRUE) {
+    function(.data,
+             .col = NULL,
+             merge_concept2 = TRUE) {
                     
                     output_a <-
-                    left_join_df(dataframe = dataframe,
-                                 dataframe_column = dataframe_column,
+                    left_join_df(.data = .data,
+                                 .col = .col,
                                  athena_table = "concept_relationship",
                                  athena_column = "concept_id_1") %>%
                                 # select for only the concept_relationship table fields
@@ -31,29 +31,24 @@ left_join_relationship <-
                         left_join_concept(output_a %>%
                                                  dplyr::select(concept_id_2),
                                           concept_column = "concept_id",
-                                          include_synonyms = FALSE)
+                                          include_synonyms = FALSE) %>%
+                        dplyr::select(concept_id:last_col()) %>%
+                        rubix::rename_all_suffix("_2")
                     
                     
                     # Merging concept 2
-                    if (merge_concept_2) {
+                    if (merge_concept2) {
                         
                             output_b <- 
                                 output_b %>%
-                                chariot::merge_concepts(into = "Concept2") %>%
-                                dplyr::select(-concept_id)
+                                merge_concepts(into = "Concept2", suffix = "_2") 
     
-                    } else {
-                        
-                            output_b <- 
-                                    output_b %>%
-                                    dplyr::select(-concept_id_2) %>%
-                                    rubix::rename_all_suffix("_2")
-                        
-                    }
+                    } 
                 
                 # Merging final output
                 output_a %>%
                     dplyr::left_join(output_b, by = "concept_id_2") %>%
-                    dplyr::distinct()
+                    dplyr::distinct() %>%
+                    dplyr::select(!ends_with("2"), ends_with("2"))
 
     }

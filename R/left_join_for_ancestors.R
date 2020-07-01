@@ -5,14 +5,14 @@
 #' @export
 
 left_join_for_ancestors <-
-    function(dataframe,
-             descendant_id_column = NULL,
+    function(.data,
+             .descendant_id_column = NULL,
              level = NULL) {
 
         if (is.null(level)) {
                 ancestors <-
-                    left_join_df(dataframe = dataframe,
-                                 dataframe_column = descendant_id_column,
+                    left_join_df(.data = .data,
+                                 .col = .descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id")
                 
@@ -25,8 +25,8 @@ left_join_for_ancestors <-
         } else {
             
                 ancestors <-
-                    left_join_df(dataframe = dataframe,
-                                 dataframe_column = descendant_id_column,
+                    left_join_df(.data = .data,
+                                 .col = .descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id",
                                  where_athena_col = "max_levels_of_separation",

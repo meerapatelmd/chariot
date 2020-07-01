@@ -9,7 +9,7 @@
 
 left_join_df <-
     function(.data,
-             .column = NULL,
+             .col = NULL,
              athena_table,
              athena_column,
              where_athena_col = NULL,
@@ -18,25 +18,25 @@ left_join_df <-
         
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
                 
-                if (is.null(dataframe_column)) {
+                if (is.null(.col)) {
                     
-                    dataframe_column <- colnames(dataframe)[1]
+                    .col <- colnames(.data)[1]
                     
                 }
                 
                 conn <- connect_athena()
                 DatabaseConnector::dbWriteTable(conn = conn,
                                                 name = table_name,
-                                                value = dataframe)
+                                                value = .data)
                 dc_athena(conn = conn)
 
             if (is.null(where_athena_col)) {
-                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column),
+                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .col),
                                            cache_resultset = FALSE)
                         
             } else {
                     
-                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", dataframe_column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .col, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
                                                cache_resultset = FALSE)
                         
                     
