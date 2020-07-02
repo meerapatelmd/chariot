@@ -2,7 +2,7 @@
 #' @importFrom metaorite submit_query
 #' @importFrom metaorite query_cui
 #' @importFrom seagull write_where_in_string
-#' @importFrom stingr str_replace_all
+#' @importFrom stringr str_replace_all
 #' @import dplyr
 #' @export
 
