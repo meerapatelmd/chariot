@@ -39,4 +39,5 @@ execute_athena_constraints <-
         }
         
         DatabaseConnector::dbDisconnect(conn = conn)
+        unlink(tmp)
     }

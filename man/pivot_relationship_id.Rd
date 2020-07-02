@@ -4,10 +4,10 @@
 \alias{pivot_relationship_id}
 \title{Get all Loinc System (Specimen) Types for a Lab}
 \usage{
-pivot_relationship_id(dataframe, concept_id_col = NULL, include_count = TRUE)
+pivot_relationship_id(.data, .col = NULL, include_count = TRUE)
 }
 \arguments{
-\item{dataframe}{input data}
+\item{.data}{input data}
 
 \item{concept_id_col}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
 }

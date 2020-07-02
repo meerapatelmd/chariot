@@ -18,5 +18,7 @@ execute_athena_ddl <-
         
         DatabaseConnector::dbDisconnect(conn = conn)
         
+        unlink(tmp)
+        
     }
 

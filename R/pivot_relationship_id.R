@@ -11,24 +11,26 @@
 
 pivot_relationship_id <-
     function(.data,
-             concept_id_col = NULL,
+             .col = NULL,
              include_count = TRUE) {
         
         
         
-            output <- left_join_relationship(dataframe = .data,
-                                             dataframe_column = concept_id_col)
+            output <- left_join_relationship(.data,
+                                             .col)
             
             
             final_output <-
                 output %>%
                 tidyr::pivot_wider(id_cols = concept_id_1,
                                names_from = relationship_id,
-                               values_from = Concept_2,
-                               values_fn = list(Concept_2 = function(x) paste(unique(x)[1:250] %>% 
+                               values_from = Concept2,
+                               values_fn = list(Concept2 = function(x) paste(unique(x)[1:250] %>% 
                                                                                   centipede::no_na(), 
                                                                               collapse = "\n"))) %>%
-                dplyr::mutate_all(substring, 1, 25000)
+                dplyr::mutate_all(substring, 1, 25000) %>%
+                dplyr::mutate_at(vars(concept_id_1),
+                                 as.integer)
             
             
             if (include_count) {
@@ -37,8 +39,8 @@ pivot_relationship_id <-
                     output %>%
                     tidyr::pivot_wider(id_cols = concept_id_1,
                                        names_from = relationship_id,
-                                       values_from = Concept_2,
-                                       values_fn = list(Concept_2 = function(x) length(unique(x)))) %>%
+                                       values_from = Concept2,
+                                       values_fn = list(Concept2 = function(x) length(unique(x)))) %>%
                     dplyr::rename_at(vars(!(concept_id_1)),
                                      function(x) paste0(x, " Count"))
                 

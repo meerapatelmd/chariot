@@ -14,7 +14,7 @@ left_join_df_to_concept(
 \arguments{
 \item{dataframe}{dataframe to join}
 
-\item{dataframe_column}{string of the column name to join on. If NULL, the 1st column is used.}
+\item{dataframe_column}{string of the column name to join on. If NULL, the 1st column is use}
 
 \item{concept_column}{name of concept_column to join dataframe on. Defaults to concept ID.}
 }

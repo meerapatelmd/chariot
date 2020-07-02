@@ -37,4 +37,5 @@ execute_athena_indices <-
         }
         
         DatabaseConnector::dbDisconnect(conn = conn)
+        unlink(tmp)
     }

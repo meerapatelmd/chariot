@@ -7,16 +7,18 @@ concept_children <-
     function(parent_id, 
              generations = 1, 
              override_cache = FALSE) {
-        
-                if (!(exists("concept_parent_table", envir = globalenv()))) {
-                    
-                            concept_parent_table <<- query_parent_child_table(override_cache = override_cache)
-                    
-                }
+
 
                 baseline_child <-
-                    concept_parent_table %>%
-                    dplyr::filter(parent_concept_id %in% parent_id)
+                    query_athena(paste0("SELECT * FROM concept_parent WHERE parent_concept_id = '", parent_id, "';"))
+                
+                if (nrow(baseline_child) == 0) {
+                    
+                        warning('concept "', parent_id, '" has no children')
+                    
+                        return(NULL)
+                    
+                } else {
                 
                 output <- list()
                 output[[1]] <- baseline_child
@@ -28,20 +30,32 @@ concept_children <-
                             prior <- output[[(i-1)]]
                             
                             #secretary::press_enter()
-                            output[[i]] <- 
-                                        prior %>%
-                                        dplyr::inner_join(concept_parent_table,
-                                                          by = c("child_concept_id" = "parent_concept_id"),
-                                                          suffix = c(".prior", ".new")) %>%
-                                        dplyr::select(parent_concept_id = child_concept_id, 
-                                                      child_concept_id = child_concept_id.new)
+                            output[[i]] <- left_join_for_children(prior %>%
+                                                           dplyr::select(prior_child_concept_id = child_concept_id)) %>%
+                                dplyr::filter(!is.na(prior_child_concept_id))
+                            
+                            
+                            
+                                        # prior %>%
+                                        # dplyr::inner_join(concept_parent_table,
+                                        #                   by = c("child_concept_id" = "parent_concept_id"),
+                                        #                   suffix = c(".prior", ".new")) %>%
+                                        # dplyr::select(parent_concept_id = child_concept_id, 
+                                        #               child_concept_id = child_concept_id.new)
                         
                     }
                     
                 }
                 
+                if (length(output) != generations) {
+                    
+                    message('Maximum possible generations less than "generations" param:', length(output))
+                }
+                
                 output %>%
-                    dplyr::bind_rows()
+                    dplyr::bind_rows() %>%
+                    dplyr::select(parent_concept_id, child_concept_id)
+                }
                 
     }
 

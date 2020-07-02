@@ -14,5 +14,5 @@ left_join_synonyms(
 \item{include_concept_table}{Are both the concept table contents and concept synonym table contents expected in the output?}
 }
 \description{
-Add synonyms
+Identical to the left_join_concept with param include_synonyms set to TRUE
 }

@@ -11,7 +11,7 @@
 
 pivot_concept2 <-
     function(.data,
-             concept_id_col = NULL,
+             .col = NULL,
              names_from,
              include_count = TRUE) {
         
@@ -24,10 +24,10 @@ pivot_concept2 <-
         
             names_from <- paste0(names_from, "_2")
         
-            output <- left_join_relationship(dataframe = .data,
-                                             dataframe_column = concept_id_col,
-                                             merge_concept_2 = FALSE) %>%
-                        merge_concepts(into = Concept_2,
+            output <- left_join_relationship(.data = .data,
+                                             #.col = .col,
+                                             merge_concept2 = FALSE) %>%
+                        merge_concepts(into = Concept2,
                                        !!names_from,
                                        suffix = "_2")
             
@@ -36,11 +36,13 @@ pivot_concept2 <-
                 output %>%
                 tidyr::pivot_wider(id_cols = concept_id_1,
                                names_from = !!names_from,
-                               values_from = Concept_2,
-                               values_fn = list(Concept_2 = function(x) paste(unique(x)[1:250] %>% 
+                               values_from = Concept2,
+                               values_fn = list(Concept2 = function(x) paste(unique(x)[1:250] %>% 
                                                                                   centipede::no_na(), 
                                                                               collapse = "\n"))) %>%
-                dplyr::mutate_all(substring, 1, 25000)
+                dplyr::mutate_all(substring, 1, 25000) %>%
+                dplyr::mutate_at(vars(concept_id_1),
+                                 as.integer)
             
             
             if (include_count) {
@@ -49,10 +51,10 @@ pivot_concept2 <-
                     output %>%
                     tidyr::pivot_wider(id_cols = concept_id_1,
                                        names_from = !!names_from,
-                                       values_from = Concept_2,
-                                       values_fn = list(Concept_2 = function(x) length(unique(x)))) %>%
+                                       values_from = Concept2,
+                                       values_fn = list(Concept2 = function(x) length(unique(x)))) %>%
                     dplyr::rename_at(vars(!(concept_id_1)),
-                                     function(x) paste0(x, " Count"))
+                                     function(x) paste0(x, " Count")) 
                 
                 final_output <- 
                     dplyr::left_join(final_output,

@@ -12,9 +12,9 @@
 #' @importFrom dplyr distinct
 #' @export
 
-pivot_wider_by_relative_level <-
-    function(dataframe,
-             concept_id_col = NULL,
+pivot_by_relative_level <-
+    function(.data,
+             id_col = NULL,
              levels_type = c("min", "max"),
              include_count = TRUE) {
         
@@ -22,12 +22,12 @@ pivot_wider_by_relative_level <-
                     stop("levels_type must be length 1 from c('min', 'max')")
             }
         
-            output <- left_join_all_relatives(dataframe = dataframe,
-                                              id_column = concept_id_col)
+            output <- left_join_relatives(.data = .data,
+                                           .id_column = id_col)
             
-            if (is.null(concept_id_col)) {
+            if (is.null(id_col)) {
                 
-                    concept_id_col <- colnames(dataframe)[1]
+                    id_col <- colnames(.data)[1]
                 
             }
             
@@ -75,28 +75,30 @@ pivot_wider_by_relative_level <-
             
             final_output <-
             output %>%
-                tidyr::pivot_wider(id_cols = !!concept_id_col,
+                tidyr::pivot_wider(id_cols = !!id_col,
                                    names_from = starts_with(levels_type),
                                    values_from = `Relative Concept`,
                                    values_fn = list(`Relative Concept` = function(x) paste(unique(x)[1:250] %>%
                                                                                                centipede::no_na(), collapse = "\n"))) %>%
-                dplyr::mutate_all(substring, 1, 25000)
+                dplyr::mutate_all(substring, 1, 25000) %>%
+                dplyr::mutate_at(vars(!!id_col),
+                                 as.integer)
             
             if (include_count) {
                 
                 final_output_count <-
                     output %>%
-                    tidyr::pivot_wider(id_cols = !!concept_id_col,
+                    tidyr::pivot_wider(id_cols = !!id_col,
                                        names_from = starts_with(levels_type),
                                        values_from = `Relative Concept`,
                                        values_fn = list(`Relative Concept` = function(x) length(unique(x)))) %>%
-                    dplyr::rename_at(vars(!(!!concept_id_col)),
+                    dplyr::rename_at(vars(!(!!id_col)),
                                      function(x) paste0(x, " Count"))
                 
                 final_output <- 
                     dplyr::left_join(final_output,
                                      final_output_count)
-                    
+                    return(final_output)
                 
                 
             } else {
