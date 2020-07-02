@@ -1,7 +1,7 @@
 #' Execute Athena constraints
 #' @importFrom seagull connect_to_local_postgres
 #' @import police
-#' @import secretary typewrite
+#' @import secretary
 #' @import DatabaseConnector
 #' @export
 
