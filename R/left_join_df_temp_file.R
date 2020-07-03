@@ -25,7 +25,7 @@ left_join_df_temp_file <-
                 }
                 
                 conn <- connect_athena()
-                DatabaseConnector::dbWriteTable(conn = conn,
+                DatabaseConnector::dbCreateTable(conn = conn,
                                                 name = table_name,
                                                 value = .data)
                 dc_athena(conn = conn)
