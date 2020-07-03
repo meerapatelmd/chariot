@@ -6,7 +6,7 @@
 \usage{
 left_join_df(
   .data,
-  .col = NULL,
+  .column = NULL,
   athena_table,
   athena_column,
   where_athena_col = NULL,
@@ -14,7 +14,7 @@ left_join_df(
 )
 }
 \arguments{
-\item{.col}{string of the column name to join on. If NULL, the 1st column is used.}
+\item{.column}{string of the column name to join on. If NULL, the 1st column is used.}
 
 \item{athena_column}{name of column to join dataframe on. Defaults to concept ID.}
 

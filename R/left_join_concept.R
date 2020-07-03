@@ -7,6 +7,7 @@
 #' @importFrom seagull drop_table
 #' @export
 
+
 left_join_concept <-
     function(.data,
              .column = NULL,
