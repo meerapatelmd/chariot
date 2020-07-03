@@ -4,7 +4,7 @@
 \alias{left_join_relationship}
 \title{Join a dataframe object with Athena's concept table}
 \usage{
-left_join_relationship(.data, .col = NULL, merge_concept2 = TRUE)
+left_join_relationship(.data, .column = NULL, merge_concept2 = TRUE)
 }
 \arguments{
 \item{dataframe}{dataframe to join}

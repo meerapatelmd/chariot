@@ -27,7 +27,8 @@ left_join_df <-
                 conn <- connect_athena()
                 DatabaseConnector::dbWriteTable(conn = conn,
                                                 name = table_name,
-                                                value = .data)
+                                                value = .data %>%
+                                                            as.data.frame())
                 dc_athena(conn = conn)
 
             if (is.null(where_athena_col)) {

@@ -9,12 +9,12 @@
 
 left_join_relationship <-
     function(.data,
-             .col = NULL,
+             .column = NULL,
              merge_concept2 = TRUE) {
                     
                     output_a <-
                     left_join_df(.data = .data,
-                                 .col = .col,
+                                 .column = .column,
                                  athena_table = "concept_relationship",
                                  athena_column = "concept_id_1") %>%
                                 # select for only the concept_relationship table fields
