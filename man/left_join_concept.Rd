@@ -6,7 +6,7 @@
 \usage{
 left_join_concept(
   .data,
-  .col = NULL,
+  .column = NULL,
   concept_column = "concept_id",
   include_synonyms = TRUE
 )

@@ -7,9 +7,9 @@
 #' @importFrom seagull drop_table
 #' @export
 
-left_join_df <-
+left_join_df_temp_file <-
     function(.data,
-             .col = NULL,
+             .column = NULL,
              athena_table,
              athena_column,
              where_athena_col = NULL,
@@ -18,9 +18,9 @@ left_join_df <-
         
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
                 
-                if (is.null(.col)) {
+                if (is.null(.column)) {
                     
-                    .col <- colnames(.data)[1]
+                    .column <- colnames(.data)[1]
                     
                 }
                 
@@ -31,12 +31,12 @@ left_join_df <-
                 dc_athena(conn = conn)
 
             if (is.null(where_athena_col)) {
-                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .col),
+                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column),
                                            cache_resultset = FALSE)
                         
             } else {
                     
-                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .col, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
                                                cache_resultset = FALSE)
                         
                     

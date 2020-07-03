@@ -9,13 +9,13 @@
 
 left_join_concept <-
     function(.data,
-             .col = NULL,
+             .column = NULL,
              concept_column = "concept_id",
              include_synonyms = TRUE) {
                 
                 output <-
                 left_join_df(.data = .data,
-                             .col = .col,
+                             .column = .column,
                              athena_table = "concept",
                              athena_column = concept_column)
 
@@ -24,7 +24,7 @@ left_join_concept <-
 
                         output_b <-
                                 left_join_df(.data,
-                                             .col = .col,
+                                             .column = .column,
                                              athena_table = "concept_synonym",
                                              athena_column = "concept_id") %>%
                                 dplyr::filter(language_concept_id == "4180186") %>%
