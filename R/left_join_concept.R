@@ -12,7 +12,56 @@ left_join_concept <-
     function(.data,
              .column = NULL,
              concept_column = "concept_id",
-             include_synonyms = TRUE) {
+             include_synonyms = TRUE,
+             omop = FALSE,
+             omop_schema = "omop_vocabulary") {
+        
+        
+        
+        if (omop) {
+            output <-
+                left_join_df_omop(.data = .data,
+                             .column = .column,
+                             athena_table = "concept",
+                             athena_column = concept_column,
+                             omop_schema = omop_schema)
+            
+            
+            if (include_synonyms) {
+                
+                output_b <-
+                    left_join_df_omop(.data,
+                                 .column = .column,
+                                 athena_table = "concept_synonym",
+                                 athena_column = "concept_id",
+                                 omop_schema = omop_schema) %>%
+                    dplyr::filter(language_concept_id == "4180186") %>%
+                    # deduping
+                    dplyr::select(concept_id,concept_synonym_name) %>%
+                    dplyr::distinct()
+                
+                # Combine concept and concept_synonym resultsets and filter out values where the synonym and concept_name are the same
+                output_b2 <-
+                    dplyr::left_join(output,
+                                     output_b,
+                                     by = "concept_id") %>%
+                    dplyr::filter(concept_name != concept_synonym_name) %>%
+                    rubix::group_by_unique_aggregate(concept_id,
+                                                     agg.col = concept_synonym_name)
+                
+                
+                output <-
+                    output %>%
+                    dplyr::left_join(output_b2,
+                                     by = "concept_id")
+            }
+                
+            
+            
+            
+            
+            
+        } else {
                 
                 output <-
                 left_join_df(.data = .data,
@@ -48,6 +97,7 @@ left_join_concept <-
                                     dplyr::left_join(output_b2,
                                                      by = "concept_id")
                 }
+        }
 
 
         return(output)

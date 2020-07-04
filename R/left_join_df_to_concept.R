@@ -11,7 +11,45 @@ left_join_df_to_concept <-
     function(dataframe,
              dataframe_column = NULL,
              concept_column = "concept_id",
-             include_synonyms = TRUE) {
+             include_synonyms = TRUE,
+             omop = FALSE,
+             omop_schema = NULL) {
+        
+        
+        if (omop) {
+            
+                output <- 
+                    left_join_df_omop(dataframe = dataframe,
+                                      dataframe_column = dataframe_column,
+                                      athena_table = "concept",
+                                      athena_column = concept_column,
+                                      omop_schema = omop_schema)
+                
+                output_b <-
+                    left_join_df_omop(dataframe,
+                                 dataframe_column = dataframe_column,
+                                 athena_table = "concept_synonym",
+                                 athena_column = "concept_id") %>%
+                    dplyr::filter(language_concept_id == "4180186") %>%
+                    # deduping
+                    dplyr::select(concept_id, concept_synonym_name) %>%
+                    dplyr::distinct()
+                
+                output_b2 <-
+                    dplyr::left_join(output,
+                                     output_b,
+                                     by = "concept_id") %>%
+                    dplyr::filter(concept_name != concept_synonym_name) %>%
+                    rubix::group_by_unique_aggregate(concept_id,
+                                                     agg.col = concept_synonym_name)
+                
+                output <-
+                    output %>%
+                    dplyr::left_join(output_b2,
+                                     by = "concept_id")
+            
+            
+        } else {
                 
                 output <-
                 left_join_df(dataframe = dataframe,
@@ -47,7 +85,8 @@ left_join_df_to_concept <-
                                     dplyr::left_join(output_b2,
                                                      by = "concept_id")
                 }
-
-
+                
+        }
+        
         return(output)
     }

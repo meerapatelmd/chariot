@@ -4,7 +4,13 @@
 \alias{left_join_for_descendants}
 \title{Left Join Ancestors to a dataframe of concept_ids}
 \usage{
-left_join_for_descendants(.data, .ancestor_id_column = NULL, level = NULL)
+left_join_for_descendants(
+  .data,
+  .ancestor_id_column = NULL,
+  level = NULL,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
+)
 }
 \description{
 Left Join Ancestors to a dataframe of concept_ids
