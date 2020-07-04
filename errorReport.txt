@@ -1,0 +1,39 @@
+DBMS:
+postgresql
+
+Error:
+org.postgresql.util.PSQLException: ERROR: syntax error at or near "'Spec Anatomic Site'"
+  Position: 137
+
+SQL:
+CREATE TABLE v20200704182925 (concept_id_1 BIGINT,Device VARCHAR(255),Drug VARCHAR(690),Observation VARCHAR(255),Procedure VARCHAR(299),'Spec Anatomic Site' VARCHAR(255),'Device Count' INTEGER,'Drug Count' INTEGER,'Observation Count' INTEGER,'Procedure Count' INTEGER,'Spec Anatomic Site Count' INTEGER)
+
+R version:
+R version 4.0.0 (2020-04-24)
+
+Platform:
+x86_64-apple-darwin17.0
+
+Attached base packages:
+- stats
+- graphics
+- grDevices
+- utils
+- datasets
+- methods
+- base
+
+Other attached packages:
+- chariot (0.1.0)
+- roxygen2 (7.1.0)
+- devtools (2.3.0)
+- usethis (1.6.1)
+- forcats (0.5.0)
+- stringr (1.4.0)
+- dplyr (1.0.0)
+- purrr (0.3.4)
+- readr (1.3.1)
+- tidyr (1.1.0)
+- tibble (3.0.1)
+- ggplot2 (3.3.0)
+- tidyverse (1.3.0)
