@@ -4,7 +4,14 @@
 \alias{pivot_relative}
 \title{Pivot all relatives of a set of concepts}
 \usage{
-pivot_relative(.data, id_col = NULL, names_from, include_count = TRUE)
+pivot_relative(
+  .data,
+  id_col = NULL,
+  names_from,
+  include_count = TRUE,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
+)
 }
 \arguments{
 \item{names_from}{concept table column to be pivoted on}

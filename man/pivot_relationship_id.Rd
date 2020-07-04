@@ -4,7 +4,13 @@
 \alias{pivot_relationship_id}
 \title{Get all Loinc System (Specimen) Types for a Lab}
 \usage{
-pivot_relationship_id(.data, .col = NULL, include_count = TRUE)
+pivot_relationship_id(
+  .data,
+  .col = NULL,
+  include_count = TRUE,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
+)
 }
 \arguments{
 \item{.data}{input data}

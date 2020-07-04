@@ -16,14 +16,18 @@ pivot_by_relative_level <-
     function(.data,
              id_col = NULL,
              levels_type = c("min", "max"),
-             include_count = TRUE) {
+             include_count = TRUE,
+             omop = FALSE,
+             omop_schema = "omop_vocabulary") {
         
             if (length(levels_type) != 1) {
                     stop("levels_type must be length 1 from c('min', 'max')")
             }
         
             output <- left_join_relatives(.data = .data,
-                                           .id_column = id_col)
+                                           .id_column = id_col,
+                                          omop = omop,
+                                          omop_schema = omop_schema)
             
             if (is.null(id_col)) {
                 

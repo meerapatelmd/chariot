@@ -8,7 +8,9 @@ pivot_by_relative_level(
   .data,
   id_col = NULL,
   levels_type = c("min", "max"),
-  include_count = TRUE
+  include_count = TRUE,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
 )
 }
 \arguments{

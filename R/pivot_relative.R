@@ -17,7 +17,9 @@ pivot_relative <-
     function(.data,
              id_col = NULL,
              names_from,
-             include_count = TRUE) {
+             include_count = TRUE,
+             omop = FALSE,
+             omop_schema = "omop_vocabulary") {
         
         
         if (missing(names_from)) {
@@ -27,7 +29,9 @@ pivot_relative <-
         }
         
             output <- left_join_relatives(.data = .data,
-                                              .id_column = id_col)
+                                              .id_column = id_col,
+                                          omop = omop,
+                                          omop_schema = omop_schema)
             
             if (is.null(id_col)) {
                 

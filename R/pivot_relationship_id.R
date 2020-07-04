@@ -12,12 +12,16 @@
 pivot_relationship_id <-
     function(.data,
              .col = NULL,
-             include_count = TRUE) {
+             include_count = TRUE,
+             omop = FALSE,
+             omop_schema = "omop_vocabulary") {
         
         
         
             output <- left_join_relationship(.data,
-                                             .col)
+                                             .col,
+                                             omop = omop,
+                                             omop_schema = omop_schema)
             
             
             final_output <-

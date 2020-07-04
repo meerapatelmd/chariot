@@ -13,7 +13,9 @@ pivot_concept2 <-
     function(.data,
              .col = NULL,
              names_from,
-             include_count = TRUE) {
+             include_count = TRUE,
+             omop = FALSE,
+             omop_schema = "omop_vocabulary") {
         
         
         if (missing(names_from)) {
@@ -25,8 +27,10 @@ pivot_concept2 <-
             names_from <- paste0(names_from, "_2")
         
             output <- left_join_relationship(.data = .data,
-                                             #.col = .col,
-                                             merge_concept2 = FALSE) %>%
+                                             .col = .col,
+                                             merge_concept2 = FALSE,
+                                             omop = omop,
+                                             omop_schema = omop_schema) %>%
                         merge_concepts(into = Concept2,
                                        !!names_from,
                                        suffix = "_2")

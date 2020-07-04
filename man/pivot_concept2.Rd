@@ -4,7 +4,14 @@
 \alias{pivot_concept2}
 \title{Get all Loinc System (Specimen) Types for a Lab}
 \usage{
-pivot_concept2(.data, .col = NULL, names_from, include_count = TRUE)
+pivot_concept2(
+  .data,
+  .col = NULL,
+  names_from,
+  include_count = TRUE,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
+)
 }
 \arguments{
 \item{concept_id_col}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
