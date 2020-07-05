@@ -62,7 +62,7 @@ pivot_relative <-
                 
                 final_output_count <-
                     output %>%
-                    tidyr::pivot_wider(id_cols = !!id_col,
+                    tidyr::pivot_wider(id_cols = !!id_column,
                                        names_from = !!names_from,
                                        values_from = `Relative Concept`,
                                        values_fn = list(`Relative Concept` = function(x) length(unique(x)))) %>%
