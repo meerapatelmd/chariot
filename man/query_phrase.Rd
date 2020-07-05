@@ -9,7 +9,13 @@ query_phrase(
   type = c("like", "exact"),
   limit = NULL,
   case_insensitive = TRUE,
-  return_valid_only = TRUE
+  return_valid_only = TRUE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  where_col = NULL,
+  where_col_in = NULL,
+  omop = FALSE,
+  omop_schema = "omop_vocabulary"
 )
 }
 \arguments{

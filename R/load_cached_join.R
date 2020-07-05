@@ -7,15 +7,14 @@
 #' @export
 
 load_cached_join <-
-    function(function_name, left_vector, right_table_name, right_column_name, ...) {
-            key = list(function_name,
-                       left_vector,
-                       right_table_name,
-                       right_column_name,
-                       ...)
-            x <-
-                R.cache::loadCache(key=key,
-                                   dirs="athena")
+    function(function_name,...) {
+            key <- list(function_name,...)
+            
+            print(key)
+                x <-
+                    R.cache::loadCache(key=key,
+                                       dirs="chariot")
+                
             invisible(x)
     }
 
