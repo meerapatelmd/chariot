@@ -6,7 +6,7 @@
 \usage{
 pivot_relative(
   .data,
-  id_col = NULL,
+  id_column = NULL,
   names_from,
   include_count = TRUE,
   omop = FALSE,
@@ -16,7 +16,7 @@ pivot_relative(
 \arguments{
 \item{names_from}{concept table column to be pivoted on}
 
-\item{concept_id_col}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
+\item{concept_id_column}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
 
 \item{dataframe}{input data}
 }
