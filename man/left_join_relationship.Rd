@@ -6,7 +6,7 @@
 \usage{
 left_join_relationship(
   .data,
-  .column = NULL,
+  column = NULL,
   merge_concept2 = TRUE,
   omop = FALSE,
   omop_schema = "omop_vocabulary"

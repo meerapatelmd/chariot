@@ -9,7 +9,7 @@
 
 left_join_relationship <-
     function(.data,
-             .column = NULL,
+             column = NULL,
              merge_concept2 = TRUE,
              omop = FALSE,
              omop_schema = "omop_vocabulary") {
@@ -19,7 +19,7 @@ left_join_relationship <-
             
             output_a <-
                 left_join_df_omop(.data = .data,
-                             .column = .column,
+                             column = column,
                              athena_table = "concept_relationship",
                              athena_column = "concept_id_1",
                              omop_schema = omop_schema) %>%
@@ -68,7 +68,7 @@ left_join_relationship <-
                     
                     output_a <-
                     left_join_df(.data = .data,
-                                 .column = .column,
+                                 column = column,
                                  athena_table = "concept_relationship",
                                  athena_column = "concept_id_1") %>%
                                 # select for only the concept_relationship table fields
