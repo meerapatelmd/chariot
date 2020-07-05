@@ -10,7 +10,8 @@ left_join_concept(
   concept_column = "concept_id",
   include_synonyms = TRUE,
   omop = FALSE,
-  omop_schema = "omop_vocabulary"
+  omop_schema = "omop_vocabulary",
+  override_cache = FALSE
 )
 }
 \arguments{

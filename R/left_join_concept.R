@@ -14,7 +14,8 @@ left_join_concept <-
              concept_column = "concept_id",
              include_synonyms = TRUE,
              omop = FALSE,
-             omop_schema = "omop_vocabulary") {
+             omop_schema = "omop_vocabulary",
+             override_cache = FALSE) {
         
         
         
@@ -24,7 +25,8 @@ left_join_concept <-
                              .column = .column,
                              athena_table = "concept",
                              athena_column = concept_column,
-                             omop_schema = omop_schema)
+                             omop_schema = omop_schema,
+                             override_cache = override_cache)
             
             
             if (include_synonyms) {
@@ -34,7 +36,8 @@ left_join_concept <-
                                  .column = .column,
                                  athena_table = "concept_synonym",
                                  athena_column = "concept_id",
-                                 omop_schema = omop_schema) %>%
+                                 omop_schema = omop_schema,
+                                 override_cache = override_cache) %>%
                     dplyr::filter(language_concept_id == "4180186") %>%
                     # deduping
                     dplyr::select(concept_id,concept_synonym_name) %>%
@@ -76,7 +79,8 @@ left_join_concept <-
                                 left_join_df(.data,
                                              .column = .column,
                                              athena_table = "concept_synonym",
-                                             athena_column = "concept_id") %>%
+                                             athena_column = "concept_id",
+                                             override_cache = override_cache) %>%
                                 dplyr::filter(language_concept_id == "4180186") %>%
                                 # deduping
                                 dplyr::select(concept_id,concept_synonym_name) %>%

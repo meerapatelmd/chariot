@@ -9,7 +9,8 @@ left_join_for_ancestors(
   .descendant_id_column = NULL,
   level = NULL,
   omop = FALSE,
-  omop_schema = "omop_vocabulary"
+  omop_schema = "omop_vocabulary",
+  override_cache = FALSE
 )
 }
 \description{

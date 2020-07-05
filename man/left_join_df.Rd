@@ -10,7 +10,8 @@ left_join_df(
   athena_table,
   athena_column,
   where_athena_col = NULL,
-  where_athena_col_equals = NULL
+  where_athena_col_equals = NULL,
+  override_cache = FALSE
 )
 }
 \arguments{

@@ -13,14 +13,55 @@ left_join_df <-
              athena_table,
              athena_column,
              where_athena_col = NULL,
-             where_athena_col_equals = NULL) {
+             where_athena_col_equals = NULL,
+             override_cache = FALSE) {
         
         
+        if (override_cache) {
+                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+                if (is.null(.column)) {
+                    .column <- colnames(.data)[1]
+                }
+                
+                conn <- connect_athena()
+                DatabaseConnector::dbWriteTable(conn = conn,
+                                                name = table_name,
+                                                value = .data %>%
+                                                    as.data.frame())
+                dc_athena(conn = conn)
+                
+                if (is.null(where_athena_col)) {
+                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column),
+                                           cache_resultset = FALSE)
+                    
+                } else {
+                    
+                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+                                           cache_resultset = FALSE)
+                    
+                    
+                }
+                
+                cache_left_join(object=output,
+                                vector=.data %>%
+                                    dplyr::select(.column) %>%
+                                    unlist() %>%
+                                    unname(),
+                                athena_table = athena_table,
+                                athena_column = athena_column,
+                                where_athena_col = where_athena_col,
+                                where_athena_col_equals = where_athena_col_equals,
+                                omop=FALSE,
+                                omop_schema=NULL)
+                
+                drop_left_join_tables()
             
-        
+            
+            
+            
+        } else {
         
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
-                
                 if (is.null(.column)) {
                     .column <- colnames(.data)[1]
                 }
@@ -80,6 +121,7 @@ left_join_df <-
                 output <- cached_resultset
             }
                 
+        }
         
         return(output)
     }
