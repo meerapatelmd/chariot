@@ -9,7 +9,7 @@
 
 left_join_relatives <-
     function(.data,
-             .id_column = NULL,
+             id_column = NULL,
              ancestor_level = NULL,
              descendant_level = NULL,
              omop = FALSE,
@@ -20,7 +20,7 @@ left_join_relatives <-
                 ##Ancestors 
                 anc <- 
                     left_join_for_ancestors(.data = .data,
-                                            .descendant_id_column = .id_column,
+                                            descendant_id_column = id_column,
                                             level = ancestor_level,
                                             omop = omop,
                                             omop_schema = omop_schema)
@@ -34,7 +34,7 @@ left_join_relatives <-
                 ##Descendants
                 des <- 
                     left_join_for_descendants(.data = .data,
-                                              .ancestor_id_column = .id_column,
+                                              ancestor_id_column = id_column,
                                               level = descendant_level,
                                               omop = omop,
                                               omop_schema = omop_schema)
@@ -67,7 +67,7 @@ left_join_relatives <-
             ##Ancestors 
             anc <- 
                 left_join_for_ancestors(.data = .data,
-                                        .descendant_id_column = .id_column,
+                                        descendant_id_column = id_column,
                                            level = ancestor_level)
             
             final_anc <-
@@ -79,7 +79,7 @@ left_join_relatives <-
             ##Descendants
             des <- 
                 left_join_for_descendants(.data = .data,
-                                          .ancestor_id_column = .id_column,
+                                          ancestor_id_column = id_column,
                                              level = descendant_level)
             final_des <-
                     des %>%

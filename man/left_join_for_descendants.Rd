@@ -6,10 +6,11 @@
 \usage{
 left_join_for_descendants(
   .data,
-  .ancestor_id_column = NULL,
+  ancestor_id_column = NULL,
   level = NULL,
   omop = FALSE,
-  omop_schema = "omop_vocabulary"
+  omop_schema = "omop_vocabulary",
+  override_cache = FALSE
 )
 }
 \description{

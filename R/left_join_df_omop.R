@@ -1,14 +1,14 @@
 #' Join a dataframe object with Athena's concept table
 #' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
 #' @param dataframe dataframe to join
-#' @param .column string of the column name to join on. If NULL, the 1st column is used.
+#' @param column string of the column name to join on. If NULL, the 1st column is used.
 #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
 #' @import fantasia
 #' @export
 
 left_join_df_omop <-
     function(.data,
-             .column = NULL,
+             column = NULL,
              omop_schema = "omop_vocabulary",
              athena_table,
              athena_column,
@@ -18,9 +18,9 @@ left_join_df_omop <-
         
                 table_name <- paste0("Meera_v", stampede::stamp_this(without_punct = TRUE))
                 
-                if (is.null(.column)) {
+                if (is.null(column)) {
                     
-                    .column <- colnames(.data)[1]
+                    column <- colnames(.data)[1]
                     
                 }
                 
@@ -36,7 +36,7 @@ left_join_df_omop <-
                 
                 output <- 
                     fantasia::query_omop(schema = omop_schema,
-                                         sql_statement = paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column),
+                                         sql_statement = paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column),
                                            override_cache = FALSE)
                         
             } else {
@@ -44,7 +44,7 @@ left_join_df_omop <-
                 output <- 
                     fantasia::query_omop(schema = omop_schema,
                                          sql_statement = 
-                                         paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", .column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+                                         paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
                                                override_cache = FALSE)
                         
                     

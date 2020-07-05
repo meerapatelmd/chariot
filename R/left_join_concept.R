@@ -10,7 +10,7 @@
 
 left_join_concept <-
     function(.data,
-             .column = NULL,
+             column = NULL,
              concept_column = "concept_id",
              include_synonyms = TRUE,
              omop = FALSE,
@@ -22,7 +22,7 @@ left_join_concept <-
         if (omop) {
             output <-
                 left_join_df_omop(.data = .data,
-                             .column = .column,
+                             column = column,
                              athena_table = "concept",
                              athena_column = concept_column,
                              omop_schema = omop_schema,
@@ -33,7 +33,7 @@ left_join_concept <-
                 
                 output_b <-
                     left_join_df_omop(.data,
-                                 .column = .column,
+                                 column = column,
                                  athena_table = "concept_synonym",
                                  athena_column = "concept_id",
                                  omop_schema = omop_schema,
@@ -68,7 +68,7 @@ left_join_concept <-
                 
                 output <-
                 left_join_df(.data = .data,
-                             .column = .column,
+                             column = column,
                              athena_table = "concept",
                              athena_column = concept_column)
 
@@ -77,7 +77,7 @@ left_join_concept <-
 
                         output_b <-
                                 left_join_df(.data,
-                                             .column = .column,
+                                             column = column,
                                              athena_table = "concept_synonym",
                                              athena_column = "concept_id",
                                              override_cache = override_cache) %>%

@@ -6,7 +6,7 @@
 \usage{
 left_join_relatives(
   .data,
-  .id_column = NULL,
+  id_column = NULL,
   ancestor_level = NULL,
   descendant_level = NULL,
   omop = FALSE,

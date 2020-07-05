@@ -6,15 +6,15 @@
 
 left_join_for_ancestors <-
     function(.data,
-             .descendant_id_column = NULL,
+             descendant_id_column = NULL,
              level = NULL,
              omop = FALSE,
              omop_schema = "omop_vocabulary",
              override_cache = FALSE) {
         
-        if (is.null(.descendant_id_column)) {
+        if (is.null(descendant_id_column)) {
             
-            .descendant_id_column <- colnames(.data)[1]
+            descendant_id_column <- colnames(.data)[1]
         }
         
         
@@ -23,7 +23,7 @@ left_join_for_ancestors <-
             if (is.null(level)) {
                 ancestors <-
                     left_join_df_omop(.data = .data,
-                                 .col = .descendant_id_column,
+                                 column = descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id",
                                  omop_schema = omop_schema)
@@ -34,13 +34,13 @@ left_join_for_ancestors <-
                                       include_synonyms = FALSE,
                                       omop = omop,
                                       omop_schema = omop_schema) %>%
-                    dplyr::select(-!!.descendant_id_column) %>%
+                    dplyr::select(-!!descendant_id_column) %>%
                     rubix::rename_all_with_prefix("ancestor_")
             } else {
                 
                 ancestors <-
                     left_join_df_omop(.data = .data,
-                                 .col = .descendant_id_column,
+                                 column = descendant_id_column,
                                  athena_table = "concept_ancestor",
                                  athena_column = "descendant_concept_id",
                                  where_athena_col = "max_levels_of_separation",
@@ -53,7 +53,7 @@ left_join_for_ancestors <-
                                       include_synonyms = FALSE,
                                       omop = omop,
                                       omop_schema = omop_schema) %>%
-                    dplyr::select(-!!.descendant_id_column) %>%
+                    dplyr::select(-!!descendant_id_column) %>%
                     rubix::rename_all_with_prefix("ancestor_")
                 
                 
@@ -75,7 +75,7 @@ left_join_for_ancestors <-
                     if (is.null(level)) {
                             ancestors <-
                                 left_join_df(.data = .data,
-                                             .col = .descendant_id_column,
+                                             column = descendant_id_column,
                                              athena_table = "concept_ancestor",
                                              athena_column = "descendant_concept_id",
                                              override_cache = override_cache)
@@ -85,14 +85,14 @@ left_join_for_ancestors <-
                                                       dplyr::select(ancestor_concept_id),
                                                       include_synonyms = FALSE,
                                                   override_cache = override_cache) %>%
-                                dplyr::select(-!!.descendant_id_column) %>%
+                                dplyr::select(-!!descendant_id_column) %>%
                                 rubix::rename_all_with_prefix("ancestor_")
                             
                     } else {
                         
                             ancestors <-
                                 left_join_df(.data = .data,
-                                             .col = .descendant_id_column,
+                                             column = descendant_id_column,
                                              athena_table = "concept_ancestor",
                                              athena_column = "descendant_concept_id",
                                              where_athena_col = "max_levels_of_separation",
@@ -103,7 +103,7 @@ left_join_for_ancestors <-
                                 left_join_concept(ancestors %>%
                                                             dplyr::select(ancestor_concept_id),
                                                         include_synonyms = FALSE) %>%
-                                dplyr::select(-!!.descendant_id_column) %>%
+                                dplyr::select(-!!descendant_id_column) %>%
                                 rubix::rename_all_with_prefix("ancestor_")
                         
                         

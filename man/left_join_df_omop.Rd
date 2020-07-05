@@ -6,7 +6,7 @@
 \usage{
 left_join_df_omop(
   .data,
-  .column = NULL,
+  column = NULL,
   omop_schema = "omop_vocabulary",
   athena_table,
   athena_column,
@@ -15,7 +15,7 @@ left_join_df_omop(
 )
 }
 \arguments{
-\item{.column}{string of the column name to join on. If NULL, the 1st column is used.}
+\item{column}{string of the column name to join on. If NULL, the 1st column is used.}
 
 \item{athena_column}{name of column to join dataframe on. Defaults to concept ID.}
 

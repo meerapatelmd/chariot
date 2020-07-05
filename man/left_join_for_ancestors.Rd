@@ -6,7 +6,7 @@
 \usage{
 left_join_for_ancestors(
   .data,
-  .descendant_id_column = NULL,
+  descendant_id_column = NULL,
   level = NULL,
   omop = FALSE,
   omop_schema = "omop_vocabulary",
