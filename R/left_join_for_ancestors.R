@@ -12,11 +12,11 @@ left_join_for_ancestors <-
              omop_schema = "omop_vocabulary",
              override_cache = FALSE) {
         
-        if (is.null(descendant_id_column)) {
-            
-            descendant_id_column <- colnames(.data)[1]
-        }
-        
+        # if (is.null(descendant_id_column)) {
+        #     
+        #     descendant_id_column <- colnames(.data)[1]
+        # }
+        # 
         
         if (omop) {
             
