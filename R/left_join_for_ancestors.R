@@ -11,13 +11,7 @@ left_join_for_ancestors <-
              omop = FALSE,
              omop_schema = "omop_vocabulary",
              override_cache = FALSE) {
-        
-        # if (is.null(descendant_id_column)) {
-        #     
-        #     descendant_id_column <- colnames(.data)[1]
-        # }
-        # 
-        
+
         if (omop) {
             
             if (is.null(level)) {
@@ -34,7 +28,7 @@ left_join_for_ancestors <-
                                       include_synonyms = FALSE,
                                       omop = omop,
                                       omop_schema = omop_schema) %>%
-                    dplyr::select(-!!descendant_id_column) %>%
+                    dplyr::select(-ancestor_concept_id) %>%
                     rubix::rename_all_with_prefix("ancestor_")
             } else {
                 
@@ -53,7 +47,7 @@ left_join_for_ancestors <-
                                       include_synonyms = FALSE,
                                       omop = omop,
                                       omop_schema = omop_schema) %>%
-                    dplyr::select(-!!descendant_id_column) %>%
+                    dplyr::select(-ancestor_concept_id) %>%
                     rubix::rename_all_with_prefix("ancestor_")
                 
                 
@@ -85,7 +79,7 @@ left_join_for_ancestors <-
                                                       dplyr::select(ancestor_concept_id),
                                                       include_synonyms = FALSE,
                                                   override_cache = override_cache) %>%
-                                dplyr::select(-!!descendant_id_column) %>%
+                                dplyr::select(-ancestor_concept_id) %>%
                                 rubix::rename_all_with_prefix("ancestor_")
                             
                     } else {
@@ -103,7 +97,7 @@ left_join_for_ancestors <-
                                 left_join_concept(ancestors %>%
                                                             dplyr::select(ancestor_concept_id),
                                                         include_synonyms = FALSE) %>%
-                                dplyr::select(-!!descendant_id_column) %>%
+                                dplyr::select(-ancestor_concept_id) %>%
                                 rubix::rename_all_with_prefix("ancestor_")
                         
                         
