@@ -56,17 +56,15 @@ query_phrase_synonym <-
                     }
                 }
                 
+                
                 resultset <- query_athena(sql_statement = sql_statement)
                 
-                sql_statement <- seagull::write_query_where_in(table_name = "concept",
-                                                               column_name = "concept_id",
-                                                               where_in_vector = resultset$concept_id)
                 
-                output <- query_athena(sql_statement)
-                output <- 
-                    output %>%
-                    dplyr::left_join(resultset %>%
-                                         dplyr::select(-language_concept_id))
+                output <-
+                left_join_concept(resultset %>%
+                                      dplyr::select(concept_synonym_id = concept_id))
+
+                
                 return(output)
             }
                
