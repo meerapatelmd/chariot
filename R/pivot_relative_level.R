@@ -12,7 +12,7 @@
 #' @importFrom dplyr distinct
 #' @export
 
-pivot_by_relative_level <-
+pivot_relative_level <-
     function(.data,
              id_col = NULL,
              levels_type = c("min", "max"),
@@ -25,13 +25,13 @@ pivot_by_relative_level <-
             }
         
             output <- left_join_relatives(.data = .data,
-                                           .id_column = id_col,
+                                           id_column = id_col,
                                           omop = omop,
                                           omop_schema = omop_schema)
             
             if (is.null(id_col)) {
                 
-                    id_col <- colnames(.data)[1]
+                    id_col <- tolower(colnames(.data)[1])
                 
             }
             
@@ -76,6 +76,8 @@ pivot_by_relative_level <-
                 rubix::rename_all_remove("^relative_") %>%
                 chariot::merge_concepts(into = "Relative Concept") %>%
                 dplyr::select(-concept_id, -type)
+            
+            output <<- output
             
             final_output <-
             output %>%

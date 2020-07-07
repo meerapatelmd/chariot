@@ -1,5 +1,5 @@
 #' Query relationship_id in relationship table
-#' @expot
+#' @export
 
 query_relationship_name <- 
             function(phrase, type = c("like", "exact")) {
