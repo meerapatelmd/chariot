@@ -6,10 +6,11 @@
 \usage{
 query_string_as_vector_synonym(
   string,
-  split = " ",
+  split = " |[[:punct:]]",
   limit = NULL,
   case_insensitive = TRUE,
-  verbose = TRUE
+  verbose = TRUE,
+  override_cache = FALSE
 )
 }
 \arguments{

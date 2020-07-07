@@ -6,7 +6,7 @@
 #' @export
 
 query_string_as_vector_synonym <-
-        function(string, split = " ", limit = NULL, case_insensitive = TRUE, verbose = TRUE) {
+        function(string, split = " |[[:punct:]]", limit = NULL, case_insensitive = TRUE, verbose = TRUE, override_cache = FALSE) {
             
                 Args <- strsplit(string, split = split) %>%
                             unlist() %>%
@@ -68,16 +68,15 @@ query_string_as_vector_synonym <-
                     }
                 }
 
-                resultset <- query_athena(sql_statement = sql_statement)
-                sql_statement <- seagull::write_query_where_in(table_name = "concept",
-                                                               column_name = "concept_id",
-                                                               where_in_vector = resultset$concept_id)
-                
-                output <- query_athena(sql_statement)
-                output <- 
-                    output %>%
-                    dplyr::left_join(resultset %>%
-                                         dplyr::select(-language_concept_id))
+                #print(sql_statement)
+                resultset <- query_athena(sql_statement = sql_statement, override_cache = override_cache)
+                print(resultset)
+
+                output <- left_join_concept(resultset %>%
+                                                dplyr::select(concept_synonym_name = concept_id),
+                                            include_synonyms = FALSE,
+                                            override_cache = override_cache)
+              
                 return(output)
         }
 
