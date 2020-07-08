@@ -16,5 +16,5 @@ unmerge_concepts(dataframe, concept_col, remove = TRUE, r_trimws = TRUE)
 \item{r_trimws}{Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trimws the right whitespace of the freshly unmerged columns for any trailing carriage returns.}
 }
 \description{
-This function unmerges an OMOP concept string created by the merge_omop_concept_elements function
+This function unmerges an OMOP concept string created by the merge_omop_concept_elements function. A warning is returned if some concepts failed to unmerge into their respective concept table fields.
 }

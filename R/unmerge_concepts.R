@@ -1,5 +1,5 @@
 #' Unmerge OMOP concept element string
-#' @description This function unmerges an OMOP concept string created by the merge_omop_concept_elements function
+#' @description This function unmerges an OMOP concept string created by the merge_omop_concept_elements function. A warning is returned if some concepts failed to unmerge into their respective concept table fields.
 #' @param dataframe dataframe
 #' @param concept_col column that contains the output from the merge_omop_concept_elements function
 #' @param remove remove argument passed to the tidyr extract function. If TRUE, removes concept_col in output.
@@ -29,7 +29,7 @@ unmerge_concepts <-
                     output <- 
                     dataframe %>%
                         tidyr::extract(col = !!concept_col,
-                                       remove = remove,
+                                       remove = FALSE,
                                        into = new_cols,
                                        regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])")
                     
@@ -64,6 +64,27 @@ unmerge_concepts <-
                                                  which = "right",
                                                  whitespace = "[ \t\r\n]")
                                                  
+                    }
+                    
+                    qa <- 
+                        output %>%
+                        dplyr::filter_at(vars(all_of(new_cols)),
+                                         all_vars(is.na(.))) %>%
+                        dplyr::filter_at(vars(!!concept_col),
+                                         all_vars(!is.na(.)))
+                    
+                    if (nrow(qa) > 0) {
+                        
+                            warning('Not all concepts unmerged: ', nrow(qa))
+                        
+                    }
+                    
+                    if (remove) {
+                                
+                        output <- 
+                            output %>%
+                            dplyr::select(-!!concept_col)
+                        
                     }
                     
                     return(output)
