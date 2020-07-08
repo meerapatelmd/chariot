@@ -11,7 +11,7 @@
 
 pivot_concept2 <-
     function(.data,
-             .col = NULL,
+             column = NULL,
              names_from,
              include_count = TRUE,
              omop = FALSE,
@@ -27,7 +27,7 @@ pivot_concept2 <-
             names_from <- paste0(names_from, "_2")
         
             output <- left_join_relationship(.data = .data,
-                                             .col = .col,
+                                             column = column,
                                              merge_concept2 = FALSE,
                                              omop = omop,
                                              omop_schema = omop_schema) %>%

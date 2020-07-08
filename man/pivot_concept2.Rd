@@ -6,7 +6,7 @@
 \usage{
 pivot_concept2(
   .data,
-  .col = NULL,
+  column = NULL,
   names_from,
   include_count = TRUE,
   omop = FALSE,
