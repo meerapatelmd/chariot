@@ -4,7 +4,7 @@
 \alias{load_athena_query}
 \title{Load a cached query}
 \usage{
-load_athena_query(sql_statement)
+load_athena_query(sql_statement, verbose = FALSE)
 }
 \arguments{
 \item{sql_statement}{SQL statement}
