@@ -60,9 +60,7 @@ unmerge_concepts <-
                                                       standard_concept,
                                                       concept_code,
                                                       invalid_reason),
-                                                 trimws,
-                                                 which = "right",
-                                                 whitespace = "[ \t\r\n]")
+                                                 base::trimws)
                                                  
                     }
                     

@@ -13,7 +13,7 @@ left_join_relationship(
 )
 }
 \arguments{
-\item{dataframe}{dataframe to join}
+\item{.data}{dataframe to join}
 
 \item{dataframe_column}{string of the column name to join on. If NULL, the 1st column is used.}
 

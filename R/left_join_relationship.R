@@ -1,6 +1,6 @@
 #' Join a dataframe object with Athena's concept table
 #' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
-#' @param dataframe dataframe to join
+#' @param .data dataframe to join
 #' @param dataframe_column string of the column name to join on. If NULL, the 1st column is used.
 #' @param merge_concept_2 return the merged concept strip for concept_id_2, or as a straightforward concept table dataframe?
 #' @importFrom seagull create_table_via_temp_file
