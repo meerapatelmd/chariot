@@ -10,6 +10,7 @@ merge_concepts(
   ...,
   suffix = NULL,
   prefix = NULL,
+  label = FALSE,
   keep_other_cols = TRUE,
   shorthand = FALSE
 )
@@ -24,6 +25,8 @@ merge_concepts(
 \item{suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
 
 \item{prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
+
+\item{label}{if TRUE, only have a strip in the format {concept_id} {concept_name}}
 
 \item{keep_other_cols}{TRUE if all the non-concept table columns in the input dataframe is desired in the output}
 

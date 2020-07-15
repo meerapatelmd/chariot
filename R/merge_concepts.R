@@ -5,6 +5,7 @@
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged. 
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
 #' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
+#' @param label if TRUE, only have a strip in the format {concept_id} {concept_name}
 #' @param keep_other_cols TRUE if all the non-concept table columns in the input dataframe is desired in the output
 #' @param shorthand This only returns the validity, standard, concept_id, and concept_name as a string. Please note that this merge cannot be unmerged using the unmerge_concepts function.
 #' @import dplyr
@@ -17,6 +18,7 @@ merge_concepts <-
                      ...,
                      suffix = NULL, 
                      prefix = NULL,
+                     label = FALSE,
                      keep_other_cols = TRUE,
                      shorthand = FALSE) {
                 
@@ -40,7 +42,7 @@ merge_concepts <-
                                                          "invalid_reason"),
                                                        suffix)
                 
-                if (shorthand == FALSE) {
+                if (label == FALSE) {
                                 output <-
                                 concept_dataframe %>%
                                         dplyr::select(any_of(column_names)) %>% 
@@ -68,18 +70,12 @@ merge_concepts <-
                         
                                 output <-
                                             concept_dataframe %>%
-                                                             dplyr::select(any_of(column_names)) %>%
-                                                             dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
-                                                             dplyr::mutate_at(vars(contains("standard_concept")), function(x) paste0("[", x, "]")) %>%
-                                                             dplyr::mutate_at(vars(contains("invalid_reason")), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>% 
-                                    dplyr::mutate_at(vars(contains("vocabulary")), function(x) paste0("[", x, "]")) %>%
-                                                            dplyr::select_at(vars(!matches("valid.*date"))) %>%
+                                                            dplyr::select(any_of(column_names)) %>%
+                                                             dplyr::select(contains("concept_id"),
+                                                                           contains("concept_name")) %>%
                                                              tidyr::unite(col = !!into,
-                                                                          contains("invalid_reason"),
-                                                                          contains("standard_concept"),
                                                                           contains("concept_id"),
                                                                           contains("concept_name"),
-                                                                          contains("vocabulary_id"),
                                                                           sep = " ",
                                                                           remove = TRUE)
                                 
