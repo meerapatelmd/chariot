@@ -6,7 +6,10 @@
 #' @export
 
 query_athena <-
-        function(sql_statement, verbose = FALSE, cache_resultset = TRUE, override_cache = FALSE) {
+        function(sql_statement, 
+                 verbose = FALSE, 
+                 cache_resultset = TRUE, 
+                 override_cache = FALSE) {
             
             if (cache_resultset) {
                 

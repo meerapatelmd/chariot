@@ -6,6 +6,7 @@
 phrase_sql <- 
     function(phrase, 
              type, 
+             schema = NULL,
              limit = NULL,
              case_insensitive = TRUE,
              where_col = NULL,
@@ -27,12 +28,17 @@ phrase_sql <-
             }
         }
         
+        if (is.null(schema)) {
+            
+            schema <- "public"
+        }
+        
         
         if (case_insensitive == FALSE) {
             
             if (type == "exact") {
                 
-                sql_statement <- paste0("SELECT * FROM concept WHERE concept_name = '", phrase, "'")
+                sql_statement <- paste0("SELECT * FROM ", schema, ".concept WHERE concept_name = '", phrase, "'")
                 
                 if (!is.null(where_col)) {
                     
@@ -59,7 +65,7 @@ phrase_sql <-
                 
             } else if (type == "like") {
                 
-                sql_statement <- paste0("SELECT * FROM concept WHERE concept_name LIKE '%", phrase, "%'")
+                sql_statement <- paste0("SELECT * FROM ", schema, ".concept WHERE concept_name LIKE '%", phrase, "%'")
                 
                 if (!is.null(where_col)) {
                     
@@ -84,7 +90,7 @@ phrase_sql <-
         } else {
             if (type == "exact") {
                 
-                sql_statement <- paste0("SELECT * FROM concept WHERE LOWER(concept_name) = '", tolower(phrase), "'")
+                sql_statement <- paste0("SELECT * FROM ", schema, ".concept WHERE LOWER(concept_name) = '", tolower(phrase), "'")
                 
                 if (!is.null(where_col)) {
                     
@@ -106,7 +112,7 @@ phrase_sql <-
                 }
                 
             } else if (type == "like") {
-                sql_statement <- paste0("SELECT * FROM concept WHERE LOWER(concept_name) LIKE '%", tolower(phrase), "%'")
+                sql_statement <- paste0("SELECT * FROM ", schema, ".concept WHERE LOWER(concept_name) LIKE '%", tolower(phrase), "%'")
                 
                 if (!is.null(where_col)) {
                     

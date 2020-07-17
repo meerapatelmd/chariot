@@ -10,6 +10,7 @@
 left_join_relationship <-
     function(.data,
              column = NULL,
+             athena_schema = NULL,
              merge_concept2 = TRUE,
              omop = FALSE,
              omop_schema = "omop_vocabulary") {
@@ -65,11 +66,17 @@ left_join_relationship <-
             
             
         } else {
+            
+                if (is.null(athena_schema)) {
+                    
+                    athena_schema <- "public"
+                    
+                }
                     
                     output_a <-
                     left_join_df(.data = .data,
                                  column = column,
-                                 athena_table = "concept_relationship",
+                                 athena_table = paste0(athena_schema, ".concept_relationship"),
                                  athena_column = "concept_id_1") %>%
                                 # select for only the concept_relationship table fields
                                 dplyr::select(concept_id_1:last_col()) %>%

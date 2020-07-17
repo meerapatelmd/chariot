@@ -6,6 +6,7 @@
 query_phrase <-
         function(phrase, 
                  type = c("like", "exact"), 
+                 schema = NULL,
                  limit = NULL,
                  case_insensitive = TRUE,
                  return_valid_only = TRUE,
@@ -146,6 +147,7 @@ query_phrase <-
             sql_statement <- 
                 phrase_sql(phrase = phrase,
                            type = type,
+                           schema = schema,
                            limit = limit,
                            case_insensitive = case_insensitive,
                            where_col = where_col,
@@ -156,7 +158,9 @@ query_phrase <-
                 resultset <- 
                             fantasia::query_omop(sql_statement = sql_statement,
                                                  schema = omop_schema,
-                                                 override_cache = override_cache)
+                                                  override_cache = override_cache) %>%
+                    tibble::as_tibble() %>%
+                    rubix::normalize_all_to_na()
                 
                 
                 
@@ -165,7 +169,9 @@ query_phrase <-
             
                 resultset <- query_athena(sql_statement = sql_statement,
                                           cache_resultset = cache_resultset,
-                                          override_cache = override_cache)
+                                          override_cache = override_cache) %>%
+                    tibble::as_tibble() %>%
+                    rubix::normalize_all_to_na()
             
             }
             

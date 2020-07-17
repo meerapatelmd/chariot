@@ -7,6 +7,7 @@
 query_phrase(
   phrase,
   type = c("like", "exact"),
+  schema = NULL,
   limit = NULL,
   case_insensitive = TRUE,
   return_valid_only = TRUE,

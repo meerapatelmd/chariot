@@ -7,6 +7,7 @@
 phrase_sql(
   phrase,
   type,
+  schema = NULL,
   limit = NULL,
   case_insensitive = TRUE,
   where_col = NULL,

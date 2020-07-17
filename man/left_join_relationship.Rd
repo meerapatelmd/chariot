@@ -7,6 +7,7 @@
 left_join_relationship(
   .data,
   column = NULL,
+  athena_schema = NULL,
   merge_concept2 = TRUE,
   omop = FALSE,
   omop_schema = "omop_vocabulary"
