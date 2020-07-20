@@ -1,8 +1,11 @@
 #' Connect Local Athena
-#' @import seagull
+#' @import pg13
 #' @export
 
 connect_athena <-
     function() {
-        seagull::connect_to_local_postgres(dbname = "athena")
+
+            pg13::localConnect(dbname = "athena",
+                               port = 5432)
+
     }
