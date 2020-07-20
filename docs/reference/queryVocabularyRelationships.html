@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter the invalid_reason Field — filter_invalid_reason • chariot</title>
+<title>Vocabulary Relationships — queryVocabularyRelationships • chariot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Filter the invalid_reason Field — filter_invalid_reason" />
-<meta property="og:description" content="Filter the invalid_reason Field" />
+<meta property="og:title" content="Vocabulary Relationships — queryVocabularyRelationships" />
+<meta property="og:description" content="This function retrieves all the relationships of a given vocabulary, identified by the OMOP vocabulary_id." />
 
 
 
@@ -103,18 +103,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter the invalid_reason Field</h1>
+    <h1>Vocabulary Relationships</h1>
     
-    <div class="hidden name"><code>filter_invalid_reason.Rd</code></div>
+    <div class="hidden name"><code>queryVocabularyRelationships.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Filter the invalid_reason Field</p>
+    <p>This function retrieves all the relationships of a given vocabulary, identified by the OMOP vocabulary_id.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_invalid_reason</span>(<span class='no'>.data</span>, <span class='no'>value</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>queryVocabularyRelationships</span>(<span class='no'>vocabulary_id</span>)</pre>
 
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>dataframe derived from the concept_relationship table where concept_id_1 are all the concepts belonging to the vocabulary_id argument.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

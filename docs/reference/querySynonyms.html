@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter the invalid_reason Field — filter_invalid_reason • chariot</title>
+<title>Query the synonyms associated with an id — querySynonyms • chariot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Filter the invalid_reason Field — filter_invalid_reason" />
-<meta property="og:description" content="Filter the invalid_reason Field" />
+<meta property="og:title" content="Query the synonyms associated with an id — querySynonyms" />
+<meta property="og:description" content="Query the synonyms associated with an id" />
 
 
 
@@ -103,17 +103,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter the invalid_reason Field</h1>
+    <h1>Query the synonyms associated with an id</h1>
     
-    <div class="hidden name"><code>filter_invalid_reason.Rd</code></div>
+    <div class="hidden name"><code>querySynonyms.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Filter the invalid_reason Field</p>
+    <p>Query the synonyms associated with an id</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_invalid_reason</span>(<span class='no'>.data</span>, <span class='no'>value</span>, <span class='kw'>invert</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>querySynonyms</span>(<span class='no'>concept_id</span>, <span class='kw'>schema</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>language_concept_id</span> <span class='kw'>=</span> <span class='fl'>4180186</span>, <span class='no'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>concept_id</th>
+      <td><p>omop concept_id</p></td>
+    </tr>
+    <tr>
+      <th>language_concept_id</th>
+      <td><p>language concept id for the synonyms. Defaults to English only.</p></td>
+    </tr>
+    </table>
 
 
   </div>
