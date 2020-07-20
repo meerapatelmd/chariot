@@ -1,32 +1,34 @@
 #' Crosswalk concept_id to UMLS based on Code
-#' @importFrom metaorite submit_query
-#' @importFrom metaorite query_cui
-#' @importFrom seagull write_where_in_string
+#' @import metaorite
 #' @importFrom stringr str_replace_all
 #' @import dplyr
 #' @export
 
-crosswalk_to_umls_code <- 
+crosswalk_to_umls_code <-
     function(concept_id) {
-        
-            concept_info <- 
+
+            concept_info <-
                     query_concept_id(concept_ids = concept_id) %>%
                     dplyr::mutate(umls_vocabulary_id = toupper(vocabulary_id)) %>%
                     dplyr::mutate(umls_vocabulary_id = stringr::str_replace_all(umls_vocabulary_id, "^SNOMED$", "SNOMEDCT_US")) %>%
                     dplyr::mutate(umls_vocabulary_id = stringr::str_replace_all(umls_vocabulary_id, "^LOINC$", "LNC"))
-            
-            code_string <- seagull::write_where_in_string(concept_info$concept_code)
-            sab_string <- seagull::write_where_in_string(concept_info$umls_vocabulary_id)
-            
+
+            base <- system.file(package = "chariot")
+            path <- paste0(base, "/sql/metaoriteCode.sql")
+            sql_statement <-
+                    SqlRender::render(SqlRender::readSql(sourceFile = path),
+                                      sab = paste0("'", concept_info$umls_vocabulary_id, "'"),
+                                      code = paste0("'", concept_info$concept_code, "'"))
+
             umls_cui <-
-                    metaorite::submit_query(paste0("SELECT * FROM MRCONSO WHERE SAB IN ", sab_string, " AND CODE IN ", code_string)) %>%
+                    metaorite::submitQuery(sql_statement) %>%
                         dplyr::select(CUI) %>%
                         dplyr::distinct() %>%
                         unlist() %>%
                         unname()
-            
-            metaorite::query_cui(umls_cui) %>%
+
+            metaorite::queryCUI(umls_cui) %>%
                 dplyr::select(SAB, CODE, STR) %>%
                 dplyr::distinct()
-        
+
     }

@@ -1,0 +1,1 @@
+SELECT * FROM MRCONSO WHERE SAB IN (@sab) AND CODE IN (@code);
