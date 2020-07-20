@@ -28,7 +28,8 @@ crosswalk_to_umls_code <-
                         unname()
 
             metaorite::queryCUI(umls_cui) %>%
-                dplyr::select(SAB, CODE, STR) %>%
+                dplyr::mutate(concept_id = concept_id) %>%
+                dplyr::select(concept_id, STR, SAB, CODE) %>%
                 dplyr::distinct()
 
     }
