@@ -27,6 +27,7 @@ renderConceptClassRelationships <-
 
                         sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
+                                                  schema = schema,
                                                   concept_class_id_1 = concept_class_id_1,
                                                   concept_class_id_2 = concept_class_id_2,
                                                   vocabulary_id_1 = vocabulary_id_1,
