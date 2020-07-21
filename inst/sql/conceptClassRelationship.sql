@@ -1,5 +1,5 @@
 SELECT DISTINCT
-        c.concept_class_id AS @concept_class_id_1
+        c.concept_class_id AS @concept_class_id_1,
         cr.relationship_id,
         c2.concept_class_id AS @concept_class_id_2
 FROM @schema.concept c
