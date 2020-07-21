@@ -32,6 +32,6 @@ queryConceptClassRelationships <-
                                                   vocabulary_id_1 = vocabulary_id_1,
                                                   vocabulary_id_2 = vocabulary_id_2)
 
-                        resultset <- query_athena(sql_statement = sql)
+                        resultset <- query_athena(sql_statement = sql_statement)
                         return(resultset)
     }
