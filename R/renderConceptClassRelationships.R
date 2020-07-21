@@ -25,6 +25,10 @@ renderConceptClassRelationships <-
                         concept_class_id_1 <- paste0(tolower(vocabulary_id_1), "_concept_class_id")
                         concept_class_id_2 <- paste0(tolower(vocabulary_id_2), "_concept_class_id")
 
+                        #Add single quotes for vocabularies
+                        vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
+                        vocabulary_id_2 <- paste0("'", vocabulary_id_2, "'")
+
                         sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
                                                   schema = schema,
