@@ -19,7 +19,7 @@ queryHemOncCompToReg <-
                 # Getting the number of unique HemOnc Components associated with each of the HemOnc Regimens found and then filtering for the length of the input component_concept_ids vector
                         dplyr::group_by(regimen_concept_id,
                                         regimen_concept_name) %>%
-                        dplyr::summarize(component_count = length(unique(component_concept_id))) %>%
-                        dplyr::filter(component_count == input_component_count) %>%
+                        dplyr::summarize(has_antineoplastic_count = length(unique(has_antineoplastic_concept_id))) %>%
+                        dplyr::filter(has_antineoplastic_count == input_component_count) %>%
                         dplyr::ungroup()
         }
