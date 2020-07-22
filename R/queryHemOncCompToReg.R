@@ -38,7 +38,7 @@ queryHemOncCompToReg <-
                         dplyr::ungroup() %>%
                         dplyr::select(regimen_concept_id) %>%
                         left_join_concept() %>%
-                        dplyr::select(-regimen_concept_id) %>%
+                        dplyr::select(-any_of("regimen_concept_id")) %>%
                         rubix::rename_all_prefix("regimen_")
 
                 #If only 1 or less rows, the function is complete. Otherwise, the outputs need to be filtered another time since now we have all the Regimens that have the exact component count match as the input and have at least 1 of the input components, but does not necessarily have all the components
