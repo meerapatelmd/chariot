@@ -1,7 +1,6 @@
 SELECT cr.concept_id_1 AS regimen_concept_id,
        c.concept_id AS has_antineoplastic_concept_id,
        c.concept_name AS has_antineoplastic_concept_name
---First Join to CONCEPT_RELATIONSHIP to get all Input Components 'Antineoplastic of' relationships
 FROM @schema.concept_relationship cr
 LEFT JOIN @schema.concept c
 ON c.concept_id = cr.concept_id_2
