@@ -58,7 +58,7 @@ queryHemOncCompToReg <-
                                               component_count == input_component_count) %>%
                                 dplyr::select(regimen_concept_id) %>%
                                 left_join_concept() %>%
-                                dplyr::select(-regimen_concept_id) %>%
+                                dplyr::select(-starts_with("regimen")) %>%
                                 rubix::rename_all_prefix("regimen_")
 
                         return(HasAntineoplastics3)
