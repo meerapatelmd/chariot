@@ -24,12 +24,9 @@ queryHemOncCompToReg <-
                                      ...)
 
                 # Query again to get all of the "Has antineoplastic" relationships to HemOnc Components these Regimens have
-                sql_statement <-
-                        renderHemOncRegToAntineoplastics(regimen_concept_ids = Regimens$regimen_concept_id,
-                                                         schema = schema)
-                HasAntineoplastics <-
-                        query_athena(sql_statement = sql_statement,
-                                     ...)
+                HasAntineoplastics <- queryHemOncRegToAntineo(regimen_concept_ids = Regimens$regimen_concept_id,
+                                                              schema = schema)
+
 
 
                 # Getting the number of unique HemOnc Components associated with each of the HemOnc Regimens found and then filtering for the length of the input component_concept_ids vector
