@@ -1,4 +1,6 @@
-SELECT c.*
+SELECT cr.concept_id_1 AS component_concept_id,
+       c.concept_id AS regimen_concept_id,
+       c.concept_name AS regimen_concept_name
 FROM @schema.concept_relationship cr
 LEFT JOIN @schema.concept c
 ON c.concept_id = cr.concept_id_2
