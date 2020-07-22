@@ -1,11 +1,11 @@
-SELECT cr.concept_id_1 AS component_concept_id,
-       c.concept_id AS regimen_concept_id,
-       c.concept_name AS regimen_concept_name
+SELECT cr.concept_id_1 AS regimen_concept_id,
+       c.concept_id AS has_antineoplastic_concept_id,
+       c.concept_name AS has_antineoplastic_concept_name
 --First Join to CONCEPT_RELATIONSHIP to get all Input Components 'Antineoplastic of' relationships
 FROM @schema.concept_relationship cr
 LEFT JOIN @schema.concept c
 ON c.concept_id = cr.concept_id_2
-WHERE cr.concept_id_1 IN (@component_concept_ids)
-AND cr.relationship_id = 'Antineoplastic of'
+WHERE cr.concept_id_1 IN (@regimen_concept_ids)
+AND cr.relationship_id = 'Has antineoplastic'
 AND c.concept_class_id = 'Regimen'
 AND c.vocabulary_id = 'HemOnc';
