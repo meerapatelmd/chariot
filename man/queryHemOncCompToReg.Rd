@@ -4,10 +4,12 @@
 \alias{queryHemOncCompToReg}
 \title{Find HemOnc Regimen by Components}
 \usage{
-queryHemOncCompToReg(component_concept_ids, schema = NULL)
+queryHemOncCompToReg(component_concept_ids, schema = NULL, ...)
 }
 \arguments{
 \item{component_concept_ids}{integer vector of length 1 or greater of all the Component Concept Ids belonging to any regimen to map to a HemOnc Regimen.}
+
+\item{...}{Additional arguments passed to the query_athena function.}
 }
 \description{
 This function takes a set list of HemOnc Components and finds all the HemOnc Regimens that contain these Components in the CONCEPT_RELATIONSHIP table. The resultset is then filtered for the HemOnc Regimens that have the same exact number of Components as the length of the `component_concept_ids` parameter.
