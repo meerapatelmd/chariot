@@ -30,7 +30,7 @@ queryHemOncCompToReg <-
 
 
                 # Getting the number of unique HemOnc Components associated with each of the HemOnc Regimens found and then filtering for the length of the input component_concept_ids vector
-                HasAntineoplastics2 <<-
+                HasAntineoplastics2 <-
                 HasAntineoplastics %>%
                         dplyr::group_by(regimen_concept_id) %>%
                         dplyr::summarize(has_antineoplastic_count = length(unique(has_antineoplastic_concept_id)), .groups = "drop") %>%
@@ -46,7 +46,7 @@ queryHemOncCompToReg <-
                 if (nrow(HasAntineoplastics2) <= 1) {
                         return(HasAntineoplastics2)
                 } else {
-                        HasAntineoplastics3 <<-
+                        HasAntineoplastics3 <-
                                 HasAntineoplastics %>%
                                 dplyr::select(regimen_concept_id,
                                               has_antineoplastic_concept_id) %>%
@@ -57,7 +57,7 @@ queryHemOncCompToReg <-
                                 dplyr::filter(has_all_components == TRUE,
                                               component_count == input_component_count) %>%
                                 dplyr::select(regimen_concept_id) %>%
-                                left_join_concept() %>%
+                                left_join_concept(include_synonyms = F) %>%
                                 dplyr::select(-starts_with("regimen")) %>%
                                 rubix::rename_all_prefix("regimen_")
 
