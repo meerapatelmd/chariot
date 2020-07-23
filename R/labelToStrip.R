@@ -4,7 +4,7 @@
 #' @import rubix
 #' @export
 
-labelToMerge <-
+labelToStrip <-
         function(.data,
                  label_col,
                  into,

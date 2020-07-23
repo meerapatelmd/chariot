@@ -2,7 +2,7 @@
 #' @import dplyr
 #' @export
 
-mergeToLabel <-
+stripToLabel <-
         function(.data,
                  merge_col,
                  into,
