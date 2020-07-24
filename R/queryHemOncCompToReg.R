@@ -11,8 +11,28 @@ queryHemOncCompToReg <-
                  schema = NULL,
                  ...) {
 
+                # For inputs that are actually regimens, a new set of components is derived.
+                component_concept_ids <-
+                        normalizeToHemOncComponents(hemonc_concept_ids = component_concept_ids,
+                                                    schema = schema)
+
                 # Get input component count to filter HemOnc Regimens based on their own component_counts
                 input_component_count <- length(component_concept_ids)
+
+                # If any of the concept_ids are regimens, to get their antineoplastic components
+                input_concept <- query_concept_id(component_concept_ids)
+
+                qa <- input_concept %>%
+                        rubix::filter_for(filter_col = concept_class_id,
+                                          inclusion_vector = c("Regimen",
+                                                               "Component"),
+                                          invert = TRUE)
+
+                if (nrow(qa)) {
+                        qaHemOncCompToReg <<- qa
+                        stop('input concept ids are not Regimen or Components. See qaHemOncCompToReg for more details.')
+                }
+
 
                 # Query Athena DB for all Regimens associated with the inputted Component Concept Ids
                 sql_statement <-
