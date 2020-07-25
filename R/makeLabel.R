@@ -16,5 +16,6 @@ makeLabel <-
                                      contains("concept_id"),
                                      contains("concept_name"),
                                      sep = " ",
-                                     remove = remove)
+                                     remove = remove) %>%
+                        dplyr::mutate_at(vars(!!into), ~na_if(., "NA NA"))
         }
