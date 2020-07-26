@@ -36,7 +36,7 @@ leftJoin <-
 
                     where_athena_col <- paste0(athena_schema,".",
                                               athena_table, ".",
-                                              where_athena_column)
+                                              where_athena_col)
                 }
 
                 sql_statement <-
