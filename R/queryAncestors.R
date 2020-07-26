@@ -1,5 +1,4 @@
 #' Query ancestors for a given concept_id
-#' @inheritParams write_sql_for_ancestors
 #' @export
 
 queryAncestors <-

@@ -6,12 +6,14 @@ query_descendants <-
     function(ancestor_concept_ids,
              max_levels_of_separation = NULL,
              plot = FALSE) {
-        
+
+            .Deprecated(new = "queryDescendants")
+
             sql <- write_sql_for_descendants(ancestor_concept_ids = ancestor_concept_ids,
                                              max_levels_of_separation = max_levels_of_separation)
-            
+
             resultset <- query_athena(sql)
-            
+
             if (plot == FALSE) {
                 return(resultset)
             } else {
@@ -22,19 +24,19 @@ query_descendants <-
                     dplyr::select(parent) %>%
                     dplyr::distinct() %>%
                     unlist()
-                
+
                 output <-
                 resultset %>%
-                    merge_concepts(into = "child", shorthand = TRUE) %>% 
+                    merge_concepts(into = "child", shorthand = TRUE) %>%
                     rubix::mutate_if_not_exist(column_name = "parent",
                                                         value = parent) %>%
                     dplyr::select(parent, child) %>%
                     dplyr::distinct() %>%
                     dplyr::filter(parent != child)
-                
-                
+
+
                 ggenealogy::plotAncDes(output$parent[1], output)
-                
+
             }
-        
+
     }
