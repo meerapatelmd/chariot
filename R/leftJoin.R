@@ -44,6 +44,7 @@ leftJoin <-
                                      tableName = table_name,
                                      column = column,
                                      joinType = "LEFT",
+                                     caseInsensitive = FALSE,
                                      joinOnSchema = athena_schema,
                                      joinOnTableName = athena_table,
                                      joinOnColumn = athena_column,
