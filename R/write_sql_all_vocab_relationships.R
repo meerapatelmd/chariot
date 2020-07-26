@@ -5,6 +5,8 @@
 write_sql_all_vocab_relationships <-
     function(vocabulary_id)  {
 
+            .Deprecated(new = "renderVocabularyRelationships")
+
             sql_statement <-
                 paste0("
                 SELECT c1.*,

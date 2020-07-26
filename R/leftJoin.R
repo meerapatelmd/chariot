@@ -51,9 +51,6 @@ leftJoin <-
                                      whereInField = where_athena_col,
                                      whereInVector = where_athena_col_in)
 
-                print(sql_statement)
-
-
                 if (override_cache) {
 
                         resultset <-
