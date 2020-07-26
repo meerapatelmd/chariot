@@ -3,7 +3,7 @@
 #         chariot::query_athena("SELECT * FROM cancergov.concept") %>%
 #         dplyr::select(test_concept_id = concept_id)
 #
-# leftJoin(test_data,
+# chariot::leftJoin(test_data,
 #                   athena_schema = "public",
 #                   athena_table = "concept",
 #                   athena_column = "concept_id",

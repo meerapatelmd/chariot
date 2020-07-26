@@ -34,10 +34,9 @@ leftJoin <-
 
                 if (!is.null(where_athena_col)) {
 
-                    where_athena_col <- paste(athena_schema,
-                                              athena_table,
-                                              athena_column,
-                                              collapse = ".")
+                    where_athena_col <- paste0(athena_schema,".",
+                                              athena_table, ".",
+                                              athena_column)
                 }
 
                 sql_statement <-
