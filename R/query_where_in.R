@@ -6,6 +6,8 @@
 query_where_in <-
         function(column_name, inclusion_vector, limit = NULL) {
 
+                .Deprecated(new = "buildQuery", package = "pg13")
+
                         if (is.null(limit)) {
                                 sql_statement <- paste0("SELECT * FROM public.concept WHERE ", column_name, " IN (", paste(paste0("'", inclusion_vector, "'"), collapse = ", "), ");")
                         } else {

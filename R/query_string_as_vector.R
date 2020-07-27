@@ -5,20 +5,22 @@
 
 query_string_as_vector <-
         function(string, split = " ", limit = NULL, case_insensitive = TRUE, verbose = TRUE) {
-            
+
+                .Deprecated(new = "queryPhraseString")
+
                 Args <- strsplit(string, split = split) %>%
                             unlist() %>%
                             centipede::no_blank()
-                
+
                 #Removing terminal punctuation
                 Args <- stringr::str_remove_all(Args, pattern = "[[:punct:]]{1}$")
-                
+
                 if (verbose) {
                     secretary::typewrite(crayon::bold("Vector:"))
                     Args %>%
                         purrr::map(secretary::typewrite, tabs = 1)
                 }
-                
+
                 if (case_insensitive == FALSE) {
                     if (is.null(limit)) {
                         for (i in 1:length(Args)) {

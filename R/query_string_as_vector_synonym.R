@@ -7,20 +7,22 @@
 
 query_string_as_vector_synonym <-
         function(string, split = " |[[:punct:]]", limit = NULL, case_insensitive = TRUE, verbose = TRUE, override_cache = FALSE) {
-            
+
+                .Deprecated(new = "queryPhraseStringSynonym")
+
                 Args <- strsplit(string, split = split) %>%
                             unlist() %>%
                             centipede::no_blank()
-                
+
                 #Removing terminal punctuation
                 Args <- stringr::str_remove_all(Args, pattern = "[[:punct:]]{1}$")
-                
+
                 if (verbose) {
                     secretary::typewrite(crayon::bold("Vector:"))
                     Args %>%
                         purrr::map(secretary::typewrite, tabs = 1)
                 }
-                
+
                 if (case_insensitive == FALSE) {
                     if (is.null(limit)) {
                         for (i in 1:length(Args)) {
@@ -76,7 +78,7 @@ query_string_as_vector_synonym <-
                                                 dplyr::select(concept_synonym_name = concept_id),
                                             include_synonyms = FALSE,
                                             override_cache = override_cache)
-              
+
                 return(output)
         }
 
