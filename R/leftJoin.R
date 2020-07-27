@@ -15,7 +15,8 @@ leftJoin <-
              athena_column,
              where_athena_col = NULL,
              where_athena_col_in = NULL,
-             override_cache = FALSE) {
+             override_cache = FALSE,
+             print_sql = TRUE) {
 
 
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
@@ -50,6 +51,12 @@ leftJoin <-
                                      joinOnColumn = athena_column,
                                      whereInField = where_athena_col,
                                      whereInVector = where_athena_col_in)
+
+                if (print_sql) {
+
+                        secretary::typewrite(sql_statement)
+
+                }
 
                 if (override_cache) {
 

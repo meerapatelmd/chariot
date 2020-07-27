@@ -4,7 +4,13 @@
 \alias{leftJoinRelationship}
 \title{Left Join Relationship}
 \usage{
-leftJoinRelationship(.data, column = NULL, athena_schema = "public")
+leftJoinRelationship(
+  .data,
+  column = NULL,
+  athena_schema = "public",
+  merge_concept2 = TRUE,
+  override_cache = FALSE
+)
 }
 \description{
 Left Join Relationship

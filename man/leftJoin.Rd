@@ -12,7 +12,8 @@ leftJoin(
   athena_column,
   where_athena_col = NULL,
   where_athena_col_in = NULL,
-  override_cache = FALSE
+  override_cache = FALSE,
+  print_sql = TRUE
 )
 }
 \arguments{

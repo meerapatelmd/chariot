@@ -3,7 +3,7 @@
 #' @return Invisibly returns the path to the cache file
 #' @importFrom R.cache saveCache
 #' @param object object to cache
-#' @param key equivalent to the SQL query string. 
+#' @param key equivalent to the SQL query string.
 #' @export
 
 cache_query <-
