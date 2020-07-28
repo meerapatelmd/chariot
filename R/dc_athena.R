@@ -4,5 +4,6 @@
 
 dc_athena <-
     function(conn) {
+            .Deprecated("dcAthena")
         DatabaseConnector::dbDisconnect(conn)
     }

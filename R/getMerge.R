@@ -3,10 +3,11 @@
 #' @export
 
 
-get_merge <-
-    function(concept_id) {
-            .Deprecated("getMerge")
-        query_concept_id(concept_id) %>%
+getMerge <-
+    function(concept_id,
+             schema = "public") {
+            queryConceptId(concept_ids = concept_id,
+                           schema = schema) %>%
             merge_concepts(into = "Concept") %>%
             dplyr::select("Concept") %>%
             unlist() %>%
