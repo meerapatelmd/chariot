@@ -2,17 +2,16 @@
 % Please edit documentation in R/queryPhraseExactSynonym.R
 \name{queryPhraseExactSynonym}
 \alias{queryPhraseExactSynonym}
-\title{Query Concept Synonym Table for a Phrase Split into Strings}
+\title{Query Concept Synonym Table}
 \usage{
 queryPhraseExactSynonym(
   schema,
   caseInsensitive = TRUE,
   phrase,
-  split,
   limit_n = NULL,
-  print_sql = TRUE
+  ...
 )
 }
 \description{
-Query Concept Synonym Table for a Phrase Split into Strings
+Query Concept Synonym Table
 }

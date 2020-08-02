@@ -6,7 +6,7 @@
 drop_left_join_tables <-
     function() {
 
-        conn <- connect_athena()
+        conn <- connectAthena()
 
         tables <-
                 DatabaseConnector::dbListTables(conn = conn)
@@ -23,5 +23,5 @@ drop_left_join_tables <-
                     left_join_tables <- left_join_tables[-1]
         }
 
-        dc_athena(conn = conn)
+        dcAthena(conn = conn)
     }
