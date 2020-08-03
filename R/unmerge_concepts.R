@@ -15,26 +15,28 @@
 
 unmerge_concepts <-
     function(dataframe, concept_col, remove = TRUE, r_trimws = TRUE) {
+
+                        .Deprecated(new = "unmergeStrip")
                     concept_col <- dplyr::enquo(concept_col)
-                    
+
                     new_cols <- c("invalid_reason",
                                   "standard_concept",
                                   "concept_id",
                                   "concept_name",
                                   "vocabulary_id",
-                                  "concept_code", 
+                                  "concept_code",
                                   "domain_id",
                                   "concept_class_id")
-        
-                    output <- 
+
+                    output <-
                     dataframe %>%
                         tidyr::extract(col = !!concept_col,
                                        remove = FALSE,
                                        into = new_cols,
                                        regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])")
-                    
+
                     output <-
-                        output %>% 
+                        output %>%
                                 dplyr::mutate_at(vars(all_of(new_cols)), stringr::str_remove_all, "^\\[|\\]$") %>%
                                 dplyr::mutate_at(vars(standard_concept, invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
                                 dplyr::select(concept_id,
@@ -45,11 +47,11 @@ unmerge_concepts <-
                                               standard_concept,
                                               concept_code,
                                               invalid_reason,
-                                              dplyr::everything()) 
+                                              dplyr::everything())
 
-                    
+
                     if (r_trimws == TRUE) {
-                        
+
                             output <-
                                 output %>%
                                 dplyr::mutate_at(vars(concept_id,
@@ -61,30 +63,30 @@ unmerge_concepts <-
                                                       concept_code,
                                                       invalid_reason),
                                                  base::trimws)
-                                                 
+
                     }
-                    
-                    qa <- 
+
+                    qa <-
                         output %>%
                         dplyr::filter_at(vars(all_of(new_cols)),
                                          all_vars(is.na(.))) %>%
                         dplyr::filter_at(vars(!!concept_col),
                                          all_vars(!is.na(.)))
-                    
+
                     if (nrow(qa) > 0) {
-                        
+
                             warning('Not all concepts unmerged: ', nrow(qa))
-                        
+
                     }
-                    
+
                     if (remove) {
-                                
-                        output <- 
+
+                        output <-
                             output %>%
                             dplyr::select(-!!concept_col)
-                        
+
                     }
-                    
+
                     return(output)
-        
+
     }
