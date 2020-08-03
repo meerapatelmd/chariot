@@ -3,124 +3,122 @@
 #' @param dataframe dataframe to join
 #' @param column string of the column name to join on. If NULL, the 1st column is used.
 #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
-#' @importFrom seagull create_table_via_temp_file
-#' @importFrom seagull drop_table
 
-left_join_df <-
-    function(.data,
-             column = NULL,
-             athena_table,
-             athena_column,
-             where_athena_col = NULL,
-             where_athena_col_equals = NULL,
-             override_cache = FALSE) {
-
-
-        if (override_cache) {
-                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
-                if (is.null(column)) {
-                    column <- colnames(.data)[1]
-                }
-
-                conn <- connect_athena()
-                DatabaseConnector::dbWriteTable(conn = conn,
-                                                name = table_name,
-                                                value = .data %>%
-                                                    as.data.frame())
-                dc_athena(conn = conn)
-
-                if (is.null(where_athena_col)) {
-                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column),
-                                           cache_resultset = FALSE)
-
-                } else {
-
-                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
-                                           cache_resultset = FALSE)
-
-
-                }
-
-                cache_left_join(object=output,
-                                vector=.data %>%
-                                    dplyr::select(all_of(column)) %>%
-                                    unlist() %>%
-                                    unname(),
-                                athena_table = athena_table,
-                                athena_column = athena_column,
-                                where_athena_col = where_athena_col,
-                                where_athena_col_equals = where_athena_col_equals,
-                                omop=FALSE,
-                                omop_schema=NULL)
-
-                drop_left_join_tables()
-
-
-
-
-        } else {
-
-                table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
-                if (is.null(column)) {
-                    column <- colnames(.data)[1]
-                }
-
-
-                cached_resultset <-
-                        load_cached_left_join(vector = .data %>%
-                                                    dplyr::select(all_of(column)) %>%
-                                                    unlist() %>%
-                                                    unname(),
-                                         athena_table = athena_table,
-                                         athena_column = athena_column,
-                                         where_athena_col = where_athena_col,
-                                         where_athena_col_equals = where_athena_col_equals,
-                                         omop=FALSE,
-                                         omop_schema=NULL)
-
-
-                if (is.null(cached_resultset)) {
-
-
-                                conn <- connect_athena()
-                                DatabaseConnector::dbWriteTable(conn = conn,
-                                                                name = table_name,
-                                                                value = .data %>%
-                                                                            as.data.frame())
-                                dc_athena(conn = conn)
-
-                            if (is.null(where_athena_col)) {
-                                    output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column),
-                                                           cache_resultset = FALSE)
-
-                            } else {
-
-                                        output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
-                                                               cache_resultset = FALSE)
-
-
-                            }
-
-                                cache_left_join(object=output,
-                                                vector=.data %>%
-                                                    dplyr::select(all_of(column)) %>%
-                                                    unlist() %>%
-                                                    unname(),
-                                                athena_table = athena_table,
-                                                athena_column = athena_column,
-                                                where_athena_col = where_athena_col,
-                                                where_athena_col_equals = where_athena_col_equals,
-                                                omop=FALSE,
-                                                omop_schema=NULL)
-
-                            drop_left_join_tables()
-
-
-                } else {
-                output <- cached_resultset
-            }
-
-        }
-
-        return(output)
-    }
+# left_join_df <-
+#     function(.data,
+#              column = NULL,
+#              athena_table,
+#              athena_column,
+#              where_athena_col = NULL,
+#              where_athena_col_equals = NULL,
+#              override_cache = FALSE) {
+#
+#
+#         if (override_cache) {
+#                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+#                 if (is.null(column)) {
+#                     column <- colnames(.data)[1]
+#                 }
+#
+#                 conn <- connect_athena()
+#                 DatabaseConnector::dbWriteTable(conn = conn,
+#                                                 name = table_name,
+#                                                 value = .data %>%
+#                                                     as.data.frame())
+#                 dc_athena(conn = conn)
+#
+#                 if (is.null(where_athena_col)) {
+#                     output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column),
+#                                            cache_resultset = FALSE)
+#
+#                 } else {
+#
+#                     output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+#                                            cache_resultset = FALSE)
+#
+#
+#                 }
+#
+#                 cache_left_join(object=output,
+#                                 vector=.data %>%
+#                                     dplyr::select(all_of(column)) %>%
+#                                     unlist() %>%
+#                                     unname(),
+#                                 athena_table = athena_table,
+#                                 athena_column = athena_column,
+#                                 where_athena_col = where_athena_col,
+#                                 where_athena_col_equals = where_athena_col_equals,
+#                                 omop=FALSE,
+#                                 omop_schema=NULL)
+#
+#                 drop_left_join_tables()
+#
+#
+#
+#
+#         } else {
+#
+#                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+#                 if (is.null(column)) {
+#                     column <- colnames(.data)[1]
+#                 }
+#
+#
+#                 cached_resultset <-
+#                         load_cached_left_join(vector = .data %>%
+#                                                     dplyr::select(all_of(column)) %>%
+#                                                     unlist() %>%
+#                                                     unname(),
+#                                          athena_table = athena_table,
+#                                          athena_column = athena_column,
+#                                          where_athena_col = where_athena_col,
+#                                          where_athena_col_equals = where_athena_col_equals,
+#                                          omop=FALSE,
+#                                          omop_schema=NULL)
+#
+#
+#                 if (is.null(cached_resultset)) {
+#
+#
+#                                 conn <- connect_athena()
+#                                 DatabaseConnector::dbWriteTable(conn = conn,
+#                                                                 name = table_name,
+#                                                                 value = .data %>%
+#                                                                             as.data.frame())
+#                                 dc_athena(conn = conn)
+#
+#                             if (is.null(where_athena_col)) {
+#                                     output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column),
+#                                                            cache_resultset = FALSE)
+#
+#                             } else {
+#
+#                                         output <- query_athena(paste0("SELECT * FROM ", table_name, " LEFT JOIN ", athena_table, " c ON c.", athena_column, " = ", column, " WHERE c.", where_athena_col, " IN ", seagull::write_where_in_string(where_athena_col_equals)),
+#                                                                cache_resultset = FALSE)
+#
+#
+#                             }
+#
+#                                 cache_left_join(object=output,
+#                                                 vector=.data %>%
+#                                                     dplyr::select(all_of(column)) %>%
+#                                                     unlist() %>%
+#                                                     unname(),
+#                                                 athena_table = athena_table,
+#                                                 athena_column = athena_column,
+#                                                 where_athena_col = where_athena_col,
+#                                                 where_athena_col_equals = where_athena_col_equals,
+#                                                 omop=FALSE,
+#                                                 omop_schema=NULL)
+#
+#                             drop_left_join_tables()
+#
+#
+#                 } else {
+#                 output <- cached_resultset
+#             }
+#
+#         }
+#
+#         return(output)
+#     }
