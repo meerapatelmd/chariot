@@ -2,8 +2,11 @@
 #' @importFrom rlang list2
 #' @export
 
-
-
+#
+# test_input <- query_athena(pg13::buildQuery(schema = "public",
+#                                             tableName = "concept",
+#                                             n = 10000,
+#                                             n_type = "random"))
 
 leftJoinForAncestors <-
         function(.data,

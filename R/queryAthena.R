@@ -5,22 +5,24 @@
 #' @importFrom secretary typewrite_bold
 #' @export
 
-query_athena <-
+queryAthena <-
         function(sql_statement,
                  verbose = FALSE,
                  cache_resultset = TRUE,
                  override_cache = FALSE) {
 
-                .Deprecated(new = "queryAthena")
+
 
             if (cache_resultset) {
 
                     if (override_cache) {
 
-                        conn <- connect_athena()
-                        resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
+                        conn <- connectAthena()
+                        resultset <- pg13::query(conn = conn,
+                                                sql_statement = sql_statement)
+
                         cache_query(resultset, key=sql_statement)
-                        dc_athena(conn)
+                        dcAthena(conn = conn)
 
                     } else {
 
@@ -29,10 +31,11 @@ query_athena <-
 
                         if (is.null(resultset)) {
 
-                                conn <- seagull::connect_to_local_postgres(dbname = "athena")
-                                resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
+                                conn <- connectAthena()
+                                resultset <- pg13::query(conn = conn,
+                                                         sql_statement = sql_statement)
                                 cache_query(resultset, key=sql_statement)
-                                DBI::dbDisconnect(conn)
+                                dcAthena(conn = conn)
 
                         } else {
 
@@ -48,8 +51,9 @@ query_athena <-
             } else {
 
                 conn <- connectAthena()
-                resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
-                DBI::dbDisconnect(conn)
+                resultset <- pg13::query(conn = conn,
+                                         sql_statement = sql_statement)
+                dcAthena(conn = conn)
 
             }
 
