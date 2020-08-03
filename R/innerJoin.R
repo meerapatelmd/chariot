@@ -1,8 +1,8 @@
-#' LEFT JOIN an OMOP Vocabulary Table
-#' @description This function executes the join() function with joinType == "LEFT".
+#' INNER JOIN an OMOP Vocabulary Table
+#' @description This function executes the join() function with joinType == "INNER".
 #' @export
 
-leftJoin <-
+innerJoin <-
     function(.data,
              column = NULL,
              athena_schema,
@@ -15,7 +15,7 @@ leftJoin <-
 
 
                     join(.data = .data,
-                         joinType = "LEFT",
+                         joinType = "INNER",
                          column = column,
                          athena_schema = athena_schema,
                          athena_table = athena_table,
