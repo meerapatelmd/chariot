@@ -1,6 +1,6 @@
-#' Merge OMOP concept elements into a single string
+#' Merge OMOP Concepts into a Strip
 #' @description All elements of the CONCEPT table are included except for the dates. While this function and unmerge_concepts are meant to be the inverse of one another, it is important to note that this function will select for only the columns in the input that match the pattern of {prefix}column_name{suffix} and therefore may need to be rejoined to the input after completion. The inverse unmerge_concepts will not remove any columns in the output. It uses the tidyr::extract function to operate directly on the provided column.
-#' @param concept_dataframe output from concept table
+#' @param .data output from concept table
 #' @param into name of the column that the new combined string will be in
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
@@ -12,8 +12,8 @@
 #' @import tidyr
 #' @export
 
-merge_concepts <-
-            function(concept_dataframe,
+mergeStrip <-
+            function(.data,
                      into,
                      ...,
                      suffix = NULL,
@@ -46,7 +46,7 @@ merge_concepts <-
 
                 if (label == FALSE) {
                                 output <-
-                                concept_dataframe %>%
+                                .data %>%
                                         dplyr::select(any_of(column_names)) %>%
                                         dplyr::mutate_at(vars(contains("standard_concept")), function(x) ifelse(is.na(x), "N", x)) %>%
                                         dplyr::mutate_at(vars(contains("standard_concept")), function(x) paste0("[", x, "]")) %>%
@@ -71,7 +71,7 @@ merge_concepts <-
 
 
                                 output <-
-                                            concept_dataframe %>%
+                                            .data %>%
                                                             dplyr::select(any_of(column_names)) %>%
                                                              dplyr::select(contains("concept_id"),
                                                                            contains("concept_name")) %>%
@@ -85,7 +85,7 @@ merge_concepts <-
 
                                 add_back_concept_id_col <- paste0(prefix, "concept_id", suffix)
 
-                                output <- dplyr::bind_cols(concept_dataframe %>%
+                                output <- dplyr::bind_cols(.data %>%
                                                                   dplyr::select(all_of(add_back_concept_id_col)),
                                                               output)
 
@@ -104,7 +104,7 @@ merge_concepts <-
 
                                         output <-
                                                 dplyr::bind_cols(output,
-                                                                 concept_dataframe %>%
+                                                                 .data %>%
                                                                      dplyr::select(!!!preserve_cols))
 
                                 }
@@ -113,7 +113,7 @@ merge_concepts <-
 
                                             output <-
                                                 bind_cols(output,
-                                                          concept_dataframe %>%
+                                                          .data %>%
                                                             dplyr::select(-(any_of(column_names))))
 
 
