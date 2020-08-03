@@ -20,7 +20,6 @@ Imports:
     rubix,
     secretary
 Remotes:
-    patelm9/seagull,
     patelm9/rubix,
     patelm9/secretary
 Suggests: 
