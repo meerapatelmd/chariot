@@ -157,12 +157,12 @@ query_phrase <-
 
             if (omop) {
 
-                resultset <-
-                            fantasia::query_omop(sql_statement = sql_statement,
-                                                 schema = omop_schema,
-                                                  override_cache = override_cache) %>%
-                    tibble::as_tibble() %>%
-                    rubix::normalize_all_to_na()
+                # resultset <-
+                #             fantasia::query_omop(sql_statement = sql_statement,
+                #                                  schema = omop_schema,
+                #                                   override_cache = override_cache) %>%
+                #     tibble::as_tibble() %>%
+                #     rubix::normalize_all_to_na()
 
 
 
