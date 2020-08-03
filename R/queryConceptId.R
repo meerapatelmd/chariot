@@ -1,5 +1,5 @@
 #' Lookup a concept id in Athena
-#' @importFrom seagull write_query_where_in
+#' @import pg13
 #' @export
 
 queryConceptId <-
