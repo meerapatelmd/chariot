@@ -11,54 +11,52 @@ leftJoinConcept <-
              column = NULL,
              athena_schema = "public",
              concept_column = "concept_id",
+             render_sql = TRUE,
              synonyms = FALSE,
-             override_cache = FALSE) {
+             conn = NULL) {
 
 
-                    if (is.null(column)) {
-                        column <- colnames(.data)[1]
-                    }
+                            if (is.null(column)) {
+                                column <- colnames(.data)[1]
+                            }
 
-                    if (column == concept_column) {
-                        stop("'column' parameter cannot be equal to 'concept_column'")
-                    }
+                            if (column == concept_column) {
+                                stop("'column' parameter cannot be equal to 'concept_column'")
+                            }
 
-                    .output <-
-                        leftJoin(.data = .data,
-                                 column = column,
-                                 athena_schema = athena_schema,
-                                 athena_table = "concept",
-                                 athena_column = concept_column,
-                                 override_cache = override_cache)
-
-
-                    if (synonyms) {
-
-                        .output_synonyms <-
-                                leftJoin(.output %>%
-                                             dplyr::select(all_of(column)),
+                            output <-
+                                leftJoin( .data = .data,
                                          column = column,
                                          athena_schema = athena_schema,
-                                         athena_table = "concept_synonym",
-                                         athena_column = "concept_id",
-                                         override_cache = override_cache) %>%
-                                dplyr::select(-language_concept_id) %>%
-                                dplyr::distinct()
+                                         athena_table = "concept",
+                                         athena_column = concept_column,
+                                         render_sql = render_sql,
+                                         conn = conn)
 
-                        .output2 <-
-                            dplyr::left_join(.output,
-                                             .output_synonyms) %>%
-                            dplyr::filter(concept_name != concept_synonym_name) %>%
-                            dplyr::distinct() %>%
-                            rubix::group_by_unique_aggregate(concept_id,
-                                                             agg.col = concept_synonym_name)
 
-                        .output <-
-                                dplyr::left_join(.output,
-                                                 .output2)
+                            if (synonyms) {
 
-                    }
+                                    output_s <-
+                                            leftJoinSynonymId(.data = output %>%
+                                                                        dplyr::select(-concept_id),
+                                                              column = column,
+                                                              athena_schema = athena_schema,
+                                                              render_sql = render_sql,
+                                                              conn = conn) %>%
+                                            dplyr::filter(concept_name != concept_synonym_name) %>%
+                                            rubix::group_by_unique_aggregate(concept_id,
+                                                                             agg.col = concept_synonym_name,
+                                                                             collapse = "|")
 
-                    return(.output)
+
+                                    output <-
+                                            output %>%
+                                            dplyr::left_join(output_s)
+
+                            }
+
+
+
+                    return(output)
 
     }

@@ -17,6 +17,12 @@ queryAthena <-
                  conn = NULL,
                  render_sql = FALSE) {
 
+                if (render_sql) {
+                        secretary::typewrite_bold("Rendered SQL:")
+                        secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
+                        cat("\n")
+                }
+
 
 
                 if (is.null(conn)) {
@@ -127,6 +133,11 @@ queryAthena <-
                                 }
 
                         } else {
+                                if (render_sql) {
+                                        secretary::typewrite_bold("Rendered SQL:")
+                                        secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
+                                        cat("\n")
+                                }
 
                                 resultset <- pg13::query(conn = conn,
                                                          sql_statement = sql_statement)
@@ -135,11 +146,6 @@ queryAthena <-
 
                 }
 
-                if (render_sql) {
-                        secretary::typewrite_bold("Rendered SQL:")
-                        secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
-                        cat("\n")
-                }
 
                 return(resultset %>%
                                tibble::as_tibble())
