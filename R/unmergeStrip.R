@@ -8,7 +8,7 @@
 #' @importFrom tidyr extract
 #' @import dplyr
 #' @importFrom stringr str_remove_all
-#' @import tibble as_tibble
+#' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
 #' @export
 
