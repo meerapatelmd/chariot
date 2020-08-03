@@ -5,8 +5,9 @@
 #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
 #' @export
 
-leftJoinAthena <-
+joinAthena <-
     function(.data,
+             joinType,
              column = NULL,
              athena_schema,
              athena_table,
@@ -45,7 +46,7 @@ leftJoinAthena <-
                                 pg13::buildJoinQuery(schema = "public",
                                                      tableName = table_name,
                                                      column = column,
-                                                     joinType = "LEFT",
+                                                     joinType = joinType,
                                                      caseInsensitive = FALSE,
                                                      joinOnSchema = athena_schema,
                                                      joinOnTableName = athena_table,
@@ -86,7 +87,7 @@ leftJoinAthena <-
                                 pg13::buildJoinQuery(schema = "public",
                                                      tableName = table_name,
                                                      column = column,
-                                                     joinType = "LEFT",
+                                                     joinType = joinType,
                                                      caseInsensitive = FALSE,
                                                      joinOnSchema = athena_schema,
                                                      joinOnTableName = athena_table,
