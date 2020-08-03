@@ -3,8 +3,6 @@
 #' @param dataframe dataframe to join
 #' @param column string of the column name to join on. If NULL, the 1st column is used.
 #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
-#' @importFrom seagull create_table_via_temp_file
-#' @importFrom seagull drop_table
 #' @export
 
 leftJoin <-
