@@ -17,7 +17,7 @@ query_athena <-
 
                     if (override_cache) {
 
-                        conn <- connect_athena()
+                        conn <- connectAthena()
                         resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
                         cache_query(resultset, key=sql_statement)
                         dc_athena(conn)
@@ -29,7 +29,7 @@ query_athena <-
 
                         if (is.null(resultset)) {
 
-                                conn <- seagull::connect_to_local_postgres(dbname = "athena")
+                                conn <- connectAthena()
                                 resultset <- DBI::dbGetQuery(conn, statement = sql_statement)
                                 cache_query(resultset, key=sql_statement)
                                 DBI::dbDisconnect(conn)
