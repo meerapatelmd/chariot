@@ -4,7 +4,14 @@
 \alias{queryPhraseLike}
 \title{Query Like Phrase}
 \usage{
-queryPhraseLike(schema, phrase, caseInsensitive)
+queryPhraseLike(
+  schema,
+  phrase,
+  caseInsensitive,
+  conn = NULL,
+  render_sql = TRUE,
+  ...
+)
 }
 \description{
 Query Like Phrase

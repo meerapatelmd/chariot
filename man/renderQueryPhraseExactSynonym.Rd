@@ -4,12 +4,7 @@
 \alias{renderQueryPhraseExactSynonym}
 \title{Render Query Concept Synonym Table}
 \usage{
-renderQueryPhraseExactSynonym(
-  schema,
-  caseInsensitive = TRUE,
-  phrase,
-  limit_n = NULL
-)
+renderQueryPhraseExactSynonym(schema, phrase, caseInsensitive = TRUE)
 }
 \description{
 Render Query Concept Synonym Table

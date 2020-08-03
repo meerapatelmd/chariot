@@ -2,7 +2,7 @@
 #' @export
 
 
-browse_athena <-
+browseBrowse <-
     function(concept_id) {
         browseURL(url = paste0("http://athena.ohdsi.org/search-terms/terms/", concept_id))
     }

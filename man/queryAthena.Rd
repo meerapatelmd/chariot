@@ -2,18 +2,29 @@
 % Please edit documentation in R/queryAthena.R
 \name{queryAthena}
 \alias{queryAthena}
-\title{Generic query function}
+\title{Query a Postgres Database}
 \usage{
 queryAthena(
   sql_statement,
   verbose = FALSE,
   cache_resultset = TRUE,
-  override_cache = FALSE
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE
 )
 }
 \arguments{
-\item{sql_statement}{SQL statement}
+\item{sql_statement}{SQL query}
+
+\item{cache_resultset}{If TRUE, the resultset from the query will first be loaded from the cache. If there isn't an existing cache entry for this particular query a new one will be made. If FALSE, Athena will be directly queried without an caching operations.}
+
+\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new fresh query. For override_cache to take effect, cache_resultset must be set to TRUE.}
+
+\item{conn}{If provided, serves as the target database from which the query is derived.}
+}
+\value{
+A tibble
 }
 \description{
-This is the low level function that is wrapped for more specific queries. The resultset is cached using the R.cache package
+By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
 }

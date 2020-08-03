@@ -8,9 +8,10 @@ queryPhraseString(
   schema,
   caseInsensitive = TRUE,
   phrase,
-  split,
-  limit_n = NULL,
-  print_sql = TRUE
+  split = " ",
+  conn = NULL,
+  render_sql = TRUE,
+  ...
 )
 }
 \description{

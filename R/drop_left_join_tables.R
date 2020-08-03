@@ -6,6 +6,8 @@
 drop_left_join_tables <-
     function() {
 
+        .Deprecated(new = "dropJoinTables")
+
         conn <- connectAthena()
 
         tables <-

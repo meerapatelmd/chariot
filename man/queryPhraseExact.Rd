@@ -4,7 +4,14 @@
 \alias{queryPhraseExact}
 \title{Query Exact Phrase}
 \usage{
-queryPhraseExact(schema, phrase, caseInsensitive)
+queryPhraseExact(
+  schema,
+  phrase,
+  caseInsensitive,
+  conn = NULL,
+  render_sql = TRUE,
+  ...
+)
 }
 \description{
 Query Exact Phrase

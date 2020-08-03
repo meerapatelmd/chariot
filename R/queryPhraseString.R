@@ -8,9 +8,10 @@ queryPhraseString <-
         function(schema,
                  caseInsensitive = TRUE,
                  phrase,
-                 split,
-                 limit_n = NULL,
-                 print_sql = TRUE) {
+                 split = " ",
+                 conn = NULL,
+                 render_sql = TRUE,
+                 ...) {
 
                 sql_statement <-
                         pg13::buildQueryString(schema = schema,
@@ -18,14 +19,11 @@ queryPhraseString <-
                                                whereLikeField = "concept_name",
                                                string=phrase,
                                                split=split,
-                                               limit_n = limit_n,
                                                caseInsensitive = caseInsensitive)
 
-                if (print_sql) {
-                        secretary::typewrite(sql_statement)
-                }
-
-
-                query_athena(sql_statement = sql_statement)
+                queryAthena(sql_statement = sql_statement,
+                            conn = conn,
+                            render_sql = render_sql,
+                            ...)
 
         }

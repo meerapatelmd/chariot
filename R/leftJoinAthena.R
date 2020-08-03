@@ -7,10 +7,8 @@
 #' @importFrom seagull drop_table
 #' @export
 
-leftJoin <-
-    function(conn,
-             db,
-            .data,
+leftJoinAthena <-
+    function(.data,
              column = NULL,
              athena_schema,
              athena_table,
@@ -27,10 +25,12 @@ leftJoin <-
                     column <- colnames(.data)[1]
                 }
 
+                conn <- connectAthena()
                 pg13::writeTable(conn = conn,
                                  schema = "public",
                                  tableName = table_name,
                                  .data = .data)
+                dcAthena(conn = conn)
 
 
                 if (!is.null(where_athena_col)) {
@@ -59,11 +59,6 @@ leftJoin <-
                 }
 
                 if (override_cache) {
-
-
-
-
-
 
                         resultset <-
                             query_athena(sql_statement = sql_statement,
