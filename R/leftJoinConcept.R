@@ -3,8 +3,6 @@
 #' @param dataframe dataframe to join
 #' @param dataframe_column string of the column name to join on. If NULL, the 1st column is use
 #' @param concept_column name of concept_column to join dataframe on. Defaults to concept ID.
-#' @importFrom seagull create_table_via_temp_file
-#' @importFrom seagull drop_table
 #' @export
 
 
