@@ -8,6 +8,7 @@
 #' @param has_prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
 #' @import dplyr
 #' @import tidyr
+#' @importFrom tibble as_tibble
 #' @export
 
 mergeStrip <-
