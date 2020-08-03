@@ -1,6 +1,5 @@
 #' Crosswalk concept_id to UMLS based on Code
 #' @import metaorite
-#' @importFrom seagull write_where_in_string
 #' @importFrom stringr str_replace_all
 #' @import dplyr
 

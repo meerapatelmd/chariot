@@ -1,5 +1,4 @@
 #' Copy New Vocabulary to Athena
-#' @import seagull
 #' @import secretary
 #' @import police
 #' @import DatabaseConnector
