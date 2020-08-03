@@ -1,10 +1,9 @@
-#' #' Join a dataframe object with Athena's concept table
-#' #' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
-#' #' @param dataframe dataframe to join
-#' #' @param column string of the column name to join on. If NULL, the 1st column is used.
-#' #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
-#' #' @import fantasia
-#' #' @export
+#' Join a dataframe object with Athena's concept table
+#' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
+#' @param dataframe dataframe to join
+#' @param column string of the column name to join on. If NULL, the 1st column is used.
+#' @param athena_column name of column to join dataframe on. Defaults to concept ID.
+
 #'
 #' left_join_df_omop <-
 #'     function(.data,

@@ -5,7 +5,6 @@
 #' @param athena_column name of column to join dataframe on. Defaults to concept ID.
 #' @importFrom seagull create_table_via_temp_file
 #' @importFrom seagull drop_table
-#' @export
 
 left_join_df <-
     function(.data,
