@@ -10,11 +10,6 @@ query_ancestors(
   plot = FALSE
 )
 }
-\arguments{
-\item{descendant_concept_ids}{OMOP concept id of the ancestor concept}
-
-\item{max_levels_of_separation}{Integer of the maximum levels of separation}
-}
 \description{
 Query ancestors for a given concept_id
 }

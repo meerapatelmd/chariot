@@ -6,11 +6,6 @@
 \usage{
 querySynonyms(concept_id, schema = NULL, language_concept_id = 4180186, ...)
 }
-\arguments{
-\item{concept_id}{omop concept_id}
-
-\item{language_concept_id}{language concept id for the synonyms. Defaults to English only.}
-}
 \description{
 Query the synonyms associated with an id
 }

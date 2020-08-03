@@ -6,9 +6,6 @@
 \usage{
 query_relationships(concept_ids)
 }
-\arguments{
-\item{concept_ids}{omop concept_id. For this function, it can also be a vector..}
-}
 \description{
 Get all relationships for a concept_id or a vector of concept_ids
 }
