@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • chariot</title>
+<title>Query Concept Synonym Table for a Phrase Split into Strings — queryPhraseStringSynonym • chariot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Query Concept Synonym Table for a Phrase Split into Strings — queryPhraseStringSynonym" />
+<meta property="og:description" content="Query Concept Synonym Table for a Phrase Split into Strings" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,35 +106,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      
+    <h1>Query Concept Synonym Table for a Phrase Split into Strings</h1>
+    
+    <div class="hidden name"><code>queryPhraseStringSynonym.Rd</code></div>
     </div>
 
-    <div id="chariot-111" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-111" class="anchor"></a>chariot 1.1.1</h2>
-<ul>
-<li>updated all left join functions with pg13 package dependencies</li>
-<li>optimized merge functions</li>
-<li>add first version of concept.tree() function that renders a collapsibleTree</li>
-</ul>
-</div>
-    <div id="chariot-011" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-011" class="anchor"></a>chariot 0.1.1</h2>
-<ul>
-<li>makeLabel function to return <na> instead of “NA NA” for missing concept_id and concept_name combinations</na>
-</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Query Concept Synonym Table for a Phrase Split into Strings</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>queryPhraseStringSynonym</span>(
+  <span class='no'>schema</span>,
+  <span class='kw'>caseInsensitive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>phrase</span>,
+  <span class='no'>split</span>,
+  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
+
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • chariot</title>
+<title>Unmerge OMOP Concept Strip — unmergeStrip • chariot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Unmerge OMOP Concept Strip — unmergeStrip" />
+<meta property="og:description" content="This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and &quot;NA&quot; values normalized to `&amp;lt;NA&amp;gt;`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `&amp;lt;NA&amp;gt;` with a non-`&amp;lt;NA&amp;gt;` value in the strip_col instance inputed. Errors will be thrown if the .data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,35 +106,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      
+    <h1>Unmerge OMOP Concept Strip</h1>
+    
+    <div class="hidden name"><code>unmergeStrip.Rd</code></div>
     </div>
 
-    <div id="chariot-111" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-111" class="anchor"></a>chariot 1.1.1</h2>
-<ul>
-<li>updated all left join functions with pg13 package dependencies</li>
-<li>optimized merge functions</li>
-<li>add first version of concept.tree() function that renders a collapsibleTree</li>
-</ul>
-</div>
-    <div id="chariot-011" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-011" class="anchor"></a>chariot 0.1.1</h2>
-<ul>
-<li>makeLabel function to return <na> instead of “NA NA” for missing concept_id and concept_name combinations</na>
-</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `&lt;NA&gt;`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `&lt;NA&gt;` with a non-`&lt;NA&gt;` value in the strip_col instance inputed. Errors will be thrown if the .data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>unmergeStrip</span>(
+  <span class='no'>.data</span>,
+  <span class='no'>strip_col</span>,
+  <span class='kw'>add_suffix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>add_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>r_trimws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>dataframe</p></td>
+    </tr>
+    <tr>
+      <th>strip_col</th>
+      <td><p>column that contains the merged concept strip</p></td>
+    </tr>
+    <tr>
+      <th>remove</th>
+      <td><p>remove argument passed to the tidyr extract function. If TRUE, removes strip_col in output.</p></td>
+    </tr>
+    <tr>
+      <th>r_trimws</th>
+      <td><p>Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trims right whitespace of the freshly unmerged columns for any trailing carriage returns.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a tibble with all blanks, "NA", and &lt;NA&gt; normalized to NA, with unmerged columns with or without the provided prefix and suffix pasted in postions 1 to 8, followed by the strip column if the remove parameter is FALSE, and the remaining fields present in the input.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

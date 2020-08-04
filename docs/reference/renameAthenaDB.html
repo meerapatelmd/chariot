@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • chariot</title>
+<title>Rename the current Athena DB — renameAthenaDB • chariot</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Rename the current Athena DB — renameAthenaDB" />
+<meta property="og:description" content="Rename the current Athena DB" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,35 +106,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      
+    <h1>Rename the current Athena DB</h1>
+    
+    <div class="hidden name"><code>renameAthenaDB.Rd</code></div>
     </div>
 
-    <div id="chariot-111" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-111" class="anchor"></a>chariot 1.1.1</h2>
-<ul>
-<li>updated all left join functions with pg13 package dependencies</li>
-<li>optimized merge functions</li>
-<li>add first version of concept.tree() function that renders a collapsibleTree</li>
-</ul>
-</div>
-    <div id="chariot-011" class="section level2">
-<h2 class="hasAnchor">
-<a href="#chariot-011" class="anchor"></a>chariot 0.1.1</h2>
-<ul>
-<li>makeLabel function to return <na> instead of “NA NA” for missing concept_id and concept_name combinations</na>
-</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Rename the current Athena DB</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>renameAthenaDB</span>(<span class='no'>local_dbname</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>local_dbname</th>
+      <td><p>Name of a local database other than Athena to connect to to execute the rename SQL statements.</p></td>
+    </tr>
+    </table>
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

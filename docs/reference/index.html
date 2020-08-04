@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -143,13 +143,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="browse_athena.html">browse_athena()</a></code> </p>
+          <p><code><a href="browseBrowse.html">browseBrowse()</a></code> </p>
         </td>
         <td><p>Open concept by concept_id in Browser</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="cache_left_join.html">cache_left_join()</a></code> </p>
+          <p><code><a href="cacheLeftJoin.html">cacheLeftJoin()</a></code> </p>
         </td>
         <td><p>Cache the results of a query</p></td>
       </tr><tr>
@@ -161,9 +161,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="concept.tree.html">concept.tree()</a></code> </p>
+        </td>
+        <td><p>Combine Parents and Children Relationships</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="concept2_triplet.html">concept2_triplet()</a></code> </p>
         </td>
         <td><p>Get a triplet from the concept_relationship table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="conceptIdExists.html">conceptIdExists()</a></code> </p>
+        </td>
+        <td><p>QA to make sure the concept_id exists in OMOP</p></td>
       </tr><tr>
         
         <td>
@@ -209,15 +221,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="create_new_athena.html">create_new_athena()</a></code> </p>
+          <p><code><a href="createConceptParentTable.html">createConceptParentTable()</a></code> </p>
         </td>
-        <td><p>Create new Athena local database</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="crosswalk_from_umls_search.html">crosswalk_from_umls_search()</a></code> </p>
-        </td>
-        <td><p>Crosswalk concept_id to UMLS based on Code</p></td>
+        <td><p>Create a CONCEPT_PARENT Table</p></td>
       </tr><tr>
         
         <td>
@@ -239,15 +245,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="derive_family_tree.html">derive_family_tree()</a></code> </p>
+          <p><code><a href="dropJoinTables.html">dropJoinTables()</a></code> </p>
         </td>
-        <td><p>Make the family tree dataframe required for the ggenealogy package</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="drop_athena.html">drop_athena()</a></code> </p>
-        </td>
-        <td><p>Drop Athena</p></td>
+        <td><p>Drop Join Tables</p></td>
       </tr><tr>
         
         <td>
@@ -278,6 +278,12 @@
           <p><code><a href="extractHemOncRegimens.html">extractHemOncRegimens()</a></code> </p>
         </td>
         <td><p>Extract HemOnc Regimens by Component String Match</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterStrip.html">filterStrip()</a></code> </p>
+        </td>
+        <td><p>Filter Merged Concepts</p></td>
       </tr><tr>
         
         <td>
@@ -365,6 +371,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="getLabel.html">getLabel()</a></code> </p>
+        </td>
+        <td><p>Get Merged Concept Id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getMerge.html">getMerge()</a></code> </p>
+        </td>
+        <td><p>Get Merged Concept Id</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_merge.html">get_merge()</a></code> </p>
         </td>
         <td><p>Get Merged Concept Id</p></td>
@@ -377,9 +395,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="innerJoin.html">innerJoin()</a></code> </p>
+        </td>
+        <td><p>INNER JOIN an OMOP Vocabulary Table</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="is_phrase_query_cached.html">is_phrase_query_cached()</a></code> </p>
         </td>
         <td><p>Is the query_phrase cached?</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="join.html">join()</a></code> </p>
+        </td>
+        <td><p>Join a dataframe object with Athena's concept table</p></td>
       </tr><tr>
         
         <td>
@@ -389,19 +419,61 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="leftJoin.html">leftJoin()</a></code> </p>
+        </td>
+        <td><p>LEFT JOIN an OMOP Vocabulary Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinConcept.html">leftJoinConcept()</a></code> </p>
+        </td>
+        <td><p>Join a dataframe object with Athena's concept table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinFoChildren.html">leftJoinFoChildren()</a></code> </p>
+        </td>
+        <td><p>LEFT JOIN the Concept Parent Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinForAncestors.html">leftJoinForAncestors()</a></code> </p>
+        </td>
+        <td><p>Left Join a Dataframe to the Concept Ancestor Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinForDescendants.html">leftJoinForDescendants()</a></code> </p>
+        </td>
+        <td><p>Left Join a Dataframe to the Concept Ancestor Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinForParents.html">leftJoinForParents()</a></code> </p>
+        </td>
+        <td><p>LEFT JOIN the Concept Parent Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinRelationship.html">leftJoinRelationship()</a></code> </p>
+        </td>
+        <td><p>Left Join Relationship</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinRelatives.html">leftJoinRelatives()</a></code> </p>
+        </td>
+        <td><p>LEFT JOIN All Relatives</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="leftJoinSynonymId.html">leftJoinSynonymId()</a></code> </p>
+        </td>
+        <td><p>Join a dataframe object with Athena's concept table</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="left_join_concept.html">left_join_concept()</a></code> </p>
-        </td>
-        <td><p>Join a dataframe object with Athena's concept table</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="left_join_df.html">left_join_df()</a></code> </p>
-        </td>
-        <td><p>Join a dataframe object with Athena's concept table</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="left_join_df_omop.html">left_join_df_omop()</a></code> </p>
         </td>
         <td><p>Join a dataframe object with Athena's concept table</p></td>
       </tr><tr>
@@ -410,12 +482,6 @@
           <p><code><a href="left_join_for_ancestors.html">left_join_for_ancestors()</a></code> </p>
         </td>
         <td><p>Left Join Ancestors to a dataframe of concept_ids</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="left_join_for_children.html">left_join_for_children()</a></code> </p>
-        </td>
-        <td><p>Query Parent-Child Relationships from Concept Ancestor Table</p></td>
       </tr><tr>
         
         <td>
@@ -473,9 +539,27 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="lsJoinTables.html">lsJoinTables()</a></code> </p>
+        </td>
+        <td><p>List Join Tables</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="makeLabel.html">makeLabel()</a></code> </p>
         </td>
         <td><p>Make Label Column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mergeLabel.html">mergeLabel()</a></code> </p>
+        </td>
+        <td><p>Merge OMOP Concepts into a Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mergeStrip.html">mergeStrip()</a></code> </p>
+        </td>
+        <td><p>Merge OMOP Concepts into a Strip</p></td>
       </tr><tr>
         
         <td>
@@ -497,15 +581,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="phrase_sql.html">phrase_sql()</a></code> </p>
+          <p><code><a href="pivotConcept2.html">pivotConcept2()</a></code> </p>
         </td>
-        <td><p>Construct SQL for query_phrase</p></td>
+        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pivot_concept2.html">pivot_concept2()</a></code> </p>
+          <p><code><a href="pivotLevel.html">pivotLevel()</a></code> </p>
         </td>
         <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pivotRelationshipId.html">pivotRelationshipId()</a></code> </p>
+        </td>
+        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pivotRelative.html">pivotRelative()</a></code> </p>
+        </td>
+        <td><p>Pivot all relatives of a set of concepts</p></td>
       </tr><tr>
         
         <td>
@@ -527,36 +623,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="pivot_wider_by_relationship.html">pivot_wider_by_relationship()</a></code> </p>
-        </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pivot_wider_by_relationship_concept_class.html">pivot_wider_by_relationship_concept_class()</a></code> </p>
-        </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pivot_wider_by_relationship_domain.html">pivot_wider_by_relationship_domain()</a></code> </p>
-        </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pivot_wider_by_relationship_vocab.html">pivot_wider_by_relationship_vocab()</a></code> </p>
-        </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pivot_wider_by_relative_concept_class.html">pivot_wider_by_relative_concept_class()</a></code> </p>
-        </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_concept_hierarchy.html">plot_concept_hierarchy()</a></code> </p>
         </td>
         <td><p>Make the family tree dataframe required for the ggenealogy package</p></td>
@@ -569,9 +635,57 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="queryAncestors.html">queryAncestors()</a></code> </p>
+        </td>
+        <td><p>Query ancestors for a given concept_id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryAthena.html">queryAthena()</a></code> </p>
+        </td>
+        <td><p>Query a Postgres Database</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryCode.html">queryCode()</a></code> </p>
+        </td>
+        <td><p>Query based on search terms that does not write to catalogue</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryConceptChildren.html">queryConceptChildren()</a></code> </p>
+        </td>
+        <td><p>Query concept children</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="queryConceptClassRelationships.html">queryConceptClassRelationships()</a></code> </p>
         </td>
         <td><p>Query Concept Class Relationships</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryConceptId.html">queryConceptId()</a></code> </p>
+        </td>
+        <td><p>Lookup a concept id in Athena</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryConceptParent.html">queryConceptParent()</a></code> </p>
+        </td>
+        <td><p>Query concept children</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryDescendants.html">queryDescendants()</a></code> </p>
+        </td>
+        <td><p>Query descendants for a given concept_id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryFamilyTree.html">queryFamilyTree()</a></code> </p>
+        </td>
+        <td><p>Combine Parents and Children Relationships</p></td>
       </tr><tr>
         
         <td>
@@ -584,6 +698,48 @@
           <p><code><a href="queryHemOncRegToAntineo.html">queryHemOncRegToAntineo()</a></code> </p>
         </td>
         <td><p>Query a HemOnc Regimen's 'Has antineoplastic' Relationship</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhrase.html">queryPhrase()</a></code> </p>
+        </td>
+        <td><p>Perform a Global Query on a Single Phrase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseExact.html">queryPhraseExact()</a></code> </p>
+        </td>
+        <td><p>Query Exact Phrase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseExactSynonym.html">queryPhraseExactSynonym()</a></code> </p>
+        </td>
+        <td><p>Query Concept Synonym Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseLike.html">queryPhraseLike()</a></code> </p>
+        </td>
+        <td><p>Query Like Phrase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseLikeSynonym.html">queryPhraseLikeSynonym()</a></code> </p>
+        </td>
+        <td><p>Query Concept Synonym Table for Concepts Like Phrase</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseString.html">queryPhraseString()</a></code> </p>
+        </td>
+        <td><p>Query Concept Table for a Phrase Split into Strings</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="queryPhraseStringSynonym.html">queryPhraseStringSynonym()</a></code> </p>
+        </td>
+        <td><p>Query Concept Synonym Table for a Phrase Split into Strings</p></td>
       </tr><tr>
         
         <td>
@@ -617,33 +773,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="query_concept_id.html">query_concept_id()</a></code> </p>
-        </td>
-        <td><p>Lookup a concept id in Athena</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="query_descendants.html">query_descendants()</a></code> </p>
         </td>
         <td><p>Query descendants for a given concept_id</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="query_maps_to.html">query_maps_to()</a></code> </p>
-        </td>
-        <td><p>Query all "Maps to" relationships of a concept_id</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="query_phrase.html">query_phrase()</a></code> </p>
         </td>
         <td><p>Query based on search terms that does not write to catalogue</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="query_phrase_synonym.html">query_phrase_synonym()</a></code> </p>
-        </td>
-        <td><p>Query based on search terms in the concept synonym table</p></td>
       </tr><tr>
         
         <td>
@@ -695,6 +833,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="renameAthenaDB.html">renameAthenaDB()</a></code> </p>
+        </td>
+        <td><p>Rename the current Athena DB</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="renderConceptClassRelationships.html">renderConceptClassRelationships()</a></code> </p>
         </td>
         <td><p>Render Concept Class Relationships</p></td>
@@ -713,21 +857,39 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="renderQueryAncestors.html">renderQueryAncestors()</a></code> </p>
+        </td>
+        <td><p>Render SQL to Query for Ancestors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="renderQueryDescendants.html">renderQueryDescendants()</a></code> </p>
+        </td>
+        <td><p>Render SQL to Query for Descendants</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="renderQueryPhraseExactSynonym.html">renderQueryPhraseExactSynonym()</a></code> </p>
+        </td>
+        <td><p>Render Query Concept Synonym Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="renderQueryPhraseLikeSynonym.html">renderQueryPhraseLikeSynonym()</a></code> </p>
+        </td>
+        <td><p>Render Query Concept Synonym Table</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="renderSynonyms.html">renderSynonyms()</a></code> </p>
         </td>
         <td><p>Render SQL Statement for Concept Synonyms</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="retire_athena_version.html">retire_athena_version()</a></code> </p>
+          <p><code><a href="renderVocabularyTableDDL.html">renderVocabularyTableDDL()</a></code> </p>
         </td>
-        <td><p>Retire Athena version</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="return_ancestor_matrix.html">return_ancestor_matrix()</a></code> </p>
-        </td>
-        <td><p>Return a Ancestor Matrix</p></td>
+        <td><p>Render Vocabulary Table DDL</p></td>
       </tr><tr>
         
         <td>
@@ -785,45 +947,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="unmergeStrip.html">unmergeStrip()</a></code> </p>
+        </td>
+        <td><p>Unmerge OMOP Concept Strip</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="unmerge_concepts.html">unmerge_concepts()</a></code> </p>
         </td>
         <td><p>Unmerge OMOP concept element string</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_all_vocab_relationships.html">write_sql_all_vocab_relationships()</a></code> </p>
-        </td>
-        <td><p>SQL to get all vocabulary relationships</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_for_ancestors.html">write_sql_for_ancestors()</a></code> </p>
-        </td>
-        <td><p>Write SQL to get OMOP Concept Ancestors</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_for_descendants.html">write_sql_for_descendants()</a></code> </p>
-        </td>
-        <td><p>Write SQL to get OMOP Concept Descendants</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_for_maps_to.html">write_sql_for_maps_to()</a></code> </p>
-        </td>
-        <td><p>Search for the "Maps to" relationship of a concept id</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_to_get_relationships.html">write_sql_to_get_relationships()</a></code> </p>
-        </td>
-        <td><p>Search the relationships of a concept id</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="write_sql_to_get_synonyms.html">write_sql_to_get_synonyms()</a></code> </p>
-        </td>
-        <td><p>Get all synonyms of a concept id</p></td>
       </tr>
     </tbody>
     </table>
