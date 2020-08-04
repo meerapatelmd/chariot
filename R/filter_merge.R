@@ -7,13 +7,15 @@
 #' @export
 
 
-filter_merge <- 
-    function(.data, 
+filter_merge <-
+    function(.data,
              merge_col,
              ...) {
-        
-            merge_col <- dplyr::enquo(merge_col) 
-            
+
+            .Deprecated()
+
+            merge_col <- dplyr::enquo(merge_col)
+
             .data %>%
                 unmerge_concepts(concept_col = !!merge_col) %>%
                 dplyr::filter(...) %>%

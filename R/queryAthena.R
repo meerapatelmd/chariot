@@ -20,8 +20,8 @@ queryAthena <-
                 if (render_sql) {
 
                         cat("\n")
-                        secretary::typewrite_bold("\nRendered SQL:")
-                        secretary::typewrite(stringr::str_replace_all(sql_statement, "\n", " "), tabs = 1)
+                        secretary::typewrite_bold(paste0("[", as.character(Sys.time()), "]"), "Rendered SQL:")
+                        secretary::typewrite(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " "), tabs = 1)
                         cat("\n")
 
                 }
@@ -83,6 +83,7 @@ queryAthena <-
                                 dcAthena(conn = conn)
 
                         }
+
                 } else {
 
                         if (!.hasSlot(conn, name = "jConnection")) {

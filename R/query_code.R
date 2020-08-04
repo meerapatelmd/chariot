@@ -5,6 +5,7 @@
 
 query_code <-
         function(code, limit = NULL, type = c("like", "exact")) {
+                .Deprecated()
                 if (type == "exact") {
                         if (is.null(limit)) {
                                 sql_statement <- paste0("SELECT * FROM public.concept WHERE concept_code = '", code, "';")
