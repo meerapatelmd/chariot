@@ -5,16 +5,16 @@
 \title{Join a dataframe object with Athena's concept table}
 \usage{
 join(
-  conn,
-  joinType,
   .data,
+  joinType,
   column = NULL,
   athena_schema,
   athena_table,
   athena_column,
   where_athena_col = NULL,
   where_athena_col_in = NULL,
-  print_sql = TRUE
+  render_sql = TRUE,
+  conn = NULL
 )
 }
 \arguments{

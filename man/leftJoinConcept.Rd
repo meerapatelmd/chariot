@@ -9,8 +9,9 @@ leftJoinConcept(
   column = NULL,
   athena_schema = "public",
   concept_column = "concept_id",
+  render_sql = TRUE,
   synonyms = FALSE,
-  override_cache = FALSE
+  conn = NULL
 )
 }
 \arguments{

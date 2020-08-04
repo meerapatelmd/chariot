@@ -18,9 +18,12 @@ queryAthena <-
                  render_sql = FALSE) {
 
                 if (render_sql) {
-                        secretary::typewrite_bold("Rendered SQL:")
+
+                        cat("\n")
+                        secretary::typewrite_bold("\nRendered SQL:")
                         secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
                         cat("\n")
+
                 }
 
 

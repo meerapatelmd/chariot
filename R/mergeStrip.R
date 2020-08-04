@@ -19,7 +19,7 @@ mergeStrip <-
                      has_prefix = NULL) {
 
 
-                                into_id_colname <- paste0(into, "_concept_id")
+                                into_id_colname <- paste0(into, "_id")
 
                                 # Enquo output column name
                                 into <- dplyr::enquo(into)
@@ -66,7 +66,7 @@ mergeStrip <-
                                                    invert = TRUE)
 
                                         if (length(qa)) {
-                                                stop("missing columns: ", qa)
+                                                stop("missing columns: ", paste(qa, collapse = ", "))
                                         }
 
                                 }
@@ -100,8 +100,7 @@ mergeStrip <-
                                                      sep = " ",
                                                      remove = FALSE) %>%
                                         dplyr::select(!!into_id_colname := all_of(column_names$concept_id),
-                                                      !!into,
-                                                      !!!preserve_cols)
+                                                      !!into)
 
 
                                 # If All NA concepts are not merged into a strip and returns a single NA
@@ -129,6 +128,18 @@ mergeStrip <-
                                 if (nrow(qa)) {
                                         flagMergeStrip <<- qa
                                         warning(nrow(qa), ' where concept id is not <NA>, but merge strip is <NA>. See flagMergeStrip object.')
+                                }
+
+
+
+                                if (!missing(...)) {
+                                        output <-
+                                                dplyr::bind_cols(output,
+                                                                 .data %>%
+                                                                         dplyr::select(!!!preserve_cols))
+
+
+
                                 }
 
 

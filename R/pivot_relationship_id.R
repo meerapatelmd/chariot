@@ -15,30 +15,33 @@ pivot_relationship_id <-
              include_count = TRUE,
              omop = FALSE,
              omop_schema = "omop_vocabulary") {
-        
-        
-        
+
+
+        .Deprecated()
+
+
+
             output <- left_join_relationship(.data,
                                              .col,
                                              omop = omop,
                                              omop_schema = omop_schema)
-            
-            
+
+
             final_output <-
                 output %>%
                 tidyr::pivot_wider(id_cols = concept_id_1,
                                names_from = relationship_id,
                                values_from = Concept2,
-                               values_fn = list(Concept2 = function(x) paste(unique(x)[1:250] %>% 
-                                                                                  centipede::no_na(), 
+                               values_fn = list(Concept2 = function(x) paste(unique(x)[1:250] %>%
+                                                                                  centipede::no_na(),
                                                                               collapse = "\n"))) %>%
                 dplyr::mutate_all(substring, 1, 25000) %>%
                 dplyr::mutate_at(vars(concept_id_1),
                                  as.integer)
-            
-            
+
+
             if (include_count) {
-                
+
                 final_output_count <-
                     output %>%
                     tidyr::pivot_wider(id_cols = concept_id_1,
@@ -47,17 +50,17 @@ pivot_relationship_id <-
                                        values_fn = list(Concept2 = function(x) length(unique(x)))) %>%
                     dplyr::rename_at(vars(!(concept_id_1)),
                                      function(x) paste0(x, " Count"))
-                
-                final_output <- 
+
+                final_output <-
                     dplyr::left_join(final_output,
                                      final_output_count,
-                                     by = "concept_id_1") 
-                
+                                     by = "concept_id_1")
+
                 return(final_output)
-                
+
             } else {
                 return(final_output)
             }
-        
-        
+
+
     }

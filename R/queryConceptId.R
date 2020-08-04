@@ -17,4 +17,5 @@ queryConceptId <-
 
                             query_athena(sql,
                                          ...)
+
     }

@@ -8,8 +8,8 @@ leftJoinRelationship(
   .data,
   column = NULL,
   athena_schema = "public",
-  merge_concept2 = TRUE,
-  override_cache = FALSE
+  render_sql = TRUE,
+  conn = NULL
 )
 }
 \description{

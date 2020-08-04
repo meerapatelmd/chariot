@@ -3,9 +3,9 @@
 #' @param concept_id_column The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
 #' @param dataframe input data
 #' @param names_from concept table column to be pivoted on
-#' @examples 
+#' @examples
 #' Random immunosuppressant concept ids
-#' immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723") 
+#' immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723")
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
@@ -20,33 +20,36 @@ pivot_relative <-
              include_count = TRUE,
              omop = FALSE,
              omop_schema = "omop_vocabulary") {
-        
-        
+
+
+        .Deprecated()
+
+
         if (missing(names_from)) {
-            
+
                 stop('argument "names_from" is missing, with no default')
-            
+
         }
-        
+
             output <- left_join_relatives(.data = .data,
                                           id_column = id_column,
                                           omop = omop,
                                           omop_schema = omop_schema)
-            
+
             if (is.null(id_column)) {
-                
+
                     id_column <- colnames(.data)[1]
-                
+
             }
-            
+
             #Binding output back
-            output <- 
+            output <-
                 output %>%
                 dplyr::bind_rows() %>%
                 rubix::rename_all_remove("^relative_") %>%
                 chariot::merge_concepts(into = "Relative Concept", !!names_from) %>%
                 dplyr::select(-concept_id, -type, -min_levels_of_separation, -max_levels_of_separation)
-            
+
             final_output <-
             output %>%
                 tidyr::pivot_wider(id_cols = !!id_column,
@@ -57,9 +60,9 @@ pivot_relative <-
                 dplyr::mutate_all(substring, 1, 25000) %>%
                 dplyr::mutate_at(vars(!!id_column),
                                  as.integer)
-            
+
             if (include_count) {
-                
+
                 final_output_count <-
                     output %>%
                     tidyr::pivot_wider(id_cols = !!id_column,
@@ -68,13 +71,13 @@ pivot_relative <-
                                        values_fn = list(`Relative Concept` = function(x) length(unique(x)))) %>%
                     dplyr::rename_at(vars(!(!!id_column)),
                                      function(x) paste0(x, " Count"))
-                
-                final_output <- 
+
+                final_output <-
                     dplyr::left_join(final_output,
                                      final_output_count,
                                      by = id_column)
-                    
-                
+
+
                 return(final_output)
             } else {
                 return(final_output)
