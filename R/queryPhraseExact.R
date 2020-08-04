@@ -8,7 +8,9 @@ queryPhraseExact <-
                  caseInsensitive,
                  conn = NULL,
                  render_sql = TRUE,
-                 ...) {
+                 cache_resultset = TRUE,
+                 override_cache = FALSE,
+                 verbose = FALSE) {
 
                 sql_statement <-
                 pg13::buildQuery(schema = schema,
@@ -21,5 +23,7 @@ queryPhraseExact <-
                 queryAthena(sql_statement = sql_statement,
                             conn = conn,
                             render_sql = render_sql,
-                            ...)
+                            cache_resultset = cache_resultset,
+                            override_cache = override_cache,
+                            verbose = verbose)
         }

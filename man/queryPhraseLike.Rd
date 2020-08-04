@@ -10,7 +10,9 @@ queryPhraseLike(
   caseInsensitive,
   conn = NULL,
   render_sql = TRUE,
-  ...
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  verbose = FALSE
 )
 }
 \description{

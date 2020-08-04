@@ -37,7 +37,10 @@ queryPhraseStringSynonym <-
 
 
                 leftJoinConcept(output1,
-                                column = "concept_synonym_id") %>%
+                                column = "concept_synonym_id",
+                                athena_schema = schema,
+                                conn = conn,
+                                render_sql = render_sql) %>%
                         dplyr::filter(concept_name != concept_synonym_name) %>%
                         dplyr::select(-concept_synonym_id) %>%
                         rubix::group_by_unique_aggregate(concept_id,
