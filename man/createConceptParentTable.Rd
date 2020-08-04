@@ -4,8 +4,13 @@
 \alias{createConceptParentTable}
 \title{Create a CONCEPT_PARENT Table}
 \usage{
-createConceptParentTable(schema)
+createConceptParentTable(
+  schema,
+  override_cache = FALSE,
+  render_sql = TRUE,
+  conn = NULL
+)
 }
 \description{
-This function creates a subset of the CONCEPT_ANCESTOR Table where either max_ or min_ levels of separation are 0 or 1. This table is created to visualize the hierarchy of concepts using external R packages such as collapsibleTrees.
+This function creates a subset of the CONCEPT_ANCESTOR Table where either max_ or min_ levels of separation are 0 or 1 combined with the CONCEPT_RELATIONSHIP Table where there is a "Subsumes" or "Is a" relationship between concept_id_1 and concept_id_2. This table is created to visualize the hierarchy of concepts using external R packages such as collapsibleTrees.
 }
