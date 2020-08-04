@@ -2,10 +2,10 @@
 #' @importFrom rlang list2
 #' @export
 
-leftJoinForAncestors <-
+leftJoinForDescendants <-
         function(.data,
                  athena_schema = "public",
-                 descendant_id_column = NULL,
+                 ancestor_id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
                  render_sql = TRUE,
@@ -28,12 +28,12 @@ leftJoinForAncestors <-
                                 }
 
 
-                                ancestors <-
+                                descendants <-
                                         leftJoin(.data = .data,
-                                                 column = descendant_id_column,
+                                                 column = ancestor_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
-                                                 athena_column = "descendant_concept_id",
+                                                 athena_column = "ancestor_concept_id",
                                                  where_athena_col = whereAthenaField,
                                                  where_athena_col_in = whereLevelIn,
                                                  render_sql = render_sql,
@@ -41,37 +41,37 @@ leftJoinForAncestors <-
 
                         } else {
 
-                                ancestors <-
+                                descendants <-
                                         leftJoin(.data = .data,
-                                                 column = descendant_id_column,
+                                                 column = ancestor_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
-                                                 athena_column = "descendant_concept_id",
+                                                 athena_column = "ancestor_concept_id",
                                                  render_sql = render_sql,
                                                  conn = conn)
                         }
 
 
 
-                                ancestors_detail <-
-                                        leftJoinConcept(ancestors %>%
-                                                                dplyr::select(ancestor_concept_id),
+                                descendants_detail <-
+                                        leftJoinConcept(descendants %>%
+                                                                dplyr::select(descendant_concept_id),
                                                         athena_schema = athena_schema,
                                                         render_sql = render_sql,
                                                         conn = conn,
                                                         synonyms = FALSE) %>%
-                                        dplyr::select(-ancestor_concept_id) %>%
-                                        rubix::rename_all_with_prefix("ancestor_") %>%
+                                        dplyr::select(-descendant_concept_id) %>%
+                                        rubix::rename_all_with_prefix("descendant_") %>%
                                         dplyr::distinct()
 
 
-                                final_ancestors <-
-                                        dplyr::left_join(ancestors,
-                                                         ancestors_detail,
-                                                         by = "ancestor_concept_id") %>%
-                                        dplyr::select(-descendant_concept_id)
+                                final_descendants <-
+                                        dplyr::left_join(descendants,
+                                                         descendants_detail,
+                                                         by = "descendant_concept_id") %>%
+                                        dplyr::select(-ancestor_concept_id)
 
 
-                                return(final_ancestors)
+                                return(final_descendants)
 
         }

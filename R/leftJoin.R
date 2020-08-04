@@ -20,7 +20,7 @@ leftJoin <-
                          athena_schema = athena_schema,
                          athena_table = athena_table,
                          athena_column = athena_column,
-                         where_athena_col = where_athena_col_in,
+                         where_athena_col = where_athena_col,
                          where_athena_col_in = where_athena_col_in,
                          render_sql = render_sql,
                          conn = conn)

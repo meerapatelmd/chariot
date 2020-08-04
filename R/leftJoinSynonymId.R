@@ -24,15 +24,16 @@ leftJoinSynonymId <-
                             }
 
 
-                            leftJoin( .data = .data,
+                            leftJoin(.data = .data,
                                       column = column,
                                       athena_schema = athena_schema,
                                       athena_table = "concept_synonym",
                                       athena_column = "concept_id",
                                       render_sql = render_sql,
+                                      where_athena_col = "language_concept_id",
+                                      where_athena_col_in = 4180186,
                                       conn = conn) %>%
-                            dplyr::filter(language_concept_id == 4180186) %>%
-                            dplyr::select(-language_concept_id)
+                                    dplyr::select(-language_concept_id)
 
     }
 
