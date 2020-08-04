@@ -4,13 +4,12 @@
 #' @export
 
 
-renderQueryPhraseExactSynonym <-
+renderQueryPhraseLikeSynonym <-
         function(schema,
                  phrase,
                  caseInsensitive = TRUE) {
 
 
-                phrase <- paste0("'", phrase, "'")
 
 
                 base <- system.file(package = "chariot")
@@ -19,7 +18,7 @@ renderQueryPhraseExactSynonym <-
                 if (caseInsensitive) {
 
 
-                                path_to_sourceFile <-paste0(path, "/queryLowerPhraseExactSynonym.sql")
+                                path_to_sourceFile <-paste0(path, "/queryLowerPhraseLikeSynonym.sql")
                                 SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
                                                   schema = schema,
                                                   phrase = tolower(phrase))
@@ -27,7 +26,7 @@ renderQueryPhraseExactSynonym <-
 
                 } else {
 
-                        path_to_sourceFile <-paste0(path, "/queryPhraseExactSynonym.sql")
+                        path_to_sourceFile <-paste0(path, "/queryPhraseLikeSynonym.sql")
                         SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
                                           schema = schema,
                                           phrase = phrase)

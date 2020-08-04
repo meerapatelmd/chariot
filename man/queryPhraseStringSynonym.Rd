@@ -9,8 +9,11 @@ queryPhraseStringSynonym(
   caseInsensitive = TRUE,
   phrase,
   split,
-  limit_n = NULL,
-  print_sql = TRUE
+  render_sql = TRUE,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL
 )
 }
 \description{

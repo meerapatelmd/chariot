@@ -21,7 +21,7 @@ queryAthena <-
 
                         cat("\n")
                         secretary::typewrite_bold("\nRendered SQL:")
-                        secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
+                        secretary::typewrite(stringr::str_replace_all(sql_statement, "\n", " "), tabs = 1)
                         cat("\n")
 
                 }

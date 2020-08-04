@@ -10,43 +10,23 @@ queryPhraseLikeSynonym <-
         function(schema,
                  caseInsensitive = TRUE,
                  phrase,
-                 limit_n = NULL,
-                 print_sql = TRUE) {
+                 render_sql = TRUE,
+                 conn = NULL,
+                 verbose = FALSE,
+                 cache_resultset = TRUE,
+                 override_cache = FALSE) {
 
                 sql_statement <-
-                        pg13::buildQueryLike(schema = schema,
-                                         tableName = "concept_synonym",
-                                         whereLikeField = "concept_synonym_name",
-                                         whereLikeValue = phrase,
-                                         caseInsensitive = caseInsensitive)
-
-                if (print_sql) {
-                        secretary::typewrite(sql_statement)
-                }
+                        renderQueryPhraseLikeSynonym(schema = schema,
+                                                     phrase = phrase,
+                                                     caseInsensitive = caseInsensitive)
 
 
-                .output <- query_athena(sql_statement = sql_statement) %>%
-                                dplyr::select(concept_synonym_id = concept_id,
-                                              concept_synonym_name)
-
-                .output2 <-
-                leftJoinConcept(.output %>%
-                                        dplyr::select(concept_synonym_id))
-
-                .output %>%
-                        dplyr::left_join(.output2) %>%
-                        dplyr::filter(concept_name != concept_synonym_name) %>%
-                        dplyr::select(-concept_synonym_id) %>%
-                        rubix::group_by_unique_aggregate(concept_id,
-                                                         concept_name,
-                                                         domain_id,
-                                                         vocabulary_id,
-                                                         concept_class_id,
-                                                         standard_concept,
-                                                         concept_code,
-                                                         valid_start_date,
-                                                         valid_end_date,
-                                                         invalid_reason,
-                                                         agg.col = concept_synonym_name)
+                queryAthena(sql_statement = sql_statement,
+                            verbose = verbose,
+                            render_sql = render_sql,
+                            cache_resultset = cache_resultset,
+                            override_cache = override_cache,
+                            conn = conn)
 
         }

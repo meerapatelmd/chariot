@@ -2,5 +2,5 @@ SELECT c.*, STRING_AGG(DISTINCT cs.concept_synonym_name, '|') AS concept_synonym
 FROM @schema.concept_synonym cs
 LEFT JOIN @schema.concept c
 ON c.concept_id = cs.concept_id AND c.concept_name <> cs.concept_synonym_name
-WHERE LOWER(cs.concept_synonym_name) IN (@phrase)
+WHERE LOWER(cs.concept_synonym_name) LIKE '%@phrase%'
 GROUP BY c.concept_id;

@@ -11,8 +11,11 @@ queryPhraseStringSynonym <-
                  caseInsensitive = TRUE,
                  phrase,
                  split,
-                 limit_n = NULL,
-                 print_sql = TRUE) {
+                 render_sql = TRUE,
+                 verbose = FALSE,
+                 cache_resultset = TRUE,
+                 override_cache = FALSE,
+                 conn = NULL) {
 
                 sql_statement <-
                         pg13::buildQueryString(schema = schema,
@@ -20,19 +23,20 @@ queryPhraseStringSynonym <-
                                                whereLikeField = "concept_synonym_name",
                                                string=phrase,
                                                split=split,
-                                               limit_n = limit_n,
                                                caseInsensitive = caseInsensitive)
 
-                if (print_sql) {
-                        secretary::typewrite(sql_statement)
-                }
+                output1 <-
+                        queryAthena(sql_statement = sql_statement,
+                                    verbose = verbose,
+                                    cache_resultset = cache_resultset,
+                                    override_cache = override_cache,
+                                    render_sql = render_sql,
+                                    conn = conn) %>%
+                        dplyr::rename(concept_synonym_id = concept_id)
 
 
-                .output <- query_athena(sql_statement = sql_statement) %>%
-                                dplyr::select(concept_synonym_id = concept_id,
-                                              concept_synonym_name)
 
-                leftJoinConcept(.output,
+                leftJoinConcept(output1,
                                 column = "concept_synonym_id") %>%
                         dplyr::filter(concept_name != concept_synonym_name) %>%
                         dplyr::select(-concept_synonym_id) %>%
