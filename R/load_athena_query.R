@@ -6,6 +6,8 @@
 
 load_athena_query <-
         function(sql_statement, verbose = FALSE) {
+
+                .Deprecated()
             resultset <- load_cached_query(key=sql_statement)
 
             if (verbose) {
