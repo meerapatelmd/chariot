@@ -1,4 +1,4 @@
-# chariot <img src="man/figures/logo.png" align="right" alt="" width="120" />  
+## Chariot  
 This package queries a local Postgres instance using files manually downloaded from Athena at athena.ohdsi.org. The package spawned out of my own homegrown functions I've written to help me map clinical concepts. As a result, much of the functions are hard-coded to specifically query Athena exports that are populated in the public schema of a Postgre database called "Athena". Over time, I hope to be able to modify the parameters to make it more open-source for anyone else. There still may be some blockers should you install your own Postgres with the same exact parameters as mine. 
 
 ## Requirements 
