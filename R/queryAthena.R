@@ -1,13 +1,30 @@
-#' Query a Postgres Database
-#' @description By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
-#' @param sql_statement SQL query
-#' @param cache_resultset If TRUE, the resultset from the query will first be loaded from the cache. If there isn't an existing cache entry for this particular query a new one will be made. If FALSE, Athena will be directly queried without an caching operations.
-#' @param override_cache If TRUE, the cache will not be loaded and will be overwritten by a new fresh query. For override_cache to take effect, cache_resultset must be set to TRUE.
-#' @param conn If provided, serves as the target database from which the query is derived.
-#' @return A tibble
-#' @importFrom secretary typewrite_bold
-#' @importFrom tibble as_tibble
+#' @title Query the Athena Postgres Database
+#' @description
+#' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
+#'
+#' @param sql_statement         SQL query
+#' @param cache_resultset       If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.
+#' @param override_cache        If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, cache_resultset must also be set to TRUE.
+#' @param conn                  Connection object. If provided, diverts queries to the connection instead of the local Athena instance.
+#' @param render_sql            If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE
+#' @param verbose               If TRUE, prints loading and querying operations messages to the console. Default: FALSE
+#' @param sleepTime             Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.
+#'
+#' @return
+#' A tibble
+#'
+#' @seealso
+#'  \code{\link[secretary]{typewrite_bold}},\code{\link[secretary]{typewrite}}
+#'  \code{\link[stringr]{str_replace}},\code{\link[stringr]{str_remove}}
+#'  \code{\link[pg13]{query}},\code{\link[pg13]{cacheQuery}},\code{\link[pg13]{loadCachedQuery}}
+#'  \code{\link[tibble]{as_tibble}}
+#' @rdname queryAthena
 #' @export
+#' @importFrom secretary typewrite_bold typewrite
+#' @importFrom stringr str_replace_all str_remove_all
+#' @importFrom pg13 query cacheQuery loadCachedQuery
+#' @importFrom tibble as_tibble
+
 
 queryAthena <-
         function(sql_statement,
@@ -15,13 +32,14 @@ queryAthena <-
                  cache_resultset = TRUE,
                  override_cache = FALSE,
                  conn = NULL,
-                 render_sql = FALSE) {
+                 render_sql = FALSE,
+                 sleepTime = 1) {
 
                 if (render_sql) {
 
                         cat("\n")
                         secretary::typewrite_bold(paste0("[", as.character(Sys.time()), "]"), "Rendered SQL:")
-                        secretary::typewrite(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " "), tabs = 1)
+                        secretary::typewrite(centipede::trimws(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " ")), tabs = 1)
                         cat("\n")
 
                 }
@@ -151,8 +169,8 @@ queryAthena <-
                 }
 
 
-                return(resultset %>%
-                               tibble::as_tibble())
+                Sys.sleep(time = sleepTime)
+                return(tibble::as_tibble(resultset))
 
         }
 

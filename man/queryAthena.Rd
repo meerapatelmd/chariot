@@ -2,7 +2,7 @@
 % Please edit documentation in R/queryAthena.R
 \name{queryAthena}
 \alias{queryAthena}
-\title{Query a Postgres Database}
+\title{Query the Athena Postgres Database}
 \usage{
 queryAthena(
   sql_statement,
@@ -10,21 +10,34 @@ queryAthena(
   cache_resultset = TRUE,
   override_cache = FALSE,
   conn = NULL,
-  render_sql = FALSE
+  render_sql = FALSE,
+  sleepTime = 1
 )
 }
 \arguments{
 \item{sql_statement}{SQL query}
 
-\item{cache_resultset}{If TRUE, the resultset from the query will first be loaded from the cache. If there isn't an existing cache entry for this particular query a new one will be made. If FALSE, Athena will be directly queried without an caching operations.}
+\item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
 
-\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new fresh query. For override_cache to take effect, cache_resultset must be set to TRUE.}
+\item{cache_resultset}{If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.}
 
-\item{conn}{If provided, serves as the target database from which the query is derived.}
+\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, cache_resultset must also be set to TRUE.}
+
+\item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance.}
+
+\item{render_sql}{If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE}
+
+\item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
 }
 \value{
 A tibble
 }
 \description{
 By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
+}
+\seealso{
+\code{\link[secretary]{typewrite_bold}},\code{\link[secretary]{typewrite}}
+ \code{\link[stringr]{str_replace}},\code{\link[stringr]{str_remove}}
+ \code{\link[pg13]{query}},\code{\link[pg13]{cacheQuery}},\code{\link[pg13]{loadCachedQuery}}
+ \code{\link[tibble]{as_tibble}}
 }
