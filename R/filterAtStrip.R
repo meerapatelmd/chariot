@@ -27,6 +27,50 @@ filterAtStrip <-
                  all = TRUE,
                  ...) {
 
+
+                data <-
+                        .data %>%
+                        tibble::rowid_to_column("filterAtStripId")
+
+
+                reserveData <<-
+                        data
+
+                inputData <-
+                        data %>%
+                        dplyr::select(filterAtStripId,
+                                      all_of(merge_cols)) %>%
+                        tidyr::pivot_longer(cols = !filterAtStripId,
+                                            names_to = "merge_col",
+                                            values_to = "Concept",
+                                            values_drop_na = TRUE)
+
+                inputData2 <-
+                        inputData %>%
+                        separateConceptStrip(Concept) %>%
+                        tibble::rowid_to_column("filterAtStripId2")
+
+                inputData3 <<-
+                        inputData2 %>%
+                        unmergeStrip(strip_col = Concept)
+
+                if (all) {
+
+
+
+                } else {
+
+                        inputData4 <-
+                        inputData3 %>%
+                                dplyr::filter(...)
+
+                        return(
+                        reserveData[(reserveData$filterAtStripId %in% inputData4$filterAtStripId),] %>%
+                                dplyr::select(-contains("filterAtStripId")))
+
+
+                }
+
                 column_names <-  c("concept_id",
                                    "concept_name",
                                    "domain_id",
@@ -38,71 +82,71 @@ filterAtStrip <-
                                    "valid_end_date",
                                    "invalid_reason")
 
-                if (all) {
-                        for (i in 1:length(merge_cols)) {
-
-                                tcol <- merge_cols[i]
-                                tmp_col <- paste0(tcol, "_tmp")
-
-                                tmp_data <-
-                                        .data %>%
-                                        dplyr::select(!!tcol) %>%
-                                        dplyr::rename_at(vars(1), ~paste(tmp_col))
-
-                                .data <-
-                                        .data %>%
-                                        dplyr::bind_cols(tmp_data) %>%
-                                        tidyr::separate_rows(!!tmp_col,
-                                                             sep = "\n") %>%
-                                        rubix::normalize_all_to_na() %>%
-                                        dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
-                                        unmergeStrip(strip_col = !!tmp_col,
-                                                     remove = FALSE) %>%
-                                        dplyr::filter(...)  %>%
-                                        dplyr::select(-any_of(column_names)) %>%
-                                        dplyr::select(-!!tmp_col) %>%
-                                        dplyr::distinct()
-
-                                if (nrow(.data) == 0) {
-                                        return(.data)
-                                }
-
-                        }
-
-                        return(.data)
-
-                } else {
-                        .output <- list()
-                        for (i in 1:length(merge_cols)) {
-
-                                tcol <- merge_cols[i]
-                                tmp_col <- paste0(tcol, "_tmp")
-
-                                tmp_data <-
-                                        .data %>%
-                                        dplyr::select(!!tcol) %>%
-                                        dplyr::rename_at(vars(1), ~paste(tmp_col))
-
-                                .output[[i]] <-
-                                        .data %>%
-                                        dplyr::bind_cols(tmp_data) %>%
-                                        tidyr::separate_rows(!!tmp_col,
-                                                             sep = "\n") %>%
-                                        rubix::normalize_all_to_na() %>%
-                                        dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
-                                        unmergeStrip(strip_col = !!tmp_col,
-                                                     remove = FALSE) %>%
-                                        dplyr::filter(...)  %>%
-                                        dplyr::select(-any_of(column_names)) %>%
-                                        dplyr::select(-!!tmp_col) %>%
-                                        dplyr::distinct()
-
-                        }
-                        .output <- dplyr::bind_rows(.output) %>%
-                                                dplyr::distinct()
-                        return(.output)
-
-
-                }
+                # if (all) {
+                #         for (i in 1:length(merge_cols)) {
+                #
+                #                 tcol <- merge_cols[i]
+                #                 tmp_col <- paste0(tcol, "_tmp")
+                #
+                #                 tmp_data <-
+                #                         .data %>%
+                #                         dplyr::select(!!tcol) %>%
+                #                         dplyr::rename_at(vars(1), ~paste(tmp_col))
+                #
+                #                 .data <-
+                #                         .data %>%
+                #                         dplyr::bind_cols(tmp_data) %>%
+                #                         tidyr::separate_rows(!!tmp_col,
+                #                                              sep = "\n") %>%
+                #                         rubix::normalize_all_to_na() %>%
+                #                         dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
+                #                         unmergeStrip(strip_col = !!tmp_col,
+                #                                      remove = FALSE) %>%
+                #                         dplyr::filter(...)  %>%
+                #                         dplyr::select(-any_of(column_names)) %>%
+                #                         dplyr::select(-!!tmp_col) %>%
+                #                         dplyr::distinct()
+                #
+                #                 if (nrow(.data) == 0) {
+                #                         return(.data)
+                #                 }
+                #
+                #         }
+                #
+                #         return(.data)
+                #
+                # } else {
+                #         .output <- list()
+                #         for (i in 1:length(merge_cols)) {
+                #
+                #                 tcol <- merge_cols[i]
+                #                 tmp_col <- paste0(tcol, "_tmp")
+                #
+                #                 tmp_data <-
+                #                         .data %>%
+                #                         dplyr::select(!!tcol) %>%
+                #                         dplyr::rename_at(vars(1), ~paste(tmp_col))
+                #
+                #                 .output[[i]] <-
+                #                         .data %>%
+                #                         dplyr::bind_cols(tmp_data) %>%
+                #                         tidyr::separate_rows(!!tmp_col,
+                #                                              sep = "\n") %>%
+                #                         rubix::normalize_all_to_na() %>%
+                #                         dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
+                #                         unmergeStrip(strip_col = !!tmp_col,
+                #                                      remove = FALSE) %>%
+                #                         dplyr::filter(...)  %>%
+                #                         dplyr::select(-any_of(column_names)) %>%
+                #                         dplyr::select(-!!tmp_col) %>%
+                #                         dplyr::distinct()
+                #
+                #         }
+                #         .output <- dplyr::bind_rows(.output) %>%
+                #                                 dplyr::distinct()
+                #         return(.output)
+                #
+                #
+                # }
 
         }

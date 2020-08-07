@@ -64,8 +64,9 @@ filterStrip <-
             .output <-
             .data %>%
                 dplyr::mutate(!!tmp_col := !!merge_col) %>%
-                tidyr::separate_rows(!!tmp_col,
-                                     sep = "\n") %>%
+                separateConceptStrip(!!tmp_col) %>%
+                # tidyr::separate_rows(!!tmp_col,
+                #                      sep = "\n") %>%
                 rubix::normalize_all_to_na() %>%
                 dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
                 unmergeStrip(strip_col = !!tmp_col,

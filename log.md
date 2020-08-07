@@ -8,3 +8,7 @@ Timestamp	Activity Type	Function	File	Details
 2020-08-07 16:50:47	write	write_temp_csv	/var/folders/pg/_nr70_kj7y31yvv84yyy7524sx_q0w/T//RtmpmoYgXm/fileb1f86f8b0883.csv	
 2020-08-07 16:51:24	write	write_temp_csv	/var/folders/pg/_nr70_kj7y31yvv84yyy7524sx_q0w/T//RtmpmoYgXm/fileb1f810dc09ab.csv	
 2020-08-07 17:09:13	write	write_temp_csv	/var/folders/pg/_nr70_kj7y31yvv84yyy7524sx_q0w/T//RtmpmoYgXm/fileb1f87fc8806a.csv	
+2020-08-07 18:28:43	read	read_clipboard		
+2020-08-07 19:04:58	read	read_clipboard		
+2020-08-07 19:20:59	write	write_temp_csv	/var/folders/pg/_nr70_kj7y31yvv84yyy7524sx_q0w/T//RtmpLfHHNE/fileb8526718d263.csv	
+2020-08-07 19:34:20	write	write_temp_csv	/var/folders/pg/_nr70_kj7y31yvv84yyy7524sx_q0w/T//RtmpLfHHNE/fileb852e9c9676.csv	
