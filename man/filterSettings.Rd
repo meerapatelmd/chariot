@@ -2,10 +2,32 @@
 % Please edit documentation in R/filterSettings.R
 \name{filterSettings}
 \alias{filterSettings}
-\title{Filter Concept Table for Settings}
+\title{Filter Settings}
 \usage{
 filterSettings(.data)
 }
+\arguments{
+\item{.data}{PARAM_DESCRIPTION}
+}
+\value{
+OUTPUT_DESCRIPTION
+}
 \description{
-Filter Concept Table for Settings
+
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[purrr]{map_if}},\code{\link[purrr]{map2}}
+ \code{\link[cave]{vector_to_string}}
+ \code{\link[secretary]{typewrite_bold}},\code{\link[secretary]{typewrite}}
+ \code{\link[rlang]{parse_expr}}
 }
