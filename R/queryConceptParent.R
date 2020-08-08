@@ -1,6 +1,14 @@
-#' Query concept children
-#' @import dplyr
+#' @title Query concept children
+#' @seealso
+#'  \code{\link[pg13]{buildQuery}}
+#'  \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
+#'  \code{\link[purrr]{keep}}
+#' @rdname queryConceptParent
 #' @export
+#' @impotFrom magrittr %>%
+#' @importFrom pg13 buildQuery
+#' @importFrom dplyr filter select
+#' @importFrom purrr keep
 
 
 queryConceptParent <-

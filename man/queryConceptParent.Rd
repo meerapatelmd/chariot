@@ -20,3 +20,8 @@ queryConceptParent(
 \description{
 Query concept children
 }
+\seealso{
+\code{\link[pg13]{buildQuery}}
+ \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
+ \code{\link[purrr]{keep}}
+}

@@ -2,25 +2,47 @@
 % Please edit documentation in R/leftJoinConcept.R
 \name{leftJoinConcept}
 \alias{leftJoinConcept}
-\title{Join a dataframe object with Athena's concept table}
+\title{Join a dataframe object with the Concept Table}
 \usage{
 leftJoinConcept(
   .data,
   column = NULL,
   athena_schema = "public",
   concept_column = "concept_id",
-  render_sql = TRUE,
   synonyms = FALSE,
-  conn = NULL
+  verbose = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
 \arguments{
-\item{concept_column}{name of concept_column to join dataframe on. Defaults to concept ID.}
+\item{.data}{A data frame}
 
-\item{dataframe}{dataframe to join}
+\item{column}{Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.}
 
-\item{dataframe_column}{string of the column name to join on. If NULL, the 1st column is use}
+\item{athena_schema}{Schema of the OMOP Concept Table}
+
+\item{concept_column}{Column in the concept}
+
+\item{verbose}{If TRUE, prints whether the cache is being loaded or being actively queried in the Postgres database, Default: FALSE}
+
+\item{conn}{Connection object if another database is used. Default: NULL}
+
+\item{render_sql}{If TRUE, will print the SQL to the console before executing. Default: FALSE}
+
+\item{sleepTime}{Argument in seconds passed to the `Sys.sleep()` function at the end of query, Default: 1}
+
+\item{...}{Additional arguments passed to the `queryAthena()` function.}
+}
+\value{
+A data frame
 }
 \description{
 This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
+}
+\seealso{
+\code{\link[dplyr]{select}},\code{\link[dplyr]{filter}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[rubix]{group_by_unique_aggregate}}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/leftJoinForDescendants.R
 \name{leftJoinForDescendants}
 \alias{leftJoinForDescendants}
-\title{Left Join a Dataframe to the Concept Ancestor Table}
+\title{Left Join a data frame to the Concept Ancestor Table}
 \usage{
 leftJoinForDescendants(
   .data,
@@ -10,10 +10,32 @@ leftJoinForDescendants(
   ancestor_id_column = NULL,
   whereLevelIn = NULL,
   whereLevelType = NULL,
-  render_sql = TRUE,
-  conn = NULL
+  verbose = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
+\arguments{
+\item{.data}{PARAM_DESCRIPTION}
+
+\item{athena_schema}{Default: 'public'}
+
+\item{ancestor_id_column}{Default: NULL}
+
+\item{whereLevelIn}{Default: NULL}
+
+\item{whereLevelType}{Default: NULL}
+
+\item{conn}{Default: NULL}
+
+\item{render_sql}{Default: TRUE}
+}
 \description{
-Left Join a Dataframe to the Concept Ancestor Table
+FUNCTION_DESCRIPTION
+}
+\seealso{
+\code{\link[dplyr]{select}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[rubix]{rename_all_with_prefix}}
 }
