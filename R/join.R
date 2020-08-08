@@ -62,7 +62,6 @@ join <-
                                 resultset <- queryAthena(sql_statement = sql_statement,
                                                          verbose = verbose,
                                                          cache_resultset = FALSE,
-                                                         conn = conn,
                                                          render_sql = render_sql,
                                                          sleepTime = sleepTime,
                                                          ...)
