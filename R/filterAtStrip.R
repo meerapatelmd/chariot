@@ -18,6 +18,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select rename_at bind_cols filter_at filter distinct bind_rows
 #' @importFrom tidyr separate_rows
+#' @importFrom tibble tibble::rowid_to_column
 #' @importFrom rubix normalize_all_to_na
 
 
