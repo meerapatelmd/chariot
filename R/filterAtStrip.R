@@ -33,7 +33,7 @@ filterAtStrip <-
                         tibble::rowid_to_column("filterAtStripId")
 
 
-                reserveData <<-
+                reserveData <-
                         data
 
                 inputData <-
@@ -50,19 +50,36 @@ filterAtStrip <-
                         separateConceptStrip(Concept) %>%
                         tibble::rowid_to_column("filterAtStripId2")
 
-                inputData3 <<-
+                inputData3 <-
                         inputData2 %>%
                         unmergeStrip(strip_col = Concept)
 
+                inputData4 <-
+                        inputData3 %>%
+                        dplyr::filter(...)
+
+
                 if (all) {
 
+                        inputData5 <-
+                                inputData4 %>%
+                                dplyr::select(filterAtStripId,
+                                              merge_col,
+                                              concept_id) %>%
+                                dplyr::distinct() %>%
+                                dplyr::filter(!is.na(concept_id)) %>%
+                                tidyr::pivot_wider(
+                                                   id_cols = filterAtStripId,
+                                                   names_from = merge_col,
+                                                   values_from = concept_id,
+                                                   values_fn = list(concept_id = function(x) length(unique(x)))) %>%
+                                dplyr::filter_at(vars(!filterAtStripId), all_vars(!is.na(.)))
 
+
+                        return(reserveData[(reserveData$filterAtStripId %in% inputData5$filterAtStripId),] %>%
+                                        dplyr::select(-contains("filterAtStripId")))
 
                 } else {
-
-                        inputData4 <-
-                        inputData3 %>%
-                                dplyr::filter(...)
 
                         return(
                         reserveData[(reserveData$filterAtStripId %in% inputData4$filterAtStripId),] %>%
@@ -71,16 +88,16 @@ filterAtStrip <-
 
                 }
 
-                column_names <-  c("concept_id",
-                                   "concept_name",
-                                   "domain_id",
-                                   "vocabulary_id",
-                                   "concept_class_id",
-                                   "standard_concept",
-                                   "concept_code",
-                                   "valid_start_date",
-                                   "valid_end_date",
-                                   "invalid_reason")
+                # column_names <-  c("concept_id",
+                #                    "concept_name",
+                #                    "domain_id",
+                #                    "vocabulary_id",
+                #                    "concept_class_id",
+                #                    "standard_concept",
+                #                    "concept_code",
+                #                    "valid_start_date",
+                #                    "valid_end_date",
+                #                    "invalid_reason")
 
                 # if (all) {
                 #         for (i in 1:length(merge_cols)) {
