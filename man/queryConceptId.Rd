@@ -4,7 +4,17 @@
 \alias{queryConceptId}
 \title{Lookup a concept id in Athena}
 \usage{
-queryConceptId(concept_ids, schema, ...)
+queryConceptId(
+  concept_ids,
+  schema,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
+)
 }
 \description{
 Lookup a concept id in Athena

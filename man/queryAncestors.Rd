@@ -9,6 +9,12 @@ queryAncestors(
   schema,
   min_levels_of_separation = NULL,
   max_levels_of_separation = NULL,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
   ...
 )
 }

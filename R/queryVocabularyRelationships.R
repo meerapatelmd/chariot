@@ -6,7 +6,14 @@
 
 
 queryVocabularyRelationships <-
-    function(vocabulary_id) {
+    function(vocabulary_id,
+             verbose = FALSE,
+             cache_resultset = TRUE,
+             override_cache = FALSE,
+             conn = NULL,
+             render_sql = FALSE,
+             sleepTime = 1,
+             ...) {
 
                         base <- system.file(package = "chariot")
                         path <- paste0(base, "/sql/vocabularyRelationship.sql")
@@ -15,6 +22,12 @@ queryVocabularyRelationships <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
                                                   vocabulary_id = vocabulary_id)
 
-                        resultset <- query_athena(sql_statement = sql)
-                        return(resultset)
+                        queryAthena(sql_statement = sql_statement,
+                                    verbose = verbose,
+                                    cache_resultset = cache_resultset,
+                                    override_cache = override_cache,
+                                    conn = conn,
+                                    render_sql = render_sql,
+                                    sleepTime = sleepTime,
+                                    ...)
     }

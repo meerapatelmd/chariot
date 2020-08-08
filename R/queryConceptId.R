@@ -5,6 +5,12 @@
 queryConceptId <-
     function(concept_ids,
              schema,
+             verbose = FALSE,
+             cache_resultset = TRUE,
+             override_cache = FALSE,
+             conn = NULL,
+             render_sql = FALSE,
+             sleepTime = 1,
              ...) {
 
 
@@ -15,7 +21,13 @@ queryConceptId <-
                                              whereInVector = concept_ids,
                                              caseInsensitive = FALSE)
 
-                            query_athena(sql,
-                                         ...)
+                            queryAthena(sql_statement = sql_statement,
+                                        verbose = verbose,
+                                        cache_resultset = cache_resultset,
+                                        override_cache = override_cache,
+                                        conn = conn,
+                                        render_sql = render_sql,
+                                        sleepTime = sleepTime,
+                                        ...)
 
     }

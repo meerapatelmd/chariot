@@ -7,7 +7,14 @@
 queryConceptClassRelationships(
   vocabulary_id_1,
   vocabulary_id_2 = NULL,
-  schema = NULL
+  schema = NULL,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
 \arguments{

@@ -6,14 +6,16 @@
 \usage{
 queryFamilyTree(
   concept_id,
+  schema,
   parental_generations = 1,
   child_generations = 1,
-  override_cache = FALSE,
   verbose = FALSE,
   cache_resultset = TRUE,
+  override_cache = FALSE,
   conn = NULL,
-  render_sql = TRUE,
-  schema
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
 \description{

@@ -10,7 +10,14 @@
 queryConceptClassRelationships <-
     function(vocabulary_id_1,
              vocabulary_id_2 = NULL,
-             schema = NULL) {
+             schema = NULL,
+             verbose = FALSE,
+             cache_resultset = TRUE,
+             override_cache = FALSE,
+             conn = NULL,
+             render_sql = FALSE,
+             sleepTime = 1,
+             ...) {
 
                         if (is.null(schema)) {
 
@@ -22,6 +29,13 @@ queryConceptClassRelationships <-
                                                                         vocabulary_id_2 = vocabulary_id_2,
                                                                         schema = schema)
 
-                        resultset <- query_athena(sql_statement = sql_statement)
-                        return(resultset)
+
+                        queryAthena(sql_statement = sql_statement,
+                                    verbose = verbose,
+                                    cache_resultset = cache_resultset,
+                                    override_cache = override_cache,
+                                    conn = conn,
+                                    render_sql = render_sql,
+                                    sleepTime = sleepTime,
+                                    ...)
     }

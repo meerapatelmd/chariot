@@ -4,7 +4,16 @@
 \alias{queryVocabularyRelationships}
 \title{Vocabulary Relationships}
 \usage{
-queryVocabularyRelationships(vocabulary_id)
+queryVocabularyRelationships(
+  vocabulary_id,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
+)
 }
 \value{
 dataframe derived from the concept_relationship table where concept_id_1 are all the concepts belonging to the vocabulary_id argument.

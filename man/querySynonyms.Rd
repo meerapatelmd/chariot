@@ -4,7 +4,18 @@
 \alias{querySynonyms}
 \title{Query the synonyms associated with an id}
 \usage{
-querySynonyms(concept_id, schema = NULL, language_concept_id = 4180186, ...)
+querySynonyms(
+  concept_id,
+  schema = NULL,
+  language_concept_id = 4180186,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
+)
 }
 \description{
 Query the synonyms associated with an id
