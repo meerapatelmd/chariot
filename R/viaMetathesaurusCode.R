@@ -1,9 +1,21 @@
-#' Crosswalk a Search by the Metathesaurus CODE
-#' @import metaorite
-#' @importFrom stringr str_replace_all
-#' @import dplyr
-#' @import rubix
+#' @title Crosswalk a Search by the Metathesaurus CODE
+#' @seealso
+#'  \code{\link[SqlRender]{translate}}
+#'  \code{\link[pg13]{buildQuery}},\code{\link[pg13]{query}}
+#'  \code{\link[stringr]{str_replace}}
+#'  \code{\link[preQL]{connectMySQL5.5}},\code{\link[preQL]{dcMySQL5.5}}
+#'  \code{\link[tibble]{tibble}}
+#'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{filter}}
+#'  \code{\link[rubix]{filter_for}}
+#' @rdname viaMetathesaurusCode
 #' @export
+#' @importFrom SqlRender translate
+#' @importFrom pg13 buildQuery query
+#' @importFrom stringr str_replace_all
+#' @importFrom preQL connectMySQL5.5 dcMySQL5.5
+#' @importFrom tibble tibble
+#' @importFrom dplyr left_join filter
+#' @importFrom rubix filter_for
 
 viaMetathesaurusCode <-
     function(phrase,
@@ -42,7 +54,7 @@ viaMetathesaurusCode <-
                     preQL::dcMySQL5.5(conn = conn)
 
             } else {
-                    resultset  <- DBI::dbGetQuery(conn = umls_conn,
+                    resultset  <- pg13::query(conn = umls_conn,
                                               sql_statement = sql_statement)
             }
 

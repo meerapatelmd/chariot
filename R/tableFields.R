@@ -11,8 +11,6 @@
 #' @importFrom pg13 lsFields
 
 
-
-
 .tableFields <-
         function(schema,
                  tableName,

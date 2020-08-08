@@ -1,3 +1,9 @@
+## 1.2.0 2020-08-04  
+- optimize filter functions  
+- streamline concept.tree() into umbrella and bottleneck style plots 
+- add Sys.sleep feature to querying  
+- add documentation for leftJoin functions  
+
 ## chariot 1.1.1  
 - updated all left join functions with pg13 package dependencies
 - optimized merge functions 
