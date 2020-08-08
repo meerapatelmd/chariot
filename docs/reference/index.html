@@ -8,6 +8,13 @@
 
 <title>Function reference • chariot</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -71,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -131,18 +139,6 @@
       <tr>
         
         <td>
-          <p><code><a href="OMOPConcept-class.html">OMOPConcept-class</a></code> </p>
-        </td>
-        <td><p>Set OMOP Concept S4 Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="annotate_chemidplus_synonyms.html">annotate_chemidplus_synonyms()</a></code> </p>
-        </td>
-        <td><p>Get any synonyms in chemidplus</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="browseBrowse.html">browseBrowse()</a></code> </p>
         </td>
         <td><p>Open concept by concept_id in Browser</p></td>
@@ -161,15 +157,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="concept.tree.html">concept.tree()</a></code> </p>
+          <p><code><a href="conceptFields.html">conceptFields()</a></code> </p>
         </td>
-        <td><p>Combine Parents and Children Relationships</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="concept2_triplet.html">concept2_triplet()</a></code> </p>
-        </td>
-        <td><p>Get a triplet from the concept_relationship table</p></td>
+        <td><p>List the Fields in the Concept Table</p></td>
       </tr><tr>
         
         <td>
@@ -215,15 +205,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="copy_new_vocabulary.html">copy_new_vocabulary()</a></code> </p>
-        </td>
-        <td><p>Copy New Vocabulary to Athena</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="createConceptParentTable.html">createConceptParentTable()</a></code> </p>
         </td>
         <td><p>Create a CONCEPT_PARENT Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="createSettings.html">createSettings()</a></code> </p>
+        </td>
+        <td><p>Create a .Settings Object</p></td>
       </tr><tr>
         
         <td>
@@ -257,99 +247,111 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="execute_athena_constraints.html">execute_athena_constraints()</a></code> </p>
-        </td>
-        <td><p>Execute Athena constraints</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="execute_athena_ddl.html">execute_athena_ddl()</a></code> </p>
-        </td>
-        <td><p>Execute Athena DDL</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="execute_athena_indices.html">execute_athena_indices()</a></code> </p>
-        </td>
-        <td><p>Execute Athena indices</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="extractHemOncRegimens.html">extractHemOncRegimens()</a></code> </p>
         </td>
         <td><p>Extract HemOnc Regimens by Component String Match</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filterStrip.html">filterStrip()</a></code> </p>
+          <p><code><a href="filterAtStrip.html">filterAtStrip()</a></code> </p>
         </td>
-        <td><p>Filter Merged Concepts</p></td>
+        <td><p>Filter Multiple Concept Strip Columns</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_concept_class.html">filter_concept_class()</a></code> </p>
+          <p><code><a href="filterClassConcepts.html">filterClassConcepts()</a></code> </p>
+        </td>
+        <td><p>Filter Class Concepts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterConceptClass.html">filterConceptClass()</a></code> </p>
         </td>
         <td><p>Filter Concept Class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_domain.html">filter_domain()</a></code> </p>
+          <p><code><a href="filterDomain.html">filterDomain()</a></code> </p>
         </td>
         <td><p>Filter Domain</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_classification.html">filter_for_classification()</a></code> </p>
+          <p><code><a href="filterHemOnc.html">filterHemOnc()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter HemOnc</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_hemonc.html">filter_for_hemonc()</a></code> </p>
+          <p><code><a href="filterLOINC.html">filterLOINC()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter for LOINC</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_naaccr.html">filter_for_naaccr()</a></code> </p>
+          <p><code><a href="filterNAACCR.html">filterNAACCR()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter NAACCR</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_nebraska.html">filter_for_nebraska()</a></code> </p>
+          <p><code><a href="filterNebraska.html">filterNebraska()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter Nebraska</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_rxnorm.html">filter_for_rxnorm()</a></code> </p>
+          <p><code><a href="filterParentlessConcepts.html">filterParentlessConcepts()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Get Topmost Ancestors</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_snomed.html">filter_for_snomed()</a></code> </p>
+          <p><code><a href="filterRxNorm.html">filterRxNorm()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter for RxNorm Concepts</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_standard.html">filter_for_standard()</a></code> </p>
+          <p><code><a href="filterSNOMED.html">filterSNOMED()</a></code> </p>
         </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
+        <td><p>Filter SNOMED</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_for_valid.html">filter_for_valid()</a></code> </p>
+          <p><code><a href="filterSettings.html">filterSettings()</a></code> </p>
         </td>
-        <td><p>Filter for valid concepts</p></td>
+        <td><p>Filter Settings</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_invalid_reason.html">filter_invalid_reason()</a></code> </p>
+          <p><code><a href="filterStandardConceptType.html">filterStandardConceptType()</a></code> </p>
         </td>
-        <td><p>Filter the invalid_reason Field</p></td>
+        <td><p>Filter by Standard Concept Type</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterStandardConcepts.html">filterStandardConcepts()</a></code> </p>
+        </td>
+        <td><p>Filter Standard Concepts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterStrip.html">filterStrip()</a></code> </p>
+        </td>
+        <td><p>Filter Columns with Merged Concept Strips</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterValid.html">filterValid()</a></code> </p>
+        </td>
+        <td><p>Filter for Valid Concepts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterVocabulary.html">filterVocabulary()</a></code> </p>
+        </td>
+        <td><p>Filter Vocabulary</p></td>
       </tr><tr>
         
         <td>
@@ -359,15 +361,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_standard_concept.html">filter_standard_concept()</a></code> </p>
+          <p><code><a href="findConceptId.html">findConceptId()</a></code> </p>
         </td>
-        <td><p>Filter the standard_concept field</p></td>
+        <td><p>Search CDM instance for a Concept Id</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="filter_vocab.html">filter_vocab()</a></code> </p>
+          <p><code><a href="getConceptClasses.html">getConceptClasses()</a></code> <code><a href="getConceptClasses.html">getDomain()</a></code> </p>
         </td>
-        <td><p>Filter Vocabulary</p></td>
+        <td><p>Get all OMOP Concept Classes</p></td>
       </tr><tr>
         
         <td>
@@ -401,9 +403,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="is_phrase_query_cached.html">is_phrase_query_cached()</a></code> </p>
+          <p><code><a href="isQueryCached.html">isQueryCached()</a></code> </p>
         </td>
-        <td><p>Is the query_phrase cached?</p></td>
+        <td><p>Is this query cached?</p></td>
       </tr><tr>
         
         <td>
@@ -427,7 +429,7 @@
         <td>
           <p><code><a href="leftJoinConcept.html">leftJoinConcept()</a></code> </p>
         </td>
-        <td><p>Join a dataframe object with Athena's concept table</p></td>
+        <td><p>Join a dataframe object with the Concept Table</p></td>
       </tr><tr>
         
         <td>
@@ -439,13 +441,13 @@
         <td>
           <p><code><a href="leftJoinForAncestors.html">leftJoinForAncestors()</a></code> </p>
         </td>
-        <td><p>Left Join a Dataframe to the Concept Ancestor Table</p></td>
+        <td><p>Left Join a data frame to the Concept Ancestor Table</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="leftJoinForDescendants.html">leftJoinForDescendants()</a></code> </p>
         </td>
-        <td><p>Left Join a Dataframe to the Concept Ancestor Table</p></td>
+        <td><p>Left Join a data frame to the Concept Ancestor Table</p></td>
       </tr><tr>
         
         <td>
@@ -469,7 +471,7 @@
         <td>
           <p><code><a href="leftJoinSynonymId.html">leftJoinSynonymId()</a></code> </p>
         </td>
-        <td><p>Join a dataframe object with Athena's concept table</p></td>
+        <td><p>Join a data frame with the Concept Synonym Table</p></td>
       </tr><tr>
         
         <td>
@@ -515,6 +517,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="loadQuery.html">loadQuery()</a></code> </p>
+        </td>
+        <td><p>Load a Cached Athena Query</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="load_athena_query.html">load_athena_query()</a></code> </p>
         </td>
         <td><p>Load a cached query</p></td>
@@ -533,9 +541,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="locatePhrase.html">locatePhrase()</a></code> </p>
+        </td>
+        <td><p>Locates the vocabulary table and search type where the phrase is first found</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="locate_phrase.html">locate_phrase()</a></code> </p>
         </td>
         <td><p>Locates the vocabulary table and search type where the phrase is first found</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="loincSystems.html">loincSystems</a></code> </p>
+        </td>
+        <td><p>LOINC Systems</p></td>
       </tr><tr>
         
         <td>
@@ -623,6 +643,18 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="plotBottleneck.html">plotBottleneck()</a></code> </p>
+        </td>
+        <td><p>Plot a Bottleneck Style Reingold-Tilford tree diagram</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotUmbrella.html">plotUmbrella()</a></code> </p>
+        </td>
+        <td><p>Plot an Umbrella Style Reingold-Tilford tree diagram</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="queryAncestors.html">queryAncestors()</a></code> </p>
         </td>
         <td><p>Query ancestors for a given concept_id</p></td>
@@ -631,7 +663,7 @@
         <td>
           <p><code><a href="queryAthena.html">queryAthena()</a></code> </p>
         </td>
-        <td><p>Query a Postgres Database</p></td>
+        <td><p>Query the Athena Postgres Database</p></td>
       </tr><tr>
         
         <td>
@@ -815,18 +847,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="relationship_triplet.html">relationship_triplet()</a></code> </p>
-        </td>
-        <td><p>Relationship triplet</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="renameAthenaDB.html">renameAthenaDB()</a></code> </p>
-        </td>
-        <td><p>Rename the current Athena DB</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="renderConceptClassRelationships.html">renderConceptClassRelationships()</a></code> </p>
         </td>
         <td><p>Render Concept Class Relationships</p></td>
@@ -881,31 +901,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="return_omop_classes.html">return_omop_classes()</a></code> </p>
-        </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="return_omop_domains.html">return_omop_domains()</a></code> </p>
-        </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="return_omop_vocabs.html">return_omop_vocabs()</a></code> </p>
-        </td>
-        <td><p>Returns all possible OMOP domains in Athena</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="return_uncommon_loinc_systems.html">return_uncommon_loinc_systems()</a></code> </p>
-        </td>
-        <td><p>Filter out uncommon LOINC Systems</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="return_valid.html">return_valid()</a></code> </p>
         </td>
         <td><p>Returns all possible OMOP domains in Athena</p></td>
       </tr><tr>
@@ -917,15 +913,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="search_chemidplus_rn.html">search_chemidplus_rn()</a></code> </p>
+          <p><code><a href="separateConceptStrip.html">separateConceptStrip()</a></code> </p>
         </td>
-        <td><p>Find a ChemiDPlus Registry Number</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_chemidplus_url.html">search_chemidplus_url()</a></code> </p>
-        </td>
-        <td><p>Get metadata on a phrase</p></td>
+        <td><p>Separate Concept Strips by Row</p></td>
       </tr><tr>
         
         <td>
@@ -944,6 +934,12 @@
           <p><code><a href="unmerge_concepts.html">unmerge_concepts()</a></code> </p>
         </td>
         <td><p>Unmerge OMOP concept element string</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="viaMetathesaurusCode.html">viaMetathesaurusCode()</a></code> </p>
+        </td>
+        <td><p>Crosswalk a Search by the Metathesaurus CODE</p></td>
       </tr>
     </tbody>
     </table>

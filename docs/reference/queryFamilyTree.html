@@ -8,6 +8,13 @@
 
 <title>Combine Parents and Children Relationships — queryFamilyTree • chariot</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -41,6 +48,7 @@
 
 <meta property="og:title" content="Combine Parents and Children Relationships — queryFamilyTree" />
 <meta property="og:description" content="Combine Parents and Children Relationships" />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -117,14 +125,16 @@
 
     <pre class="usage"><span class='fu'>queryFamilyTree</span>(
   <span class='no'>concept_id</span>,
+  <span class='no'>schema</span>,
   <span class='kw'>parental_generations</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>child_generations</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>schema</span>
+  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>sleepTime</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
 )</pre>
 
 
