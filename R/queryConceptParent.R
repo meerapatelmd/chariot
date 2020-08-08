@@ -5,7 +5,7 @@
 #'  \code{\link[purrr]{keep}}
 #' @rdname queryConceptParent
 #' @export
-#' @impotFrom magrittr %>%
+#' @importFrom magrittr %>%
 #' @importFrom pg13 buildQuery
 #' @importFrom dplyr filter select
 #' @importFrom purrr keep
