@@ -22,7 +22,7 @@ This function filters a column that contains Concept Strips using Concept Table 
 \details{
 This function:
 1. Mutates a copy `merge_col` to a `merge_col_tmp` column,
-1. Separates the rows in `merge_col_tmp` by `\n`,
+1. Separates the rows in `merge_col_tmp` by \"\\n\",
 1. Filters out any blanks and `NA` values introduced by the row separation,
 1. Unmerges the `merge_col` into the base Concept Table field names,
 1. Applies the filters found in the ellipses argument,
