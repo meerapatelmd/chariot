@@ -15,7 +15,7 @@ separateConceptStrip(.data, ...)
 A longer tibble if the merged Concept Strip Column/s have greater than 1 Concept Strips.
 }
 \description{
-This function separates a merged Concept Strip Column into rows by new line `\n`.
+This function separates a merged Concept Strip Column into rows by new line \"\\n\".
 }
 \seealso{
 \code{\link[tidyr]{separate_rows}}

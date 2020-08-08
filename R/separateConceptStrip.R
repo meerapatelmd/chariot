@@ -1,6 +1,6 @@
 #' @title Separate Concept Strips by Row
 #' @description
-#' This function separates a merged Concept Strip Column into rows by new line `\n`.
+#' This function separates a merged Concept Strip Column into rows by new line \"\\n\".
 #' @param .data A data frame.
 #' @param ... Columns to separate across multiple rows that are passed to \code{\link[tidyr]{separate_rows}}.
 #' @return

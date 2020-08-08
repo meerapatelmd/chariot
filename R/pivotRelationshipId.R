@@ -44,7 +44,6 @@ pivotRelationshipId <-
                                        values_fn = list(Concept2 = function(x) paste(unique(x)[1:250] %>%
                                                                                           centipede::no_na(),
                                                                                       collapse = "\n"))) %>%
-                        dplyr::mutate_all(substring, 1, 25000) %>%
                         dplyr::mutate_at(vars(concept_id_1),
                                          as.integer)
 

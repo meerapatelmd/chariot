@@ -64,7 +64,6 @@ pivotRelative <-
                                    values_from = RelativeConcept,
                                    values_fn = list(RelativeConcept = function(x) paste(unique(x)[1:250] %>%
                                                                                                centipede::no_na(), collapse = "\n"))) %>%
-                dplyr::mutate_all(substring, 1, 25000) %>%
                 dplyr::mutate_at(vars(!!column),
                                  as.integer)
 
