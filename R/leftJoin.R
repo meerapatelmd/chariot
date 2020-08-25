@@ -14,8 +14,7 @@ leftJoin <-
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             sleepTime = 1) {
 
 
                     join(.data = .data,
@@ -29,7 +28,6 @@ leftJoin <-
                          verbose = verbose,
                          conn = conn,
                          render_sql = render_sql,
-                         sleepTime = sleepTime,
-                         ...)
+                         sleepTime = sleepTime)
 
     }

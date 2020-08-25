@@ -15,8 +15,7 @@ leftJoin(
   verbose = FALSE,
   conn = NULL,
   render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  sleepTime = 1
 )
 }
 \description{

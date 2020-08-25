@@ -2,7 +2,7 @@
 
 export(.filterConcept)
 export(.tableFields)
-export(browseBrowse)
+export(browseAthena)
 export(cacheLeftJoin)
 export(cache_query)
 export(conceptFields)

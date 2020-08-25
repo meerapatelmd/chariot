@@ -34,8 +34,7 @@ leftJoinConcept <-
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             sleepTime = 1) {
 
 
                             if (is.null(column)) {
@@ -55,8 +54,7 @@ leftJoinConcept <-
                                          verbose = verbose,
                                          conn = conn,
                                          render_sql = render_sql,
-                                         sleepTime = sleepTime,
-                                         ...)
+                                         sleepTime = sleepTime)
 
 
                             if (synonyms) {
@@ -69,8 +67,7 @@ leftJoinConcept <-
                                                               verbose = verbose,
                                                               conn = conn,
                                                               render_sql = render_sql,
-                                                              sleepTime = sleepTime,
-                                                              ...) %>%
+                                                              sleepTime = sleepTime) %>%
                                             dplyr::filter(concept_name != concept_synonym_name) %>%
                                             rubix::group_by_unique_aggregate(concept_id,
                                                                              agg.col = concept_synonym_name,

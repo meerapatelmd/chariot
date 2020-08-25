@@ -29,8 +29,7 @@ leftJoinSynonymId <-
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             sleepTime = 1) {
 
 
                             if (is.null(column)) {
@@ -54,8 +53,7 @@ leftJoinSynonymId <-
                                       verbose = verbose,
                                       conn = conn,
                                       render_sql = render_sql,
-                                      sleepTime = sleepTime,
-                                      ...) %>%
+                                      sleepTime = sleepTime) %>%
                                     dplyr::select(-language_concept_id)
 
     }
