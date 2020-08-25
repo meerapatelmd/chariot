@@ -52,7 +52,6 @@ leftJoinSynonymId <-
                                       where_athena_col_in = 4180186,
                                       verbose = verbose,
                                       conn = conn,
-                                      render_sql = render_sql,
                                       sleepTime = sleepTime) %>%
                                     dplyr::select(-language_concept_id)
 

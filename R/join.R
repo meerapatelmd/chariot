@@ -17,8 +17,7 @@ join <-
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             sleepTime = 1) {
 
 
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
@@ -63,8 +62,7 @@ join <-
                                                          verbose = verbose,
                                                          cache_resultset = FALSE,
                                                          render_sql = render_sql,
-                                                         sleepTime = sleepTime,
-                                                         ...)
+                                                         sleepTime = sleepTime)
 
 
 
@@ -108,8 +106,7 @@ join <-
                                                  cache_resultset = FALSE,
                                                  conn = conn,
                                                  render_sql = render_sql,
-                                                 sleepTime = sleepTime,
-                                                 ...)
+                                                 sleepTime = sleepTime)
 
                         dropJoinTables(conn = conn,
                                        schema = athena_schema)
