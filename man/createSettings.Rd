@@ -2,17 +2,33 @@
 % Please edit documentation in R/createSettings.R
 \name{createSettings}
 \alias{createSettings}
-\title{Create Settings}
+\title{Create a .Settings Object}
 \usage{
-createSettings(
-  concept_code = NULL,
-  vocabulary_id = NULL,
-  domain_id = NULL,
-  concept_class_id = NULL,
-  standard_concept = NULL,
-  invalid_reason = NULL
-)
+createSettings()
+}
+\arguments{
+\item{concept_code}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{vocabulary_id}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{domain_id}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{concept_class_id}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{standard_concept}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{invalid_reason}{PARAM_DESCRIPTION, Default: NULL}
+}
+\value{
+OUTPUT_DESCRIPTION
 }
 \description{
-Create Settings
+This function takes the Concept Table fields present in the global environment and aggregates them into a list object `.Settings` that can then be run against a data frame as a whole using the \code{\link{filterSettings}} function.
+}
+\details{
+DETAILS
+}
+\seealso{
+\code{\link[rubix]{map_names_set}}
+ \code{\link[purrr]{keep}},\code{\link[purrr]{map}}
 }

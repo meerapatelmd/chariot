@@ -6,15 +6,22 @@
 \usage{
 queryConceptParent(
   child_id,
+  schema,
   generations = 1,
-  override_cache = FALSE,
   verbose = FALSE,
   cache_resultset = TRUE,
+  override_cache = FALSE,
   conn = NULL,
-  render_sql = TRUE,
-  schema
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
 \description{
 Query concept children
+}
+\seealso{
+\code{\link[pg13]{buildQuery}}
+ \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
+ \code{\link[purrr]{keep}}
 }

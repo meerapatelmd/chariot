@@ -2,17 +2,36 @@
 % Please edit documentation in R/filterStrip.R
 \name{filterStrip}
 \alias{filterStrip}
-\title{Filter Merged Concepts}
+\title{Filter Columns with Merged Concept Strips}
 \usage{
 filterStrip(.data, merge_col, ...)
 }
 \arguments{
-\item{.data}{dataframe that contains the merged concept column}
+\item{.data}{dataframe with the merged concept column}
 
 \item{merge_col}{column of merged concepts}
 
-\item{...}{arguments for filter function using concept table fields}
+\item{...}{arguments that will be passed to the dplyr filter function using the base Concept Table field names}
+}
+\value{
+A tibble with the same number of columns as the input with the number of rows equal or less than that of the input.
 }
 \description{
-Filter Merged Concepts
+This function filters a column that contains Concept Strips using Concept Table parameters. The target column may contain 1 or more merged concept strip, and the multiple strips must be separated by a new line \"\\n\" for the filter to operate correctly. It is important to note that the the filter is applied to the entire Concept Strip cell and will not alter the data content within the cell otherwise. For example, if the filter `vocabulary_id == 'RxNorm'` is used for `ColumnA`, a `ColumnA` cell that contains at least 1 RxNorm concept will be filtered for though there are other non-RxNorm concepts in that same cell.
+}
+\details{
+This function:
+1. Mutates a copy `merge_col` to a `merge_col_tmp` column,
+1. Separates the rows in `merge_col_tmp` by \"\\n\",
+1. Filters out any blanks and `NA` values introduced by the row separation,
+1. Unmerges the `merge_col` into the base Concept Table field names,
+1. Applies the filters found in the ellipses argument,
+1. Removes the `merge_col_tmp` and base Concept Table columns to reconstitute the original input, and
+1. Removes duplicate rows
+}
+\seealso{
+\code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{filter}},\code{\link[dplyr]{select}},\code{\link[dplyr]{distinct}}
+ \code{\link[rlang]{as_name}}
+ \code{\link[tidyr]{separate_rows}}
+ \code{\link[rubix]{normalize_all_to_na}}
 }

@@ -13,8 +13,10 @@ join(
   athena_column,
   where_athena_col = NULL,
   where_athena_col_in = NULL,
-  render_sql = TRUE,
-  conn = NULL
+  verbose = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1
 )
 }
 \arguments{

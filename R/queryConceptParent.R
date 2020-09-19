@@ -1,17 +1,27 @@
-#' Query concept children
-#' @import dplyr
+#' @title Query concept children
+#' @seealso
+#'  \code{\link[pg13]{buildQuery}}
+#'  \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
+#'  \code{\link[purrr]{keep}}
+#' @rdname queryConceptParent
 #' @export
+#' @importFrom magrittr %>%
+#' @importFrom pg13 buildQuery
+#' @importFrom dplyr filter select
+#' @importFrom purrr keep
 
 
 queryConceptParent <-
     function(child_id,
+             schema,
              generations = 1,
-             override_cache = FALSE,
              verbose = FALSE,
              cache_resultset = TRUE,
+             override_cache = FALSE,
              conn = NULL,
-             render_sql = TRUE,
-             schema) {
+             render_sql = FALSE,
+             sleepTime = 1,
+             ...) {
 
                 sql_statement <- pg13::buildQuery(schema = schema,
                                                   tableName = "concept_parent",
@@ -21,11 +31,13 @@ queryConceptParent <-
 
                 baseline <-
                         queryAthena(sql_statement = sql_statement,
-                                    override_cache = override_cache,
+                                    verbose = verbose,
                                     cache_resultset = cache_resultset,
+                                    override_cache = override_cache,
                                     conn = conn,
                                     render_sql = render_sql,
-                                    verbose = verbose) %>%
+                                    sleepTime = sleepTime,
+                                    ...) %>%
                         dplyr::filter(parent_concept_id != child_concept_id)
 
                 if (nrow(baseline) == 0) {

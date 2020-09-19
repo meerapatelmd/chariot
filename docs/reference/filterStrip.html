@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter Merged Concepts — filterStrip • chariot</title>
+<title>Filter Columns with Merged Concept Strips — filterStrip • chariot</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -39,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Filter Merged Concepts — filterStrip" />
-<meta property="og:description" content="Filter Merged Concepts" />
+<meta property="og:title" content="Filter Columns with Merged Concept Strips — filterStrip" />
+<meta property="og:description" content="This function filters a column that contains Concept Strips using Concept Table parameters. The target column may contain 1 or more merged concept strip, and the multiple strips must be separated by a new line \&quot;\n\&quot; for the filter to operate correctly. It is important to note that the the filter is applied to the entire Concept Strip cell and will not alter the data content within the cell otherwise. For example, if the filter `vocabulary_id == 'RxNorm'` is used for `ColumnA`, a `ColumnA` cell that contains at least 1 RxNorm concept will be filtered for though there are other non-RxNorm concepts in that same cell." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -106,13 +114,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter Merged Concepts</h1>
+    <h1>Filter Columns with Merged Concept Strips</h1>
     
     <div class="hidden name"><code>filterStrip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Filter Merged Concepts</p>
+    <p>This function filters a column that contains Concept Strips using Concept Table parameters. The target column may contain 1 or more merged concept strip, and the multiple strips must be separated by a new line \"\n\" for the filter to operate correctly. It is important to note that the the filter is applied to the entire Concept Strip cell and will not alter the data content within the cell otherwise. For example, if the filter `vocabulary_id == 'RxNorm'` is used for `ColumnA`, a `ColumnA` cell that contains at least 1 RxNorm concept will be filtered for though there are other non-RxNorm concepts in that same cell.</p>
     </div>
 
     <pre class="usage"><span class='fu'>filterStrip</span>(<span class='no'>.data</span>, <span class='no'>merge_col</span>, <span class='no'>...</span>)</pre>
@@ -122,7 +130,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.data</th>
-      <td><p>dataframe that contains the merged concept column</p></td>
+      <td><p>dataframe with the merged concept column</p></td>
     </tr>
     <tr>
       <th>merge_col</th>
@@ -130,10 +138,29 @@
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments for filter function using concept table fields</p></td>
+      <td><p>arguments that will be passed to the dplyr filter function using the base Concept Table field names</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble with the same number of columns as the input with the number of rows equal or less than that of the input.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function:
+1. Mutates a copy `merge_col` to a `merge_col_tmp` column,
+1. Separates the rows in `merge_col_tmp` by \"\n\",
+1. Filters out any blanks and `NA` values introduced by the row separation,
+1. Unmerges the `merge_col` into the base Concept Table field names,
+1. Applies the filters found in the ellipses argument,
+1. Removes the `merge_col_tmp` and base Concept Table columns to reconstitute the original input, and
+1. Removes duplicate rows</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>tidyeval-compat</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter_all.html'>filter_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>
+ <code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a></code>
+ <code><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></code>
+ <code><a href='https://rdrr.io/pkg/rubix/man/normalize_all_to_na.html'>normalize_all_to_na</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

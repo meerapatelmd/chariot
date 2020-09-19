@@ -3,9 +3,6 @@
 #' @param concept_id_column The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
 #' @param dataframe input data
 #' @param names_from concept table column to be pivoted on
-#' @examples
-#' Random immunosuppressant concept ids
-#' immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723")
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
 #' @importFrom dplyr rename
@@ -67,7 +64,6 @@ pivotRelative <-
                                    values_from = RelativeConcept,
                                    values_fn = list(RelativeConcept = function(x) paste(unique(x)[1:250] %>%
                                                                                                centipede::no_na(), collapse = "\n"))) %>%
-                dplyr::mutate_all(substring, 1, 25000) %>%
                 dplyr::mutate_at(vars(!!column),
                                  as.integer)
 

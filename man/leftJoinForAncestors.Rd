@@ -2,7 +2,7 @@
 % Please edit documentation in R/leftJoinForAncestors.R
 \name{leftJoinForAncestors}
 \alias{leftJoinForAncestors}
-\title{Left Join a Dataframe to the Concept Ancestor Table}
+\title{Left Join a data frame to the Concept Ancestor Table}
 \usage{
 leftJoinForAncestors(
   .data,
@@ -10,10 +10,44 @@ leftJoinForAncestors(
   descendant_id_column = NULL,
   whereLevelIn = NULL,
   whereLevelType = NULL,
-  render_sql = TRUE,
-  conn = NULL
+  verbose = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
 )
 }
+\arguments{
+\item{.data}{PARAM_DESCRIPTION}
+
+\item{athena_schema}{PARAM_DESCRIPTION, Default: 'public'}
+
+\item{descendant_id_column}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{whereLevelIn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{whereLevelType}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{verbose}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{conn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{sleepTime}{PARAM_DESCRIPTION, Default: 1}
+
+\item{...}{PARAM_DESCRIPTION}
+}
+\value{
+OUTPUT_DESCRIPTION
+}
 \description{
-Left Join a Dataframe to the Concept Ancestor Table
+Left Join a data frame to the Concept Ancestor Table
+}
+\details{
+DETAILS
+}
+\seealso{
+\code{\link[dplyr]{select}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[rubix]{rename_all_with_prefix}}
 }

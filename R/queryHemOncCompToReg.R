@@ -9,6 +9,12 @@
 queryHemOncCompToReg <-
         function(component_concept_ids,
                  schema = NULL,
+                 verbose = FALSE,
+                 cache_resultset = TRUE,
+                 override_cache = FALSE,
+                 conn = NULL,
+                 render_sql = FALSE,
+                 sleepTime = 1,
                  ...) {
 
                 # For inputs that are actually regimens, a new set of components is derived.
@@ -20,7 +26,9 @@ queryHemOncCompToReg <-
                 input_component_count <- length(component_concept_ids)
 
                 # If any of the concept_ids are regimens, to get their antineoplastic components
-                input_concept <- query_concept_id(component_concept_ids)
+                input_concept <-
+                        queryConceptId(component_concept_ids,
+                                       schema = schema)
 
                 qa <- input_concept %>%
                         rubix::filter_for(filter_col = concept_class_id,
@@ -40,8 +48,14 @@ queryHemOncCompToReg <-
                                       schema = schema)
 
                 Regimens <-
-                        query_athena(sql_statement = sql_statement,
-                                     ...)
+                        queryAthena(sql_statement = sql_statement,
+                                    verbose = verbose,
+                                    cache_resultset = cache_resultset,
+                                    override_cache = override_cache,
+                                    conn = conn,
+                                    render_sql = render_sql,
+                                    sleepTime = sleepTime,
+                                    ...)
 
                 # Query again to get all of the "Has antineoplastic" relationships to HemOnc Components these Regimens have
                 HasAntineoplastics <- queryHemOncRegToAntineo(regimen_concept_ids = Regimens$regimen_concept_id,

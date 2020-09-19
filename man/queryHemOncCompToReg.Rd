@@ -4,7 +4,17 @@
 \alias{queryHemOncCompToReg}
 \title{Find HemOnc Regimen by Components}
 \usage{
-queryHemOncCompToReg(component_concept_ids, schema = NULL, ...)
+queryHemOncCompToReg(
+  component_concept_ids,
+  schema = NULL,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
+)
 }
 \arguments{
 \item{component_concept_ids}{integer vector of length 1 or greater of all the Component Concept Ids belonging to any regimen to map to a HemOnc Regimen.}

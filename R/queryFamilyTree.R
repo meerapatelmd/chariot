@@ -4,26 +4,30 @@
 
 queryFamilyTree <-
 	function(concept_id,
-			parental_generations = 1,
-			 child_generations = 1,
-             override_cache = FALSE,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             conn = NULL,
-             render_sql = TRUE,
-             schema) {
+	         schema,
+	         parental_generations = 1,
+	         child_generations = 1,
+	         verbose = FALSE,
+	         cache_resultset = TRUE,
+	         override_cache = FALSE,
+	         conn = NULL,
+	         render_sql = FALSE,
+	         sleepTime = 1,
+	         ...) {
 
 
 	        if (parental_generations != 0) {
 
         	        parents <- queryConceptParent(child_id = concept_id,
+        	                                      schema = schema,
         	                                      generations = parental_generations,
-        	                                      override_cache = override_cache,
         	                                      verbose = verbose,
         	                                      cache_resultset = cache_resultset,
+        	                                      override_cache = override_cache,
         	                                      conn = conn,
         	                                      render_sql = render_sql,
-        	                                      schema = schema)
+        	                                      sleepTime = sleepTime,
+        	                                      ...)
 	        } else {
 	                parents <- NULL
 	        }
@@ -31,13 +35,15 @@ queryFamilyTree <-
 	        if (child_generations != 0) {
 
         	        children <- queryConceptChildren(parent_id = concept_id,
+        	                                         schema = schema,
         	                                         generations = child_generations,
-        	                                         override_cache = override_cache,
         	                                         verbose = verbose,
         	                                         cache_resultset = cache_resultset,
+        	                                         override_cache = override_cache,
         	                                         conn = conn,
         	                                         render_sql = render_sql,
-        	                                         schema = schema)
+        	                                         sleepTime = sleepTime,
+        	                                         ...)
 
 	        } else {
 

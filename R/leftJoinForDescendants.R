@@ -1,6 +1,20 @@
-#' Left Join a Dataframe to the Concept Ancestor Table
-#' @importFrom rlang list2
+#' @title Left Join a data frame to the Concept Ancestor Table
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param athena_schema Default: 'public'
+#' @param ancestor_id_column Default: NULL
+#' @param whereLevelIn Default: NULL
+#' @param whereLevelType Default: NULL
+#' @param render_sql Default: TRUE
+#' @param conn Default: NULL
+#' @seealso
+#'  \code{\link[dplyr]{select}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{mutate-joins}}
+#'  \code{\link[rubix]{rename_all_with_prefix}}
+#' @rdname leftJoinForDescendants
 #' @export
+#' @importFrom magrittr %>%
+#' @importFrom dplyr select distinct left_join
+#' @importFrom rubix rename_all_with_prefix
 
 leftJoinForDescendants <-
         function(.data,
@@ -8,8 +22,11 @@ leftJoinForDescendants <-
                  ancestor_id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
-                 render_sql = TRUE,
-                 conn = NULL) {
+                 verbose = FALSE,
+                 conn = NULL,
+                 render_sql = FALSE,
+                 sleepTime = 1,
+                 ...) {
 
                         if (!is.null(whereLevelIn) && length(whereLevelType) != 1) {
 
@@ -36,8 +53,11 @@ leftJoinForDescendants <-
                                                  athena_column = "ancestor_concept_id",
                                                  where_athena_col = whereAthenaField,
                                                  where_athena_col_in = whereLevelIn,
+                                                 verbose = verbose,
+                                                 conn = conn,
                                                  render_sql = render_sql,
-                                                 conn = conn)
+                                                 sleepTime = sleepTime,
+                                                 ...)
 
                         } else {
 
@@ -47,8 +67,11 @@ leftJoinForDescendants <-
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
                                                  athena_column = "ancestor_concept_id",
+                                                 verbose = verbose,
+                                                 conn = conn,
                                                  render_sql = render_sql,
-                                                 conn = conn)
+                                                 sleepTime = sleepTime,
+                                                 ...)
                         }
 
 
@@ -57,9 +80,12 @@ leftJoinForDescendants <-
                                         leftJoinConcept(descendants %>%
                                                                 dplyr::select(descendant_concept_id),
                                                         athena_schema = athena_schema,
-                                                        render_sql = render_sql,
+                                                        synonyms = FALSE,
+                                                        verbose = verbose,
                                                         conn = conn,
-                                                        synonyms = FALSE) %>%
+                                                        render_sql = render_sql,
+                                                        sleepTime = sleepTime,
+                                                        ...) %>%
                                         dplyr::select(-descendant_concept_id) %>%
                                         rubix::rename_all_with_prefix("descendant_") %>%
                                         dplyr::distinct()

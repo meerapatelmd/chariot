@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query a Postgres Database — queryAthena • chariot</title>
+<title>Query the Athena Postgres Database — queryAthena • chariot</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -39,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Query a Postgres Database — queryAthena" />
+<meta property="og:title" content="Query the Athena Postgres Database — queryAthena" />
 <meta property="og:description" content="By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -72,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -106,7 +114,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query a Postgres Database</h1>
+    <h1>Query the Athena Postgres Database</h1>
     
     <div class="hidden name"><code>queryAthena.Rd</code></div>
     </div>
@@ -121,7 +129,8 @@
   <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>sleepTime</span> <span class='kw'>=</span> <span class='fl'>1</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -132,22 +141,40 @@
       <td><p>SQL query</p></td>
     </tr>
     <tr>
+      <th>verbose</th>
+      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+    </tr>
+    <tr>
       <th>cache_resultset</th>
-      <td><p>If TRUE, the resultset from the query will first be loaded from the cache. If there isn't an existing cache entry for this particular query a new one will be made. If FALSE, Athena will be directly queried without an caching operations.</p></td>
+      <td><p>If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.</p></td>
     </tr>
     <tr>
       <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new fresh query. For override_cache to take effect, cache_resultset must be set to TRUE.</p></td>
+      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, cache_resultset must also be set to TRUE.</p></td>
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>If provided, serves as the target database from which the query is derived.</p></td>
+      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance.</p></td>
+    </tr>
+    <tr>
+      <th>render_sql</th>
+      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>sleepTime</th>
+      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/secretary/man/typewrite_bold.html'>typewrite_bold</a></code>,<code><a href='https://rdrr.io/pkg/secretary/man/typewrite.html'>typewrite</a></code>
+ <code><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></code>,<code><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></code>
+ <code><a href='https://rdrr.io/pkg/pg13/man/query.html'>query</a></code>,<code><a href='https://rdrr.io/pkg/pg13/man/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://rdrr.io/pkg/pg13/man/loadCachedQuery.html'>loadCachedQuery</a></code>
+ <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

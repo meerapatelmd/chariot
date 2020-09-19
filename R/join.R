@@ -14,8 +14,10 @@ join <-
              athena_column,
              where_athena_col = NULL,
              where_athena_col_in = NULL,
-             render_sql = TRUE,
-             conn = NULL) {
+             verbose = FALSE,
+             conn = NULL,
+             render_sql = FALSE,
+             sleepTime = 1) {
 
 
                 table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
@@ -57,8 +59,10 @@ join <-
 
 
                                 resultset <- queryAthena(sql_statement = sql_statement,
-                                                    cache_resultset = FALSE,
-                                                    render_sql = render_sql)
+                                                         verbose = verbose,
+                                                         cache_resultset = FALSE,
+                                                         render_sql = render_sql,
+                                                         sleepTime = sleepTime)
 
 
 
@@ -98,9 +102,11 @@ join <-
 
 
                         resultset <- queryAthena(sql_statement = sql_statement,
+                                                 verbose = verbose,
                                                  cache_resultset = FALSE,
+                                                 conn = conn,
                                                  render_sql = render_sql,
-                                                 conn = conn)
+                                                 sleepTime = sleepTime)
 
                         dropJoinTables(conn = conn,
                                        schema = athena_schema)

@@ -26,7 +26,3 @@ pivotRelative(
 \description{
 This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
 }
-\examples{
-Random immunosuppressant concept ids
-immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723")
-}

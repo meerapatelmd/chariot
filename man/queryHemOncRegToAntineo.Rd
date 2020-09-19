@@ -4,7 +4,17 @@
 \alias{queryHemOncRegToAntineo}
 \title{Query a HemOnc Regimen's 'Has antineoplastic' Relationship}
 \usage{
-queryHemOncRegToAntineo(regimen_concept_ids, schema = NULL, ...)
+queryHemOncRegToAntineo(
+  regimen_concept_ids,
+  schema = NULL,
+  verbose = FALSE,
+  cache_resultset = TRUE,
+  override_cache = FALSE,
+  conn = NULL,
+  render_sql = FALSE,
+  sleepTime = 1,
+  ...
+)
 }
 \description{
 Query a HemOnc Regimen's 'Has antineoplastic' Relationship

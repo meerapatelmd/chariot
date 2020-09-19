@@ -22,3 +22,12 @@ viaMetathesaurusCode(
 \description{
 Crosswalk a Search by the Metathesaurus CODE
 }
+\seealso{
+\code{\link[SqlRender]{translate}}
+ \code{\link[pg13]{buildQuery}},\code{\link[pg13]{query}}
+ \code{\link[stringr]{str_replace}}
+ \code{\link[preQL]{connectMySQL5.5}},\code{\link[preQL]{dcMySQL5.5}}
+ \code{\link[tibble]{tibble}}
+ \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{filter}}
+ \code{\link[rubix]{filter_for}}
+}
