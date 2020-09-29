@@ -17,7 +17,8 @@ Imports:
     R.cache,
     pg13,
     rubix,
-    secretary
+    secretary,
+    magrittr
 Remotes:
     patelm9/rubix,
     patelm9/secretary

@@ -28,11 +28,12 @@
 
 queryAthena <-
         function(sql_statement,
-                 verbose = FALSE,
+                 cache_only = FALSE,
                  cache_resultset = TRUE,
                  override_cache = FALSE,
                  conn = NULL,
                  render_sql = FALSE,
+                 verbose = FALSE,
                  sleepTime = 1) {
 
                 if (render_sql) {
@@ -42,6 +43,14 @@ queryAthena <-
                         secretary::typewrite(centipede::trimws(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " ")), tabs = 1)
                         cat("\n")
 
+                }
+
+                if (is.null(conn)) {
+                        conn_was_missing <- TRUE
+                        conn <- connectAthena()
+
+                } else {
+                        conn_was_missing <- FALSE
                 }
 
 
@@ -170,6 +179,11 @@ queryAthena <-
 
 
                 Sys.sleep(time = sleepTime)
+
+
+                if (conn_was_missing) {
+                        dcAthena(conn = conn)
+                }
                 return(tibble::as_tibble(resultset))
 
         }
