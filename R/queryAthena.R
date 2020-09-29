@@ -1,14 +1,16 @@
 #' @title Query the Athena Postgres Database
 #' @description
-#' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
+#' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
 #'
 #' @param sql_statement         SQL query
-#' @param cache_resultset       If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.
-#' @param override_cache        If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, cache_resultset must also be set to TRUE.
-#' @param conn                  Connection object. If provided, diverts queries to the connection instead of the local Athena instance.
+#' @param cache_only            Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.
+#' @param skip_cache            Skip the caching altogether and directly query the database.
+#' @param override_cache        If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.
+#' @param conn                  Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.
 #' @param render_sql            If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE
 #' @param verbose               If TRUE, prints loading and querying operations messages to the console. Default: FALSE
 #' @param sleepTime             Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.
+#' @param cache_resultset       (deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.
 #'
 #' @return
 #' A tibble
@@ -28,13 +30,33 @@
 
 queryAthena <-
         function(sql_statement,
-                 cache_only = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
                  conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 cache_resultset = TRUE,
                  render_sql = FALSE,
                  verbose = FALSE,
                  sleepTime = 1) {
+
+                if (is.null(conn)) {
+
+                        conn_was_missing <- TRUE
+
+                        conn <- connectAthena()
+
+
+                } else {
+
+                        conn_was_missing <- FALSE
+
+                        if (!.hasSlot(conn, name = "jConnection")) {
+
+                                stop('conn object must be a Database Connector JDBC Connection')
+
+                        }
+
+                }
 
                 if (render_sql) {
 
@@ -45,42 +67,29 @@ queryAthena <-
 
                 }
 
-                if (is.null(conn)) {
-                        conn_was_missing <- TRUE
-                        conn <- connectAthena()
+                 if (conn_was_missing) {
 
-                } else {
-                        conn_was_missing <- FALSE
-                }
+                                if (skip_cache) {
 
+                                        if (verbose) {
+                                                secretary::typewrite("Skipping cache")
+                                        }
 
-
-                if (is.null(conn)) {
-
-                        if (cache_resultset) {
-
-                                if (override_cache) {
-
-                                        conn <- connectAthena()
                                         resultset <- pg13::query(conn = conn,
                                                                  sql_statement = sql_statement)
 
+                                        # resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
+                                        #                                             db = "athena"),
+                                        #                       error = function(e) NULL)
 
-                                        pg13::cacheQuery(resultset,
-                                                         sqlQuery = sql_statement,
-                                                         db = "athena")
-
-                                        dcAthena(conn = conn)
 
                                 } else {
 
-                                        resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                                    db = "athena"),
-                                                              error = function(e) NULL)
+                                        if (override_cache) {
 
-                                        if (is.null(resultset)) {
-
-                                                conn <- connectAthena()
+                                                if (verbose) {
+                                                        secretary::typewrite("Overriding cache")
+                                                }
 
                                                 resultset <- pg13::query(conn = conn,
                                                                          sql_statement = sql_statement)
@@ -89,94 +98,56 @@ queryAthena <-
                                                                  sqlQuery = sql_statement,
                                                                  db = "athena")
 
-                                                dcAthena(conn = conn)
 
                                         } else {
 
                                                 if (verbose) {
+                                                        secretary::typewrite("Loading Cache")
+                                                }
 
-                                                        secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
 
+                                                resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
+                                                                                            db = "athena"),
+                                                                      error = function(e) NULL)
+
+                                                if (!cache_only) {
+
+                                                        if (is.null(resultset)) {
+
+
+                                                                if (verbose) {
+                                                                        secretary::typewrite("Cache was NULL, querying Athena")
+                                                                }
+
+                                                                resultset <- pg13::query(conn = conn,
+                                                                                         sql_statement = sql_statement)
+
+                                                                pg13::cacheQuery(resultset,
+                                                                                 sqlQuery = sql_statement,
+                                                                                 db = "athena")
+
+                                                        }
+
+                                                } else {
+
+                                                        if (verbose) {
+
+                                                                secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
+
+                                                        }
                                                 }
 
                                         }
                                 }
 
-                        } else {
-
-                                conn <- connectAthena()
-                                resultset <- pg13::query(conn = conn,
-                                                         sql_statement = sql_statement)
-                                dcAthena(conn = conn)
-
-                        }
-
-                } else {
-
-                        if (!.hasSlot(conn, name = "jConnection")) {
-
-                                stop('conn object must be a Database Connector JDBC Connection')
-
-                        }
+                 } else {
 
 
-                        db <- conn@jConnection$getCatalog()
-
-                        if (cache_resultset) {
-
-                                if (override_cache) {
-
-                                        resultset <- pg13::query(conn = conn,
-                                                                 sql_statement = sql_statement)
+                         resultset <- pg13::query(conn = conn,
+                                                  sql_statement = sql_statement)
 
 
-                                        pg13::cacheQuery(resultset,
-                                                         sqlQuery = sql_statement,
-                                                         db = db)
-
-
-                                } else {
-
-
-                                        resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                                    db = db),
-                                                              error = function(e) NULL)
-
-                                        if (is.null(resultset)) {
-
-                                                resultset <- pg13::query(conn = conn,
-                                                                         sql_statement = sql_statement)
-
-                                                pg13::cacheQuery(resultset,
-                                                                 sqlQuery = sql_statement,
-                                                                 db = db)
-
-
-                                        } else {
-
-                                                if (verbose) {
-
-                                                        secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
-
-                                                }
-
-                                        }
-                                }
-
-                        } else {
-                                if (render_sql) {
-                                        secretary::typewrite_bold("Rendered SQL:")
-                                        secretary::typewrite(stringr::str_remove_all(sql_statement, "\n"), tabs = 1)
-                                        cat("\n")
-                                }
-
-                                resultset <- pg13::query(conn = conn,
-                                                         sql_statement = sql_statement)
-
-                        }
-
-                }
-
+                 }
 
                 Sys.sleep(time = sleepTime)
 
@@ -184,6 +155,7 @@ queryAthena <-
                 if (conn_was_missing) {
                         dcAthena(conn = conn)
                 }
+
                 return(tibble::as_tibble(resultset))
 
         }

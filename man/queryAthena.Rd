@@ -6,26 +6,32 @@
 \usage{
 queryAthena(
   sql_statement,
-  verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  cache_resultset = TRUE,
   render_sql = FALSE,
+  verbose = FALSE,
   sleepTime = 1
 )
 }
 \arguments{
 \item{sql_statement}{SQL query}
 
-\item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
+\item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
 
-\item{cache_resultset}{If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.}
+\item{cache_only}{Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.}
 
-\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, cache_resultset must also be set to TRUE.}
+\item{skip_cache}{Skip the caching altogether and directly query the database.}
 
-\item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance.}
+\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.}
+
+\item{cache_resultset}{(deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.}
 
 \item{render_sql}{If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE}
+
+\item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
 
 \item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
 }
@@ -33,7 +39,7 @@ queryAthena(
 A tibble
 }
 \description{
-By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead.
+By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
 }
 \seealso{
 \code{\link[secretary]{typewrite_bold}},\code{\link[secretary]{typewrite}}
