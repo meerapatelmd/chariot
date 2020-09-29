@@ -1,4 +1,5 @@
 #' @title Query the Athena Postgres Database
+#'
 #' @description
 #' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
 #'
@@ -17,13 +18,18 @@
 #'
 #' @seealso
 #'  \code{\link[secretary]{typewrite_bold}},\code{\link[secretary]{typewrite}}
-#'  \code{\link[stringr]{str_replace}},\code{\link[stringr]{str_remove}}
+#'  \code{\link[centipede]{trimws}}
+#'  \code{\link[stringr]{str_replace}}
 #'  \code{\link[pg13]{query}},\code{\link[pg13]{cacheQuery}},\code{\link[pg13]{loadCachedQuery}}
 #'  \code{\link[tibble]{as_tibble}}
+#'
 #' @rdname queryAthena
+#'
 #' @export
+#'
 #' @importFrom secretary typewrite_bold typewrite
-#' @importFrom stringr str_replace_all str_remove_all
+#' @importFrom centipede trimws
+#' @importFrom stringr str_replace_all
 #' @importFrom pg13 query cacheQuery loadCachedQuery
 #' @importFrom tibble as_tibble
 
