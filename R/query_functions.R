@@ -1,39 +1,3 @@
-#' Query ancestors for a given concept_id
-#' @export
-
-queryAncestors <-
-    function(descendant_concept_ids,
-             schema,
-             min_levels_of_separation = NULL,
-             max_levels_of_separation = NULL,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
-             conn = NULL,
-             render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
-
-
-            sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
-                                                  schema = schema,
-                                                  min_levels_of_separation = min_levels_of_separation,
-                                                  max_levels_of_separation = max_levels_of_separation)
-
-            queryAthena(sql_statement = sql_statement,
-                        verbose = verbose,
-                        cache_resultset = cache_resultset,
-                        override_cache = override_cache,
-                        conn = conn,
-                        render_sql = render_sql,
-                        sleepTime = sleepTime,
-                         ...)
-
-    }
-
-
-
-
 #' @title Query the Athena Postgres Database
 #' @description
 #' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
@@ -103,87 +67,87 @@ queryAthena <-
 
                 }
 
-                 if (conn_was_missing) {
+                if (conn_was_missing) {
 
-                                if (skip_cache) {
+                        if (skip_cache) {
+
+                                if (verbose) {
+                                        secretary::typewrite("Skipping cache")
+                                }
+
+                                resultset <- pg13::query(conn = conn,
+                                                         sql_statement = sql_statement)
+
+                                # resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
+                                #                                             db = "athena"),
+                                #                       error = function(e) NULL)
+
+
+                        } else {
+
+                                if (override_cache) {
 
                                         if (verbose) {
-                                                secretary::typewrite("Skipping cache")
+                                                secretary::typewrite("Overriding cache")
                                         }
 
                                         resultset <- pg13::query(conn = conn,
                                                                  sql_statement = sql_statement)
 
-                                        # resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                        #                                             db = "athena"),
-                                        #                       error = function(e) NULL)
+                                        pg13::cacheQuery(resultset,
+                                                         sqlQuery = sql_statement,
+                                                         db = "athena")
 
 
                                 } else {
 
-                                        if (override_cache) {
+                                        if (verbose) {
+                                                secretary::typewrite("Loading Cache")
+                                        }
 
-                                                if (verbose) {
-                                                        secretary::typewrite("Overriding cache")
+
+                                        resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
+                                                                                    db = "athena"),
+                                                              error = function(e) NULL)
+
+                                        if (!cache_only) {
+
+                                                if (is.null(resultset)) {
+
+
+                                                        if (verbose) {
+                                                                secretary::typewrite("Cache was NULL, querying Athena")
+                                                        }
+
+                                                        resultset <- pg13::query(conn = conn,
+                                                                                 sql_statement = sql_statement)
+
+                                                        pg13::cacheQuery(resultset,
+                                                                         sqlQuery = sql_statement,
+                                                                         db = "athena")
+
                                                 }
-
-                                                resultset <- pg13::query(conn = conn,
-                                                                         sql_statement = sql_statement)
-
-                                                pg13::cacheQuery(resultset,
-                                                                 sqlQuery = sql_statement,
-                                                                 db = "athena")
-
 
                                         } else {
 
                                                 if (verbose) {
-                                                        secretary::typewrite("Loading Cache")
+
+                                                        secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
+
                                                 }
-
-
-                                                resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                                            db = "athena"),
-                                                                      error = function(e) NULL)
-
-                                                if (!cache_only) {
-
-                                                        if (is.null(resultset)) {
-
-
-                                                                if (verbose) {
-                                                                        secretary::typewrite("Cache was NULL, querying Athena")
-                                                                }
-
-                                                                resultset <- pg13::query(conn = conn,
-                                                                                         sql_statement = sql_statement)
-
-                                                                pg13::cacheQuery(resultset,
-                                                                                 sqlQuery = sql_statement,
-                                                                                 db = "athena")
-
-                                                        }
-
-                                                } else {
-
-                                                        if (verbose) {
-
-                                                                secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
-
-                                                        }
-                                                }
-
                                         }
+
                                 }
+                        }
 
-                 } else {
-
-
-                         resultset <- pg13::query(conn = conn,
-                                                  sql_statement = sql_statement)
+                } else {
 
 
-                 }
+                        resultset <- pg13::query(conn = conn,
+                                                 sql_statement = sql_statement)
+
+
+                }
 
                 Sys.sleep(time = sleepTime)
 
@@ -196,6 +160,39 @@ queryAthena <-
 
         }
 
+
+#' Query ancestors for a given concept_id
+#' @export
+
+queryAncestors <-
+    function(descendant_concept_ids,
+             schema,
+             min_levels_of_separation = NULL,
+             max_levels_of_separation = NULL,
+             conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = FALSE,
+             verbose = FALSE,
+             sleepTime = 1) {
+
+
+            sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
+                                                  schema = schema,
+                                                  min_levels_of_separation = min_levels_of_separation,
+                                                  max_levels_of_separation = max_levels_of_separation)
+
+            queryAthena(sql_statement = sql_statement,
+                        conn = conn,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime)
+
+    }
 
 
 
@@ -211,11 +208,13 @@ queryCode <-
                  caseInsensitive = TRUE,
                  limit = NULL,
                  verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
+                 type = c("like", "exact"),
                  conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
                  render_sql = FALSE,
-                 type = c("like", "exact")) {
+                 sleepTime = 1) {
 
                 if (length(type) != 1) {
                         warning("type is not length 1. Defaulting to 'exact'")
@@ -247,13 +246,14 @@ queryCode <-
                         stop('type not recognized: ', type)
                 }
 
-                resultset <- queryAthena(sql_statement = sql_statement,
-                                         verbose = verbose,
-                                         cache_resultset = cache_resultset,
-                                         override_cache = override_cache,
+               queryAthena(sql_statement = sql_statement,
                                          conn = conn,
-                                         render_sql = render_sql)
-                return(resultset)
+                                         cache_only = cache_only,
+                                         skip_cache = skip_cache,
+                                         override_cache = override_cache,
+                                         render_sql = render_sql,
+                                         verbose = verbose,
+                                         sleepTime = sleepTime)
         }
 
 
@@ -267,12 +267,14 @@ queryCode <-
 queryConceptChildren <-
     function(parent_id,
              generations = 1,
-             override_cache = FALSE,
-             verbose = FALSE,
-             cache_resultset = TRUE,
+             schema,
              conn = NULL,
-             render_sql = TRUE,
-             schema) {
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = FALSE,
+             verbose = FALSE,
+             sleepTime = 1) {
 
                 sql_statement <- pg13::buildQuery(schema = schema,
                                                   tableName = "concept_parent",
@@ -282,11 +284,13 @@ queryConceptChildren <-
 
                 baseline <-
                         queryAthena(sql_statement = sql_statement,
-                                    override_cache = override_cache,
-                                    cache_resultset = cache_resultset,
                                     conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
                                     render_sql = render_sql,
-                                    verbose = verbose) %>%
+                                    verbose = verbose,
+                                    sleepTime = sleepTime) %>%
                         dplyr::filter(parent_concept_id != child_concept_id)
 
                 if (nrow(baseline) == 0) {
@@ -350,10 +354,6 @@ queryConceptChildren <-
     }
 
 
-
-
-
-
 #' Query Concept Class Relationships
 #' @description This function retrieves the Subject-Predicate-Object triplet from the CONCEPT_RELATIONSHIP table between 2 vocabularies.
 #' @return A dataframe with 3 columns: 1) concept_class_id of vocabulary_1 with name as "{vocabulary_id_1}_concept_class_id" unless vocabulary_id_2 is NULL, in which case it will be concept_class_id_1 2) relationship_id from the CONCEPT_RELATIONSHIP table, and 3) concept_class_id of vocabulary_2 with name as "{vocabulary_id_2}_concept_class_id" unless vocabulary_id_2 is NULL, in which case it will be concept_class_id_2.
@@ -367,13 +367,13 @@ queryConceptClassRelationships <-
     function(vocabulary_id_1,
              vocabulary_id_2 = NULL,
              schema = NULL,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             verbose = FALSE,
+             sleepTime = 1) {
 
                         if (is.null(schema)) {
 
@@ -387,13 +387,13 @@ queryConceptClassRelationships <-
 
 
                         queryAthena(sql_statement = sql_statement,
-                                    verbose = verbose,
-                                    cache_resultset = cache_resultset,
-                                    override_cache = override_cache,
                                     conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
                                     render_sql = render_sql,
-                                    sleepTime = sleepTime,
-                                    ...)
+                                    verbose = verbose,
+                                    sleepTime = sleepTime)
     }
 
 
@@ -406,13 +406,13 @@ queryConceptClassRelationships <-
 queryConceptId <-
     function(concept_ids,
              schema,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             verbose = FALSE,
+             sleepTime = 1) {
 
 
                             sql <-
@@ -423,13 +423,13 @@ queryConceptId <-
                                              caseInsensitive = FALSE)
 
                             queryAthena(sql_statement = sql_statement,
-                                        verbose = verbose,
-                                        cache_resultset = cache_resultset,
-                                        override_cache = override_cache,
                                         conn = conn,
+                                        cache_only = cache_only,
+                                        skip_cache = skip_cache,
+                                        override_cache = override_cache,
                                         render_sql = render_sql,
-                                        sleepTime = sleepTime,
-                                        ...)
+                                        verbose = verbose,
+                                        sleepTime = sleepTime)
 
     }
 
@@ -453,13 +453,13 @@ queryConceptParent <-
     function(child_id,
              schema,
              generations = 1,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             verbose = FALSE,
+             sleepTime = 1) {
 
                 sql_statement <- pg13::buildQuery(schema = schema,
                                                   tableName = "concept_parent",
@@ -469,13 +469,13 @@ queryConceptParent <-
 
                 baseline <-
                         queryAthena(sql_statement = sql_statement,
-                                    verbose = verbose,
-                                    cache_resultset = cache_resultset,
-                                    override_cache = override_cache,
                                     conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
                                     render_sql = render_sql,
-                                    sleepTime = sleepTime,
-                                    ...) %>%
+                                    verbose = verbose,
+                                    sleepTime = sleepTime) %>%
                         dplyr::filter(parent_concept_id != child_concept_id)
 
                 if (nrow(baseline) == 0) {
@@ -559,26 +559,26 @@ queryDescendants <-
              schema,
              min_levels_of_separation = NULL,
              max_levels_of_separation = NULL,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             verbose = FALSE,
+             sleepTime = 1) {
             sql_statement <- renderQueryDescendants(ancestor_concept_ids = ancestor_concept_ids,
                                                     schema = schema,
                                                     min_levels_of_separation = min_levels_of_separation,
                                                     max_levels_of_separation = max_levels_of_separation)
 
             queryAthena(sql_statement = sql_statement,
-                        verbose = verbose,
-                        cache_resultset = cache_resultset,
-                        override_cache = override_cache,
                         conn = conn,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
                         render_sql = render_sql,
-                        sleepTime = sleepTime,
-                        ...)
+                        verbose = verbose,
+                        sleepTime = sleepTime)
 
     }
 
@@ -594,13 +594,13 @@ queryFamilyTree <-
 	         schema,
 	         parental_generations = 1,
 	         child_generations = 1,
-	         verbose = FALSE,
-	         cache_resultset = TRUE,
-	         override_cache = FALSE,
 	         conn = NULL,
+	         cache_only = FALSE,
+	         skip_cache = FALSE,
+	         override_cache = FALSE,
 	         render_sql = FALSE,
-	         sleepTime = 1,
-	         ...) {
+	         verbose = FALSE,
+	         sleepTime = 1) {
 
 
 	        if (parental_generations != 0) {
@@ -663,13 +663,13 @@ queryFamilyTree <-
 queryHemOncCompToReg <-
         function(component_concept_ids,
                  schema = NULL,
-                 verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
                  conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
                  render_sql = FALSE,
-                 sleepTime = 1,
-                 ...) {
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 # For inputs that are actually regimens, a new set of components is derived.
                 component_concept_ids <-
@@ -703,13 +703,13 @@ queryHemOncCompToReg <-
 
                 Regimens <-
                         queryAthena(sql_statement = sql_statement,
-                                    verbose = verbose,
-                                    cache_resultset = cache_resultset,
-                                    override_cache = override_cache,
                                     conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
                                     render_sql = render_sql,
-                                    sleepTime = sleepTime,
-                                    ...)
+                                    verbose = verbose,
+                                    sleepTime = sleepTime)
 
                 # Query again to get all of the "Has antineoplastic" relationships to HemOnc Components these Regimens have
                 HasAntineoplastics <- queryHemOncRegToAntineo(regimen_concept_ids = Regimens$regimen_concept_id,
@@ -762,26 +762,26 @@ queryHemOncCompToReg <-
 queryHemOncRegToAntineo <-
         function(regimen_concept_ids,
                  schema = NULL,
-                 verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
                  conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
                  render_sql = FALSE,
-                 sleepTime = 1,
-                 ...) {
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sql_statement <-
                         renderHemOncRegToAntineoplastics(regimen_concept_ids = regimen_concept_ids,
                                                          schema = schema)
 
                 queryAthena(sql_statement = sql_statement,
-                            verbose = verbose,
-                            cache_resultset = cache_resultset,
-                            override_cache = override_cache,
                             conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
+                            override_cache = override_cache,
                             render_sql = render_sql,
-                            sleepTime = sleepTime,
-                            ...)
+                            verbose = verbose,
+                            sleepTime = sleepTime)
         }
 
 
@@ -798,10 +798,12 @@ queryPhrase <-
                  concept_table_search = c("exact", "string", "like"),
                  concept_synonym_table_search = c("exact", "string", "like"),
                  conn = NULL,
-                 render_sql = TRUE,
-                 cache_resultset = TRUE,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 verbose = FALSE) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 if (any(!(concept_table_search %in% c("exact", "string", "like")))) {
                         stop("'concept_table_search' can only be one of c('exact', 'string', 'like')")
@@ -928,10 +930,12 @@ queryPhraseExact <-
                  phrase,
                  caseInsensitive,
                  conn = NULL,
-                 render_sql = TRUE,
-                 cache_resultset = TRUE,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 verbose = FALSE) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sql_statement <-
                 pg13::buildQuery(schema = schema,
@@ -942,11 +946,13 @@ queryPhraseExact <-
 
 
                 queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            render_sql = render_sql,
-                            cache_resultset = cache_resultset,
-                            override_cache = override_cache,
-                            verbose = verbose)
+                              conn = conn,
+                              cache_only = cache_only,
+                              skip_cache = skip_cache,
+                              override_cache = override_cache,
+                              render_sql = render_sql,
+                              verbose = verbose,
+                              sleepTime = sleepTime)
         }
 
 
@@ -964,23 +970,27 @@ queryPhraseExactSynonym <-
         function(schema,
                  caseInsensitive = TRUE,
                  phrase,
-                 render_sql = TRUE,
                  conn = NULL,
-                 cache_resultset = TRUE,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 verbose = FALSE) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sqlStatement <- renderQueryPhraseExactSynonym(schema = schema,
                                                              caseInsensitive = caseInsensitive,
                                                              phrase = phrase)
 
 
-                queryAthena(sql_statement = sqlStatement,
-                            render_sql = render_sql,
+                queryAthena(sql_statement = sql_statement,
                             conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
                             override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            verbose = verbose)
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
 
 
         }
@@ -997,10 +1007,12 @@ queryPhraseLike <-
                  phrase,
                  caseInsensitive,
                  conn = NULL,
-                 render_sql = TRUE,
-                 cache_resultset = TRUE,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 verbose = FALSE) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sql_statement <-
                         pg13::buildQueryLike(tableName = "concept",
@@ -1012,10 +1024,12 @@ queryPhraseLike <-
 
                 queryAthena(sql_statement = sql_statement,
                             conn = conn,
-                            render_sql = render_sql,
-                            cache_resultset = cache_resultset,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
                             override_cache = override_cache,
-                            verbose = verbose)
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
         }
 
 
@@ -1033,11 +1047,13 @@ queryPhraseLikeSynonym <-
         function(schema,
                  caseInsensitive = TRUE,
                  phrase,
-                 render_sql = TRUE,
                  conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 render_sql = FALSE,
                  verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE) {
+                 sleepTime = 1) {
 
                 sql_statement <-
                         renderQueryPhraseLikeSynonym(schema = schema,
@@ -1046,11 +1062,13 @@ queryPhraseLikeSynonym <-
 
 
                 queryAthena(sql_statement = sql_statement,
-                            verbose = verbose,
-                            render_sql = render_sql,
-                            cache_resultset = cache_resultset,
+                            conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
                             override_cache = override_cache,
-                            conn = conn)
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
 
         }
 
@@ -1069,10 +1087,12 @@ queryPhraseString <-
                  phrase,
                  split = " ",
                  conn = NULL,
-                 render_sql = TRUE,
-                 cache_resultset = TRUE,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 verbose = FALSE) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sql_statement <-
                         pg13::buildQueryString(schema = schema,
@@ -1084,10 +1104,12 @@ queryPhraseString <-
 
                 queryAthena(sql_statement = sql_statement,
                             conn = conn,
-                            render_sql = render_sql,
-                            cache_resultset = cache_resultset,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
                             override_cache = override_cache,
-                            verbose = verbose)
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
 
         }
 
@@ -1106,12 +1128,14 @@ queryPhraseStringSynonym <-
         function(schema,
                  caseInsensitive = TRUE,
                  phrase,
-                 split,
-                 render_sql = TRUE,
-                 verbose = FALSE,
-                 cache_resultset = TRUE,
+                 split = " ",
+                 conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
                  override_cache = FALSE,
-                 conn = NULL) {
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
 
                 sql_statement <-
                         pg13::buildQueryString(schema = schema,
@@ -1123,11 +1147,13 @@ queryPhraseStringSynonym <-
 
                 output1 <-
                         queryAthena(sql_statement = sql_statement,
-                                    verbose = verbose,
-                                    cache_resultset = cache_resultset,
+                                    conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
                                     override_cache = override_cache,
                                     render_sql = render_sql,
-                                    conn = conn) %>%
+                                    verbose = verbose,
+                                    sleepTime = sleepTime) %>%
                         dplyr::rename(concept_synonym_id = concept_id)
 
 
@@ -1165,26 +1191,26 @@ querySynonyms <-
     function(concept_id,
              schema = NULL,
              language_concept_id = 4180186,
-             verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             verbose = FALSE,
+             sleepTime = 1) {
 
                 sql_statement <- renderSynonyms(concept_id = concept_id,
                                       schema = schema,
                                       language_concept_id = language_concept_id)
 
                 queryAthena(sql_statement = sql_statement,
-                                         verbose = verbose,
-                                         cache_resultset = cache_resultset,
-                                         override_cache = override_cache,
-                                         conn = conn,
-                                         render_sql = render_sql,
-                                         sleepTime = sleepTime,
-                                         ...) %>%
+                            conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
+                            override_cache = override_cache,
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime) %>%
                                dplyr::select(concept_synonym_name) %>%
                                unlist()
     }
@@ -1202,12 +1228,12 @@ querySynonyms <-
 queryVocabularyRelationships <-
     function(vocabulary_id,
              verbose = FALSE,
-             cache_resultset = TRUE,
-             override_cache = FALSE,
              conn = NULL,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
              render_sql = FALSE,
-             sleepTime = 1,
-             ...) {
+             sleepTime = 1) {
 
                         base <- system.file(package = "chariot")
                         path <- paste0(base, "/sql/vocabularyRelationship.sql")
@@ -1217,31 +1243,13 @@ queryVocabularyRelationships <-
                                                   vocabulary_id = vocabulary_id)
 
                         queryAthena(sql_statement = sql_statement,
-                                    verbose = verbose,
-                                    cache_resultset = cache_resultset,
-                                    override_cache = override_cache,
                                     conn = conn,
+                                    cache_only = cache_only,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
                                     render_sql = render_sql,
-                                    sleepTime = sleepTime,
-                                    ...)
+                                    verbose = verbose,
+                                    sleepTime = sleepTime)
     }
 
-
-#' Query relationship_id in relationship table
-#' @export
-
-query_relationship_name <-
-        function(phrase, type = c("like", "exact")) {
-
-                if (type == "exact") {
-
-                        query_athena(paste0("SELECT * FROM relationship WHERE LOWER(relationship_name) = '", tolower(phrase), "'"))
-
-                } else if (type == "like") {
-
-                        query_athena(paste0("SELECT * FROM relationship WHERE LOWER(relationship_name) LIKE '%", tolower(phrase), "%'"))
-
-                }
-
-        }
 

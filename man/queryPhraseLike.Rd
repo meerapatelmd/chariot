@@ -9,10 +9,12 @@ queryPhraseLike(
   phrase,
   caseInsensitive,
   conn = NULL,
-  render_sql = TRUE,
-  cache_resultset = TRUE,
+  cache_only = FALSE,
+  skip_cache = FALSE,
   override_cache = FALSE,
-  verbose = FALSE
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

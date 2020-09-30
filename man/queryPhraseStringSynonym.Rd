@@ -8,12 +8,14 @@ queryPhraseStringSynonym(
   schema,
   caseInsensitive = TRUE,
   phrase,
-  split,
-  render_sql = TRUE,
-  verbose = FALSE,
-  cache_resultset = TRUE,
+  split = " ",
+  conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
   override_cache = FALSE,
-  conn = NULL
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

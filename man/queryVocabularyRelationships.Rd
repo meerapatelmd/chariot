@@ -7,12 +7,12 @@
 queryVocabularyRelationships(
   vocabulary_id,
   verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  sleepTime = 1
 )
 }
 \value{

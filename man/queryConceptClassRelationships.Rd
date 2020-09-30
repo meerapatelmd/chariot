@@ -8,13 +8,13 @@ queryConceptClassRelationships(
   vocabulary_id_1,
   vocabulary_id_2 = NULL,
   schema = NULL,
-  verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \arguments{

@@ -8,11 +8,13 @@ queryPhraseLikeSynonym(
   schema,
   caseInsensitive = TRUE,
   phrase,
-  render_sql = TRUE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = FALSE,
   verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE
+  sleepTime = 1
 )
 }
 \description{

@@ -7,12 +7,14 @@
 queryConceptChildren(
   parent_id,
   generations = 1,
-  override_cache = FALSE,
-  verbose = FALSE,
-  cache_resultset = TRUE,
+  schema,
   conn = NULL,
-  render_sql = TRUE,
-  schema
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

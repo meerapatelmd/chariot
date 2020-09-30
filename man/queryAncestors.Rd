@@ -9,13 +9,13 @@ queryAncestors(
   schema,
   min_levels_of_separation = NULL,
   max_levels_of_separation = NULL,
-  verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

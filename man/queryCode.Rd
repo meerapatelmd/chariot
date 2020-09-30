@@ -10,11 +10,13 @@ queryCode(
   caseInsensitive = TRUE,
   limit = NULL,
   verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
+  type = c("like", "exact"),
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   render_sql = FALSE,
-  type = c("like", "exact")
+  sleepTime = 1
 )
 }
 \arguments{

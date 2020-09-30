@@ -12,10 +12,12 @@ queryPhrase(
   concept_table_search = c("exact", "string", "like"),
   concept_synonym_table_search = c("exact", "string", "like"),
   conn = NULL,
-  render_sql = TRUE,
-  cache_resultset = TRUE,
+  cache_only = FALSE,
+  skip_cache = FALSE,
   override_cache = FALSE,
-  verbose = FALSE
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

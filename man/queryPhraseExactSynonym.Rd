@@ -8,11 +8,13 @@ queryPhraseExactSynonym(
   schema,
   caseInsensitive = TRUE,
   phrase,
-  render_sql = TRUE,
   conn = NULL,
-  cache_resultset = TRUE,
+  cache_only = FALSE,
+  skip_cache = FALSE,
   override_cache = FALSE,
-  verbose = FALSE
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{

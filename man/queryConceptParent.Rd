@@ -8,13 +8,13 @@ queryConceptParent(
   child_id,
   schema,
   generations = 1,
-  verbose = FALSE,
-  cache_resultset = TRUE,
-  override_cache = FALSE,
   conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  verbose = FALSE,
+  sleepTime = 1
 )
 }
 \description{
