@@ -8,7 +8,6 @@ return_omop_vocabs <-
                 return(resultset)
 
         }
-<<<<<<< HEAD
 
 
 
@@ -86,5 +85,4 @@ getDomain <-
                             sleepTime = sleepTime,
                             ...)
         }
-=======
->>>>>>> 4b24d23896652108fcd91040940faaa0dca9f568
+
