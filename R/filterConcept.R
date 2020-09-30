@@ -6,8 +6,8 @@
 #' @export
 #' @importFrom dplyr filter_at
 
-.filterConcept <-
-        function(.data,
+filterConcept <-
+        function(data,
                  has_prefix = NULL,
                  has_suffix = NULL,
                  concept_col,
