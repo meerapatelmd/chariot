@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>LEFT JOIN the Concept Parent Table</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
     <div class="hidden name"><code>leftJoinForParents.Rd</code></div>
     </div>
 
@@ -123,13 +128,13 @@
     <p>LEFT JOIN the Concept Parent Table</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinForParents</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>athena_schema</span>,
-  <span class='kw'>child_id_column</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>leftJoinForParents</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>athena_schema</span>,
+  child_id_column <span class='op'>=</span> <span class='cn'>NULL</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
 
 
@@ -148,7 +153,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

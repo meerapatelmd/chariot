@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Merge OMOP Concepts into a Strip</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/format_functions.R'><code>R/format_functions.R</code></a></small>
     <div class="hidden name"><code>mergeLabel.Rd</code></div>
     </div>
 
@@ -123,7 +128,7 @@
     <p>This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `&lt;NA&gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mergeLabel</span>(<span class='no'>.data</span>, <span class='no'>into</span>, <span class='kw'>has_suffix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>mergeLabel</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>into</span>, has_suffix <span class='op'>=</span> <span class='cn'>NULL</span>, has_prefix <span class='op'>=</span> <span class='cn'>NULL</span>, remove <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,7 +178,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

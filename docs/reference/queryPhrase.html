@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Perform a Global Query on a Single Phrase</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/query_functions.R'><code>R/query_functions.R</code></a></small>
     <div class="hidden name"><code>queryPhrase.Rd</code></div>
     </div>
 
@@ -123,19 +128,21 @@
     <p>Perform a Global Query on a Single Phrase</p>
     </div>
 
-    <pre class="usage"><span class='fu'>queryPhrase</span>(
-  <span class='no'>schema</span>,
-  <span class='no'>phrase</span>,
-  <span class='no'>split</span>,
-  <span class='kw'>caseInsensitive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>concept_table_search</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"string"</span>, <span class='st'>"like"</span>),
-  <span class='kw'>concept_synonym_table_search</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"exact"</span>, <span class='st'>"string"</span>, <span class='st'>"like"</span>),
-  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>queryPhrase</span><span class='op'>(</span>
+  <span class='va'>schema</span>,
+  <span class='va'>phrase</span>,
+  <span class='va'>split</span>,
+  caseInsensitive <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  concept_table_search <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"string"</span>, <span class='st'>"like"</span><span class='op'>)</span>,
+  concept_synonym_table_search <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"string"</span>, <span class='st'>"like"</span><span class='op'>)</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
 
 
@@ -154,7 +161,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

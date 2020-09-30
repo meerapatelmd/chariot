@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Filter for Valid Concepts</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/filter_functions.R'><code>R/filter_functions.R</code></a></small>
     <div class="hidden name"><code>filterValid.Rd</code></div>
     </div>
 
@@ -123,7 +128,7 @@
     <p>Filter a data frame queried from the Concept Table for only the valid concepts based on the `invalid_reason` column with the option to remove the `valid_start_date` and `valid_end_date` columns.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filterValid</span>(<span class='no'>.data</span>, <span class='kw'>has_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>has_suffix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rm_date_fields</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>filterValid</span><span class='op'>(</span><span class='va'>.data</span>, has_prefix <span class='op'>=</span> <span class='cn'>NULL</span>, has_suffix <span class='op'>=</span> <span class='cn'>NULL</span>, rm_date_fields <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -148,7 +153,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

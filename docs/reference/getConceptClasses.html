@@ -81,7 +81,7 @@ Get all OMOP Domain" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -101,7 +101,12 @@ Get all OMOP Domain" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -116,7 +121,7 @@ Get all OMOP Domain" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get all OMOP Concept Classes</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/return_valueset_functions.R'><code>R/return_valueset_functions.R</code></a></small>
     <div class="hidden name"><code>getConceptClasses.Rd</code></div>
     </div>
 
@@ -125,27 +130,27 @@ Get all OMOP Domain" />
 <p>Get all OMOP Domain</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getConceptClasses</span>(
-  <span class='kw'>schema</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sleepTime</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)
+    <pre class="usage"><span class='fu'>getConceptClasses</span><span class='op'>(</span>
+  schema <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>getDomain</span>(
-  <span class='kw'>schema</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cache_resultset</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>override_cache</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>render_sql</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sleepTime</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>getDomain</span><span class='op'>(</span>
+  schema <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -154,8 +159,8 @@ Get all OMOP Domain" />
 <p>A data frame of unique `domain_id`, `vocabulary_id`, and `concept_class_id` combinations from the Concept Table.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/pg13/man/buildQuery.html'>buildQuery</a></code></p>
-<p><code><a href='https://rdrr.io/pkg/pg13/man/buildQuery.html'>buildQuery</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://meerapatelmd.github.io/pg13/reference/buildQuery.html'>buildQuery</a></code></p>
+<p><code><a href='https://meerapatelmd.github.io/pg13/reference/buildQuery.html'>buildQuery</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -172,7 +177,7 @@ Get all OMOP Domain" />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

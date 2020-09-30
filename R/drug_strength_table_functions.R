@@ -9,13 +9,17 @@ NULL
 
 TEST_DATA <-
 pg13::query(conn = conn,
-            "WITH de_counts AS (
+            "
+            DROP TABLE IF EXISTS patelm9.drug_exposure_to_strength;
+            WITH de_counts AS (
                         SELECT drug_concept_id,COUNT(drug_concept_id)
                         FROM omop_cdm_2.drug_exposure de
+                        GROUP BY drug_concept_id
             ),
             distinct_de AS (
                     SELECT DISTINCT
                         de.drug_concept_id,
+                        c.count,
                         de.refills,
                         de.quantity,
                         de.days_supply,
@@ -31,6 +35,7 @@ pg13::query(conn = conn,
                     ON c.concept_id = dde.drug_concept_id
             )
 
+            CREATE TABLE patelm9.drug_exposure_to_strength (
             SELECT
                 ddc.concept_name,
                 ddc.refills,
@@ -40,7 +45,9 @@ pg13::query(conn = conn,
                 ds.*
             FROM distinct_de_concept ddc
             LEFT JOIN omop_vocabulary.drug_strength ds
-            ON ds.drug_concept_id = ddc.drug_concept_id")
+            ON ds.drug_concept_id = ddc.drug_concept_id
+            );"
+            )
 
 
 pg13::query(conn = conn,

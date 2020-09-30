@@ -2,18 +2,21 @@
 #' @export
 
 
-concept_id_exists <-
-    function(concept_id) {
-        
-                    x <- query_concept_id(concept_id)
-                    
-                    if (!is.null(x)) {
-                        
-                            return(TRUE)
-                        
+conceptIdExists <-
+    function(concept_id,
+             schema) {
+
+                    x <- queryConceptId(concept_ids = concept_id,
+                                        schema = schema,
+                                        override_cache = TRUE)
+
+                    if (nrow(x) > 0) {
+
+                            TRUE
+
                     } else {
-                        
-                            return(FALSE)
+
+                           FALSE
                     }
-            
+
     }

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -100,7 +100,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/meerapatelmd/chariot/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Unmerge OMOP Concept Strip</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/format_functions.R'><code>R/format_functions.R</code></a></small>
     <div class="hidden name"><code>unmergeStrip.Rd</code></div>
     </div>
 
@@ -123,14 +128,14 @@
     <p>This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `&lt;NA&gt;`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `&lt;NA&gt;` with a non-`&lt;NA&gt;` value in the strip_col instance inputed. Errors will be thrown if the .data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>unmergeStrip</span>(
-  <span class='no'>.data</span>,
-  <span class='no'>strip_col</span>,
-  <span class='kw'>add_suffix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>add_prefix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>r_trimws</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>unmergeStrip</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  <span class='va'>strip_col</span>,
+  add_suffix <span class='op'>=</span> <span class='cn'>NULL</span>,
+  add_prefix <span class='op'>=</span> <span class='cn'>NULL</span>,
+  remove <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  r_trimws <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +177,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
