@@ -33,7 +33,7 @@ VignetteBuilder:
     knitr
 Remotes:
     meerapatelmd/rubix,
-    meerapatelmd/secretary
+    meerapatelmd/secretary,
     meerapatelmd/pg13
 Encoding: UTF-8
 LazyData: true
