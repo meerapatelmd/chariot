@@ -14,3 +14,6 @@ process_parentheses(data, concept_col)
 \description{
 Process a Concept Column for Parenthetical Phrases
 }
+\details{
+To process a Concept Column with multiple embedded parenthetical phrases, see \code{\link{process_first_parentheses}} and \code{\link{process_last_parentheses}}.
+}

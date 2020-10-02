@@ -93,6 +93,9 @@ process_words <-
 #' @title
 #' Process a Concept Column for Parenthetical Phrases
 #'
+#' @details
+#' To process a Concept Column with multiple embedded parenthetical phrases, see \code{\link{process_first_parentheses}} and \code{\link{process_last_parentheses}}.
+#'
 #' @inheritParams process_map_input_functions
 #' @rdname process_parentheses
 #' @export
@@ -116,6 +119,79 @@ process_parentheses <-
                              tidyr::extract(col = Parentheses,
                                             into = c(new_col_name1, new_col_name2, new_col_name3),
                                             regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
+                                            remove = FALSE) %>%
+                             dplyr::select(-Parentheses)
+        ) %>%
+            dplyr::mutate_all(trimws) %>%
+            normalize_nas()
+    }
+
+#' @title
+#' Process a Concept Column for the First Set of Parentheses
+#'
+#' @details
+#' This is the same function as \code{\link{process_parentheses}} except that the Concept Column name is appended with "1st Parentheses" instead of "Parentheses" to accommodate a call to   \code{link{process_last_parentheses}}.
+#'
+#' @inheritParams process_map_input_functions
+#' @rdname process_first_parentheses
+#' @export
+#' @importFrom dplyr left_join mutate mutate_all filter mutate_at filter_at enquo as_label
+#' @importFrom tidyr separate_rows
+#' @importFrom stringr str_remove_all
+
+process_first_parentheses <-
+    function(data,
+             concept_col) {
+
+        col <- dplyr::enquo(concept_col)
+
+        new_col_name1 <- paste0(dplyr::as_label(col), " Front of 1st Parentheses")
+        new_col_name2 <- paste0(dplyr::as_label(col), " Inside 1st Parentheses")
+        new_col_name3 <- paste0(dplyr::as_label(col), " Behind 1st Parentheses")
+
+        dplyr::left_join(data,
+                         data %>%
+                             dplyr::mutate(Parentheses := !!col) %>%
+                             tidyr::extract(col = Parentheses,
+                                            into = c(new_col_name1, new_col_name2, new_col_name3),
+                                            regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
+                                            remove = FALSE) %>%
+                             dplyr::select(-Parentheses)
+        ) %>%
+            dplyr::mutate_all(trimws) %>%
+            normalize_nas()
+    }
+
+
+#' @title
+#' Process a Concept Column for the Last Set of Parentheses
+#'
+#' @details
+#' This function differs from \code{\link{process_parentheses}} and \code{link{process_last_parentheses}} by performing a greedy regex match for parentheses in cases where there are multiple parenthetical statements within the concept column.
+#'
+#' @inheritParams process_map_input_functions
+#' @rdname process_last_parentheses
+#' @export
+#' @importFrom dplyr left_join mutate mutate_all filter mutate_at filter_at enquo as_label
+#' @importFrom tidyr separate_rows
+#' @importFrom stringr str_remove_all
+
+process_last_parentheses <-
+    function(data,
+             concept_col) {
+
+        col <- dplyr::enquo(concept_col)
+
+        new_col_name1 <- paste0(dplyr::as_label(col), " Front of nth Parentheses")
+        new_col_name2 <- paste0(dplyr::as_label(col), " Inside nth Parentheses")
+        new_col_name3 <- paste0(dplyr::as_label(col), " Behind nth Parentheses")
+
+        dplyr::left_join(data,
+                         data %>%
+                             dplyr::mutate(Parentheses := !!col) %>%
+                             tidyr::extract(col = Parentheses,
+                                            into = c(new_col_name1, new_col_name2, new_col_name3),
+                                            regex = "(^.*)[(]{1}(.*?)[)]{1}(.*$)",
                                             remove = FALSE) %>%
                              dplyr::select(-Parentheses)
         ) %>%
