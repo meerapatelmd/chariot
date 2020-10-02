@@ -21,7 +21,7 @@ filterClassConcepts <-
 #' @param values character vector of length 1 or greater.
 #' @seealso
 #'  \code{\link[dplyr]{filter_all}}
-#' @rdname .filterConcept
+#' @rdname filterConcept
 #' @export
 #' @importFrom dplyr filter_at
 
