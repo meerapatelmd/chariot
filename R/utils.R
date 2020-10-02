@@ -9,3 +9,17 @@
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
 NULL
+
+
+
+#' @noRd
+
+normalize_nas <-
+        function (data, blanks = TRUE)
+        {
+
+                data[data %in% c("NA", "")] <- NA_character_
+                data
+
+        }
+
