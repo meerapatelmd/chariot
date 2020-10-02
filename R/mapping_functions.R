@@ -37,10 +37,7 @@ prime_concepts <-
 
 
         data %>%
-            dplyr::mutate_at(vars(!!concept_col), ~stringr::str_replace_all(.,
-                                                                            pattern = "'",
-                                                                            replacement = "''")) %>%
-            dplyr::mutate_at(vars(!!concept_col), ~stringr::str_remove_all(., "[?]{1}$"))
+            dplyr::mutate_at(vars(!!concept_col), ~stringr::str_remove_all(., "[?]{1}$|[']"))
 
     }
 
