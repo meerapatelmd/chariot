@@ -318,17 +318,11 @@ leftJoinConcept <-
 #' @param sleepTime PARAM_DESCRIPTION, Default: 1
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
 #' @seealso
 #'  \code{\link[stampede]{stamp_this}}
 #'  \code{\link[pg13]{writeTable}}
 #'  \code{\link[SqlRender]{render}}
-#' @rdname leftJoinConceptSynonym
+#' @rdname leftJoinSynonymNames
 #' @export
 #' @importFrom stampede stamp_this
 #' @importFrom pg13 writeTable
@@ -337,6 +331,7 @@ leftJoinConcept <-
 leftJoinSynonymNames <-
     function(.data,
              column = NULL,
+             write_schema = "public",
              verbose = FALSE,
              render_sql = FALSE,
              sleepTime = 1,
@@ -344,7 +339,7 @@ leftJoinSynonymNames <-
              domain_id,
              concept_class_id,
              standard_concept,
-             invalid_reason = "NULL",
+             invalid_reason,
              conn = NULL,
              omop_vocabulary_schema) {
 
@@ -356,8 +351,11 @@ leftJoinSynonymNames <-
                 stop("'omop_vocabulary_schema required to run query")
 
             }
+
         } else {
+
             omop_vocabulary_schema <- "public"
+
         }
 
 
@@ -464,14 +462,18 @@ leftJoinSynonymNames <-
 
             clause_with_null <- c(part_a, part_b) %>% paste(collapse = " OR ")
 
+
             where_clauses <-
                 c(where_clauses,
                   clause_with_null)
 
         }
 
-        where_clauses <- paste0(where_clauses, collapse = " AND ")
+        if (length(where_clauses)) {
 
+            where_clauses <- paste(where_clauses, collapse = " AND ")
+
+        }
 
 
         table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
@@ -483,73 +485,122 @@ leftJoinSynonymNames <-
 
         if (is.null(conn)) {
 
-            conn <- connectAthena()
-            pg13::writeTable(conn = conn,
-                             schema = omop_vocabulary_schema,
-                             tableName = table_name,
-                             .data = .data)
-            dcAthena(conn = conn)
+                        conn <- connectAthena()
+                        pg13::writeTable(conn = conn,
+                                         schema = write_schema,
+                                         tableName = table_name,
+                                         .data = .data)
+                        dcAthena(conn = conn)
 
 
-        if (length(where_clauses) == 0) {
+                    if (length(where_clauses) == 0) {
 
-            sql_statement <-
-               SqlRender::render("SELECT *
-                                    FROM @omop_vocabulary_schema.@table_name a
-                                    LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
-                                    ON LOWER(cs.concept_synonym_name) = LOWER(a.@column);",
-                                 omop_vocabulary_schema = omop_vocabulary_schema,
-                                 table_name = table_name,
-                                 column = column
-                                 )
+                        sql_statement <-
+                           SqlRender::render("SELECT *
+                                                FROM @write_schema.@table_name a
+                                                LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                                ON LOWER(cs.concept_synonym_name) = LOWER(a.@column);",
+                                             omop_vocabulary_schema = omop_vocabulary_schema,
+                                             table_name = table_name,
+                                             column = column,
+                                             write_schema = write_schema
+                                             )
+                    } else {
+
+                        sql_statement <-
+                            SqlRender::render(paste0(
+                                                "
+                                                WITH omop_concepts AS (
+                                                            SELECT *
+                                                            FROM @omop_vocabulary_schema.concept
+                                                            WHERE ", where_clauses,
+                                                ")
+
+                                                SELECT a.*, cs.*
+                                                FROM @write_schema.@table_name a
+                                                LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                                ON LOWER(cs.concept_synonym_name) = LOWER(a.@column)
+                                                INNER JOIN omop_concepts omop
+                                                ON omop.concept_id = cs.concept_id;"),
+                                              omop_vocabulary_schema = omop_vocabulary_schema,
+                                              table_name = table_name,
+                                              column = column,
+                                              write_schema = write_schema
+                            )
+
+                    }
+
+                        resultset <- queryAthena(sql_statement = sql_statement,
+                                                 verbose = verbose,
+                                                 skip_cache = TRUE,
+                                                 render_sql = render_sql,
+                                                 sleepTime = sleepTime)
+
+
+
+                        conn <- connectAthena()
+                        dropJoinTables(conn = conn,
+                                       schema = write_schema)
+                        dcAthena(conn = conn)
+
+                        resultset
+
+
         } else {
 
-            sql_statement <-
-                SqlRender::render(paste0(
-                                    "
-                                    WITH omop_concepts AS (
-                                                SELECT *
-                                                FROM @omop_vocabulary_schema.concept
-                                                WHERE ", where_clauses,
-                                    ")
+            pg13::writeTable(conn = conn,
+                             schema = write_schema,
+                             tableName = table_name,
+                             .data = .data)
 
-                                    SELECT a.*, cs.*
-                                    FROM @omop_vocabulary_schema.@table_name a
-                                    LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
-                                    ON LOWER(cs.concept_synonym_name) = LOWER(a.@column)
-                                    INNER JOIN omop_concepts omop
-                                    ON omop.concept_id = cs.concept_id;"),
-                                  omop_vocabulary_schema = omop_vocabulary_schema,
-                                  table_name = table_name,
-                                  column = column
-                )
+            if (length(where_clauses) == 0) {
 
-        }
+                sql_statement <-
+                    SqlRender::render("SELECT *
+                                                FROM @write_schema.@table_name a
+                                                LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                                ON LOWER(cs.concept_synonym_name) = LOWER(a.@column);",
+                                      omop_vocabulary_schema = omop_vocabulary_schema,
+                                      table_name = table_name,
+                                      column = column,
+                                      write_schema = write_schema
+                    )
+            } else {
 
-            print(sql_statement)
+                sql_statement <-
+                    SqlRender::render(paste0(
+                        "
+                                                WITH omop_concepts AS (
+                                                            SELECT *
+                                                            FROM @omop_vocabulary_schema.concept
+                                                            WHERE ", where_clauses,
+                        ")
 
-            secretary::press_enter()
+                                                SELECT a.*, cs.*
+                                                FROM @write_schema.@table_name a
+                                                LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                                ON LOWER(cs.concept_synonym_name) = LOWER(a.@column)
+                                                INNER JOIN omop_concepts omop
+                                                ON omop.concept_id = cs.concept_id;"),
+                        omop_vocabulary_schema = omop_vocabulary_schema,
+                        table_name = table_name,
+                        column = column,
+                        write_schema = write_schema
+                    )
 
+            }
 
-            resultset <- queryAthena(sql_statement = sql_statement,
+            resultset <- queryAthena(conn = conn,
+                                    sql_statement = sql_statement,
                                      verbose = verbose,
                                      skip_cache = TRUE,
                                      render_sql = render_sql,
                                      sleepTime = sleepTime)
 
-
-
-            conn <- connectAthena()
             dropJoinTables(conn = conn,
-                           schema = omop_vocabulary_schema)
-            dcAthena(conn = conn)
+                           schema = write_schema)
 
             resultset
-
-
-        } else {
-
-            message("using non Athena conn needs to be written.")
 
 
         }
