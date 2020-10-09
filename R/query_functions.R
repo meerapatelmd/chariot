@@ -177,6 +177,12 @@ queryAncestors <-
              verbose = FALSE,
              sleepTime = 1) {
 
+            if (is.null(conn)) {
+
+                    schema <- "public"
+
+            }
+
 
             sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
                                                   schema = schema,
