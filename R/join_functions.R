@@ -103,7 +103,7 @@ join <-
 
             resultset <- queryAthena(sql_statement = sql_statement,
                                      verbose = verbose,
-                                     cache_resultset = FALSE,
+                                     skip_cache = TRUE,
                                      conn = conn,
                                      render_sql = render_sql,
                                      sleepTime = sleepTime)
@@ -304,6 +304,99 @@ leftJoinConcept <-
                     return(output)
 
     }
+
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param column PARAM_DESCRIPTION, Default: NULL
+#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param concept_synonym_column PARAM_DESCRIPTION, Default: 'concept_synonm_name'
+#' @param verbose PARAM_DESCRIPTION, Default: FALSE
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param render_sql PARAM_DESCRIPTION, Default: FALSE
+#' @param sleepTime PARAM_DESCRIPTION, Default: 1
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[stampede]{stamp_this}}
+#'  \code{\link[pg13]{writeTable}}
+#'  \code{\link[SqlRender]{render}}
+#' @rdname leftJoinConceptSynonym
+#' @export
+#' @importFrom stampede stamp_this
+#' @importFrom pg13 writeTable
+#' @importFrom SqlRender render
+
+leftJoinConceptSynonym <-
+    function(.data,
+             column = NULL,
+             athena_schema = "public",
+             concept_synonym_column = "concept_synonm_name",
+             verbose = FALSE,
+             conn = NULL,
+             render_sql = FALSE,
+             sleepTime = 1) {
+
+
+        table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+
+        if (is.null(column)) {
+            column <- colnames(.data)[1]
+        }
+
+
+        if (is.null(conn)) {
+
+            conn <- connectAthena()
+            pg13::writeTable(conn = conn,
+                             schema = athena_schema,
+                             tableName = table_name,
+                             .data = .data)
+            dcAthena(conn = conn)
+
+
+            sql_statement <-
+               SqlRender::render("SELECT *
+                                    FROM @athena_schema.@table_name a
+                                    LEFT JOIN @athena_schema.concept_synonym cs
+                                    ON LOWER(cs.concept_synonym) = LOWER(a.@column)",
+                                 athena_schema = athena_schema,
+                                 table_name = table_name,
+                                 column = column
+                                 )
+
+
+            resultset <- queryAthena(sql_statement = sql_statement,
+                                     verbose = verbose,
+                                     skip_cache = TRUE,
+                                     render_sql = render_sql,
+                                     sleepTime = sleepTime)
+
+
+
+            conn <- connectAthena()
+            dropJoinTables(conn = conn,
+                           schema = athena_schema)
+            dcAthena(conn = conn)
+
+            resultset
+
+
+        } else {
+
+            message("using non Athena conn needs to be written.")
+
+
+        }
+    }
+
 
 
 

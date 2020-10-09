@@ -4,6 +4,7 @@
 #' @description
 #' Convenience functions that simply tasks by allowing them to be executed from the R console such as opening the OMOP Concept page.
 #'
+#' @name convenience_functions
 #' @keywords internal
 NULL
 
