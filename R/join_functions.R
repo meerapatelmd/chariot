@@ -366,10 +366,11 @@ leftJoinConceptSynonym <-
                SqlRender::render("SELECT *
                                     FROM @athena_schema.@table_name a
                                     LEFT JOIN @athena_schema.concept_synonym cs
-                                    ON LOWER(cs.concept_synonym) = LOWER(a.@column)",
+                                    ON LOWER(cs.@concept_synonym_column) = LOWER(a.@column)",
                                  athena_schema = athena_schema,
                                  table_name = table_name,
-                                 column = column
+                                 column = column,
+                                 concept_synonym_column = concept_synonym_column
                                  )
 
 
