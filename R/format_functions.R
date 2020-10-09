@@ -874,11 +874,13 @@ unmergeStrip <-
 getMerge <-
     function(concept_id,
              schema = "public") {
+
         queryConceptId(concept_ids = concept_id,
                        schema = schema) %>%
-            mergeStrip(into = "Concept") %>%
-            dplyr::select("Concept") %>%
-            unlist() %>%
-            unname()
+                mergeStrip(into = "Concept") %>%
+                dplyr::select("Concept") %>%
+                unlist() %>%
+                unname()
+
     }
 
