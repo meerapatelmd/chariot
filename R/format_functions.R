@@ -876,7 +876,7 @@ getMerge <-
              schema = "public") {
         queryConceptId(concept_ids = concept_id,
                        schema = schema) %>%
-            merge_concepts(into = "Concept") %>%
+            mergeStrip(into = "Concept") %>%
             dplyr::select("Concept") %>%
             unlist() %>%
             unname()
