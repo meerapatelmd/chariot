@@ -334,15 +334,144 @@ leftJoinConcept <-
 #' @importFrom pg13 writeTable
 #' @importFrom SqlRender render
 
-leftJoinConceptSynonym <-
+leftJoinSynonymNames <-
     function(.data,
              column = NULL,
-             athena_schema = "public",
-             concept_synonym_column = "concept_synonym_name",
              verbose = FALSE,
-             conn = NULL,
              render_sql = FALSE,
-             sleepTime = 1) {
+             sleepTime = 1,
+             vocabulary_id,
+             domain_id,
+             concept_class_id,
+             standard_concept,
+             invalid_reason = "NULL",
+             conn = NULL,
+             omop_vocabulary_schema) {
+
+
+        if (!is.null(conn)) {
+
+            if (missing(omop_vocabulary_schema)) {
+
+                stop("'omop_vocabulary_schema required to run query")
+
+            }
+        } else {
+            omop_vocabulary_schema <- "public"
+        }
+
+
+        where_clauses <- vector()
+        where_clauses_fields <- vector()
+        if (!missing(vocabulary_id)) {
+
+                where_clauses_fields <-
+                    c(where_clauses_fields,
+                      "vocabulary_id")
+
+                vocabulary_id <- paste0("'", vocabulary_id, "'")
+                where_clauses <-
+                    c(where_clauses,
+                      SqlRender::render("@omop_vocabulary_schema.concept.vocabulary_id IN (@vocabulary_id)\n", vocabulary_id = vocabulary_id))
+        }
+
+        if (!missing(domain_id)) {
+
+            where_clauses_fields <-
+                c(where_clauses_fields,
+                  "domain_id")
+
+            domain_id <- paste0("'", domain_id, "'")
+            where_clauses <-
+                c(where_clauses,
+                  SqlRender::render("@omop_vocabulary_schema.concept.domain_id IN (@domain_id)\n", domain_id = domain_id))
+        }
+
+        if (!missing(concept_class_id)) {
+
+            where_clauses_fields <-
+                c(where_clauses_fields,
+                  "concept_class_id")
+
+            concept_class_id <- paste0("'", concept_class_id, "'")
+            where_clauses <-
+                c(where_clauses,
+                  SqlRender::render("@omop_vocabulary_schema.concept.concept_class_id IN (@concept_class_id)\n"), concept_class_id = concept_class_id)
+
+        }
+
+        if (!missing(standard_concept)) {
+
+            where_clauses_fields <-
+                c(where_clauses_fields,
+                  "standard_concept")
+
+            if (any("NULL" %in% standard_concept)) {
+
+                    part_a <- "@omop_vocabulary_schema.concept.standard_concept IS NULL"
+
+            } else {
+                    part_a <- vector()
+            }
+
+            standard_concept <- standard_concept[!(standard_concept %in% "NULL")]
+
+            if (length(standard_concept)) {
+
+                    standard_concept <- paste0("'", standard_concept, "'")
+
+                    part_b <- SqlRender::render("@omop_vocabulary_schema.concept.standard_concept IN (@standard_concept)", standard_concept = standard_concept)
+
+            } else {
+
+                    part_b <- vector()
+            }
+
+            clause_with_null <- c(part_a, part_b) %>% paste(collapse = " OR ")
+
+            where_clauses <-
+                c(where_clauses,
+                  clause_with_null)
+
+        }
+
+        if (!missing(invalid_reason)) {
+
+            where_clauses_fields <-
+                c(where_clauses_fields,
+                  "invalid_reason")
+
+            if (any("NULL" %in% invalid_reason)) {
+
+                part_a <- "@omop_vocabulary_schema.concept.invalid_reason IS NULL"
+
+            } else {
+                part_a <- vector()
+            }
+
+            invalid_reason <- invalid_reason[!(invalid_reason %in% "NULL")]
+
+            if (length(invalid_reason)) {
+
+                invalid_reason <- paste0("'", invalid_reason, "'")
+
+                part_b <- SqlRender::render("@omop_vocabulary_schema.concept.invalid_reason IN (@invalid_reason)", invalid_reason = invalid_reason)
+
+            } else {
+
+                part_b <- vector()
+            }
+
+            clause_with_null <- c(part_a, part_b) %>% paste(collapse = " OR ")
+
+            where_clauses <-
+                c(where_clauses,
+                  clause_with_null)
+
+        }
+
+        where_clauses <- paste0(where_clauses, collapse = " AND ")
+
 
 
         table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
@@ -356,22 +485,50 @@ leftJoinConceptSynonym <-
 
             conn <- connectAthena()
             pg13::writeTable(conn = conn,
-                             schema = athena_schema,
+                             schema = omop_vocabulary_schema,
                              tableName = table_name,
                              .data = .data)
             dcAthena(conn = conn)
 
 
+        if (length(where_clauses) == 0) {
+
             sql_statement <-
                SqlRender::render("SELECT *
-                                    FROM @athena_schema.@table_name a
-                                    LEFT JOIN @athena_schema.concept_synonym cs
-                                    ON LOWER(cs.@concept_synonym_column) = LOWER(a.@column);",
-                                 athena_schema = athena_schema,
+                                    FROM @omop_vocabulary_schema.@table_name a
+                                    LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                    ON LOWER(cs.concept_synonym_name) = LOWER(a.@column);",
+                                 omop_vocabulary_schema = omop_vocabulary_schema,
                                  table_name = table_name,
-                                 column = column,
-                                 concept_synonym_column = concept_synonym_column
+                                 column = column
                                  )
+        } else {
+
+            sql_statement <-
+                SqlRender::render(paste0(
+                                    "
+                                    WITH omop_concepts AS (
+                                                SELECT *
+                                                FROM @omop_vocabulary_schema.concept
+                                                WHERE ", where_clauses,
+                                    ")
+
+                                    SELECT a.*, cs.*
+                                    FROM @omop_vocabulary_schema.@table_name a
+                                    LEFT JOIN @omop_vocabulary_schema.concept_synonym cs
+                                    ON LOWER(cs.concept_synonym_name) = LOWER(a.@column)
+                                    INNER JOIN omop_concepts omop
+                                    ON omop.concept_id = cs.concept_id;"),
+                                  omop_vocabulary_schema = omop_vocabulary_schema,
+                                  table_name = table_name,
+                                  column = column
+                )
+
+        }
+
+            print(sql_statement)
+
+            secretary::press_enter()
 
 
             resultset <- queryAthena(sql_statement = sql_statement,
@@ -384,7 +541,7 @@ leftJoinConceptSynonym <-
 
             conn <- connectAthena()
             dropJoinTables(conn = conn,
-                           schema = athena_schema)
+                           schema = omop_vocabulary_schema)
             dcAthena(conn = conn)
 
             resultset
