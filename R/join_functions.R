@@ -338,7 +338,7 @@ leftJoinConceptSynonym <-
     function(.data,
              column = NULL,
              athena_schema = "public",
-             concept_synonym_column = "concept_synonm_name",
+             concept_synonym_column = "concept_synonym_name",
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
@@ -366,7 +366,7 @@ leftJoinConceptSynonym <-
                SqlRender::render("SELECT *
                                     FROM @athena_schema.@table_name a
                                     LEFT JOIN @athena_schema.concept_synonym cs
-                                    ON LOWER(cs.@concept_synonym_column) = LOWER(a.@column)",
+                                    ON LOWER(cs.@concept_synonym_column) = LOWER(a.@column);",
                                  athena_schema = athena_schema,
                                  table_name = table_name,
                                  column = column,

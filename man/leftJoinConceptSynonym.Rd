@@ -8,7 +8,7 @@ leftJoinConceptSynonym(
   .data,
   column = NULL,
   athena_schema = "public",
-  concept_synonym_column = "concept_synonm_name",
+  concept_synonym_column = "concept_synonym_name",
   verbose = FALSE,
   conn = NULL,
   render_sql = FALSE,
