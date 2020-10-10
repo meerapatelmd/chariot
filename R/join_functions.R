@@ -522,7 +522,7 @@ leftJoinSynonymNames <-
                                                 SELECT a.*, omop.*
                                                 FROM @write_schema.@table_name a
                                                 LEFT JOIN omop_concepts omop
-                                                ON LOWER(omop_concepts.concept_synonym_name) = LOWER(a.@column)"),
+                                                ON LOWER(omop.concept_synonym_name) = LOWER(a.@column)"),
                                               omop_vocabulary_schema = omop_vocabulary_schema,
                                               table_name = table_name,
                                               column = column,
@@ -582,7 +582,7 @@ leftJoinSynonymNames <-
                         SELECT a.*, omop.*
                             FROM @write_schema.@table_name a
                         LEFT JOIN omop_concepts omop
-                        ON LOWER(omop_concepts.concept_synonym_name) = LOWER(a.@column)"),
+                        ON LOWER(omop.concept_synonym_name) = LOWER(a.@column)"),
                         omop_vocabulary_schema = omop_vocabulary_schema,
                         table_name = table_name,
                         column = column,
