@@ -394,7 +394,7 @@ leftJoinSynonymNames <-
             concept_class_id <- paste0("'", concept_class_id, "'")
             where_clauses <-
                 c(where_clauses,
-                  SqlRender::render("@omop_vocabulary_schema.concept.concept_class_id IN (@concept_class_id)\n"), concept_class_id = concept_class_id)
+                  SqlRender::render("@omop_vocabulary_schema.concept.concept_class_id IN (@concept_class_id)\n", concept_class_id = concept_class_id))
 
         }
 
@@ -432,6 +432,9 @@ leftJoinSynonymNames <-
                   clause_with_null)
 
         }
+
+        print(where_clauses)
+        secretary::press_enter()
 
         if (!missing(invalid_reason)) {
 
