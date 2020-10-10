@@ -515,7 +515,7 @@ leftJoinSynonymNames <-
                                                             SELECT @omop_vocabulary_schema.concept_synonym.*
                                                             FROM @omop_vocabulary_schema.concept
                                                             INNER JOIN @omop_vocabulary_schema.concept_synonym
-                                                            ON @omop_vocabulary_schema.concept_synonym.concept_id = c.concept_id
+                                                            ON @omop_vocabulary_schema.concept_synonym.concept_id = @omop_vocabulary_schema.concept.concept_id
                                                             WHERE ", where_clauses,
                                                 ")
 
@@ -575,7 +575,7 @@ leftJoinSynonymNames <-
                         SELECT @omop_vocabulary_schema.concept_synonym.*
                             FROM @omop_vocabulary_schema.concept
                         INNER JOIN @omop_vocabulary_schema.concept_synonym
-                        ON @omop_vocabulary_schema.concept_synonym.concept_id = c.concept_id
+                        ON @omop_vocabulary_schema.concept_synonym.concept_id = @omop_vocabulary_schema.concept.concept_id
                         WHERE ", where_clauses,
                                                 ")
 
