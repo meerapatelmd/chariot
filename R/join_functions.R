@@ -512,9 +512,9 @@ leftJoinSynonymNames <-
                             SqlRender::render(paste0(
                                                 "
                                                 WITH omop_concepts AS (
-                                                            SELECT @omop_vocabulary.concept_synonym.*
+                                                            SELECT @omop_vocabulary_schema.concept_synonym.*
                                                             FROM @omop_vocabulary_schema.concept
-                                                            INNER JOIN @omop_vocabulary.concept_synonym
+                                                            INNER JOIN @omop_vocabulary_schema.concept_synonym
                                                             ON @omop_vocabulary.concept_synonym.concept_id = c.concept_id
                                                             WHERE ", where_clauses,
                                                 ")
@@ -572,9 +572,9 @@ leftJoinSynonymNames <-
                     SqlRender::render(paste0(
                     "
                     WITH omop_concepts AS (
-                        SELECT @omop_vocabulary.concept_synonym.*
+                        SELECT @omop_vocabulary_schema.concept_synonym.*
                             FROM @omop_vocabulary_schema.concept
-                        INNER JOIN @omop_vocabulary.concept_synonym
+                        INNER JOIN @omop_vocabulary_schema.concept_synonym
                         ON @omop_vocabulary.concept_synonym.concept_id = c.concept_id
                         WHERE ", where_clauses,
                                                 ")
