@@ -164,7 +164,7 @@ list_drug_strength_units <-
 
 
 #' @title
-#' Stage Drug Strength Expressionsfor Evaluation
+#' Stage Drug Strength Expressions for Evaluation
 #' @description
 #' The Drug Strength Table is joined to the provided drug_concept_ids and the amount_value or fraction of numerator to denominator values are returned in a "staged_value" field along with the concept names of the units in a seprate "staged_unit" field. Only valid Drug Strength Table entries are included in the returned dataframe and the 'box_size', 'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are excluded in the output. Since some extended release formulations of common medications such as Tylenol have a a Drug Strength with a denominator of 24 hours, the `include_rates` parameter denotes whether those rate-based calculations should be included in the staged value. If FALSE, all the denominator and subsequent staged values are calculated in their native form and prefixed with 'native_' and then the final staged and denominator values are reconstituted with denominator units related to time measurements normalized to 1.
 #' @param .data PARAM_DESCRIPTION
@@ -188,7 +188,7 @@ list_drug_strength_units <-
 #'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{na_if}},\code{\link[dplyr]{coalesce}},\code{\link[dplyr]{select}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{rename}}
 #'  \code{\link[tidyr]{unite}}
 #'  \code{\link[tibble]{tribble}}
-#' @rdname stage_drug_strength_formulas
+#' @rdname stage_drug_strengths
 #' @export
 #' @importFrom pg13 dropTable writeTable
 #' @importFrom SqlRender render
@@ -197,7 +197,7 @@ list_drug_strength_units <-
 #' @importFrom tibble tribble
 
 
-stage_drug_strength_formulas <-
+stage_drug_strengths <-
         function(.data,
                  drug_concept_id_column,
                  include_rates = FALSE,
