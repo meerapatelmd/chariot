@@ -244,12 +244,17 @@ leftJoin <-
 #' @importFrom rubix group_by_unique_aggregate
 
 
-leftJoinConcept <-
+leftJoinConceptId <-
     function(.data,
              column = NULL,
+             writeSchema,
              athena_schema = "public",
-             concept_column = "concept_id",
              synonyms = FALSE,
+             vocabulary_id,
+             domain_id,
+             concept_class_id,
+             standard_concept,
+             invalid_reason,
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
@@ -264,44 +269,227 @@ leftJoinConcept <-
                                 stop("'column' parameter cannot be equal to 'concept_column'")
                             }
 
-                            output <-
-                                leftJoin(.data = .data,
-                                         column = column,
-                                         athena_schema = athena_schema,
-                                         athena_table = "concept",
-                                         athena_column = concept_column,
-                                         verbose = verbose,
-                                         conn = conn,
-                                         render_sql = render_sql,
-                                         sleepTime = sleepTime)
+                            concept_column <- "concept_id"
+
+                            concept_filters <- generate_concept_filters(vocabSchema = athena_schema,
+                                                                        vocabulary_id = vocabulary_id,
+                                                                        domain_id = domain_id,
+                                                                        concept_class_id = concept_class_id,
+                                                                        standard_concept = standard_concept,
+                                                                        invalid_reason = invalid_reason)
 
 
-                            if (synonyms) {
+                            # output <-
+                            #     leftJoin(.data = .data,
+                            #              column = column,
+                            #              athena_schema = athena_schema,
+                            #              athena_table = "concept",
+                            #              athena_column = concept_column,
+                            #              verbose = verbose,
+                            #              conn = conn,
+                            #              render_sql = render_sql,
+                            #              sleepTime = sleepTime)
 
-                                    output_s <-
-                                            leftJoinSynonymId(.data = output %>%
-                                                                        dplyr::select(-concept_id),
-                                                              column = column,
-                                                              athena_schema = athena_schema,
-                                                              verbose = verbose,
-                                                              conn = conn,
-                                                              render_sql = render_sql,
-                                                              sleepTime = sleepTime) %>%
-                                            dplyr::filter(concept_name != concept_synonym_name) %>%
-                                            rubix::group_by_unique_aggregate(concept_id,
-                                                                             agg.col = concept_synonym_name,
-                                                                             collapse = "|")
+                            if (is.null(conn)) {
 
+                                write_conn <- connectAthena()
 
-                                    output <-
-                                            output %>%
-                                            dplyr::left_join(output_s)
+                            } else {
+
+                                write_conn <- conn
 
                             }
 
+                            temp_table <- make_temp_table_name()
+
+                            pg13::dropTable(conn = write_conn,
+                                            schema = writeSchema,
+                                            tableName = temp_table)
 
 
-                    return(output)
+                            pg13::writeTable(conn = write_conn,
+                                            schema = writeSchema,
+                                            tableName = temp_table,
+                                            .data)
+
+
+                            if (is.null(concept_filters)) {
+
+                                    if (synonyms) {
+
+                                                resultset <-
+                                                    queryAthena(
+                                                        SqlRender::render(
+                                                                    "
+                                                                WITH concepts AS (
+                                                                    SELECT c.*
+                                                                    FROM @writeSchema.@temp_table temp
+                                                                    INNER JOIN @athena_schema.concept c
+                                                                    ON c.@concept_column = temp.@column
+                                                                ),
+                                                                concept_synonyms AS (
+                                                                    SELECT cs.concept_id, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
+                                                                    FROM @athena_schema.concept_synonym cs
+                                                                    INNER JOIN concepts c1
+                                                                    ON c1.concept_id = cs.concept_id
+                                                                    GROUP BY cs.concept_id
+                                                                )
+
+                                                                SELECT DISTINCT
+                                                                        temp.*,
+                                                                        c2.*,
+                                                                        cs2.concept_synonyms
+                                                                FROM @writeSchema.@temp_table temp
+                                                                LEFT JOIN concepts c2
+                                                                ON c2.@concept_column = temp.@column
+                                                                LEFT JOIN concept_synonyms cs2
+                                                                ON c2.@concept_column = cs2.@concept_column
+                                                                ",
+                                                                    writeSchema = writeSchema,
+                                                                    temp_table = temp_table,
+                                                                    athena_schema = athena_schema,
+                                                                    concept_column = concept_column,
+                                                                    column = column
+                                                                ),
+                                                        conn = conn,
+                                                        skip_cache = TRUE,
+                                                        verbose = verbose,
+                                                        render_sql = render_sql,
+                                                        sleepTime = sleepTime
+                                                    )
+
+                                    } else {
+
+                                                resultset <-
+                                                    queryAthena(
+                                                        SqlRender::render(
+                                                                    "
+                                                                WITH concepts AS (
+                                                                    SELECT c.*
+                                                                    FROM @writeSchema.@temp_table temp
+                                                                    INNER JOIN @athena_schema.concept c
+                                                                    ON c.@concept_column = temp.@column
+                                                                )
+
+                                                                SELECT DISTINCT
+                                                                        temp.*,
+                                                                        c2.*
+                                                                FROM @writeSchema.@temp_table temp
+                                                                LEFT JOIN concepts c2
+                                                                ON c2.@concept_column = temp.@column
+                                                                ",
+                                                                    writeSchema = writeSchema,
+                                                                    temp_table = temp_table,
+                                                                    athena_schema = athena_schema,
+                                                                    concept_column = concept_column,
+                                                                    column = column
+                                                                ),
+                                                        conn = conn,
+                                                        skip_cache = TRUE,
+                                                        verbose = verbose,
+                                                        render_sql = render_sql,
+                                                        sleepTime = sleepTime
+                                                    )
+
+                                    }
+
+                            } else {
+
+                            if (synonyms) {
+
+                                        resultset <-
+                                            queryAthena(
+                                                SqlRender::render(
+                                                    "
+                                                                        WITH concepts AS (
+                                                                            SELECT @athena_schema.concept.*
+                                                                            FROM @writeSchema.@temp_table temp
+                                                                            INNER JOIN @athena_schema.concept
+                                                                            ON @athena_schema.concept.@concept_column = temp.@column
+                                                                            WHERE @concept_filters
+                                                                        ),
+                                                                        concept_synonyms AS (
+                                                                            SELECT cs.concept_id, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
+                                                                            FROM @athena_schema.concept_synonym cs
+                                                                            INNER JOIN concepts c1
+                                                                            ON c1.concept_id = cs.concept_id
+                                                                            GROUP BY cs.concept_id
+                                                                        )
+
+                                                                        SELECT DISTINCT
+                                                                                temp.*,
+                                                                                c2.*,
+                                                                                cs2.concept_synonyms
+                                                                        FROM @writeSchema.@temp_table temp
+                                                                        LEFT JOIN concepts c2
+                                                                        ON c2.@concept_column = temp.@column
+                                                                        LEFT JOIN concept_synonyms cs2
+                                                                        ON c2.@concept_column = cs2.@concept_column
+                                                                        ",
+                                                    writeSchema = writeSchema,
+                                                    temp_table = temp_table,
+                                                    athena_schema = athena_schema,
+                                                    concept_column = concept_column,
+                                                    column = column,
+                                                    concept_filters = concept_filters
+                                                ),
+                                                conn = conn,
+                                                skip_cache = TRUE,
+                                                verbose = verbose,
+                                                render_sql = render_sql,
+                                                sleepTime = sleepTime
+                                            )
+
+                                    } else {
+
+                                        resultset <-
+                                            queryAthena(
+                                                SqlRender::render(
+                                                    "
+                                                                        WITH concepts AS (
+                                                                            SELECT @athena_schema.concept.*
+                                                                            FROM @writeSchema.@temp_table temp
+                                                                            INNER JOIN @athena_schema.concept
+                                                                            ON @athena_schema.concept.@concept_column = temp.@column
+                                                                            WHERE @concept_filters
+                                                                        )
+
+                                                                        SELECT DISTINCT
+                                                                                temp.*,
+                                                                                c2.*
+                                                                        FROM @writeSchema.@temp_table temp
+                                                                        LEFT JOIN concepts c2
+                                                                        ON c2.@concept_column = temp.@column
+                                                                        ",
+                                                    writeSchema = writeSchema,
+                                                    temp_table = temp_table,
+                                                    athena_schema = athena_schema,
+                                                    concept_column = concept_column,
+                                                    column = column,
+                                                    concept_filters = concept_filters
+                                                ),
+                                                conn = conn,
+                                                skip_cache = TRUE,
+                                                verbose = verbose,
+                                                render_sql = render_sql,
+                                                sleepTime = sleepTime
+                                            )
+
+                                    }
+                            }
+
+
+                            pg13::dropTable(conn = write_conn,
+                                            schema = writeSchema,
+                                            tableName = temp_table)
+
+                            if (is.null(conn)) {
+
+                                dcAthena(conn = write_conn)
+                            }
+
+
+                    return(resultset)
 
     }
 
