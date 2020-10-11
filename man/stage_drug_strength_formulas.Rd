@@ -33,7 +33,7 @@ OUTPUT_DESCRIPTION
 The Drug Strength Table is joined to the provided drug_concept_ids and the amount_value or fraction of numerator to denominator values are returned in a "staged_value" field along with the concept names of the units in a seprate "staged_unit" field. Only valid Drug Strength Table entries are included in the returned dataframe and the 'box_size', 'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are excluded in the output. Since some extended release formulations of common medications such as Tylenol have a a Drug Strength with a denominator of 24 hours, the `include_rates` parameter denotes whether those rate-based calculations should be included in the staged value. If FALSE, all the denominator and subsequent staged values are calculated in their native form and prefixed with 'native_' and then the final staged and denominator values are reconstituted with denominator units related to time measurements normalized to 1.
 }
 \details{
-DETAILS
+The staged_value and/or native_staged_value fields are returned as character class expressions to evaluate to limit rounding error in downstream calculations for non-whole number drug strengths. For example, the staged_value for a drug with a numerator of 1 and denominator of 3 would have a staged_value of "1/3" rather than 0.3333. These values can be parsed into their numeric values by calling a function that parses and evaluates the expression such as the rlang's parse_expr function followed by a call to the base eval function.
 }
 \examples{
 \dontrun{

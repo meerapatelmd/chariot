@@ -174,7 +174,8 @@ list_drug_strength_units <-
 #' @param vocabSchema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
 #' @param writeSchema PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @details
+#' The staged_value and/or native_staged_value fields are returned as character class expressions to evaluate to limit rounding error in downstream calculations for non-whole number drug strengths. For example, the staged_value for a drug with a numerator of 1 and denominator of 3 would have a staged_value of "1/3" rather than 0.3333. These values can be parsed into their numeric values by calling a function that parses and evaluates the expression such as the rlang's parse_expr function followed by a call to the base eval function.
 #' @examples
 #' \dontrun{
 #' if(interactive()){
