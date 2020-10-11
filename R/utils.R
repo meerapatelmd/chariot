@@ -23,3 +23,14 @@ normalize_nas <-
 
         }
 
+#' @noRd
+
+make_temp_table_name <-
+        function() {
+
+                paste0("V", stringr::str_remove_all(as.character(Sys.time()), "[[:punct:]]|\\s"))
+        }
+
+
+
+
