@@ -265,11 +265,12 @@ leftJoinConceptId <-
                                 column <- colnames(.data)[1]
                             }
 
+                            concept_column <- "concept_id"
+
                             if (column == concept_column) {
                                 stop("'column' parameter cannot be equal to 'concept_column'")
                             }
 
-                            concept_column <- "concept_id"
 
                             concept_filters <- generate_concept_filters(vocabSchema = athena_schema,
                                                                         vocabulary_id = vocabulary_id,

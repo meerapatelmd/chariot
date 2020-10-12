@@ -64,8 +64,11 @@ lookup_upper_limit_ancestors <-
                                         FROM @vocabSchema.concept
                                         INNER JOIN @vocabSchema.concept_ancestor ca
                                         ON ca.descendant_concept_id = @vocabSchema.concept.concept_id
+                                        INNER JOIN @vocabSchema.concept c2
+                                        ON ca.ancestor_concept_id = c2.concept_id
                                         WHERE @vocabSchema.concept.invalid_reason IS NULL
                                                 AND @concept_filters
+                                                AND c2.invalid_reason IS NULL
                                         )
 
                                         SELECT

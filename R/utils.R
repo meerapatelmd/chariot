@@ -108,7 +108,7 @@ generate_concept_filters <-
                                 part_b <- vector()
                         }
 
-                        clause_with_null <- c(part_a, part_b) %>% paste(collapse = " OR ")
+                        clause_with_null <- paste0("(", c(part_a, part_b) %>% paste(collapse = " OR "), ")")
 
                         where_clauses <-
                                 c(where_clauses,
@@ -144,7 +144,7 @@ generate_concept_filters <-
                                 part_b <- vector()
                         }
 
-                        clause_with_null <- c(part_a, part_b) %>% paste(collapse = " OR ")
+                        clause_with_null <- paste0("(", c(part_a, part_b) %>% paste(collapse = " OR "), ")")
 
 
                         where_clauses <-

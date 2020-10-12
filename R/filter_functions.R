@@ -132,7 +132,7 @@ filterDomain <-
                  invert = FALSE) {
 
 
-                .filterConcept(.data = .data,
+                filterConcept(.data = .data,
                                has_prefix = has_prefix,
                                has_suffix = has_suffix,
                                concept_col = "domain_id",
@@ -308,7 +308,7 @@ filterStandardConceptType <-
                  invert = FALSE) {
 
 
-                .filterConcept(.data = .data,
+                filterConcept(.data = .data,
                                has_prefix = has_prefix,
                                has_suffix = has_suffix,
                                concept_col = "standard_concept",
@@ -343,7 +343,7 @@ filterValid <-
                  rm_date_fields = TRUE) {
 
                         .output <-
-                        .filterConcept(.data = .data,
+                        filterConcept(.data = .data,
                                        has_prefix = has_prefix,
                                        has_suffix = has_suffix,
                                        concept_col = "invalid_reason",
@@ -381,7 +381,7 @@ filterVocabulary <-
                  invert = FALSE) {
 
 
-                        .filterConcept(.data = .data,
+                        filterConcept(.data = .data,
                                        has_prefix = has_prefix,
                                        has_suffix = has_suffix,
                                        concept_col = "vocabulary_id",
