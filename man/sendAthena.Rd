@@ -2,9 +2,9 @@
 % Please edit documentation in R/send_functions.R
 \name{sendAthena}
 \alias{sendAthena}
-\title{FUNCTION_TITLE}
+\title{Send a SQL Statement}
 \usage{
-sendAthena(conn = NULL, sql_statement)
+sendAthena(conn = NULL, sql_statement, render_sql = FALSE)
 }
 \arguments{
 \item{conn}{PARAM_DESCRIPTION, Default: NULL}
@@ -15,7 +15,7 @@ sendAthena(conn = NULL, sql_statement)
 OUTPUT_DESCRIPTION
 }
 \description{
-FUNCTION_DESCRIPTION
+Unlike the \code{\link{queryAthena}} function, the render_sql parameter provides a pause after rendering in case the user wants to copy and paste the rendered SQL into a client if the session is interactive. This is particularly useful with large operations that are better executed within a background client.
 }
 \details{
 DETAILS

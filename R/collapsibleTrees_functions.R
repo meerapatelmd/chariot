@@ -340,13 +340,13 @@ return_relationship_ids <-
 
 plot_is_a <-
     function(vocabSchema,
+             writeSchema,
              vocabulary_id,
              concept_class_id,
              domain_id,
              standard_concept,
              color_col,
              generations,
-             writeSchema,
              conn = NULL,
              render_sql = TRUE,
              verbose = FALSE,
@@ -445,6 +445,7 @@ plot_is_a <-
                                     names_to = "tooltip",
                                     values_to = "tooltip_value",
                                     values_drop_na = TRUE) %>%
+                dplyr::distinct() %>%
                 tidyr::unite(col = tooltip,
                              tooltip,
                              tooltip_value,
@@ -597,14 +598,17 @@ plot_is_a <-
             updated_levels <-
             updated_levels %>%
                 dplyr::bind_rows() %>%
-                dplyr::distinct()
+                dplyr::distinct() %>%
+                dplyr::select(-count, -total)
 
 
+            tryCatch(
             collapsibleTree::collapsibleTreeNetwork(
-                    updated_levels,
+                    df = updated_levels,
                     tooltipHtml = "tooltip",
                     fill = "color"
-            )
+            ),
+            error = function(e) return(updated_levels))
 
 
             # level_1 <-
@@ -638,14 +642,433 @@ plot_is_a <-
 
 
 
-plot_relationships <-
-    function() {
+plot_concept_ancestors <-
+    function(concept_ids,
+             ancestor_generations = 2,
+             descendant_generations = 2,
+             color_col = concept_class_id,
+             conn = NULL,
+             writeSchema = "public") {
 
-            queryAthena("SELECT *
-                        FROM public.concept ")
+
+        output_a <- list()
+        output_a[[1]] <-
+           queryAthena(sql_statement =
+                           SqlRender::render(
+                                "
+                                SELECT *
+                                FROM @vocabSchema.concept_ancestor ca
+                                WHERE ca.descendant_concept_id IN (@concept_ids)
+                                    AND ca.max_levels_of_separation = 1
+                                ",
+                                vocabSchema = vocabSchema,
+                                concept_ids = concept_ids),
+                       conn = conn
+                       )
+
+
+        for (i in 2:ancestor_generations) {
+                    new_descendant_concept_ids <- output_a[[i-1]]$ancestor_concept_id
+                    output_a[[i]] <-
+                        queryAthena(sql_statement =
+                                        SqlRender::render(
+                                            "
+                                SELECT *
+                                FROM @vocabSchema.concept_ancestor ca
+                                WHERE ca.descendant_concept_id IN (@new_descendant_concept_ids)
+                                    AND ca.max_levels_of_separation = 1
+                                ",
+                                            vocabSchema = vocabSchema,
+                                            new_descendant_concept_ids = new_descendant_concept_ids),
+                                    conn = conn
+                        )
+
+        }
+
+        output_a <- rev(output_a)
+
+        output_d <- list()
+        output_d[[1]] <-
+            queryAthena(sql_statement =
+                            SqlRender::render(
+                                "
+                                SELECT *
+                                FROM @vocabSchema.concept_ancestor ca
+                                WHERE ca.ancestor_concept_id IN (@concept_ids)
+                                    AND ca.max_levels_of_separation = 1
+                                ",
+                                vocabSchema = vocabSchema,
+                                concept_ids = concept_ids),
+                        conn = conn
+            )
+
+
+            for (i in 2:descendant_generations) {
+                new_ancestor_concept_ids <- output_a[[i-1]]$descendant_concept_id
+                output_d[[i]] <-
+                    queryAthena(sql_statement =
+                                    SqlRender::render(
+                                        "
+                                    SELECT *
+                                    FROM @vocabSchema.concept_ancestor ca
+                                    WHERE ca.ancestor_concept_id IN (@new_ancestor_concept_ids)
+                                        AND ca.max_levels_of_separation = 1
+                                    ",
+                                        vocabSchema = vocabSchema,
+                                        new_ancestor_concept_ids = new_ancestor_concept_ids),
+                                conn = conn
+                    )
+
+            }
+
+        output <-
+        c(output_a,
+          output_d)
+
+        # level 1
+        level_1 <-
+            tibble::tibble(descendant_concept_id = unique(output[[1]]$ancestor_concept_id)) %>%
+            dplyr::mutate(ancestor_concept_id = 00000) %>%
+            dplyr::select(ancestor_concept_id,
+                          descendant_concept_id)
+
+        # root
+        root <-
+            tibble::tibble(ancestor_concept_id = NA,
+                           descendant_concept_id = 00000)
+
+
+        final <-
+            dplyr::bind_rows(root,
+                             level_1,
+                             output) %>%
+            dplyr::select(parent_concept_id = ancestor_concept_id,
+                          child_concept_id = descendant_concept_id) %>%
+            dplyr::distinct() %>%
+            tibble::rowid_to_column() %>%
+            tidyr::pivot_longer(cols = c(parent_concept_id, child_concept_id),
+                                names_to = "relative_type",
+                                values_to = "relative_concept_id") %>%
+            leftJoinConceptId(column = "relative_concept_id",
+                              writeSchema = writeSchema)
+
+
+        final2 <-
+            final %>%
+            dplyr::mutate(color := {{color_col}}) %>%
+            dplyr::mutate(color = factor(color))
+
+        levels(final2$color) <- colorspace::terrain_hcl(n = length(levels(final2$color)))
+
+        final3 <-
+            final2 %>%
+            dplyr::mutate_at(vars(!c(rowid, relative_type, relative_concept_id,color)), as.character) %>%
+            tidyr::pivot_longer(cols = !c(rowid, relative_type, relative_concept_id,color),
+                                names_to = "concept_field",
+                                values_to = "concept_field_values",
+                                values_drop_na = TRUE) %>%
+            dplyr::distinct()
+
+
+        final4 <-
+            dplyr::left_join(final3,
+                             final3 %>%
+                            tidyr::unite(col = tooltip,
+                                         concept_field,
+                                         concept_field_values,
+                                         sep = ": ",
+                                         remove = TRUE,
+                                         na.rm = TRUE) %>%
+                            dplyr::group_by(rowid, relative_type, relative_concept_id) %>%
+                            dplyr::summarize_at(vars(tooltip), ~paste(unique(.), collapse = "<br>")) %>%
+                                dplyr::ungroup()) %>%
+            dplyr::select(-concept_field, -concept_field_values) %>%
+            dplyr::distinct() %>%
+            tidyr::pivot_wider(id_col = c(rowid,color),
+                               names_from = relative_type,
+                               values_from = c(relative_concept_id))
+
+
+        return(final4)
+
+
+        return(final)
+
+
+            resultset2 <-
+                dplyr::left_join(resultset,
+                            resultset %>%
+                                dplyr::mutate_all(as.character) %>%
+                                tidyr::pivot_longer(cols = !c(rowid, relationship_id),
+                                                    names_to = c("concept_attribute_type", "concept_order"),
+                                                    names_pattern = "(^.*)_([1-2]{1}$)",
+                                                    values_to = "concept_attribute",
+                                                    values_drop_na = TRUE) %>%
+                                dplyr::distinct() %>%
+                                tidyr::unite(col = tooltip,
+                                             concept_attribute_type,
+                                             concept_attribute,
+                                             sep = ": ",
+                                             remove = TRUE,
+                                             na.rm = TRUE) %>%
+                                dplyr::group_by(rowid, concept_order) %>%
+                                dplyr::summarize_at(vars(tooltip), ~paste(unique(.), collapse = "<br>")) %>%
+                                tidyr::pivot_wider(names_from = concept_order,
+                                                   names_prefix = "concept_tooltip_",
+                                                   values_from = tooltip) %>%
+                                dplyr::ungroup()
+                        ) %>%
+                        dplyr::distinct()
+
+            resultset3 <-
+                resultset2 %>%
+                tidyr::unite(col = concept_1,
+                             concept_id_1,
+                             concept_name_1,
+                             sep = " ",
+                             na.rm = TRUE,
+                             remove = FALSE) %>%
+                tidyr::unite(col = concept_2,
+                             concept_id_2,
+                             concept_name_2,
+                             sep = " ",
+                             na.rm = TRUE,
+                             remove = FALSE)
+
+            resultset4 <-
+                resultset3 %>%
+                dplyr::mutate(color = relationship_id) %>%
+                dplyr::mutate(color = factor(color))
+
+            levels(resultset4$color) <- colorspace::sequential_hcl(n = length(levels(resultset4$color)))
+
+            resultset5 <-
+                resultset4 %>%
+                dplyr::select(concept_1,
+                              concept_tooltip_1,
+                              relationship_id,
+                              concept_2,
+                              concept_tooltip_2,
+                              color)
+
+
+            root <-
+                resultset5 %>%
+                dplyr::transmute(
+                    parent = NA,
+                    child = concept_1,
+                    tooltip= concept_tooltip_1,
+                    color = "black") %>%
+                dplyr::distinct()
+
+            level_1 <-
+                resultset5 %>%
+                dplyr::transmute(
+                    parent = concept_1,
+                    child = relationship_id,
+                    tooltip= "",
+                    color = color) %>%
+                dplyr::distinct()
+
+
+            level_2 <-
+                resultset5 %>%
+                dplyr::transmute(
+                    parent = relationship_id,
+                    child = concept_2,
+                    tooltip= concept_tooltip_2,
+                    color = color) %>%
+                dplyr::distinct()
+
+
+
+            final_a <-
+                dplyr::bind_rows(root,
+                                 level_1)
+
+
+
+            final_b <-
+                dplyr::bind_rows(level_2) %>%
+                dplyr::group_by(child) %>%
+                dplyr::mutate(total = n()) %>%
+                dplyr::mutate(tally = 1:n()) %>%
+                dplyr::ungroup() %>%
+                dplyr::mutate(append_label = ifelse(total > 1, paste0("(", tally, ")"), NA_character_)) %>%
+                tidyr::unite(col = child2,
+                             child,
+                             append_label,
+                             sep = " ",
+                             remove = TRUE,
+                             na.rm = TRUE) %>%
+                dplyr::rename(child = child2) %>%
+                dplyr::select(-total, -tally)
+
+            final <-
+                dplyr::bind_rows(final_a,
+                                 final_b)
+
+            collapsibleTree::collapsibleTreeNetwork(df = final,
+                                                    tooltipHtml = "tooltip",
+                                                    fill = "color")
 
     }
 
 
 
+plot_concept_relationships <-
+    function(concept_ids,
+             color_col,
+             conn = NULL) {
 
+        resultset <-
+            queryAthena(sql_statement =
+                            SqlRender::render(
+                                "
+                                SELECT
+                                    c1.concept_id AS concept_id_1,
+                                    c1.concept_name AS concept_name_1,
+                                    c1.domain_id AS domain_id_1,
+                                    c1.concept_class_id AS concept_class_id_1,
+                                    c1.standard_concept AS standard_concept_1,
+                                    cr.relationship_id,
+                                    c2.concept_id AS concept_id_2,
+                                    c2.concept_name AS concept_name_2,
+                                    c2.domain_id AS domain_id_2,
+                                    c2.concept_class_id AS concept_class_id_2,
+                                    c2.standard_concept AS standard_concept_2
+                                FROM @vocabSchema.concept_relationship cr
+                                LEFT JOIN @vocabSchema.concept c1
+                                ON c1.concept_id = cr.concept_id_1
+                                LEFT JOIN @vocabSchema.concept c2
+                                ON c2.concept_id = cr.concept_id_2
+                                WHERE cr.concept_id_1 = (@concept_ids)
+                                    AND cr.invalid_reason IS NULL
+                                    AND c1.invalid_reason IS NULL
+                                    AND c2.invalid_reason IS NULL
+                                ",
+                                vocabSchema = vocabSchema,
+                                concept_ids = concept_ids),
+                        conn = conn
+            ) %>%
+            tibble::rowid_to_column() %>%
+            dplyr::mutate(rowid = as.character(rowid))
+
+        resultset2 <-
+            dplyr::left_join(resultset,
+                             resultset %>%
+                                 dplyr::mutate_all(as.character) %>%
+                                 tidyr::pivot_longer(cols = !c(rowid, relationship_id),
+                                                     names_to = c("concept_attribute_type", "concept_order"),
+                                                     names_pattern = "(^.*)_([1-2]{1}$)",
+                                                     values_to = "concept_attribute",
+                                                     values_drop_na = TRUE) %>%
+                                 dplyr::distinct() %>%
+                                 tidyr::unite(col = tooltip,
+                                              concept_attribute_type,
+                                              concept_attribute,
+                                              sep = ": ",
+                                              remove = TRUE,
+                                              na.rm = TRUE) %>%
+                                 dplyr::group_by(rowid, concept_order) %>%
+                                 dplyr::summarize_at(vars(tooltip), ~paste(unique(.), collapse = "<br>")) %>%
+                                 tidyr::pivot_wider(names_from = concept_order,
+                                                    names_prefix = "concept_tooltip_",
+                                                    values_from = tooltip) %>%
+                                 dplyr::ungroup()
+            ) %>%
+            dplyr::distinct()
+
+        resultset3 <-
+            resultset2 %>%
+            tidyr::unite(col = concept_1,
+                         concept_id_1,
+                         concept_name_1,
+                         sep = " ",
+                         na.rm = TRUE,
+                         remove = FALSE) %>%
+            tidyr::unite(col = concept_2,
+                         concept_id_2,
+                         concept_name_2,
+                         sep = " ",
+                         na.rm = TRUE,
+                         remove = FALSE)
+
+        resultset4 <-
+            resultset3 %>%
+            dplyr::mutate(color = relationship_id) %>%
+            dplyr::mutate(color = factor(color))
+
+        levels(resultset4$color) <- colorspace::sequential_hcl(n = length(levels(resultset4$color)))
+
+        resultset5 <-
+            resultset4 %>%
+            dplyr::select(concept_1,
+                          concept_tooltip_1,
+                          relationship_id,
+                          concept_2,
+                          concept_tooltip_2,
+                          color)
+
+
+        root <-
+            resultset5 %>%
+            dplyr::transmute(
+                parent = NA,
+                child = concept_1,
+                tooltip= concept_tooltip_1,
+                color = "black") %>%
+            dplyr::distinct()
+
+        level_1 <-
+            resultset5 %>%
+            dplyr::transmute(
+                parent = concept_1,
+                child = relationship_id,
+                tooltip= "",
+                color = color) %>%
+            dplyr::distinct()
+
+
+        level_2 <-
+            resultset5 %>%
+            dplyr::transmute(
+                parent = relationship_id,
+                child = concept_2,
+                tooltip= concept_tooltip_2,
+                color = color) %>%
+            dplyr::distinct()
+
+
+
+        final_a <-
+            dplyr::bind_rows(root,
+                             level_1)
+
+
+
+        final_b <-
+            dplyr::bind_rows(level_2) %>%
+            dplyr::group_by(child) %>%
+            dplyr::mutate(total = n()) %>%
+            dplyr::mutate(tally = 1:n()) %>%
+            dplyr::ungroup() %>%
+            dplyr::mutate(append_label = ifelse(total > 1, paste0("(", tally, ")"), NA_character_)) %>%
+            tidyr::unite(col = child2,
+                         child,
+                         append_label,
+                         sep = " ",
+                         remove = TRUE,
+                         na.rm = TRUE) %>%
+            dplyr::rename(child = child2) %>%
+            dplyr::select(-total, -tally)
+
+        final <-
+            dplyr::bind_rows(final_a,
+                             final_b)
+
+        collapsibleTree::collapsibleTreeNetwork(df = final,
+                                                tooltipHtml = "tooltip",
+                                                fill = "color")
+
+    }
