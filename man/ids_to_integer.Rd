@@ -2,10 +2,29 @@
 % Please edit documentation in R/format_functions.R
 \name{ids_to_integer}
 \alias{ids_to_integer}
-\title{Mutate all concept_ids to integer}
+\title{Convert all columns that contain "concept_id" to integer}
 \usage{
 ids_to_integer(.data)
 }
+\arguments{
+\item{.data}{PARAM_DESCRIPTION}
+}
+\value{
+OUTPUT_DESCRIPTION
+}
 \description{
-Takes all the fields with "concept_id" in their names and converts to integer
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[dplyr]{mutate_all}}
 }

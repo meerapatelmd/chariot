@@ -4,7 +4,7 @@
 \alias{makeLabel}
 \title{Make Label Column}
 \usage{
-makeLabel(.data, into, remove = FALSE)
+makeLabel(.data, into, has_prefix = NULL, has_suffix = NULL, remove = FALSE)
 }
 \description{
 A Label is in the format of "{concept_id} concept_name". It is less comprehensive than a merged strip using the merge_concepts function, but more human readable when interfacing with others.

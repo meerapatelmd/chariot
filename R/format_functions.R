@@ -1,7 +1,20 @@
-#' Mutate all concept_ids to integer
-#' @description Takes all the fields with "concept_id" in their names and converts to integer
-#' @import dplyr
+#' @title
+#' Convert all columns that contain "concept_id" to integer
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[dplyr]{mutate_all}}
+#' @rdname ids_to_integer
 #' @export
+#' @importFrom dplyr mutate_at
 
 ids_to_integer <-
     function(.data) {
@@ -751,13 +764,10 @@ stripToLabel <-
                  into,
                  remove = FALSE) {
 
-                merge_col <- enquo(merge_col)
-                into <- enquo(into)
-
                 unmerge_concepts(dataframe = .data,
-                                          concept_col = !!merge_col,
+                                          concept_col = {{merge_col}},
                                           remove = remove) %>%
-                        makeLabel(into = !!into,
+                        makeLabel(into = {{into}},
                                   remove = remove)
         }
 
