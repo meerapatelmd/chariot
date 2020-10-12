@@ -338,17 +338,23 @@ labelToStrip <-
 makeLabel <-
         function(.data,
                  into,
+                 has_prefix = NULL,
+                 has_suffix = NULL,
                  remove = FALSE) {
 
-                into <- enquo(into)
+
+                label_parts <- paste0(has_prefix, c("concept_id", "concept_name"), has_suffix)
+                names(label_parts) <- c("concept_id", "concept_name")
+
 
                 .data %>%
-                        tidyr::unite(col = !!into,
-                                     contains("concept_id"),
-                                     contains("concept_name"),
+                        tidyr::unite(col = {{into}},
+                                     dplyr::all_of(label_parts$concept_id),
+                                     dplyr::all_of(label_parts$concept_name),
                                      sep = " ",
+                                     na.rm = TRUE,
                                      remove = remove) %>%
-                        dplyr::mutate_at(vars(!!into), ~na_if(., "NA NA"))
+                        dplyr::mutate_at(vars({{into}}), ~na_if(., "NA NA"))
         }
 
 
