@@ -8,6 +8,7 @@
 
 writeConceptParentTable <-
     function(vocabSchema,
+             writeSchema,
              render_sql = TRUE,
              conn = NULL) {
 
@@ -22,8 +23,8 @@ writeConceptParentTable <-
                        sql_statement =
                                 SqlRender::render(
                                 "
-                                DROP TABLE IF EXISTS @vocabSchema.concept_parent;
-                                CREATE TABLE @vocabSchema.concept_parent (
+                                DROP TABLE IF EXISTS @writeSchema.concept_parent;
+                                CREATE TABLE @writeSchema.concept_parent (
                                                 parent_concept_id INTEGER,
                                                 child_concept_id INTEGER
                                 );
@@ -66,9 +67,10 @@ writeConceptParentTable <-
                                     FROM inverse
                                 )
 
-                                INSERT INTO @vocabSchema.concept_parent SELECT DISTINCT * FROM combined;
+                                INSERT INTO @writeSchema.concept_parent SELECT DISTINCT * FROM combined;
                                 ",
-                                vocabSchema = vocabSchema))
+                                vocabSchema = vocabSchema,
+                                writeSchema = writeSchema))
 
 
 
@@ -169,6 +171,272 @@ return_relationship_ids <-
     }
 
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param vocabulary_id PARAM_DESCRIPTION
+#' @param domain_id PARAM_DESCRIPTION
+#' @param conn PARAM_DESCRIPTION
+#' @param vocabSchema PARAM_DESCRIPTION
+#' @param range PARAM_DESCRIPTION, Default: 1:10
+#' @param color_by PARAM_DESCRIPTION, Default: 'vocabulary_id'
+#' @param terminal_vocabulary_id PARAM_DESCRIPTION
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[tibble]{tibble}}
+#'  \code{\link[SqlRender]{render}}
+#'  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{select}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{group_by}},\code{\link[dplyr]{summarise_all}},\code{\link[dplyr]{mutate-joins}}
+#'  \code{\link[tidyr]{unite}},\code{\link[tidyr]{pivot_longer}}
+#'  \code{\link[colorspace]{rainbow_hcl}}
+#'  \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
+#' @rdname plot_classification
+#' @export
+#' @importFrom tibble tibble
+#' @importFrom SqlRender render
+#' @importFrom dplyr mutate select everything distinct bind_rows mutate_all group_by summarize_at ungroup left_join
+#' @importFrom tidyr unite pivot_longer
+#' @importFrom colorspace terrain_hcl
+#' @importFrom collapsibleTree collapsibleTreeNetwork
+
+plot_classification <-
+    function(vocabulary_id,
+             domain_id,
+             conn,
+             vocabSchema,
+             range = 1:10,
+             color_by = "vocabulary_id",
+             terminal_vocabulary_id,
+             render_sql = TRUE) {
+
+        child <- paste0(vocabulary_id, " ", domain_id)
+        root <-
+            tibble::tibble(parent = NA_character_,
+                           child = child)
+
+        vocabulary_id <- paste0("'", vocabulary_id, "'")
+        terminal_vocabulary_id <- paste0("'", terminal_vocabulary_id, "'")
+        domain_id <- paste0("'", domain_id, "'")
+
+
+        level_1 <-
+            queryAthena(sql_statement =
+                            SqlRender::render(
+                                "
+                                WITH ancestry AS (
+                                    SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
+                                    FROM @vocabSchema.concept c
+                                    INNER JOIN @vocabSchema.concept_ancestor ca
+                                    ON ca.ancestor_concept_id = c.concept_id
+                                    INNER JOIN @vocabSchema.concept c2
+                                    ON ca.descendant_concept_id = c2.concept_id
+                                    WHERE
+                                    c.vocabulary_id IN (@vocabulary_id)
+                                    AND c.standard_concept = 'C'
+                                    AND c.invalid_reason IS NULL
+                                    AND c2.invalid_reason IS NULL
+                                    AND c2.standard_concept = 'C'
+                                    AND c2.vocabulary_id IN (@vocabulary_id)
+                                    AND c.domain_id = @domain_id
+                                    AND c2.domain_id = @domain_id
+                                    AND ca.ancestor_concept_id <> ca.descendant_concept_id
+                                    AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
+                                )
+
+                            SELECT DISTINCT c.*
+                                FROM ancestry a
+                            LEFT JOIN @vocabSchema.concept c
+                            ON c.concept_id = a.ancestor_concept_id
+                            WHERE a.ancestor_concept_id NOT IN (
+                                SELECT a2.descendant_concept_id
+                                FROM ancestry a2
+                            )
+                            ;",
+                                vocabSchema = vocabSchema,
+                                vocabulary_id = vocabulary_id,
+                                domain_id = domain_id),
+                        conn = conn,
+                        render_sql = TRUE
+            )
+
+            level_1 <-
+                level_1 %>%
+                dplyr::mutate(parent = child) %>%
+                tidyr::unite(col = child,
+                             concept_id,
+                             concept_name,
+                             sep = " ",
+                             na.rm = TRUE,
+                             remove = FALSE) %>%
+                dplyr::select(parent,
+                              child,
+                              dplyr::everything())
+
+            range_output <- list()
+            range_output[[1]] <- level_1
+
+            proceed <- TRUE
+            for (i in 2:max(range)) {
+
+                if (proceed) {
+
+                        new_parents <-
+                                range_output[[i-1]] %>%
+                                dplyr::select(concept_id) %>%
+                                dplyr::distinct() %>%
+                                unlist() %>%
+                                as.integer()
+
+                        level_n <-
+                            queryAthena(sql_statement =
+                                            SqlRender::render(
+                                                "
+                                    WITH ancestry AS (
+                                        SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
+                                        FROM @vocabSchema.concept c
+                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        ON ca.ancestor_concept_id = c.concept_id
+                                        INNER JOIN @vocabSchema.concept c2
+                                        ON ca.descendant_concept_id = c2.concept_id
+                                        WHERE
+                                        c.vocabulary_id IN (@vocabulary_id)
+                                        AND c.standard_concept = 'C'
+                                        AND c.invalid_reason IS NULL
+                                        AND c2.invalid_reason IS NULL
+                                        AND c2.standard_concept = 'C'
+                                        AND c2.vocabulary_id IN (@vocabulary_id)
+                                        AND c.domain_id = @domain_id
+                                        AND c2.domain_id = @domain_id
+                                        AND ca.ancestor_concept_id <> ca.descendant_concept_id
+                                        AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
+                                    )
+
+                                    SELECT DISTINCT
+                                        CONCAT(parent.concept_id, ' ', parent.concept_name) AS parent,
+                                        CONCAT(child.concept_id, ' ', child.concept_name) AS child,
+                                        child.*
+                                    FROM ancestry a
+                                    LEFT JOIN @vocabSchema.concept parent
+                                    ON a.ancestor_concept_id = parent.concept_id
+                                    LEFT JOIN @vocabSchema.concept child
+                                    ON a.descendant_concept_id = child.concept_id
+                                    WHERE a.ancestor_concept_id IN (@new_parents)
+                                    ;",
+                                                vocabSchema = vocabSchema,
+                                                vocabulary_id = vocabulary_id,
+                                                domain_id = domain_id,
+                                                new_parents = new_parents),
+                                        conn = conn,
+                                        render_sql = TRUE
+                            )
+
+                        if (nrow(level_n) == 0) {
+
+                            proceed <- FALSE
+                        } else {
+                            range_output[[i]] <- level_n
+                        }
+
+                }
+
+            }
+
+            terminal_class <- range_output[[length(range_output)]] %>%
+                                    dplyr::select(concept_id) %>%
+                                    dplyr::distinct() %>%
+                                    unlist() %>%
+                                    unique()
+
+            terminal_class_concepts <-
+            queryAthena(sql_statement =
+                            SqlRender::render(
+                                "
+                                    WITH ancestry AS (
+                                        SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
+                                        FROM @vocabSchema.concept c
+                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        ON ca.ancestor_concept_id = c.concept_id
+                                        INNER JOIN @vocabSchema.concept c2
+                                        ON ca.descendant_concept_id = c2.concept_id
+                                        WHERE
+                                        c.vocabulary_id IN (@vocabulary_id)
+                                        AND c.standard_concept = 'C'
+                                        AND c.invalid_reason IS NULL
+                                        AND c2.invalid_reason IS NULL
+                                        AND c2.standard_concept <> 'C'
+                                        AND c2.vocabulary_id IN (@vocabulary_id)
+                                        AND c.domain_id = @domain_id
+                                        AND c2.domain_id = @domain_id
+                                        AND ca.ancestor_concept_id <> ca.descendant_concept_id
+                                        AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
+                                    )
+
+                                    SELECT DISTINCT
+                                        CONCAT(parent.concept_id, ' ', parent.concept_name) AS parent,
+                                        CONCAT(child.concept_id, ' ', child.concept_name) AS child,
+                                        child.*
+                                    FROM ancestry a
+                                    LEFT JOIN @vocabSchema.concept parent
+                                    ON a.ancestor_concept_id = parent.concept_id
+                                    LEFT JOIN @vocabSchema.concept child
+                                    ON a.descendant_concept_id = child.concept_id
+                                    WHERE a.ancestor_concept_id IN (@new_parents)
+                                    ;",
+                                vocabSchema = vocabSchema,
+                                vocabulary_id = terminal_vocabulary_id,
+                                domain_id = domain_id,
+                                new_parents = terminal_class),
+                        conn = conn,
+                        render_sql = TRUE
+            )
+
+
+            df <- dplyr::bind_rows(root,
+                             range_output,
+                             terminal_class_concepts)
+
+            tooltip <-
+                df %>%
+                dplyr::mutate_all(as.character) %>%
+                tidyr::pivot_longer(cols = !c(parent,child),
+                                    names_to = "attribute",
+                                    values_to = "attribute_value",
+                                    values_drop_na = TRUE) %>%
+                tidyr::unite(col = tooltip,
+                             attribute,
+                             attribute_value,
+                             sep = ": ",
+                             remove = TRUE,
+                             na.rm = TRUE) %>%
+                dplyr::distinct() %>%
+                dplyr::group_by(child) %>%
+                dplyr::summarize_at(vars(tooltip), ~paste(., collapse = "<br>")) %>%
+                dplyr::ungroup() %>%
+                dplyr::distinct()
+
+            color <- unlist(df[,color_by])
+            color[is.na(color)] <- "NA"
+            df$color <- factor(color)
+            levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
+            df$color <- as.character(df$color)
+
+            df <-
+                df %>%
+                dplyr::select(parent, child, color) %>%
+                dplyr::left_join(tooltip) %>%
+                dplyr::distinct()
+
+            collapsibleTree::collapsibleTreeNetwork(df = df,
+                                                    tooltipHtml = "tooltip",
+                                                    fill = "color")
+
+    }
 
 
 #' @details invalid_reason is not an argument because it is already filtered out when making the concept_parent table
@@ -177,16 +445,31 @@ return_relationship_ids <-
 plot_is_a <-
     function(vocabSchema,
              writeSchema,
+             conceptParentSchema,
              vocabulary_id,
              concept_class_id,
              domain_id,
              standard_concept,
              color_col,
-             generations,
+             generations = 2:5,
              conn = NULL,
              render_sql = TRUE,
              verbose = FALSE,
              sleepTime = 1) {
+
+
+
+            # vocabSchema <- "omop_vocabulary"
+            # writeSchema <- "patelm9"
+            # conceptParentSchema <- "patelm9"
+            # vocabulary_id <- "HemOnc"
+            # domain_id <- "Drug"
+            # color_col <- domain_id
+            # generations <- 2:5
+            # conn <- fantasia::qOMOP()
+            # render_sql <- TRUE
+            # verbose <- FALSE
+            # sleepTime <- 1
 
 
             concept_filters <- generate_concept_filters(vocabSchema = vocabSchema,
@@ -213,18 +496,19 @@ plot_is_a <-
                                         SELECT
                                             cp.parent_concept_id,
                                             cp.child_concept_id
-                                        FROM @vocabSchema.concept_parent cp
+                                        FROM @conceptParentSchema.concept_parent cp
                                         INNER JOIN target_cids t
                                         ON t.concept_id = cp.parent_concept_id
                                         UNION
                                         SELECT
                                              cp.parent_concept_id,
                                              cp.child_concept_id
-                                        FROM @vocabSchema.concept_parent cp
+                                        FROM @conceptParentSchema.concept_parent cp
                                         INNER JOIN target_cids t
                                         ON t.concept_id = cp.child_concept_id
                                         ;",
                                         vocabSchema = vocabSchema,
+                                        conceptParentSchema = conceptParentSchema,
                                         concept_filters = concept_filters
                     ),
                     conn = conn,
@@ -235,13 +519,16 @@ plot_is_a <-
 
             # Creating the top bud from the topmost concepts
             output_b <-
-            output %>% dplyr::full_join(output, by = c("parent_concept_id" = "child_concept_id")) %>% dplyr::rename(grandparent_concept_id = parent_concept_id.y) %>% dplyr::filter(is.na(grandparent_concept_id)) %>%
-                dplyr::select(parent_concept_id = grandparent_concept_id,
-                              child_concept_id = parent_concept_id) %>%
-                dplyr::distinct() %>%
-                dplyr::mutate(new_parent_concept_id = 0) %>%
-                dplyr::mutate(parent_concept_id = dplyr::coalesce(parent_concept_id, new_parent_concept_id)) %>%
-                dplyr::select(-new_parent_concept_id)
+                output %>%
+                    dplyr::full_join(output, by = c("parent_concept_id" = "child_concept_id")) %>%
+                    dplyr::rename(grandparent_concept_id = parent_concept_id.y) %>%
+                    dplyr::filter(is.na(grandparent_concept_id)) %>%
+                    dplyr::select(parent_concept_id = grandparent_concept_id,
+                                  child_concept_id = parent_concept_id) %>%
+                    dplyr::distinct() %>%
+                    dplyr::mutate(new_parent_concept_id = 0) %>%
+                    dplyr::mutate(parent_concept_id = dplyr::coalesce(parent_concept_id, new_parent_concept_id)) %>%
+                    dplyr::select(-new_parent_concept_id)
 
             output_c <-
                 tibble::tibble(parent_concept_id = NA,
@@ -249,18 +536,18 @@ plot_is_a <-
 
 
             output2 <-
-            dplyr::bind_rows(output_c,
-                             output_b,
-                             output) %>%
+                dplyr::bind_rows(output_c,
+                                 output_b,
+                                 output) %>%
                 dplyr::mutate(child_concept_id = as.integer(child_concept_id))
 
 
             output3b <-
-            leftJoinConceptId(output2,
-                              column = "child_concept_id",
-                              writeSchema = writeSchema,
-                              conn = conn
-                              )
+                leftJoinConceptId(output2,
+                                  column = "child_concept_id",
+                                  writeSchema = writeSchema,
+                                  athena_schema = vocabSchema,
+                                  conn = conn)
 
             output4 <-
                 output2 %>%
@@ -274,39 +561,39 @@ plot_is_a <-
                               concept_class_id = ifelse(concept_id == 0, NA_character_, concept_class_id))
 
             tooltip <-
-            output5 %>%
-                # Converting all columns to be pivoted to character otherwise cannot be combined
-                dplyr::mutate_at(vars(!c(parent_concept_id, child_concept_id)), as.character) %>%
-                tidyr::pivot_longer(cols = !c(parent_concept_id, child_concept_id),
-                                    names_to = "tooltip",
-                                    values_to = "tooltip_value",
-                                    values_drop_na = TRUE) %>%
-                dplyr::distinct() %>%
-                tidyr::unite(col = tooltip,
-                             tooltip,
-                             tooltip_value,
-                             sep = ": ",
-                             remove = TRUE,
-                             na.rm = TRUE) %>%
-                dplyr::group_by(child_concept_id) %>%
-                dplyr::summarize_at(vars(tooltip), ~paste(., collapse = "<br>")) %>%
-                dplyr::ungroup()
+                output5 %>%
+                    # Converting all columns to be pivoted to character otherwise cannot be combined
+                    dplyr::mutate_at(vars(!c(parent_concept_id, child_concept_id)), as.character) %>%
+                    tidyr::pivot_longer(cols = !c(parent_concept_id, child_concept_id),
+                                        names_to = "tooltip",
+                                        values_to = "tooltip_value",
+                                        values_drop_na = TRUE) %>%
+                    dplyr::distinct() %>%
+                    tidyr::unite(col = tooltip,
+                                 tooltip,
+                                 tooltip_value,
+                                 sep = ": ",
+                                 remove = TRUE,
+                                 na.rm = TRUE) %>%
+                    dplyr::group_by(child_concept_id) %>%
+                    dplyr::summarize_at(vars(tooltip), ~paste(., collapse = "<br>")) %>%
+                    dplyr::ungroup()
 
             output6 <-
-            output5 %>%
-                dplyr::left_join(tooltip) %>%
-                dplyr::distinct() %>%
-                dplyr::mutate_all(as.character)
+                output5 %>%
+                    dplyr::left_join(tooltip) %>%
+                    dplyr::distinct() %>%
+                    dplyr::mutate_all(as.character)
 
 
             output7 <-
-            output6 %>%
-                tidyr::unite(col = child,
-                             concept_id,
-                             concept_name,
-                             sep = " ",
-                             remove = FALSE,
-                             na.rm = TRUE)
+                output6 %>%
+                    tidyr::unite(col = child,
+                                 concept_id,
+                                 concept_name,
+                                 sep = " ",
+                                 remove = FALSE,
+                                 na.rm = TRUE)
 
             output7b <-
                 output7 %>%
@@ -318,13 +605,13 @@ plot_is_a <-
 
 
             output8 <-
-            output7b %>%
-                dplyr::left_join(output7 %>%
-                                     dplyr::select(parent_concept_id = child_concept_id,
-                                                   parent = child) %>%
-                                     dplyr::distinct(),
-                                 by = "parent_concept_id") %>%
-                dplyr::distinct()
+                output7b %>%
+                    dplyr::left_join(output7 %>%
+                                         dplyr::select(parent_concept_id = child_concept_id,
+                                                       parent = child) %>%
+                                         dplyr::distinct(),
+                                     by = "parent_concept_id") %>%
+                    dplyr::distinct()
 
 
             output8 <-
@@ -358,7 +645,7 @@ plot_is_a <-
                                           parent_concept_id = child_concept_id) %>%
                             dplyr::inner_join(output8, by = c("parent", "parent_concept_id")) %>%
                             dplyr::select(-child) %>%
-                            leftJoinConceptId(column = "child_concept_id", writeSchema = writeSchema) %>%
+                            leftJoinConceptId(column = "child_concept_id", writeSchema = writeSchema, athena_schema =  vocabSchema, conn = conn) %>%
                             tidyr::unite(col = child,
                                          child_concept_id,
                                          concept_name,
@@ -432,45 +719,20 @@ plot_is_a <-
                      purrr::pluck(levels, ending_index))
 
             updated_levels <-
-            updated_levels %>%
-                dplyr::bind_rows() %>%
-                dplyr::distinct() %>%
-                dplyr::select(-count, -total)
+                updated_levels %>%
+                    dplyr::bind_rows() %>%
+                    dplyr::distinct() %>%
+                    dplyr::select(-count, -total)
 
 
             tryCatch(
-            collapsibleTree::collapsibleTreeNetwork(
-                    df = updated_levels,
-                    tooltipHtml = "tooltip",
-                    fill = "color"
-            ),
-            error = function(e) return(updated_levels))
-
-
-            # level_1 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_0$child_concept_id)
-            #
-            # level_2 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_1$child_concept_id)
-            #
-            # level_3 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_2$child_concept_id)
-            #
-            # level_4 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_3$child_concept_id)
-            #
-            # level_5 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_4$child_concept_id)
-            #
-            # level_6 <-
-            #     output6 %>%
-            #     dplyr::filter(parent_concept_id %in% level_5$child_concept_id)
-
+                    collapsibleTree::collapsibleTreeNetwork(
+                            df = updated_levels,
+                            tooltipHtml = "tooltip",
+                            fill = "color"
+                    ),
+                    error = function(e) return(updated_levels)
+            )
 
     }
 
