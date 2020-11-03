@@ -59,9 +59,6 @@ queryAthena <-
                 }
 
                 if (render_sql) {
-
-                        cat("\n")
-                        secretary::typewrite_bold(paste0("[", as.character(Sys.time()), "]"), "Rendered SQL:")
                         secretary::typewrite(centipede::trimws(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " ")), tabs = 1)
                         cat("\n")
 
@@ -557,8 +554,32 @@ queryConceptParent <-
 
 
 
-#' Query descendants for a given concept_id
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ancestor_concept_ids PARAM_DESCRIPTION
+#' @param schema PARAM_DESCRIPTION
+#' @param min_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param max_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param cache_only PARAM_DESCRIPTION, Default: FALSE
+#' @param skip_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param override_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param render_sql PARAM_DESCRIPTION, Default: FALSE
+#' @param verbose PARAM_DESCRIPTION, Default: FALSE
+#' @param sleepTime PARAM_DESCRIPTION, Default: 1
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname queryDescendants
 #' @export
+#' @importFrom SqlRender render
 
 queryDescendants <-
     function(ancestor_concept_ids,
@@ -572,10 +593,44 @@ queryDescendants <-
              render_sql = FALSE,
              verbose = FALSE,
              sleepTime = 1) {
-            sql_statement <- renderQueryDescendants(ancestor_concept_ids = ancestor_concept_ids,
-                                                    schema = schema,
-                                                    min_levels_of_separation = min_levels_of_separation,
-                                                    max_levels_of_separation = max_levels_of_separation)
+            sql_statement <-
+                    SqlRender::render(
+                            "
+                            SELECT
+                                c.concept_id AS ancestor_concept_id,
+                                c.concept_name AS ancestor_concept_name,
+                                c.domain_id AS ancestor_domain_id,
+                                c.vocabulary_id AS ancestor_vocabulary_id,
+                                c.concept_class_id AS ancestor_concept_class_id,
+                                c.standard_concept AS ancestor_concept,
+                                c.concept_code AS ancestor_concept_code,
+                                c.valid_start_date AS ancestor_valid_start_date,
+                                c.valid_end_date AS ancestor_valid_end_date,
+                                c.invalid_reason AS ancestor_invalid_reason,
+                                ca.min_levels_of_separation,
+                                ca.max_levels_of_separation,
+                                c2.concept_name AS descendant_concept_name,
+                                c2.domain_id AS descendant_domain_id,
+                                c2.vocabulary_id AS descendant_vocabulary_id,
+                                c2.concept_class_id AS descendant_concept_class_id,
+                                c2.standard_concept AS descendant_concept,
+                                c2.concept_code AS descendant_concept_code,
+                                c2.valid_start_date AS descendant_valid_start_date,
+                                c2.valid_end_date AS descendant_valid_end_date,
+                                c2.invalid_reason AS descendant_invalid_reason
+                            FROM @schema.concept_ancestor ca
+                            INNER JOIN @schema.concept c
+                            ON c.concept_id = ca.ancestor_concept_id
+                            INNER JOIN @schema.concept c2
+                            ON c2.concept_id = ca.descendant_concept_id
+                            WHERE
+                                ca.ancestor_concept_id IN (@ancestor_concept_ids)
+                                AND c.invalid_reason IS NULL
+                                AND c2.invalid_reason IS NULL
+                            ;",
+                            schema = schema,
+                            ancestor_concept_ids = ancestor_concept_ids
+                    )
 
             queryAthena(sql_statement = sql_statement,
                         conn = conn,
