@@ -2,6 +2,7 @@
 % Please edit documentation in R/query_functions.R
 \name{queryDescendants}
 \alias{queryDescendants}
+\alias{queryRelationships}
 \title{FUNCTION_TITLE}
 \usage{
 queryDescendants(
@@ -9,6 +10,19 @@ queryDescendants(
   schema,
   min_levels_of_separation = NULL,
   max_levels_of_separation = NULL,
+  conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
+)
+
+queryRelationships(
+  concept_id_1s,
+  schema,
+  relationship_ids = NULL,
   conn = NULL,
   cache_only = FALSE,
   skip_cache = FALSE,
@@ -43,11 +57,17 @@ queryDescendants(
 }
 \value{
 OUTPUT_DESCRIPTION
+
+OUTPUT_DESCRIPTION
 }
 \description{
 FUNCTION_DESCRIPTION
+
+FUNCTION_DESCRIPTION
 }
 \details{
+DETAILS
+
 DETAILS
 }
 \examples{
@@ -56,7 +76,14 @@ if(interactive()){
  #EXAMPLE1
  }
 }
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
 }
 \seealso{
+\code{\link[SqlRender]{render}}
+
 \code{\link[SqlRender]{render}}
 }
