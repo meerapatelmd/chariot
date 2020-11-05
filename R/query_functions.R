@@ -45,6 +45,8 @@ queryAthena <-
 
                         conn <- connectAthena()
 
+                        on.exit(dcAthena(conn = conn))
+
 
                 } else {
 
@@ -116,6 +118,7 @@ queryAthena <-
                                                                 secretary::typewrite("Cache was NULL, querying Athena")
                                                         }
 
+                                                        Sys.sleep(time = sleepTime)
                                                         resultset <- pg13::query(conn = conn,
                                                                                  sql_statement = sql_statement)
 
@@ -140,20 +143,14 @@ queryAthena <-
                 } else {
 
 
+                        Sys.sleep(time = sleepTime)
                         resultset <- pg13::query(conn = conn,
                                                  sql_statement = sql_statement)
 
 
                 }
 
-                Sys.sleep(time = sleepTime)
-
-
-                if (conn_was_missing) {
-                        dcAthena(conn = conn)
-                }
-
-                return(tibble::as_tibble(resultset))
+                tibble::as_tibble(resultset)
 
         }
 
