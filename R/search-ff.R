@@ -524,12 +524,12 @@ tokenized_phrase_search_ff <-
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname tokenized_phrase_search_ff
+#' @rdname ordered_phrase_search_ff
 #' @export
 #' @importFrom SqlRender render
 
 
-tokenized_phrase_search_ff <-
+ordered_phrase_search_ff <-
         function(vocabulary_id,
                  domain_id,
                  concept_class_id,
@@ -563,7 +563,7 @@ tokenized_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE @like_token_clause
+                                                WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 ",
                                                 where_clause = where_clause
                                         )
@@ -588,7 +588,7 @@ tokenized_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE @like_token_clause
+                                                WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 ",
                                                 where_clause = where_clause
                                         )
@@ -607,7 +607,7 @@ tokenized_phrase_search_ff <-
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE @like_token_clause
+                                                WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 "
                                         )
 
@@ -624,7 +624,7 @@ tokenized_phrase_search_ff <-
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE @like_token_clause
+                                                WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 "
                                         )
 
@@ -635,7 +635,7 @@ tokenized_phrase_search_ff <-
 
 
                 function(phrase,
-                         split = " |[[:punct:]]",
+                         wildcard = " {1,}|[[:punct:]]{1,}",
                          conn = NULL,
                          vocabSchema,
                          cache_only = FALSE,
@@ -646,33 +646,18 @@ tokenized_phrase_search_ff <-
                          sleepTime = 1) {
 
 
-                        lowered_match <- lowered_match
+                        phrase <-
+                        stringr::str_replace_all(string = phrase,
+                                                 pattern = wildcard,
+                                                 replacement = "%")
 
-
-                        tokens <-
-                                strsplit(x = phrase,
-                                         split = split) %>%
-                                unlist() %>%
-                                trimws(which = "both")
-
-
-                        if (lowered_match) {
-                                like_token_clause <-
-                                        paste0("LOWER(cs.concept_synonym_name) LIKE LOWER('%", tokens, "%')") %>%
-                                        paste(collapse = " AND ")
-
-                        } else {
-                                like_token_clause <-
-                                        paste0("cs.concept_synonym_name LIKE '%", tokens, "%'") %>%
-                                        paste(collapse = " AND ")
-                        }
 
 
                         queryAthena(
                                 SqlRender::render(
                                         sql_statement,
                                         vocabSchema = vocabSchema,
-                                        like_token_clause = like_token_clause
+                                        phrase = phrase
                                 ),
                                 conn = conn,
                                 cache_only = cache_only,
