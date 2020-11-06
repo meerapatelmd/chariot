@@ -323,7 +323,27 @@ like_phrase_search_ff <-
 
 
 
-#
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param vocabulary_id PARAM_DESCRIPTION
+#' @param domain_id PARAM_DESCRIPTION
+#' @param concept_class_id PARAM_DESCRIPTION
+#' @param standard_concept PARAM_DESCRIPTION
+#' @param invalid_reason PARAM_DESCRIPTION, Default: 'NULL'
+#' @param lowered_match PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname tokenized_phrase_search_ff
+#' @export
+#' @importFrom SqlRender render
 
 
 tokenized_phrase_search_ff <-
@@ -360,6 +380,7 @@ tokenized_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
+                                                WHERE @like_token_clause
                                                 ",
                                                 where_clause = where_clause
                                         )
@@ -384,6 +405,7 @@ tokenized_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
+                                                WHERE @like_token_clause
                                                 ",
                                         where_clause = where_clause
                                 )
@@ -402,6 +424,7 @@ tokenized_phrase_search_ff <-
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
+                                                WHERE @like_token_clause
                                                 "
                                         )
 
@@ -418,6 +441,7 @@ tokenized_phrase_search_ff <-
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
+                                                WHERE @like_token_clause
                                                 "
                                         )
 
@@ -428,6 +452,7 @@ tokenized_phrase_search_ff <-
 
 
                 function(phrase,
+                         split = " |[[:punct:]]",
                          conn = NULL,
                          vocabSchema,
                          cache_only = FALSE,
@@ -438,11 +463,33 @@ tokenized_phrase_search_ff <-
                          sleepTime = 1) {
 
 
+                        lowered_match <- lowered_match
+
+
+                        tokens <-
+                                strsplit(x = phrase,
+                                         split = split) %>%
+                                        unlist() %>%
+                                        trimws(which = "both")
+
+
+                        if (lowered_match) {
+                                like_token_clause <-
+                                paste0("LOWER(cs.concept_synonym_name) LIKE LOWER('%", tokens, "%')") %>%
+                                                paste(collapse = " AND ")
+
+                        } else {
+                                like_token_clause <-
+                                               paste0("cs.concept_synonym_name LIKE '%", tokens, "%'") %>%
+                                                       paste(collapse = " AND ")
+                        }
+
+
                         queryAthena(
                                 SqlRender::render(
                                         sql_statement,
                                         vocabSchema = vocabSchema,
-                                        phrase = phrase
+                                        like_token_clause = like_token_clause
                                 ),
                                 conn = conn,
                                 cache_only = cache_only,
@@ -459,8 +506,30 @@ tokenized_phrase_search_ff <-
 
 
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param vocabulary_id PARAM_DESCRIPTION
+#' @param domain_id PARAM_DESCRIPTION
+#' @param concept_class_id PARAM_DESCRIPTION
+#' @param standard_concept PARAM_DESCRIPTION
+#' @param invalid_reason PARAM_DESCRIPTION, Default: 'NULL'
+#' @param lowered_match PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname tokenized_phrase_search_ff
+#' @export
+#' @importFrom SqlRender render
 
-exact_phrase_search_ff <-
+
+tokenized_phrase_search_ff <-
         function(vocabulary_id,
                  domain_id,
                  concept_class_id,
@@ -486,7 +555,7 @@ exact_phrase_search_ff <-
                                                         FROM @vocabSchema.concept
                                                         WHERE @where_clause
                                                 )
-                                                SELECT DISTINCT
+                                                SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
@@ -494,7 +563,7 @@ exact_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE LOWER('@phrase') = LOWER(cs.concept_synonym_name)
+                                                WHERE @like_token_clause
                                                 ",
                                                 where_clause = where_clause
                                         )
@@ -502,14 +571,16 @@ exact_phrase_search_ff <-
 
                         } else {
 
-                                SqlRender::render(
-                                        "
+                                sql_statement <-
+
+                                        SqlRender::render(
+                                                "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
                                                         WHERE @where_clause
                                                 )
-                                                SELECT DISTINCT
+                                                SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
@@ -517,10 +588,10 @@ exact_phrase_search_ff <-
                                                 ON p.concept_id = cs.concept_id
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE '@phrase' = cs.concept_synonym_name
+                                                WHERE @like_token_clause
                                                 ",
-                                        where_clause = where_clause
-                                )
+                                                where_clause = where_clause
+                                        )
 
                         }
 
@@ -531,13 +602,12 @@ exact_phrase_search_ff <-
                                 sql_statement <-
                                         SqlRender::render(
                                                 "
-                                                SELECT DISTINCT
-                                                        c.*,
+                                                SELECT c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE LOWER('@phrase') = LOWER(cs.concept_synonym_name)
+                                                WHERE @like_token_clause
                                                 "
                                         )
 
@@ -548,13 +618,13 @@ exact_phrase_search_ff <-
                                 sql_statement <-
                                         SqlRender::render(
                                                 "
-                                                SELECT DISTINCT
+                                                SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
                                                 LEFT JOIN @vocabSchema.concept c
                                                 ON c.concept_id = cs.concept_id
-                                                WHERE '@phrase' = cs.concept_synonym_name
+                                                WHERE @like_token_clause
                                                 "
                                         )
 
@@ -565,6 +635,7 @@ exact_phrase_search_ff <-
 
 
                 function(phrase,
+                         split = " |[[:punct:]]",
                          conn = NULL,
                          vocabSchema,
                          cache_only = FALSE,
@@ -575,11 +646,33 @@ exact_phrase_search_ff <-
                          sleepTime = 1) {
 
 
+                        lowered_match <- lowered_match
+
+
+                        tokens <-
+                                strsplit(x = phrase,
+                                         split = split) %>%
+                                unlist() %>%
+                                trimws(which = "both")
+
+
+                        if (lowered_match) {
+                                like_token_clause <-
+                                        paste0("LOWER(cs.concept_synonym_name) LIKE LOWER('%", tokens, "%')") %>%
+                                        paste(collapse = " AND ")
+
+                        } else {
+                                like_token_clause <-
+                                        paste0("cs.concept_synonym_name LIKE '%", tokens, "%'") %>%
+                                        paste(collapse = " AND ")
+                        }
+
+
                         queryAthena(
                                 SqlRender::render(
                                         sql_statement,
                                         vocabSchema = vocabSchema,
-                                        phrase = phrase
+                                        like_token_clause = like_token_clause
                                 ),
                                 conn = conn,
                                 cache_only = cache_only,
@@ -593,4 +686,6 @@ exact_phrase_search_ff <-
 
 
         }
+
+
 
