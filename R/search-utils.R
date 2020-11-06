@@ -1,43 +1,28 @@
-#' Pipe operator
-#'
-#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
-#'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param vocabSchema PARAM_DESCRIPTION
+#' @param vocabulary_id PARAM_DESCRIPTION
+#' @param domain_id PARAM_DESCRIPTION
+#' @param concept_class_id PARAM_DESCRIPTION
+#' @param standard_concept PARAM_DESCRIPTION
+#' @param invalid_reason PARAM_DESCRIPTION
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname make_where_clause
 #' @export
-#' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
-NULL
+#' @importFrom SqlRender render
 
 
-
-#' @noRd
-
-normalize_nas <-
-        function (data, blanks = TRUE)
-        {
-
-                data[data %in% c("NA", "")] <- NA_character_
-                data
-
-        }
-
-#' @noRd
-
-make_temp_table_name <-
-        function() {
-
-                paste0("V", stringr::str_remove_all(as.character(Sys.time()), "[[:punct:]]|\\s"))
-        }
-
-
-
-#' @noRd
-
-generate_concept_filters <-
-        function(vocabSchema,
-                vocabulary_id,
+make_where_clause <-
+        function(vocabulary_id,
                  domain_id,
                  concept_class_id,
                  standard_concept,
@@ -53,7 +38,7 @@ generate_concept_filters <-
                         vocabulary_id <- paste0("'", vocabulary_id, "'")
                         where_clauses <-
                                 c(where_clauses,
-                                  SqlRender::render("@omop_vocabulary_schema.concept.vocabulary_id IN (@vocabulary_id)\n", vocabulary_id = vocabulary_id))
+                                  SqlRender::render("@vocabSchema.concept.vocabulary_id IN (@vocabulary_id)\n", vocabulary_id = vocabulary_id))
                 }
 
                 if (!missing(domain_id)) {
@@ -65,7 +50,7 @@ generate_concept_filters <-
                         domain_id <- paste0("'", domain_id, "'")
                         where_clauses <-
                                 c(where_clauses,
-                                  SqlRender::render("@omop_vocabulary_schema.concept.domain_id IN (@domain_id)\n", domain_id = domain_id))
+                                  SqlRender::render("@vocabSchema.concept.domain_id IN (@domain_id)\n", domain_id = domain_id))
                 }
 
                 if (!missing(concept_class_id)) {
@@ -77,7 +62,7 @@ generate_concept_filters <-
                         concept_class_id <- paste0("'", concept_class_id, "'")
                         where_clauses <-
                                 c(where_clauses,
-                                  SqlRender::render("@omop_vocabulary_schema.concept.concept_class_id IN (@concept_class_id)\n", concept_class_id = concept_class_id))
+                                  SqlRender::render("@vocabSchema.concept.concept_class_id IN (@concept_class_id)\n", concept_class_id = concept_class_id))
 
                 }
 
@@ -89,7 +74,7 @@ generate_concept_filters <-
 
                         if (any("NULL" %in% standard_concept)) {
 
-                                part_a <- "@omop_vocabulary_schema.concept.standard_concept IS NULL"
+                                part_a <- "@vocabSchema.concept.standard_concept IS NULL"
 
                         } else {
                                 part_a <- vector()
@@ -101,7 +86,7 @@ generate_concept_filters <-
 
                                 standard_concept <- paste0("'", standard_concept, "'")
 
-                                part_b <- SqlRender::render("@omop_vocabulary_schema.concept.standard_concept IN (@standard_concept)", standard_concept = standard_concept)
+                                part_b <- SqlRender::render("@vocabSchema.concept.standard_concept IN (@standard_concept)", standard_concept = standard_concept)
 
                         } else {
 
@@ -125,7 +110,7 @@ generate_concept_filters <-
 
                         if (any("NULL" %in% invalid_reason)) {
 
-                                part_a <- "@omop_vocabulary_schema.concept.invalid_reason IS NULL"
+                                part_a <- "@vocabSchema.concept.invalid_reason IS NULL"
 
                         } else {
                                 part_a <- vector()
@@ -137,7 +122,7 @@ generate_concept_filters <-
 
                                 invalid_reason <- paste0("'", invalid_reason, "'")
 
-                                part_b <- SqlRender::render("@omop_vocabulary_schema.concept.invalid_reason IN (@invalid_reason)", invalid_reason = invalid_reason)
+                                part_b <- SqlRender::render("@vocabSchema.concept.invalid_reason IN (@invalid_reason)", invalid_reason = invalid_reason)
 
                         } else {
 
@@ -157,16 +142,8 @@ generate_concept_filters <-
 
                         where_clauses <- paste(where_clauses, collapse = " AND ")
 
-                        SqlRender::render(where_clauses,
-                                          omop_vocabulary_schema = vocabSchema)
+                        where_clauses
 
                 }
 
         }
-
-
-
-
-
-
-
