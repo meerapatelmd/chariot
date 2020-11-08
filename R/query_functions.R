@@ -60,12 +60,6 @@ queryAthena <-
 
                 }
 
-                if (render_sql) {
-                        secretary::typewrite(centipede::trimws(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " ")), tabs = 1)
-                        cat("\n")
-
-                }
-
                 if (conn_was_missing) {
 
                         if (skip_cache) {
@@ -75,12 +69,8 @@ queryAthena <-
                                 }
 
                                 resultset <- pg13::query(conn = conn,
-                                                         sql_statement = sql_statement)
-
-                                # resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                #                                             db = "athena"),
-                                #                       error = function(e) NULL)
-
+                                                         sql_statement = sql_statement,
+                                                         render_sql = render_sql)
 
                         } else {
 
@@ -91,7 +81,8 @@ queryAthena <-
                                         }
 
                                         resultset <- pg13::query(conn = conn,
-                                                                 sql_statement = sql_statement)
+                                                                 sql_statement = sql_statement,
+                                                                 render_sql = render_sql)
 
                                         pg13::cacheQuery(resultset,
                                                          sqlQuery = sql_statement,
@@ -120,7 +111,8 @@ queryAthena <-
 
                                                         Sys.sleep(time = sleepTime)
                                                         resultset <- pg13::query(conn = conn,
-                                                                                 sql_statement = sql_statement)
+                                                                                 sql_statement = sql_statement,
+                                                                                 render_sql = render_sql)
 
                                                         pg13::cacheQuery(resultset,
                                                                          sqlQuery = sql_statement,
@@ -145,7 +137,8 @@ queryAthena <-
 
                         Sys.sleep(time = sleepTime)
                         resultset <- pg13::query(conn = conn,
-                                                 sql_statement = sql_statement)
+                                                 sql_statement = sql_statement,
+                                                 render_sql = render_sql)
 
 
                 }
