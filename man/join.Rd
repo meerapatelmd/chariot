@@ -5,7 +5,7 @@
 \title{Join a dataframe object with Athena's concept table}
 \usage{
 join(
-  .data,
+  data,
   joinType,
   column = NULL,
   athena_schema,

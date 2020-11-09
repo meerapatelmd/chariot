@@ -408,12 +408,27 @@ queryConceptId <-
              sleepTime = 1) {
 
 
+                            # sql <-
+                            # pg13::buildQuery(schema = schema,
+                            #                  tableName = "concept",
+                            #                  whereInField = "concept_id",
+                            #                  whereInVector = concept_ids,
+                            #                  caseInsensitive = FALSE)
+
                             sql <-
-                            pg13::buildQuery(schema = schema,
-                                             tableName = "concept",
-                                             whereInField = "concept_id",
-                                             whereInVector = concept_ids,
-                                             caseInsensitive = FALSE)
+                            SqlRender::render(
+                                    "
+                                    SELECT
+                                        c.*,
+                                        STRING_AGG(cs.concept_synonym_name. '|') AS concept_synonym_names
+                                    FROM @schema.concept c
+                                    LEFT JOIN @schema.concept_synonym cs
+                                    ON cs.concept_id = c.concept_id
+                                    WHERE c.concept_id IN (@concept_ids)
+                                    ",
+                                    schema = schema,
+                                    concept_ids = concept_ids
+                            )
 
                             queryAthena(sql_statement = sql,
                                         conn = conn,

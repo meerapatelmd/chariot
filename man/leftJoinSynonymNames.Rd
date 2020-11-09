@@ -5,7 +5,7 @@
 \title{FUNCTION_TITLE}
 \usage{
 leftJoinSynonymNames(
-  .data,
+  data,
   column = NULL,
   write_schema = "public",
   verbose = FALSE,
@@ -21,7 +21,7 @@ leftJoinSynonymNames(
 )
 }
 \arguments{
-\item{.data}{PARAM_DESCRIPTION}
+\item{data}{PARAM_DESCRIPTION}
 
 \item{column}{PARAM_DESCRIPTION, Default: NULL}
 

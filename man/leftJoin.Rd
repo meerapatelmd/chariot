@@ -5,7 +5,7 @@
 \title{LEFT JOIN an OMOP Vocabulary Table}
 \usage{
 leftJoin(
-  .data,
+  data,
   column = NULL,
   athena_schema,
   athena_table,

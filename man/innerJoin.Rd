@@ -5,7 +5,7 @@
 \title{INNER JOIN an OMOP Vocabulary Table}
 \usage{
 innerJoin(
-  .data,
+  data,
   column = NULL,
   athena_schema,
   athena_table,

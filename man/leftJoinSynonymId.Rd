@@ -5,7 +5,7 @@
 \title{Join a data frame with the Concept Synonym Table}
 \usage{
 leftJoinSynonymId(
-  .data,
+  data,
   column = NULL,
   athena_schema,
   verbose = FALSE,
@@ -15,7 +15,7 @@ leftJoinSynonymId(
 )
 }
 \arguments{
-\item{.data}{A data frame}
+\item{data}{A data frame}
 
 \item{column}{Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.}
 
