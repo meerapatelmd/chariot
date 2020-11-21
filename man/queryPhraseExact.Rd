@@ -7,7 +7,7 @@
 queryPhraseExact(
   schema,
   phrase,
-  caseInsensitive,
+  case_insensitive,
   conn = NULL,
   cache_only = FALSE,
   skip_cache = FALSE,

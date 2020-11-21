@@ -66,6 +66,8 @@ FUNCTION_DESCRIPTION
 FUNCTION_DESCRIPTION
 }
 \details{
+Query descendants for a given concept_id
+
 DETAILS
 
 DETAILS

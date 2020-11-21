@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot_functions.R
 \name{pivotLevel}
 \alias{pivotLevel}
-\title{Get all Loinc System (Specimen) Types for a Lab}
+\title{FUNCTION_TITLE}
 \usage{
 pivotLevel(
   .data,
@@ -16,14 +16,40 @@ pivotLevel(
 )
 }
 \arguments{
-\item{concept_id_col}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
+\item{.data}{PARAM_DESCRIPTION}
 
-\item{dataframe}{input data}
+\item{column}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{athena_schema}{PARAM_DESCRIPTION, Default: 'public'}
+
+\item{max_levels_of_separation}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{AND}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{conn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{include_count}{PARAM_DESCRIPTION, Default: TRUE}
+}
+\value{
+OUTPUT_DESCRIPTION
 }
 \description{
-This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-Random immunosuppressant concept ids
-immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723")
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[dplyr]{arrange_all}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{select}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[tidyr]{pivot_wider}}
+ \code{\link[centipede]{no_na}}
 }

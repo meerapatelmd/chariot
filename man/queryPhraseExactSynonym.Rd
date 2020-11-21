@@ -6,7 +6,7 @@
 \usage{
 queryPhraseExactSynonym(
   schema,
-  caseInsensitive = TRUE,
+  case_insensitive = TRUE,
   phrase,
   conn = NULL,
   cache_only = FALSE,

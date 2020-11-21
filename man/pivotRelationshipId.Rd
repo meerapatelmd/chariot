@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot_functions.R
 \name{pivotRelationshipId}
 \alias{pivotRelationshipId}
-\title{Get all Loinc System (Specimen) Types for a Lab}
+\title{FUNCTION_TITLE}
 \usage{
 pivotRelationshipId(
   .data,
@@ -14,10 +14,36 @@ pivotRelationshipId(
 )
 }
 \arguments{
-\item{concept_id_col}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
+\item{.data}{PARAM_DESCRIPTION}
 
-\item{dataframe}{input data}
+\item{column}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{athena_schema}{PARAM_DESCRIPTION, Default: 'public'}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{conn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{include_count}{PARAM_DESCRIPTION, Default: TRUE}
+}
+\value{
+OUTPUT_DESCRIPTION
 }
 \description{
-This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[tidyr]{pivot_wider}}
+ \code{\link[centipede]{no_na}}
+ \code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{rename}}
 }

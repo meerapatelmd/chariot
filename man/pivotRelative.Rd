@@ -2,7 +2,7 @@
 % Please edit documentation in R/pivot_functions.R
 \name{pivotRelative}
 \alias{pivotRelative}
-\title{Pivot all relatives of a set of concepts}
+\title{FUNCTION_TITLE}
 \usage{
 pivotRelative(
   .data,
@@ -17,12 +17,42 @@ pivotRelative(
 )
 }
 \arguments{
-\item{names_from}{concept table column to be pivoted on}
+\item{.data}{PARAM_DESCRIPTION}
 
-\item{concept_id_column}{The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".}
+\item{athena_schema}{PARAM_DESCRIPTION, Default: 'public'}
 
-\item{dataframe}{input data}
+\item{column}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{whereLevelIn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{whereLevelType}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{names_from}{PARAM_DESCRIPTION}
+
+\item{include_count}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{conn}{PARAM_DESCRIPTION, Default: NULL}
+}
+\value{
+OUTPUT_DESCRIPTION
 }
 \description{
-This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[dplyr]{select}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[tidyr]{pivot_wider}}
+ \code{\link[centipede]{no_na}}
 }
