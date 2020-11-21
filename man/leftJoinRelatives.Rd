@@ -5,7 +5,7 @@
 \title{LEFT JOIN All Relatives}
 \usage{
 leftJoinRelatives(
-  .data,
+  data,
   athena_schema = "public",
   id_column = NULL,
   whereLevelIn = NULL,

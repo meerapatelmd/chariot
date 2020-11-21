@@ -6,7 +6,7 @@
 #' @export
 
 join <-
-    function(.data,
+    function(data,
              joinType,
              column = NULL,
              athena_schema,
@@ -23,7 +23,7 @@ join <-
         table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
 
         if (is.null(column)) {
-            column <- colnames(.data)[1]
+            column <- colnames(data)[1]
         }
 
 
@@ -33,7 +33,7 @@ join <-
             pg13::writeTable(conn = conn,
                              schema = athena_schema,
                              tableName = table_name,
-                             .data = .data)
+                             data = data)
             dcAthena(conn = conn)
 
 
@@ -77,7 +77,7 @@ join <-
             pg13::writeTable(conn = conn,
                              schema = athena_schema,
                              tableName = table_name,
-                             .data = .data)
+                             data = data)
 
 
             if (!is.null(where_athena_col)) {
@@ -152,7 +152,7 @@ dropJoinTables <-
 #' @export
 
 innerJoin <-
-    function(.data,
+    function(data,
              column = NULL,
              athena_schema,
              athena_table,
@@ -163,7 +163,7 @@ innerJoin <-
              conn = NULL) {
 
 
-                    join(.data = .data,
+                    join(data = data,
                          joinType = "INNER",
                          column = column,
                          athena_schema = athena_schema,
@@ -185,7 +185,7 @@ innerJoin <-
 #' @export
 
 leftJoin <-
-    function(.data,
+    function(data,
              column = NULL,
              athena_schema,
              athena_table,
@@ -199,7 +199,7 @@ leftJoin <-
 
 
 
-                    join(.data = .data,
+                    join(data = data,
                          joinType = "LEFT",
                          column = column,
                          athena_schema = athena_schema,
@@ -221,7 +221,7 @@ leftJoin <-
 #' @description
 #' This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
 #'
-#' @param .data                 A data frame
+#' @param data                 A data frame
 #' @param column                Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.
 #' @param athena_schema         Schema of the OMOP Concept Table
 #' @param concept_column        Column in the concept
@@ -245,7 +245,7 @@ leftJoin <-
 
 
 leftJoinConceptId <-
-    function(.data,
+    function(data,
              column = NULL,
              writeSchema,
              athena_schema = "public",
@@ -262,7 +262,7 @@ leftJoinConceptId <-
 
 
                             if (is.null(column)) {
-                                column <- colnames(.data)[1]
+                                column <- colnames(data)[1]
                             }
 
                             concept_column <- "concept_id"
@@ -281,7 +281,7 @@ leftJoinConceptId <-
 
 
                             # output <-
-                            #     leftJoin(.data = .data,
+                            #     leftJoin(data = data,
                             #              column = column,
                             #              athena_schema = athena_schema,
                             #              athena_table = "concept",
@@ -311,7 +311,7 @@ leftJoinConceptId <-
                             pg13::writeTable(conn = write_conn,
                                             schema = writeSchema,
                                             tableName = temp_table,
-                                            .data)
+                                            data)
 
 
                             if (is.null(concept_filters)) {
@@ -497,7 +497,7 @@ leftJoinConceptId <-
 
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
-#' @param .data PARAM_DESCRIPTION
+#' @param data PARAM_DESCRIPTION
 #' @param column PARAM_DESCRIPTION, Default: NULL
 #' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
 #' @param concept_synonym_column PARAM_DESCRIPTION, Default: 'concept_synonm_name'
@@ -518,7 +518,7 @@ leftJoinConceptId <-
 #' @importFrom SqlRender render
 
 leftJoinSynonymNames <-
-    function(.data,
+    function(data,
              column = NULL,
              write_schema = "public",
              verbose = FALSE,
@@ -669,7 +669,7 @@ leftJoinSynonymNames <-
         table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
 
         if (is.null(column)) {
-            column <- colnames(.data)[1]
+            column <- colnames(data)[1]
         }
 
 
@@ -679,7 +679,7 @@ leftJoinSynonymNames <-
                         pg13::writeTable(conn = conn,
                                          schema = write_schema,
                                          tableName = table_name,
-                                         .data = .data)
+                                         data = data)
                         dcAthena(conn = conn)
 
 
@@ -741,7 +741,7 @@ leftJoinSynonymNames <-
             pg13::writeTable(conn = conn,
                              schema = write_schema,
                              tableName = table_name,
-                             .data = .data)
+                             data = data)
 
             if (length(where_clauses) == 0) {
 
@@ -801,7 +801,7 @@ leftJoinSynonymNames <-
 
 
 #' @title Left Join a data frame to the Concept Ancestor Table
-#' @param .data PARAM_DESCRIPTION
+#' @param data PARAM_DESCRIPTION
 #' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
 #' @param descendant_id_column PARAM_DESCRIPTION, Default: NULL
 #' @param whereLevelIn PARAM_DESCRIPTION, Default: NULL
@@ -823,7 +823,7 @@ leftJoinSynonymNames <-
 #' @importFrom rubix rename_all_with_prefix
 
 leftJoinForAncestors <-
-        function(.data,
+        function(data,
                  athena_schema = "public",
                  descendant_id_column = NULL,
                  whereLevelIn = NULL,
@@ -852,7 +852,7 @@ leftJoinForAncestors <-
 
 
                                 ancestors <-
-                                        leftJoin(.data = .data,
+                                        leftJoin(data = data,
                                                  column = descendant_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
@@ -868,7 +868,7 @@ leftJoinForAncestors <-
                         } else {
 
                                 ancestors <-
-                                        leftJoin(.data = .data,
+                                        leftJoin(data = data,
                                                  column = descendant_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
@@ -915,14 +915,14 @@ leftJoinForAncestors <-
 #' @export
 
 leftJoinFoChildren <-
-        function(.data,
+        function(data,
                  athena_schema,
                  parent_id_column = NULL,
                  render_sql = TRUE,
                  conn = NULL) {
 
 
-                leftJoin(.data = .data,
+                leftJoin(data = data,
                          column = parent_id_column,
                          athena_schema = athena_schema,
                          athena_table = "concept_parent",
@@ -939,7 +939,7 @@ leftJoinFoChildren <-
 
 #' @title Left Join a data frame to the Concept Ancestor Table
 #' @description FUNCTION_DESCRIPTION
-#' @param .data PARAM_DESCRIPTION
+#' @param data PARAM_DESCRIPTION
 #' @param athena_schema Default: 'public'
 #' @param ancestor_id_column Default: NULL
 #' @param whereLevelIn Default: NULL
@@ -956,7 +956,7 @@ leftJoinFoChildren <-
 #' @importFrom rubix rename_all_with_prefix
 
 leftJoinForDescendants <-
-        function(.data,
+        function(data,
                  athena_schema = "public",
                  ancestor_id_column = NULL,
                  whereLevelIn = NULL,
@@ -985,7 +985,7 @@ leftJoinForDescendants <-
 
 
                                 descendants <-
-                                        leftJoin(.data = .data,
+                                        leftJoin(data = data,
                                                  column = ancestor_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
@@ -1001,7 +1001,7 @@ leftJoinForDescendants <-
                         } else {
 
                                 descendants <-
-                                        leftJoin(.data = .data,
+                                        leftJoin(data = data,
                                                  column = ancestor_id_column,
                                                  athena_schema = athena_schema,
                                                  athena_table = "concept_ancestor",
@@ -1048,14 +1048,14 @@ leftJoinForDescendants <-
 #' @export
 
 leftJoinForParents <-
-        function(.data,
+        function(data,
                  athena_schema,
                  child_id_column = NULL,
                  render_sql = TRUE,
                  conn = NULL) {
 
 
-                leftJoin(.data = .data,
+                leftJoin(data = data,
                          column = child_id_column,
                          athena_schema = athena_schema,
                          athena_table = "concept_parent",
@@ -1073,7 +1073,7 @@ leftJoinForParents <-
 #' @export
 
 leftJoinRelationship <-
-        function(.data,
+        function(data,
                  column = NULL,
                  athena_schema = "public",
                  render_sql = TRUE,
@@ -1081,14 +1081,14 @@ leftJoinRelationship <-
 
                 if (is.null(column)) {
 
-                        column <- colnames(.data)[1]
+                        column <- colnames(data)[1]
 
                 }
 
 
 
                 .output1 <-
-                        leftJoin(.data = .data %>%
+                        leftJoin(data = data %>%
                                          dplyr::select(all_of(column)),
                                  athena_schema = athena_schema,
                                  athena_table = "concept_relationship",
@@ -1101,12 +1101,12 @@ leftJoinRelationship <-
                                       -invalid_reason)
 
                 .output1 <-
-                        dplyr::left_join(.data,
+                        dplyr::left_join(data,
                                          .output1,
                                          by = column)
 
                 .output2 <-
-                        leftJoinConcept(.data = .output1 %>%
+                        leftJoinConcept(data = .output1 %>%
                                                 dplyr::select(concept_id_2),
                                         athena_schema = athena_schema,
                                         render_sql = render_sql,
@@ -1134,7 +1134,7 @@ leftJoinRelationship <-
 #' @export
 
 leftJoinRelatives <-
-        function(.data,
+        function(data,
                  athena_schema = "public",
                  id_column = NULL,
                  whereLevelIn = NULL,
@@ -1145,7 +1145,7 @@ leftJoinRelatives <-
 
 
                 ancestors <-
-                        leftJoinForAncestors(.data = .data,
+                        leftJoinForAncestors(data = data,
                                              athena_schema = athena_schema,
                                              descendant_id_column = id_column,
                                              whereLevelIn = whereLevelIn,
@@ -1154,7 +1154,7 @@ leftJoinRelatives <-
                                              conn = conn)
 
                 descendants <-
-                        leftJoinForDescendants(.data = .data,
+                        leftJoinForDescendants(data = data,
                                                athena_schema = athena_schema,
                                                ancestor_id_column = id_column,
                                                whereLevelIn = whereLevelIn,
@@ -1178,7 +1178,7 @@ leftJoinRelatives <-
                                                         valid_end_date,
                                                         invalid_reason,
                                                         prefix = "relative_") %>%
-                                dplyr::select(all_of(colnames(.data)),
+                                dplyr::select(all_of(colnames(data)),
                                               relative_type,
                                               min_levels_of_separation,
                                               max_levels_of_separation,
@@ -1205,7 +1205,7 @@ leftJoinRelatives <-
 #' @description
 #' This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
 #'
-#' @param .data                 A data frame
+#' @param data                 A data frame
 #' @param column                Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.
 #' @param athena_schema         Schema of the OMOP Vocabulary Tables
 #' @param verbose               If TRUE, prints whether the cache is being loaded or being actively queried in the Postgres database, Default: FALSE
@@ -1226,7 +1226,7 @@ leftJoinRelatives <-
 
 
 leftJoinSynonymId <-
-    function(.data,
+    function(data,
              column = NULL,
              athena_schema,
              verbose = FALSE,
@@ -1236,7 +1236,7 @@ leftJoinSynonymId <-
 
 
                             if (is.null(column)) {
-                                column <- colnames(.data)[1]
+                                column <- colnames(data)[1]
                             }
 
 
@@ -1245,7 +1245,7 @@ leftJoinSynonymId <-
                             }
 
 
-                            leftJoin(.data = .data,
+                            leftJoin(data = data,
                                       column = column,
                                       athena_schema = athena_schema,
                                       athena_table = "concept_synonym",

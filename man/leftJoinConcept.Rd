@@ -5,7 +5,7 @@
 \title{Join a dataframe object with the Concept Table}
 \usage{
 leftJoinConceptId(
-  .data,
+  data,
   column = NULL,
   writeSchema,
   athena_schema = "public",
@@ -22,7 +22,7 @@ leftJoinConceptId(
 )
 }
 \arguments{
-\item{.data}{A data frame}
+\item{data}{A data frame}
 
 \item{column}{Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.}
 

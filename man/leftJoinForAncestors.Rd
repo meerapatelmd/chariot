@@ -5,7 +5,7 @@
 \title{Left Join a data frame to the Concept Ancestor Table}
 \usage{
 leftJoinForAncestors(
-  .data,
+  data,
   athena_schema = "public",
   descendant_id_column = NULL,
   whereLevelIn = NULL,
@@ -18,7 +18,7 @@ leftJoinForAncestors(
 )
 }
 \arguments{
-\item{.data}{PARAM_DESCRIPTION}
+\item{data}{PARAM_DESCRIPTION}
 
 \item{athena_schema}{PARAM_DESCRIPTION, Default: 'public'}
 

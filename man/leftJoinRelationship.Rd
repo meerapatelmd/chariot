@@ -5,7 +5,7 @@
 \title{Left Join Relationship}
 \usage{
 leftJoinRelationship(
-  .data,
+  data,
   column = NULL,
   athena_schema = "public",
   render_sql = TRUE,

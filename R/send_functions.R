@@ -30,6 +30,7 @@ sendAthena <-
                 if (is.null(conn)) {
 
                         send_conn <- connectAthena()
+                        on.exit(dcAthena(conn = send_conn))
 
                 } else {
 
@@ -37,22 +38,12 @@ sendAthena <-
 
                 }
 
-                if (interactive()) {
-                        if (render_sql) {
-                                secretary::typewrite(sql_statement)
-                                secretary::press_enter()
-                        }
+                if (render_sql) {
+
+                        typewrite_sql(sql_statement = sql_statement)
                 }
 
                 pg13::send(conn = send_conn,
                            sql_statement = sql_statement)
-
-
-                if (is.null(conn)) {
-
-                        dcAthena(conn = send_conn)
-
-                }
-
 
         }

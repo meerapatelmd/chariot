@@ -2,7 +2,8 @@
 % Please edit documentation in R/query_functions.R
 \name{queryDescendants}
 \alias{queryDescendants}
-\title{Query descendants for a given concept_id}
+\alias{queryRelationships}
+\title{FUNCTION_TITLE}
 \usage{
 queryDescendants(
   ancestor_concept_ids,
@@ -17,7 +18,72 @@ queryDescendants(
   verbose = FALSE,
   sleepTime = 1
 )
+
+queryRelationships(
+  concept_id_1s,
+  schema,
+  relationship_ids = NULL,
+  conn = NULL,
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = FALSE,
+  verbose = FALSE,
+  sleepTime = 1
+)
+}
+\arguments{
+\item{ancestor_concept_ids}{PARAM_DESCRIPTION}
+
+\item{schema}{PARAM_DESCRIPTION}
+
+\item{min_levels_of_separation}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{max_levels_of_separation}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{conn}{PARAM_DESCRIPTION, Default: NULL}
+
+\item{cache_only}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{skip_cache}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{override_cache}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{verbose}{PARAM_DESCRIPTION, Default: FALSE}
+
+\item{sleepTime}{PARAM_DESCRIPTION, Default: 1}
+}
+\value{
+OUTPUT_DESCRIPTION
+
+OUTPUT_DESCRIPTION
 }
 \description{
-Query descendants for a given concept_id
+FUNCTION_DESCRIPTION
+
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
+
+DETAILS
+}
+\examples{
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[SqlRender]{render}}
+
+\code{\link[SqlRender]{render}}
 }

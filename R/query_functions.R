@@ -45,6 +45,8 @@ queryAthena <-
 
                         conn <- connectAthena()
 
+                        on.exit(dcAthena(conn = conn))
+
 
                 } else {
 
@@ -58,15 +60,6 @@ queryAthena <-
 
                 }
 
-                if (render_sql) {
-
-                        cat("\n")
-                        secretary::typewrite_bold(paste0("[", as.character(Sys.time()), "]"), "Rendered SQL:")
-                        secretary::typewrite(centipede::trimws(stringr::str_replace_all(sql_statement, "\n|\\s{2,}", " ")), tabs = 1)
-                        cat("\n")
-
-                }
-
                 if (conn_was_missing) {
 
                         if (skip_cache) {
@@ -76,12 +69,8 @@ queryAthena <-
                                 }
 
                                 resultset <- pg13::query(conn = conn,
-                                                         sql_statement = sql_statement)
-
-                                # resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                #                                             db = "athena"),
-                                #                       error = function(e) NULL)
-
+                                                         sql_statement = sql_statement,
+                                                         render_sql = render_sql)
 
                         } else {
 
@@ -92,7 +81,8 @@ queryAthena <-
                                         }
 
                                         resultset <- pg13::query(conn = conn,
-                                                                 sql_statement = sql_statement)
+                                                                 sql_statement = sql_statement,
+                                                                 render_sql = render_sql)
 
                                         pg13::cacheQuery(resultset,
                                                          sqlQuery = sql_statement,
@@ -119,8 +109,10 @@ queryAthena <-
                                                                 secretary::typewrite("Cache was NULL, querying Athena")
                                                         }
 
+                                                        Sys.sleep(time = sleepTime)
                                                         resultset <- pg13::query(conn = conn,
-                                                                                 sql_statement = sql_statement)
+                                                                                 sql_statement = sql_statement,
+                                                                                 render_sql = render_sql)
 
                                                         pg13::cacheQuery(resultset,
                                                                          sqlQuery = sql_statement,
@@ -143,20 +135,15 @@ queryAthena <-
                 } else {
 
 
+                        Sys.sleep(time = sleepTime)
                         resultset <- pg13::query(conn = conn,
-                                                 sql_statement = sql_statement)
+                                                 sql_statement = sql_statement,
+                                                 render_sql = render_sql)
 
 
                 }
 
-                Sys.sleep(time = sleepTime)
-
-
-                if (conn_was_missing) {
-                        dcAthena(conn = conn)
-                }
-
-                return(tibble::as_tibble(resultset))
+                tibble::as_tibble(resultset)
 
         }
 
@@ -421,6 +408,13 @@ queryConceptId <-
              sleepTime = 1) {
 
 
+                            # sql <-
+                            # pg13::buildQuery(schema = schema,
+                            #                  tableName = "concept",
+                            #                  whereInField = "concept_id",
+                            #                  whereInVector = concept_ids,
+                            #                  caseInsensitive = FALSE)
+
                             sql <-
                                     SqlRender::render("SELECT *
                                                         FROM @schema.concept c
@@ -428,6 +422,7 @@ queryConceptId <-
                                                       ",
                                                         schema = schema,
                                                       concept_ids = concept_ids)
+
 
                             queryAthena(sql_statement = sql,
                                         conn = conn,
@@ -441,8 +436,34 @@ queryConceptId <-
     }
 
 
+
 #' Query descendants for a given concept_id
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ancestor_concept_ids PARAM_DESCRIPTION
+#' @param schema PARAM_DESCRIPTION
+#' @param min_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param max_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param cache_only PARAM_DESCRIPTION, Default: FALSE
+#' @param skip_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param override_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param render_sql PARAM_DESCRIPTION, Default: FALSE
+#' @param verbose PARAM_DESCRIPTION, Default: FALSE
+#' @param sleepTime PARAM_DESCRIPTION, Default: 1
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname queryDescendants
 #' @export
+#' @importFrom SqlRender render
 
 queryDescendants <-
     function(ancestor_concept_ids,
@@ -456,10 +477,45 @@ queryDescendants <-
              render_sql = FALSE,
              verbose = FALSE,
              sleepTime = 1) {
-            sql_statement <- renderQueryDescendants(ancestor_concept_ids = ancestor_concept_ids,
-                                                    schema = schema,
-                                                    min_levels_of_separation = min_levels_of_separation,
-                                                    max_levels_of_separation = max_levels_of_separation)
+            sql_statement <-
+                    SqlRender::render(
+                            "
+                            SELECT
+                                c.concept_id AS ancestor_concept_id,
+                                c.concept_name AS ancestor_concept_name,
+                                c.domain_id AS ancestor_domain_id,
+                                c.vocabulary_id AS ancestor_vocabulary_id,
+                                c.concept_class_id AS ancestor_concept_class_id,
+                                c.standard_concept AS ancestor_standard_concept,
+                                c.concept_code AS ancestor_concept_code,
+                                c.valid_start_date AS ancestor_valid_start_date,
+                                c.valid_end_date AS ancestor_valid_end_date,
+                                c.invalid_reason AS ancestor_invalid_reason,
+                                ca.min_levels_of_separation,
+                                ca.max_levels_of_separation,
+                                c2.concept_id AS descendant_concept_id,
+                                c2.concept_name AS descendant_concept_name,
+                                c2.domain_id AS descendant_domain_id,
+                                c2.vocabulary_id AS descendant_vocabulary_id,
+                                c2.concept_class_id AS descendant_concept_class_id,
+                                c2.standard_concept AS descendant_standard_concept,
+                                c2.concept_code AS descendant_concept_code,
+                                c2.valid_start_date AS descendant_valid_start_date,
+                                c2.valid_end_date AS descendant_valid_end_date,
+                                c2.invalid_reason AS descendant_invalid_reason
+                            FROM @schema.concept_ancestor ca
+                            INNER JOIN @schema.concept c
+                            ON c.concept_id = ca.ancestor_concept_id
+                            INNER JOIN @schema.concept c2
+                            ON c2.concept_id = ca.descendant_concept_id
+                            WHERE
+                                ca.ancestor_concept_id IN (@ancestor_concept_ids)
+                                AND c.invalid_reason IS NULL
+                                AND c2.invalid_reason IS NULL
+                            ;",
+                            schema = schema,
+                            ancestor_concept_ids = ancestor_concept_ids
+                    )
 
             queryAthena(sql_statement = sql_statement,
                         conn = conn,
@@ -473,6 +529,145 @@ queryDescendants <-
     }
 
 
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param ancestor_concept_ids PARAM_DESCRIPTION
+#' @param schema PARAM_DESCRIPTION
+#' @param min_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param max_levels_of_separation PARAM_DESCRIPTION, Default: NULL
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param cache_only PARAM_DESCRIPTION, Default: FALSE
+#' @param skip_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param override_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param render_sql PARAM_DESCRIPTION, Default: FALSE
+#' @param verbose PARAM_DESCRIPTION, Default: FALSE
+#' @param sleepTime PARAM_DESCRIPTION, Default: 1
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname queryDescendants
+#' @export
+#' @importFrom SqlRender render
+
+queryRelationships <-
+        function(concept_id_1s,
+                 schema,
+                 relationship_ids = NULL,
+                 conn = NULL,
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
+
+
+                if (is.null(relationship_ids)) {
+                sql_statement <-
+                        SqlRender::render(
+                                "
+                            SELECT
+                                c.concept_id AS concept_id_1,
+                                c.concept_name AS concept_name_1,
+                                c.domain_id AS domain_id_1,
+                                c.vocabulary_id AS vocabulary_id_1,
+                                c.concept_class_id AS concept_class_id_1,
+                                c.standard_concept AS standard_concept_1,
+                                c.concept_code AS concept_code_1,
+                                c.valid_start_date AS valid_start_date_1,
+                                c.valid_end_date AS valid_end_date_1,
+                                c.invalid_reason AS invalid_reason_1,
+                                cr.relationship_id,
+                                c2.concept_id AS concept_id_2,
+                                c2.concept_name AS concept_name_2,
+                                c2.domain_id AS domain_id_2,
+                                c2.vocabulary_id AS vocabulary_id_2,
+                                c2.concept_class_id AS concept_class_id_2,
+                                c2.standard_concept AS concept_2,
+                                c2.concept_code AS concept_code_2,
+                                c2.valid_start_date AS valid_start_date_2,
+                                c2.valid_end_date AS valid_end_date_2,
+                                c2.invalid_reason AS invalid_reason_2
+                            FROM @schema.concept_relationship cr
+                            INNER JOIN @schema.concept c
+                            ON c.concept_id = cr.concept_id_1
+                            INNER JOIN @schema.concept c2
+                            ON c2.concept_id = cr.concept_id_2
+                            WHERE
+                                cr.concept_id_1 IN (@concept_id_1s)
+                                AND c.invalid_reason IS NULL
+                                AND cr.invalid_reason IS NULL
+                                AND c2.invalid_reason IS NULL
+                            ;",
+                                schema = schema,
+                                concept_id_1s = concept_id_1s
+                        )
+                } else {
+
+                        relationship_ids <- paste0("'", tolower(relationship_ids), "'")
+
+                        sql_statement <-
+                                SqlRender::render(
+                                        "
+                            SELECT
+                                c.concept_id AS concept_id_1,
+                                c.concept_name AS concept_name_1,
+                                c.domain_id AS domain_id_1,
+                                c.vocabulary_id AS vocabulary_id_1,
+                                c.concept_class_id AS concept_class_id_1,
+                                c.standard_concept AS standard_concept_1,
+                                c.concept_code AS concept_code_1,
+                                c.valid_start_date AS valid_start_date_1,
+                                c.valid_end_date AS valid_end_date_1,
+                                c.invalid_reason AS invalid_reason_1,
+                                cr.relationship_id,
+                                c2.concept_id AS concept_id_2,
+                                c2.concept_name AS concept_name_2,
+                                c2.domain_id AS domain_id_2,
+                                c2.vocabulary_id AS vocabulary_id_2,
+                                c2.concept_class_id AS concept_class_id_2,
+                                c2.standard_concept AS standard_concept_2,
+                                c2.concept_code AS concept_code_2,
+                                c2.valid_start_date AS valid_start_date_2,
+                                c2.valid_end_date AS valid_end_date_2,
+                                c2.invalid_reason AS invalid_reason_2
+                            FROM @schema.concept_relationship cr
+                            INNER JOIN @schema.concept c
+                            ON c.concept_id = cr.concept_id_1
+                            INNER JOIN @schema.concept c2
+                            ON c2.concept_id = cr.concept_id_2
+                            WHERE
+                                cr.concept_id_1 IN (@concept_id_1s)
+                                AND LOWER(cr.relationship_id) IN (@relationship_ids)
+                                AND c.invalid_reason IS NULL
+                                AND cr.invalid_reason IS NULL
+                                AND c2.invalid_reason IS NULL
+                            ;",
+                                        schema = schema,
+                                        concept_id_1s = concept_id_1s,
+                                        relationship_ids = relationship_ids
+                                )
+
+                }
+
+                queryAthena(sql_statement = sql_statement,
+                            conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
+                            override_cache = override_cache,
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
+
+        }
 
 
 #' Combine Parents and Children Relationships

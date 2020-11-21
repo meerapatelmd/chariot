@@ -5,7 +5,7 @@
 \title{LEFT JOIN the Concept Parent Table}
 \usage{
 leftJoinForParents(
-  .data,
+  data,
   athena_schema,
   child_id_column = NULL,
   render_sql = TRUE,

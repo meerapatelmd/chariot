@@ -7,6 +7,9 @@ isQueryCached <-
                  db) {
 
 
+                .Deprecated(new = "is_cached")
+
+
                 cachedData <-
                         pg13::loadCachedQuery(sqlQuery = sql_statement,
                                               db = db)
@@ -23,23 +26,42 @@ isQueryCached <-
         }
 
 
+#' @title
+#' Is the query cached?
+#'
+#' @importFrom pg13 loadCachedQuery
+#'
+#' @export
+
+is_cached <-
+    function(sql_statement) {
+
+        cachedData <-
+            loadQuery(sqlQuery = sql_statement,
+                                  db = "chariot")
+
+        if (!is.null(cachedData)) {
+
+            TRUE
+
+        } else {
+
+            FALSE
+        }
+
+    }
 
 
 
 #' Load a Cached Athena Query
-#' @import pg13
+#' @importFrom pg13 loadCachedQuery
 #' @export
 
 loadQuery <-
-        function(sql_statement,
-                 db = NULL) {
-
-                if (is.null(db)) {
-                        db <- "athena"
-                }
+        function(sql_statement) {
 
                 pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                      db = db)
+                                      db = "chariot")
 
         }
 
