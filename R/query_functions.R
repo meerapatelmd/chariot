@@ -42,9 +42,7 @@ queryAthena <-
                 if (is.null(conn)) {
 
                         conn_was_missing <- TRUE
-
                         conn <- connectAthena()
-
                         on.exit(dcAthena(conn = conn))
 
 
@@ -70,6 +68,7 @@ queryAthena <-
 
                                 resultset <- pg13::query(conn = conn,
                                                          sql_statement = sql_statement,
+                                                         verbose = verbose,
                                                          render_sql = render_sql)
 
                         } else {
@@ -82,6 +81,7 @@ queryAthena <-
 
                                         resultset <- pg13::query(conn = conn,
                                                                  sql_statement = sql_statement,
+                                                                 verbose = verbose,
                                                                  render_sql = render_sql)
 
                                         pg13::cacheQuery(resultset,
@@ -112,6 +112,7 @@ queryAthena <-
                                                         Sys.sleep(time = sleepTime)
                                                         resultset <- pg13::query(conn = conn,
                                                                                  sql_statement = sql_statement,
+                                                                                 verbose = verbose,
                                                                                  render_sql = render_sql)
 
                                                         pg13::cacheQuery(resultset,
@@ -138,6 +139,7 @@ queryAthena <-
                         Sys.sleep(time = sleepTime)
                         resultset <- pg13::query(conn = conn,
                                                  sql_statement = sql_statement,
+                                                 verbose = verbose,
                                                  render_sql = render_sql)
 
 
