@@ -1,13 +1,29 @@
-#' Get all Loinc System (Specimen) Types for a Lab
-#' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
-#' @param concept_id_col The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
-#' @param dataframe input data
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr rename
-#' @importFrom dplyr left_join
-#' @importFrom dplyr distinct
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param column PARAM_DESCRIPTION, Default: NULL
+#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param names_from PARAM_DESCRIPTION
+#' @param include_count PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[tidyr]{pivot_wider}}
+#'  \code{\link[centipede]{no_na}}
+#'  \code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{rename}}
+#' @rdname pivotConcept2
 #' @export
+#' @importFrom tidyr pivot_wider
+#' @importFrom centipede no_na
+#' @importFrom dplyr mutate_at rename_at left_join rename
 
 pivotConcept2 <-
     function(.data,
@@ -87,20 +103,34 @@ pivotConcept2 <-
 
 
 
-#' Get all Loinc System (Specimen) Types for a Lab
-#' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
-#' @param concept_id_col The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
-#' @param dataframe input data
-#' @examples
-#' Random immunosuppressant concept ids
-#' immunosuppressant_concept_ids <- c("35807335","35807331", "21603616", "21600651", "21605199", "21602723")
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr rename
-#' @importFrom dplyr left_join
-#' @importFrom dplyr distinct
-#' @export
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param column PARAM_DESCRIPTION, Default: NULL
+#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param max_levels_of_separation PARAM_DESCRIPTION, Default: TRUE
+#' @param AND PARAM_DESCRIPTION, Default: TRUE
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param include_count PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[dplyr]{arrange_all}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{select}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}}
+#'  \code{\link[tidyr]{pivot_wider}}
+#'  \code{\link[centipede]{no_na}}
+#' @rdname pivotLevel
+#' @export
+#' @importFrom dplyr arrange_at mutate_at bind_rows select mutate_all rename_at left_join
+#' @importFrom tidyr pivot_wider
+#' @importFrom centipede no_na
 pivotLevel <-
     function(.data,
              column = NULL,
@@ -200,17 +230,32 @@ pivotLevel <-
 
 
 
-#' Get all Loinc System (Specimen) Types for a Lab
-#' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
-#' @param concept_id_col The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
-#' @param dataframe input data
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr rename
-#' @importFrom dplyr left_join
-#' @importFrom dplyr distinct
-#' @export
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param column PARAM_DESCRIPTION, Default: NULL
+#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param include_count PARAM_DESCRIPTION, Default: TRUE
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[tidyr]{pivot_wider}}
+#'  \code{\link[centipede]{no_na}}
+#'  \code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{rename}}
+#' @rdname pivotRelationshipId
+#' @export
+#' @importFrom tidyr pivot_wider
+#' @importFrom centipede no_na
+#' @importFrom dplyr mutate_at rename_at left_join rename
 pivotRelationshipId <-
     function(.data,
              column = NULL,
@@ -280,18 +325,35 @@ pivotRelationshipId <-
 
 
 
-#' Pivot all relatives of a set of concepts
-#' @description This function takes a dataframe and mutates an additional column providing the specimen type based on the "Has system" relationship id.
-#' @param concept_id_column The column in dataframe that points to the concept_id. If NULL, defaults to "concept_id".
-#' @param dataframe input data
-#' @param names_from concept table column to be pivoted on
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr rename
-#' @importFrom dplyr left_join
-#' @importFrom dplyr distinct
-#' @export
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param .data PARAM_DESCRIPTION
+#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param column PARAM_DESCRIPTION, Default: NULL
+#' @param whereLevelIn PARAM_DESCRIPTION, Default: NULL
+#' @param whereLevelType PARAM_DESCRIPTION, Default: NULL
+#' @param names_from PARAM_DESCRIPTION
+#' @param include_count PARAM_DESCRIPTION, Default: TRUE
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[dplyr]{select}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{mutate-joins}}
+#'  \code{\link[tidyr]{pivot_wider}}
+#'  \code{\link[centipede]{no_na}}
+#' @rdname pivotRelative
+#' @export
+#' @importFrom dplyr select mutate_at rename_at left_join
+#' @importFrom tidyr pivot_wider
+#' @importFrom centipede no_na
 pivotRelative <-
     function(.data,
              athena_schema = "public",

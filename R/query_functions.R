@@ -422,11 +422,12 @@ queryConceptId <-
 
 
                             sql <-
-                            pg13::buildQuery(schema = schema,
-                                             tableName = "concept",
-                                             whereInField = "concept_id",
-                                             whereInVector = concept_ids,
-                                             caseInsensitive = FALSE)
+                                    SqlRender::render("SELECT *
+                                                        FROM @schema.concept c
+                                                        WHERE c.concept_id IN (@concept_ids)
+                                                      ",
+                                                        schema = schema,
+                                                      concept_ids = concept_ids)
 
                             queryAthena(sql_statement = sql,
                                         conn = conn,
@@ -438,123 +439,6 @@ queryConceptId <-
                                         sleepTime = sleepTime)
 
     }
-
-
-
-
-#' @title Query concept children
-#' @seealso
-#'  \code{\link[pg13]{buildQuery}}
-#'  \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
-#'  \code{\link[purrr]{keep}}
-#' @rdname queryConceptParent
-#' @export
-#' @importFrom magrittr %>%
-#' @importFrom pg13 buildQuery
-#' @importFrom dplyr filter select
-#' @importFrom purrr keep
-
-
-queryConceptParent <-
-    function(child_id,
-             schema,
-             generations = 1,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = FALSE,
-             verbose = FALSE,
-             sleepTime = 1) {
-
-                sql_statement <- pg13::buildQuery(schema = schema,
-                                                  tableName = "concept_parent",
-                                                  whereInField = "child_concept_id",
-                                                  whereInVector = child_id,
-                                                  caseInsensitive = FALSE)
-
-                baseline <-
-                        queryAthena(sql_statement = sql_statement,
-                                    conn = conn,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime) %>%
-                        dplyr::filter(parent_concept_id != child_concept_id)
-
-                if (nrow(baseline) == 0) {
-
-                        message('concept "', child_id, '" does not have parents')
-                        return(baseline)
-
-                }
-
-                output <- list()
-                output[[1]] <- baseline
-
-
-                if (generations > 1) {
-
-                        for (i in 2:generations) {
-                                prior <- output[[(i-1)]]
-
-                                if (!is.null(prior)) {
-
-                                        if (nrow(prior) > 0) {
-
-                                                        #Prior child will now be the new parent
-                                                        prior <-
-                                                                prior %>%
-                                                                dplyr::select(new_child_concept_id = parent_concept_id)
-
-                                                        output[[i]] <-
-                                                                leftJoinForParents(.data = prior,
-                                                                           athena_schema = schema,
-                                                                           child_id_column = "new_child_concept_id",
-                                                                           render_sql = render_sql,
-                                                                           conn = conn) %>%
-                                                                dplyr::select(-any_of("new_child_concept_id"))
-
-                                        } else {
-
-                                                output[[i]] <- NULL
-
-                                        }
-
-                                } else {
-
-                                        output[[i]] <- NULL
-
-                                }
-
-
-                        }
-
-                }
-
-                output <-
-                        output %>%
-                        purrr::keep(~!is.null(.)) %>%
-                        purrr::keep(~nrow(.)>0)
-
-
-                output <-
-                        output[length(output):1]
-
-                if (length(output) != generations) {
-
-                    message('Maximum possible generations less than "generations" param:', length(output))
-                }
-
-                return(output)
-
-    }
-
-
-
-
 
 
 #' Query descendants for a given concept_id
@@ -934,7 +818,7 @@ queryPhrase <-
 queryPhraseExact <-
         function(schema,
                  phrase,
-                 caseInsensitive,
+                 case_insensitive,
                  conn = NULL,
                  cache_only = FALSE,
                  skip_cache = FALSE,
@@ -943,12 +827,37 @@ queryPhraseExact <-
                  verbose = FALSE,
                  sleepTime = 1) {
 
-                sql_statement <-
-                pg13::buildQuery(schema = schema,
-                                 tableName = "concept",
-                                 whereInField = "concept_name",
-                                 whereInVector = phrase,
-                                 caseInsensitive = caseInsensitive)
+
+                if (case_insensitive) {
+
+                        sql_statement <-
+                                SqlRender::render(
+                                        "
+                                SELECT *
+                                FROM @schema.@table c
+                                WHERE LOWER(c.concept_name) = LOWER('@phrase')
+                                ",
+                                        schema = schema,
+                                        phrase = phrase,
+                                        table = "concept"
+                                )
+
+
+                } else {
+
+                        sql_statement <-
+                                SqlRender::render(
+                                        "
+                                SELECT *
+                                FROM @schema.@table c
+                                WHERE c.concept_name = '@phrase'
+                                ",
+                                        schema = schema,
+                                        phrase = phrase,
+                                        table = "concept"
+                                )
+
+                }
 
 
                 queryAthena(sql_statement = sql_statement,
@@ -974,7 +883,7 @@ queryPhraseExact <-
 
 queryPhraseExactSynonym <-
         function(schema,
-                 caseInsensitive = TRUE,
+                 case_insensitive = TRUE,
                  phrase,
                  conn = NULL,
                  cache_only = FALSE,
@@ -984,9 +893,36 @@ queryPhraseExactSynonym <-
                  verbose = FALSE,
                  sleepTime = 1) {
 
-                sqlStatement <- renderQueryPhraseExactSynonym(schema = schema,
-                                                             caseInsensitive = caseInsensitive,
-                                                             phrase = phrase)
+                if (case_insensitive) {
+
+                        sql_statement <-
+                                SqlRender::render(
+                                        "
+                                SELECT *
+                                FROM @schema.@table c
+                                WHERE LOWER(c.concept_synonym_name) = LOWER('@phrase')
+                                ",
+                                        schema = schema,
+                                        phrase = phrase,
+                                        table = "concept_synonym"
+                                )
+
+
+                } else {
+
+                        sql_statement <-
+                                SqlRender::render(
+                                        "
+                                SELECT *
+                                FROM @schema.@table c
+                                WHERE c.concept_synonym_name = '@phrase'
+                                ",
+                                        schema = schema,
+                                        phrase = phrase,
+                                        table = "concept_synonym"
+                                )
+
+                }
 
 
                 queryAthena(sql_statement = sql_statement,
