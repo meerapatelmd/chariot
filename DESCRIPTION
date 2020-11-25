@@ -25,7 +25,16 @@ Imports:
     rubix,
     secretary,
     stringr,
-    tidyr
+    tidyr,
+    DatabaseConnector,
+    SqlRender,
+    collapsibleTree,
+    tibble, 
+    cave,
+    centipede,
+    colorspace,
+    rlang,
+    stampede,
 Suggests: 
     knitr,
     rmarkdown
@@ -34,7 +43,10 @@ VignetteBuilder:
 Remotes:
     meerapatelmd/rubix,
     meerapatelmd/secretary,
-    meerapatelmd/pg13
+    meerapatelmd/pg13,
+    meerapatelmd/centipede,
+    meerapatelmd/cave,
+    meerapatelmd/stampede
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

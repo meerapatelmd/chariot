@@ -2,7 +2,7 @@
 % Please edit documentation in R/join_functions.R
 \name{join}
 \alias{join}
-\title{Join a dataframe object with Athena's concept table}
+\title{Join a R dataframe to Athena's concept table}
 \usage{
 join(
   data,
