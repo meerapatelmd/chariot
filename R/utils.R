@@ -178,5 +178,18 @@ function (sql_statement)
 }
 
 
+#' @noRd
+
+n_comma <-
+        function(vector) {
+
+                nchar(gsub("[^,]", "", as.character(vector)))
+
+        }
 
 
+sQuo <-
+        function(vector) {
+
+                sprintf("'%s", vector)
+        }

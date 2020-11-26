@@ -11,6 +11,9 @@ extractHemOncRegimens <-
              omop = FALSE,
              omop_schema = "omop_vocabulary") {
 
+
+        .Deprecated()
+
         output <-
                 query_phrase(component,
                              type = "like",
@@ -82,6 +85,9 @@ extractHemOncRegimens <-
 normalizeToHemOncComponents <-
     function(hemonc_concept_ids,
              schema = NULL) {
+
+
+        .Deprecated()
 
         # If any of the concept_ids are regimens, to get their antineoplastic components
         input_concept <- query_concept_id(hemonc_concept_ids)
