@@ -398,7 +398,7 @@ queryConceptClassRelationships <-
 #' @import pg13
 #' @export
 
-queryConceptId <-
+queryConceptIds <-
     function(concept_ids,
              schema,
              conn = NULL,
@@ -856,6 +856,8 @@ queryHemOncRegToAntineo <-
                  render_sql = FALSE,
                  verbose = FALSE,
                  sleepTime = 1) {
+
+                .Deprecated()
 
                 sql_statement <-
                         renderHemOncRegToAntineoplastics(regimen_concept_ids = regimen_concept_ids,

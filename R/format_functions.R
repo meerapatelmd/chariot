@@ -1,36 +1,8 @@
-#' @title
-#' Convert all columns that contain "concept_id" to integer
-#' @description FUNCTION_DESCRIPTION
-#' @param .data PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
-#' @seealso
-#'  \code{\link[dplyr]{mutate_all}}
-#' @rdname ids_to_integer
-#' @export
-#' @importFrom dplyr mutate_at
-
-ids_to_integer <-
-    function(.data) {
-
-        .data %>%
-            dplyr::mutate_at(vars(contains("concept_id")),
-                             as.integer)
-
-    }
-
-
 #' @title Filter Multiple Concept Strip Columns
 #' @description
 #' This function performs the same style of filtering as \code{\link{filterStrip}} over multiple columns.
 #'
-#' @param .data         Dataframe
+#' @param data         Dataframe
 #' @param merge_cols    Character vector of column names to filter
 #' @param all           Equivalent to the `all_vars()` variable predicate in the Tidyverse system. If TRUE, all `merge_cols` are filtered for. If FALSE, the equivalent to `any_vars()` is performed. Default: TRUE
 #' @param ...           Filter arguments passed to the dplyr filter function using the base Concept Table fields.
@@ -51,14 +23,14 @@ ids_to_integer <-
 
 
 filterAtStrip <-
-        function(.data,
+        function(data,
                  merge_cols,
                  all = TRUE,
                  ...) {
 
 
                 data <-
-                        .data %>%
+                        data %>%
                         tibble::rowid_to_column("filterAtStripId")
 
 
@@ -102,7 +74,7 @@ filterAtStrip <-
                                                    names_from = merge_col,
                                                    values_from = concept_id,
                                                    values_fn = list(concept_id = function(x) length(unique(x)))) %>%
-                                dplyr::filter_at(vars(!filterAtStripId), all_vars(!is.na(.)))
+                                dplyr::filter_at(dplyr::vars(!filterAtStripId), dplyr::all_vars(!is.na(.)))
 
 
                         return(reserveData[(reserveData$filterAtStripId %in% inputData5$filterAtStripId),] %>%
@@ -135,17 +107,17 @@ filterAtStrip <-
                 #                 tmp_col <- paste0(tcol, "_tmp")
                 #
                 #                 tmp_data <-
-                #                         .data %>%
+                #                         data %>%
                 #                         dplyr::select(!!tcol) %>%
-                #                         dplyr::rename_at(vars(1), ~paste(tmp_col))
+                #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
                 #
-                #                 .data <-
-                #                         .data %>%
+                #                 data <-
+                #                         data %>%
                 #                         dplyr::bind_cols(tmp_data) %>%
                 #                         tidyr::separate_rows(!!tmp_col,
                 #                                              sep = "\n") %>%
                 #                         rubix::normalize_all_to_na() %>%
-                #                         dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
+                #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
                 #                         unmergeStrip(strip_col = !!tmp_col,
                 #                                      remove = FALSE) %>%
                 #                         dplyr::filter(...)  %>%
@@ -153,13 +125,13 @@ filterAtStrip <-
                 #                         dplyr::select(-!!tmp_col) %>%
                 #                         dplyr::distinct()
                 #
-                #                 if (nrow(.data) == 0) {
-                #                         return(.data)
+                #                 if (nrow(data) == 0) {
+                #                         return(data)
                 #                 }
                 #
                 #         }
                 #
-                #         return(.data)
+                #         return(data)
                 #
                 # } else {
                 #         .output <- list()
@@ -169,17 +141,17 @@ filterAtStrip <-
                 #                 tmp_col <- paste0(tcol, "_tmp")
                 #
                 #                 tmp_data <-
-                #                         .data %>%
+                #                         data %>%
                 #                         dplyr::select(!!tcol) %>%
-                #                         dplyr::rename_at(vars(1), ~paste(tmp_col))
+                #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
                 #
                 #                 .output[[i]] <-
-                #                         .data %>%
+                #                         data %>%
                 #                         dplyr::bind_cols(tmp_data) %>%
                 #                         tidyr::separate_rows(!!tmp_col,
                 #                                              sep = "\n") %>%
                 #                         rubix::normalize_all_to_na() %>%
-                #                         dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
+                #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
                 #                         unmergeStrip(strip_col = !!tmp_col,
                 #                                      remove = FALSE) %>%
                 #                         dplyr::filter(...)  %>%
@@ -204,7 +176,7 @@ filterAtStrip <-
 #' @description
 #' This function filters a column that contains Concept Strips using Concept Table parameters. The target column may contain 1 or more merged concept strip, and the multiple strips must be separated by a new line \"\\n\" for the filter to operate correctly. It is important to note that the the filter is applied to the entire Concept Strip cell and will not alter the data content within the cell otherwise. For example, if the filter `vocabulary_id == 'RxNorm'` is used for `ColumnA`, a `ColumnA` cell that contains at least 1 RxNorm concept will be filtered for though there are other non-RxNorm concepts in that same cell.
 #'
-#' @param .data         dataframe with the merged concept column
+#' @param data         dataframe with the merged concept column
 #' @param merge_col     column of merged concepts
 #' @param ...           arguments that will be passed to the dplyr filter function using the base Concept Table field names
 #'
@@ -235,7 +207,7 @@ filterAtStrip <-
 #' @importFrom rubix normalize_all_to_na
 
 filterStrip <-
-    function(.data,
+    function(data,
              merge_col,
              ...) {
 
@@ -255,22 +227,22 @@ filterStrip <-
                                       "invalid_reason")
 
 
-            if (any(column_names %in% colnames(.data))) {
+            if (any(column_names %in% colnames(data))) {
 
-                    qa <- column_names[column_names %in% colnames(.data)]
+                    qa <- column_names[column_names %in% colnames(data)]
 
                     stop('data cannot have any concept table column names: ', paste(qa, collapse = ", "))
 
             }
 
             .output <-
-            .data %>%
+            data %>%
                 dplyr::mutate(!!tmp_col := !!merge_col) %>%
                 separateConceptStrip(!!tmp_col) %>%
                 # tidyr::separate_rows(!!tmp_col,
                 #                      sep = "\n") %>%
                 rubix::normalize_all_to_na() %>%
-                dplyr::filter_at(vars(!!tmp_col), all_vars(!is.na(.))) %>%
+                dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
                 unmergeStrip(strip_col = !!tmp_col,
                              remove = FALSE) %>%
                 dplyr::filter(...) %>%
@@ -278,7 +250,7 @@ filterStrip <-
                 dplyr::select(-!!tmp_col) %>%
                 dplyr::distinct()
 
-            qa <- nrow(.output) > nrow(.data)
+            qa <- nrow(.output) > nrow(data)
 
             if (qa) {
                     warning('returned data has more rows than input data')
@@ -318,7 +290,7 @@ getLabel <-
 #' @export
 
 labelToStrip <-
-        function(.data,
+        function(data,
                  label_col,
                  into,
                  remove = FALSE) {
@@ -326,7 +298,7 @@ labelToStrip <-
                 label_col <- enquo(label_col)
                 into <- enquo(into)
 
-                .data %>%
+                data %>%
                         tidyr::extract(col = !!label_col,
                                         into = c("concept_id", "concept_name"),
                                         regex = "(^.*?) (.*$)",
@@ -349,25 +321,25 @@ labelToStrip <-
 #' @export
 
 makeLabel <-
-        function(.data,
+        function(data,
                  into,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
+                 prefix = NULL,
+                 suffix = NULL,
                  remove = FALSE) {
 
 
-                label_parts <- paste0(has_prefix, c("concept_id", "concept_name"), has_suffix)
+                label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
                 names(label_parts) <- c("concept_id", "concept_name")
 
 
-                .data %>%
+                data %>%
                         tidyr::unite(col = {{into}},
                                      dplyr::all_of(label_parts$concept_id),
                                      dplyr::all_of(label_parts$concept_name),
                                      sep = " ",
                                      na.rm = TRUE,
                                      remove = remove) %>%
-                        dplyr::mutate_at(vars({{into}}), ~na_if(., "NA NA"))
+                        dplyr::mutate_at(dplyr::vars({{into}}), ~na_if(., "NA NA"))
         }
 
 
@@ -376,11 +348,11 @@ makeLabel <-
 #' Merge OMOP Concepts into a Strip
 #' @description This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 #' @return A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid_start_date` and `valid_end_date` fields are permanently removed, 2. 8 out of the 10 remaining Concept Table fields (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason) are merged into a single column with the provided column name, 3. the concept_id column is renamed to the format of the provided merged column name: {into_}concept_id. The remaining of the 7 Concept Table fields may also be preserved outside of the merge if provided. All other columns present in the input data are returned along with the transformations described.
-#' @param .data dataframe with the following required fields from the output
+#' @param data dataframe with the following required fields from the output
 #' @param into name of the column that the new combined string will be in
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.
-#' @param has_suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
-#' @param has_prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
+#' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
+#' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
 #' @param remove If TRUE, remove any possible Concept Table fields in the output, leaving only the newly created label field. All other fields will stay in the output.
 #' @import dplyr
 #' @import tidyr
@@ -388,10 +360,10 @@ makeLabel <-
 #' @export
 
 mergeLabel <-
-            function(.data,
+            function(data,
                      into,
-                     has_suffix = NULL,
-                     has_prefix = NULL,
+                     suffix = NULL,
+                     prefix = NULL,
                      remove = TRUE) {
 
 
@@ -400,7 +372,7 @@ mergeLabel <-
 
 
                                 # Generating a list of concept table columns that includes prefixes and suffixes
-                                column_names <- paste0(has_prefix,
+                                column_names <- paste0(prefix,
                                                         c("concept_id",
                                                          "concept_name"
                                                          # ,
@@ -414,7 +386,7 @@ mergeLabel <-
                                                          # "invalid_reason"
                                                          )
                                                        ,
-                                                       has_suffix) %>%
+                                                       suffix) %>%
                                                 as.list()
 
                                 names(column_names) <-  c("concept_id",
@@ -430,9 +402,9 @@ mergeLabel <-
                                                           # "invalid_reason"
                                                           )
 
-                                if (!(all(unlist(column_names) %in% colnames(.data)))) {
+                                if (!(all(unlist(column_names) %in% colnames(data)))) {
 
-                                        qa <- unlist(column_names)[!(unlist(column_names) %in% colnames(.data))]
+                                        qa <- unlist(column_names)[!(unlist(column_names) %in% colnames(data))]
 
                                         if (length(qa)) {
                                                 stop("missing columns: ", qa)
@@ -441,7 +413,7 @@ mergeLabel <-
                                 }
 
                                 output <-
-                                .data %>%
+                                data %>%
                                         tidyr::unite(col = !!into,
                                                      all_of(c(column_names$concept_id,
                                                               column_names$concept_name)),
@@ -452,7 +424,7 @@ mergeLabel <-
                                 # If All NA concepts are not merged into a strip and returns a single NA
                                 output <-
                                     output %>%
-                                    dplyr::mutate_at(vars(!!into),
+                                    dplyr::mutate_at(dplyr::vars(!!into),
                                                      function(x) ifelse(grepl("NA NA",
                                                                               x,
                                                                               ignore.case = FALSE),
@@ -469,8 +441,8 @@ mergeLabel <-
 
                                 # QA NA merges
                                 qa <- output %>%
-                                        dplyr::filter_at(vars(all_of(column_names$concept_id)), all_vars(!is.na(.))) %>%
-                                        dplyr::filter_at(vars(!!into), all_vars(is.na(.)))
+                                        dplyr::filter_at(dplyr::vars(dplyr::all_of(column_names$concept_id)), dplyr::all_vars(!is.na(.))) %>%
+                                        dplyr::filter_at(dplyr::vars(!!into), dplyr::all_vars(is.na(.)))
 
                                 if (nrow(qa)) {
                                         flagMergeLabel <<- qa
@@ -479,7 +451,7 @@ mergeLabel <-
 
                                 if (remove) {
 
-                                        column_names <- paste0(has_prefix,
+                                        column_names <- paste0(prefix,
                                                                c("concept_id",
                                                                  "concept_name",
                                                                  "domain_id",
@@ -492,7 +464,7 @@ mergeLabel <-
                                                                  "invalid_reason"
                                                                )
                                                                ,
-                                                               has_suffix) %>%
+                                                               suffix) %>%
                                                 as.list()
 
                                         names(column_names) <-  c("concept_id",
@@ -510,7 +482,7 @@ mergeLabel <-
 
                                         output <-
                                                 output %>%
-                                                dplyr::select_at(vars(!any_of(c(column_names$concept_id,
+                                                dplyr::select_at(dplyr::vars(!any_of(c(column_names$concept_id,
                                                                      column_names$concept_name,
                                                                      column_names$domain_id,
                                                                      column_names$vocabulary_id,
@@ -537,32 +509,34 @@ mergeLabel <-
 #' Merge OMOP Concepts into a Strip
 #' @description This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 #' @return A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid_start_date` and `valid_end_date` fields are permanently removed, 2. 8 out of the 10 remaining Concept Table fields (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason) are merged into a single column with the provided column name, 3. the concept_id column is renamed to the format of the provided merged column name: {into_}concept_id. The remaining of the 7 Concept Table fields may also be preserved outside of the merge if provided. All other columns present in the input data are returned along with the transformations described.
-#' @param .data dataframe with the following required fields from the output
+#' @param data dataframe with the following required fields from the output
 #' @param into name of the column that the new combined string will be in
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.
-#' @param has_suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
-#' @param has_prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
+#' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
+#' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
 #' @import dplyr
 #' @import tidyr
 #' @importFrom tibble as_tibble
 #' @export
 
 mergeStrip <-
-            function(.data,
+            function(data,
                      into,
                      ...,
-                     has_suffix = NULL,
-                     has_prefix = NULL) {
+                     suffix = NULL,
+                     prefix = NULL) {
 
 
                                 into_id_colname <- paste0(into, "_id")
 
                                 # Enquo output column name
                                 into <- dplyr::enquo(into)
+                                # Preserve columns
+                                preserve_cols <- dplyr::enquos(...)
 
 
                                 # Generating a list of concept table columns that includes prefixes and suffixes
-                                column_names <- paste0(has_prefix,
+                                column_names <- paste0(prefix,
                                                         c("concept_id",
                                                          "concept_name",
                                                          "domain_id",
@@ -573,10 +547,10 @@ mergeStrip <-
                                                          "valid_start_date",
                                                          "valid_end_date",
                                                          "invalid_reason"),
-                                                       has_suffix) %>%
+                                                       suffix) %>%
                                                 as.list()
 
-                                names(column_names) <-  c("concept_id",
+                                concept_fields <-  c("concept_id",
                                                           "concept_name",
                                                           "domain_id",
                                                           "vocabulary_id",
@@ -587,45 +561,34 @@ mergeStrip <-
                                                           "valid_end_date",
                                                           "invalid_reason")
 
+                                names(column_names) <- concept_fields
 
 
-                                # Preserve columns
-                                preserve_cols <- dplyr::enquos(...)
+                                if (!(all(unlist(column_names) %in% colnames(data)))) {
 
-
-                                if (!(all(unlist(column_names) %in% colnames(.data)))) {
-
-                                        qa <- unlist(column_names)[!(unlist(column_names) %in% colnames(.data))]
-                                        qa <- grep(pattern = "valid_start_date|valid_end_date",
-                                                   qa,
-                                                   value = TRUE,
-                                                   invert = TRUE)
-
-                                        if (length(qa)) {
-                                                stop("missing columns: ", paste(qa, collapse = ", "))
-                                        }
+                                        stop(sprintf("missing column names: %s", paste(unlist(column_names), collapse = ", ")))
 
                                 }
 
                                 # All other column names
-                                other_cols <<- colnames(.data)[!(colnames(.data) %in% unlist(column_names))]
+                                other_cols <<- colnames(data)[!(colnames(data) %in% unlist(column_names))]
 
 
                                 output <-
-                                .data %>%
-                                        dplyr::mutate_at(vars(all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
-                                        dplyr::mutate_at(vars(all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
-                                        dplyr::mutate_at(vars(all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
+                                data %>%
+                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
+                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
+                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
                                         tidyr::unite(col = vocabulary,
-                                                     all_of(c(column_names$vocabulary_id,
+                                                     dplyr::all_of(c(column_names$vocabulary_id,
                                                               column_names$concept_code)),
                                                      sep = " ") %>%
-                                        dplyr::mutate_at(vars(all_of(c(column_names$domain_id,
+                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(column_names$domain_id,
                                                                        "vocabulary",
                                                                        column_names$concept_class_id))),
                                                          function(x) paste0("[", x, "]")) %>%
-                                        #dplyr::select_at(vars(!matches("valid.*date"))) %>%
-                                        tidyr::unite(col = !!into,
+                                        #dplyr::select_at(dplyr::vars(!matches("valid.*date"))) %>%
+                                        tidyr::unite(col = {{ into }},
                                                      all_of(c(column_names$invalid_reason,
                                                               column_names$standard_concept,
                                                               column_names$concept_id,
@@ -636,13 +599,13 @@ mergeStrip <-
                                                      sep = " ",
                                                      remove = FALSE) %>%
                                         dplyr::select(!!into_id_colname := all_of(column_names$concept_id),
-                                                      !!into)
+                                                      {{ into }})
 
 
                                 # If All NA concepts are not merged into a strip and returns a single NA
                                 output <-
                                     output %>%
-                                    dplyr::mutate_at(vars(!!into),
+                                    dplyr::mutate_at(dplyr::vars({{ into }}),
                                                      function(x) ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
                                                                               x,
                                                                               ignore.case = FALSE),
@@ -658,8 +621,8 @@ mergeStrip <-
 
                                 # QA NA merges
                                 qa <- output %>%
-                                        dplyr::filter_at(vars(!!into_id_colname), all_vars(!is.na(.))) %>%
-                                        dplyr::filter_at(vars(!!into), all_vars(is.na(.)))
+                                        dplyr::filter_at(dplyr::vars(!!into_id_colname), dplyr::all_vars(!is.na(.))) %>%
+                                        dplyr::filter_at(dplyr::vars({{ into }}), dplyr::all_vars(is.na(.)))
 
                                 if (nrow(qa)) {
                                         flagMergeStrip <<- qa
@@ -671,7 +634,7 @@ mergeStrip <-
                                 if (!missing(...)) {
                                         output <-
                                                 dplyr::bind_cols(output,
-                                                                 .data %>%
+                                                                 data %>%
                                                                          dplyr::select(!!!preserve_cols))
 
 
@@ -685,8 +648,8 @@ mergeStrip <-
 
                                         output <-
                                                 dplyr::bind_cols(output,
-                                                                 .data %>%
-                                                                     dplyr::select(all_of(other_cols)))
+                                                                 data %>%
+                                                                     dplyr::select(dplyr::all_of(other_cols)))
 
                                 }
 
@@ -710,7 +673,7 @@ mergeStrip <-
 
 
 parseLabel <-
-        function(.data,
+        function(data,
                  label_col,
                  remove = FALSE) {
 
@@ -718,7 +681,7 @@ parseLabel <-
                 label_col <- enquo(label_col)
 
 
-                .data %>%
+                data %>%
                         tidyr::extract(col = !!label_col,
                                        into = c("concept_id", "concept_name"),
                                        regex = "(^.*?) (.*$)",
@@ -732,7 +695,7 @@ parseLabel <-
 #' @title Separate Concept Strips by Row
 #' @description
 #' This function separates a merged Concept Strip Column into rows by new line \"\\n\".
-#' @param .data A data frame.
+#' @param data A data frame.
 #' @param ... Columns to separate across multiple rows that are passed to \code{\link[tidyr]{separate_rows}}.
 #' @return
 #' A longer tibble if the merged Concept Strip Column/s have greater than 1 Concept Strips.
@@ -743,10 +706,10 @@ parseLabel <-
 #' @importFrom tidyr separate_rows
 
 separateConceptStrip <-
-        function(.data,
+        function(data,
                  ...) {
 
-                tidyr::separate_rows(.data,
+                tidyr::separate_rows(data,
                                      ...,
                                      sep = "(?<=\\])\n(?=\\[A-Z\\])")
         }
@@ -759,15 +722,15 @@ separateConceptStrip <-
 #' @export
 
 stripToLabel <-
-        function(.data,
+        function(data,
                  merge_col,
                  into,
                  remove = FALSE) {
 
-                unmerge_concepts(dataframe = .data,
-                                          concept_col = {{merge_col}},
+                unmerge_concepts(dataframe = data,
+                                          concept_col = {{ merge_col }},
                                           remove = remove) %>%
-                        makeLabel(into = {{into}},
+                        makeLabel(into = {{ into }},
                                   remove = remove)
         }
 
@@ -775,9 +738,9 @@ stripToLabel <-
 
 
 #' Unmerge OMOP Concept Strip
-#' @description This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `<NA>`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `<NA>` with a non-`<NA>` value in the strip_col instance inputed. Errors will be thrown if the .data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.
+#' @description This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `<NA>`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `<NA>` with a non-`<NA>` value in the strip_col instance inputed. Errors will be thrown if the data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.
 #' @return a tibble with all blanks, "NA", and <NA> normalized to NA, with unmerged columns with or without the provided prefix and suffix pasted in postions 1 to 8, followed by the strip column if the remove parameter is FALSE, and the remaining fields present in the input.
-#' @param .data dataframe
+#' @param data dataframe
 #' @param strip_col column that contains the merged concept strip
 #' @param remove remove argument passed to the tidyr extract function. If TRUE, removes strip_col in output.
 #' @param r_trimws Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trims right whitespace of the freshly unmerged columns for any trailing carriage returns.
@@ -789,7 +752,7 @@ stripToLabel <-
 #' @export
 
 unmergeStrip <-
-    function(.data,
+    function(data,
              strip_col,
              add_suffix = NULL,
              add_prefix = NULL,
@@ -816,13 +779,13 @@ unmergeStrip <-
 
                     new_cols <- new_cols
 
-                    if (any(unlist(new_cols) %in% colnames(.data))) {
-                            qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(.data)]
+                    if (any(unlist(new_cols) %in% colnames(data))) {
+                            qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(data)]
                             stop('new column names already present: ', paste(qa, collapse = ", "))
                     }
 
                     output <-
-                    .data %>%
+                    data %>%
                         tidyr::extract(col = !!strip_col,
                                        remove = FALSE,
                                        into = unlist(new_cols),
@@ -832,9 +795,9 @@ unmergeStrip <-
 
                     output <-
                         output %>%
-                                dplyr::mutate_at(vars(all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
-                                dplyr::mutate_at(vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
-                                dplyr::select(all_of(c(new_cols$concept_id,
+                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
+                                dplyr::mutate_at(dplyr::vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
+                                dplyr::select(dplyr::all_of(c(new_cols$concept_id,
                                                        new_cols$concept_name,
                                                        new_cols$domain_id,
                                                        new_cols$vocabulary_id,
@@ -848,7 +811,7 @@ unmergeStrip <-
 
                             output <-
                                 output %>%
-                                dplyr::mutate_at(vars(all_of(c(new_cols$concept_id,
+                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(new_cols$concept_id,
                                                                new_cols$concept_name,
                                                                new_cols$domain_id,
                                                                new_cols$vocabulary_id,
@@ -862,7 +825,7 @@ unmergeStrip <-
 
                     qa <-
                         output %>%
-                        dplyr::filter_at(vars(c(new_cols$concept_id,
+                        dplyr::filter_at(dplyr::vars(c(new_cols$concept_id,
                                                 new_cols$concept_name,
                                                 new_cols$domain_id,
                                                 new_cols$vocabulary_id,
@@ -870,9 +833,9 @@ unmergeStrip <-
                                                 new_cols$standard_concept,
                                                 new_cols$concept_code,
                                                 new_cols$invalid_reason)),
-                                         all_vars(is.na(.))) %>%
-                        dplyr::filter_at(vars(!!strip_col),
-                                         all_vars(!is.na(.)))
+                                         dplyr::all_vars(is.na(.))) %>%
+                        dplyr::filter_at(dplyr::vars(!!strip_col),
+                                         dplyr::all_vars(!is.na(.)))
 
                     if (nrow(qa) > 0) {
 

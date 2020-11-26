@@ -187,9 +187,16 @@ n_comma <-
 
         }
 
+#' @noRd
 
 sQuo <-
         function(vector) {
 
                 sprintf("'%s", vector)
         }
+
+
+#' @noRd
+
+n
+

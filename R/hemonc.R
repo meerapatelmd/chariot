@@ -22,7 +22,7 @@
 #' @importFrom dplyr inner_join mutate filter transmute
 #' @importFrom rubix arrange_by_nchar filter_at_grepl
 
-grep_hemonc_regimens <-
+ho_grep_regimens <-
     function(conn,
              components,
              check_validity = TRUE,
@@ -208,6 +208,98 @@ grep_hemonc_regimens <-
     }
 
 
+
+#' Query a HemOnc Regimen's 'Has antineoplastic' Relationship
+#' @export
+
+ho_lookup_antineoplastics <-
+    function(regimen_concept_ids,
+             vocabSchema = NULL,
+             check_validity = TRUE,
+             conn,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = FALSE,
+             verbose = FALSE,
+             sleepTime = 1) {
+
+
+        if (check_validity) {
+
+                if (verbose) {
+
+                    cli::cli_rule(left = "Checking Validity")
+
+                }
+
+                sql_statement <-
+                    SqlRender::render(
+                            "
+                            SELECT *
+                            FROM @vocabSchema.concept c
+                            WHERE c.concept_id IN (@regimen_concept_ids)
+                                    AND c.invalid_reason IS NULL
+                                    AND c.concept_class_id = 'Regimen'
+                                    AND c.vocabulary_id = 'HemOnc'
+                            ",
+                            vocabSchema = vocabSchema,
+                            regimen_concept_ids = regimen_concept_ids
+                    )
+
+                output <- queryAthena(sql_statement = sql_statement,
+                                      conn = conn,
+                                      cache_only = cache_only,
+                                      skip_cache = skip_cache,
+                                      override_cache = override_cache,
+                                      render_sql = render_sql,
+                                      verbose = verbose,
+                                      sleepTime = sleepTime)
+
+                if (nrow(output) != length(regimen_concept_ids)) {
+
+                        invalid_ids <- regimen_concept_ids[!(regimen_concept_ids %in% output$concept_id)]
+                        stop("Invalid concept ids: %s", paste(invalid_ids, collapse = ", "))
+
+                }
+
+
+        }
+
+
+        if (verbose) {
+
+            cli::cli_rule(left = "Querying")
+
+        }
+
+        sql_statement <-
+            SqlRender::render(
+                        "
+                        SELECT
+                            cr.concept_id_1 AS regimen_concept_id,
+                            c.concept_id AS has_antineoplastic_concept_id,
+                            c.concept_name AS has_antineoplastic_concept_name
+                        FROM @schema.concept_relationship cr
+                        LEFT JOIN @schema.concept c
+                        ON c.concept_id = cr.concept_id_2
+                        WHERE cr.concept_id_1 IN (@regimen_concept_ids)
+                                AND cr.relationship_id = 'Has antineoplastic'
+                                AND c.concept_class_id = 'Component'
+                                AND c.vocabulary_id = 'HemOnc';
+                        ",
+                        regimen_concept_ids = regimen_concept_ids)
+
+        queryAthena(sql_statement = sql_statement,
+                    conn = conn,
+                    cache_only = cache_only,
+                    skip_cache = skip_cache,
+                    override_cache = override_cache,
+                    render_sql = render_sql,
+                    verbose = verbose,
+                    sleepTime = sleepTime)
+    }
+
 #' Normalize To HemOnc Components
 #' @description This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
 #' @param hemonc_concept_ids HemOnc Vocabulary Concept Ids of either Regimen or Component concept classes.
@@ -216,30 +308,26 @@ grep_hemonc_regimens <-
 #' @export
 
 
-
-normalizeToHemOncComponents <-
+deconstruct_hemonc_ids <-
     function(hemonc_concept_ids,
              schema = NULL) {
 
         # If any of the concept_ids are regimens, to get their antineoplastic components
-        input_concept <- query_concept_id(hemonc_concept_ids)
+        input_concept <- queryConceptIds(hemonc_concept_ids)
 
         qa <- input_concept %>%
-            rubix::filter_for(filter_col = concept_class_id,
-                              inclusion_vector = c("Regimen",
-                                                   "Component"),
-                              invert = TRUE)
+                 dplyr::filter(!(concept_class_id %in% c("Regimen", "Component")))
 
         if (nrow(qa)) {
-            qaNormalizeToHemOncComponents <<- qa
-            stop('input concept ids are not Regimen or Components. See qaNormalizeToHemOncComponents for more details.')
+
+            stop(sprintf("concept id arguments %s are not Regimen or Components.", paste(qa$concept_id, collapse = ", ")))
+
         }
 
         input_regimens <- input_concept %>%
-            dplyr::filter(concept_class_id == "Regimen")
-
+                                    dplyr::filter(concept_class_id == "Regimen")
         input_components <- input_concept %>%
-            dplyr::filter(concept_class_id == "Component")
+                                    dplyr::filter(concept_class_id == "Component")
 
 
         if (nrow(input_regimens)) {

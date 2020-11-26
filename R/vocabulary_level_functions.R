@@ -21,6 +21,7 @@ NULL
 #'
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
+#'
 #' @rdname lookup_vocabulary_relationships
 #' @export
 #' @importFrom SqlRender render
@@ -92,6 +93,7 @@ query_all_vocabulary_relationship <-
                  render_sql = FALSE,
                  verbose = FALSE,
                  sleepTime = 1) {
+
 
                 vocabulary_id <- paste0("'", vocabulary_id, "'")
 
