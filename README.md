@@ -12,5 +12,7 @@ devtools::install_github("meerapatelmd/chariot")
 ## Requirements     
 A Postgres instance of the OMOP Vocabularies can be instantiated by either using the [setupAthena R Package](https://github.com/meerapatelmd/setupAthena) or can be manually instantiated by running scripts at [OHDSI/CommonDataModel repo PostgreSQL folder]( https://github.com/OHDSI/CommonDataModel/tree/master/PostgreSQL) directly importing the csvs into your client.     
 
+## Code of Conduct
 
+Please note that the broca project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.  
 
