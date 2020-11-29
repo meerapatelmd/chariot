@@ -4,7 +4,7 @@
 \alias{parseLabel}
 \title{Parse a Concept Label}
 \usage{
-parseLabel(.data, label_col, remove = FALSE)
+parseLabel(data, label_col, remove = FALSE)
 }
 \description{
 Parse a concept Label in the format of "{concept_id} {concept_name}".

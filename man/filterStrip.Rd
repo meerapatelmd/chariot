@@ -4,10 +4,10 @@
 \alias{filterStrip}
 \title{Filter Columns with Merged Concept Strips}
 \usage{
-filterStrip(.data, merge_col, ...)
+filterStrip(data, merge_col, ...)
 }
 \arguments{
-\item{.data}{dataframe with the merged concept column}
+\item{data}{dataframe with the merged concept column}
 
 \item{merge_col}{column of merged concepts}
 

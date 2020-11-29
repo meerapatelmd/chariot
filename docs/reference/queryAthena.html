@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query the Athena Postgres Database — queryAthena • chariot</title>
+<title>Query the Athena Postgres Database — executeAthena • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Query the Athena Postgres Database — queryAthena" />
-<meta property="og:description" content="By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena." />
+<meta property="og:title" content="Query the Athena Postgres Database — executeAthena" />
+<meta property="og:description" content="By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
+By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -120,15 +121,28 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Query the Athena Postgres Database</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/query_functions.R'><code>R/query_functions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/execute.R'><code>R/execute.R</code></a>, <a href='https://github.com/meerapatelmd/chariot/blob/master/R/query_functions.R'><code>R/query_functions.R</code></a></small>
     <div class="hidden name"><code>queryAthena.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.</p>
+<p>By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>queryAthena</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>executeAthena</span><span class='op'>(</span>
+  <span class='va'>sql_statement</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span>
+
+<span class='fu'>queryAthena</span><span class='op'>(</span>
   <span class='va'>sql_statement</span>,
   conn <span class='op'>=</span> <span class='cn'>NULL</span>,
   cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -184,9 +198,14 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble</p>
+<p>A tibble</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/secretary/man/typewrite_bold.html'>typewrite_bold</a></code>,<code><a href='https://rdrr.io/pkg/secretary/man/typewrite.html'>typewrite</a></code>
+    <div class='dont-index'><p><code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite_bold.html'>typewrite_bold</a></code>,<code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite.html'>typewrite</a></code>
+ <code><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></code>,<code><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></code>
+ <code><a href='https://meerapatelmd.github.io/pg13/reference/query.html'>query</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/loadCachedQuery.html'>loadCachedQuery</a></code>
+ <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p>
+<p><code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite_bold.html'>typewrite_bold</a></code>,<code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite.html'>typewrite</a></code>
  <code><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></code>,<code><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></code>
  <code><a href='https://meerapatelmd.github.io/pg13/reference/query.html'>query</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/loadCachedQuery.html'>loadCachedQuery</a></code>
  <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p></div>

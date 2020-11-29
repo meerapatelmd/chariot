@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Join a dataframe object with the Concept Table — leftJoinConcept • chariot</title>
+<title>Join a dataframe object with the Concept Table — leftJoinConceptId • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Join a dataframe object with the Concept Table — leftJoinConcept" />
+<meta property="og:title" content="Join a dataframe object with the Concept Table — leftJoinConceptId" />
 <meta property="og:description" content="This function has better performance than the WHERE IN statement for larger searches. A table in the format of &quot;vunpunctuated timestamp&quot; is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default." />
 <meta property="og:image" content="/logo.png" />
 
@@ -128,12 +128,17 @@
     <p>This function has better performance than the WHERE IN statement for larger searches. A table in the format of "vunpunctuated timestamp" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinConcept</span><span class='op'>(</span>
-  <span class='va'>.data</span>,
+    <pre class="usage"><span class='fu'>leftJoinConceptId</span><span class='op'>(</span>
+  <span class='va'>data</span>,
   column <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>writeSchema</span>,
   athena_schema <span class='op'>=</span> <span class='st'>"public"</span>,
-  concept_column <span class='op'>=</span> <span class='st'>"concept_id"</span>,
   synonyms <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>vocabulary_id</span>,
+  <span class='va'>domain_id</span>,
+  <span class='va'>concept_class_id</span>,
+  <span class='va'>standard_concept</span>,
+  <span class='va'>invalid_reason</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   conn <span class='op'>=</span> <span class='cn'>NULL</span>,
   render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -144,7 +149,7 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
+      <th>data</th>
       <td><p>A data frame</p></td>
     </tr>
     <tr>
@@ -154,10 +159,6 @@
     <tr>
       <th>athena_schema</th>
       <td><p>Schema of the OMOP Concept Table</p></td>
-    </tr>
-    <tr>
-      <th>concept_column</th>
-      <td><p>Column in the concept</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -176,6 +177,10 @@
       <td><p>Argument in seconds passed to the `Sys.sleep()` function at the end of query, Default: 1</p></td>
     </tr>
     <tr>
+      <th>concept_column</th>
+      <td><p>Column in the concept</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments passed to the `queryAthena()` function.</p></td>
     </tr>
@@ -187,7 +192,7 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>mutate-joins</a></code>
- <code><a href='https://rdrr.io/pkg/rubix/man/group_by_unique_aggregate.html'>group_by_unique_aggregate</a></code></p></div>
+ <code><a href='https://meerapatelmd.github.io/rubix/reference/group_by_unique_aggregate.html'>group_by_unique_aggregate</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

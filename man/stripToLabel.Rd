@@ -4,7 +4,7 @@
 \alias{stripToLabel}
 \title{Convert a Merge Strip to a Label}
 \usage{
-stripToLabel(.data, merge_col, into, remove = FALSE)
+stripToLabel(data, merge_col, into, remove = FALSE)
 }
 \description{
 Convert a Merge Strip to a Label

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Join a dataframe object with Athena's concept table — join • chariot</title>
+<title>Join a R dataframe to Athena's concept table — join • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Join a dataframe object with Athena's concept table — join" />
+<meta property="og:title" content="Join a R dataframe to Athena's concept table — join" />
 <meta property="og:description" content="This function has better performance than the WHERE IN statement for larger searches. A table in the format of &quot;vunpunctuated timestamp&quot; is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default." />
 <meta property="og:image" content="/logo.png" />
 
@@ -119,7 +119,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Join a dataframe object with Athena's concept table</h1>
+    <h1>Join a R dataframe to Athena's concept table</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
     <div class="hidden name"><code>join.Rd</code></div>
     </div>
@@ -129,7 +129,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>join</span><span class='op'>(</span>
-  <span class='va'>.data</span>,
+  <span class='va'>data</span>,
   <span class='va'>joinType</span>,
   column <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>athena_schema</span>,

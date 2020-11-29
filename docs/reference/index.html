@@ -162,27 +162,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="concept_children.html">concept_children()</a></code> </p>
-        </td>
-        <td><p>Query concept children</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="concept_parents.html">concept_parents()</a></code> </p>
-        </td>
-        <td><p>Query concept parents</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="connectAthena.html">connectAthena()</a></code> </p>
         </td>
         <td><p>Connect Local Athena</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="createConceptParentTable.html">createConceptParentTable()</a></code> </p>
-        </td>
-        <td><p>Create a CONCEPT_PARENT Table</p></td>
       </tr><tr>
         
         <td>
@@ -192,9 +174,21 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="deconstruct_hemonc_ids.html">deconstruct_hemonc_ids()</a></code> </p>
+        </td>
+        <td><p>Normalize To HemOnc Components</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="dropJoinTables.html">dropJoinTables()</a></code> </p>
         </td>
         <td><p>Drop Join Tables</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="exact_phrase_search_ff.html">exact_phrase_search_ff()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
@@ -213,6 +207,12 @@
           <p><code><a href="filterClassConcepts.html">filterClassConcepts()</a></code> </p>
         </td>
         <td><p>Filter Class Concepts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filterConcept.html">filterConcept()</a></code> </p>
+        </td>
+        <td><p>Primitive filtering function</p></td>
       </tr><tr>
         
         <td>
@@ -249,12 +249,6 @@
           <p><code><a href="filterNebraska.html">filterNebraska()</a></code> </p>
         </td>
         <td><p>Filter Nebraska</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filterParentlessConcepts.html">filterParentlessConcepts()</a></code> </p>
-        </td>
-        <td><p>Get Topmost Ancestors</p></td>
       </tr><tr>
         
         <td>
@@ -306,12 +300,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="findConceptId.html">findConceptId()</a></code> </p>
-        </td>
-        <td><p>Search CDM instance for a Concept Id</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="getConceptClasses.html">getConceptClasses()</a></code> <code><a href="getConceptClasses.html">getDomain()</a></code> </p>
         </td>
         <td><p>Get all OMOP Concept Classes</p></td>
@@ -330,9 +318,21 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="ids_to_integer.html">ids_to_integer()</a></code> </p>
+          <p><code><a href="grep_hemonc_regimens.html">ho_grep_regimens()</a></code> </p>
         </td>
-        <td><p>Mutate all concept_ids to integer</p></td>
+        <td><p>Extract HemOnc Regimens by Component String Match</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ho_lookup_antineoplastics.html">ho_lookup_antineoplastics()</a></code> </p>
+        </td>
+        <td><p>Query a HemOnc Regimen's 'Has antineoplastic' Relationship</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ho_lookup_regimen.html">ho_lookup_regimen()</a></code> </p>
+        </td>
+        <td><p>Look up a HemOnc Regimen</p></td>
       </tr><tr>
         
         <td>
@@ -348,9 +348,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="is_cached.html">is_cached()</a></code> </p>
+        </td>
+        <td><p>Is the query cached?</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="join.html">join()</a></code> </p>
         </td>
-        <td><p>Join a dataframe object with Athena's concept table</p></td>
+        <td><p>Join a R dataframe to Athena's concept table</p></td>
       </tr><tr>
         
         <td>
@@ -366,7 +372,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="leftJoinConcept.html">leftJoinConcept()</a></code> </p>
+          <p><code><a href="leftJoinConcept.html">leftJoinConceptId()</a></code> </p>
         </td>
         <td><p>Join a dataframe object with the Concept Table</p></td>
       </tr><tr>
@@ -414,9 +420,33 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="leftJoinSynonymNames.html">leftJoinSynonymNames()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="like_phrase_search_ff.html">like_phrase_search_ff()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="list_drug_strength_units.html">list_drug_strength_units()</a></code> </p>
+        </td>
+        <td><p>List OMOP Unit Concepts in the Drug Strength Table</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="list_fields.html">list_fields()</a></code> </p>
         </td>
         <td><p>List Table Fields</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="list_time_unit_concepts.html">list_unit_concepts()</a></code> <code><a href="list_time_unit_concepts.html">list_time_unit_concepts()</a></code> </p>
+        </td>
+        <td><p>List UCUM Unit Concepts</p></td>
       </tr><tr>
         
         <td>
@@ -438,6 +468,48 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="lookup_cid_parent.html">lookup_cid_parent()</a></code> </p>
+        </td>
+        <td><p>Lookup the Parents of a Concept Id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_cid_top_ancestors.html">lookup_cid_top_ancestors()</a></code> </p>
+        </td>
+        <td><p>Lookup Topmost Ancestors of a Concept Id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_cid_upper_limit_ancestors.html">lookup_cid_upper_limit_ancestors()</a></code> </p>
+        </td>
+        <td><p>Lookup the Ancestors of a Concept Id at the Upper Limit of the Max Level of Separation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_orphan_concepts.html">lookup_orphan_concepts()</a></code> </p>
+        </td>
+        <td><p>Lookup Orphan Concepts for a Domain, Vocabulary, and/or Concept Class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_top_ancestors.html">lookup_top_ancestors()</a></code> </p>
+        </td>
+        <td><p>Lookup Topmost Ancestors for a Domain, Vocabulary, and/or Concept Class</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_upper_limit_ancestors.html">lookup_upper_limit_ancestors()</a></code> </p>
+        </td>
+        <td><p>Lookup the Ancestors at the Upper Limit of the Max Level of Separation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_vocabulary_relationships.html">lookup_vocabulary_relationships()</a></code> </p>
+        </td>
+        <td><p>Lookup a Source Vocabulary's Relationships</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="lsJoinTables.html">lsJoinTables()</a></code> </p>
         </td>
         <td><p>List Join Tables</p></td>
@@ -447,6 +519,12 @@
           <p><code><a href="makeLabel.html">makeLabel()</a></code> </p>
         </td>
         <td><p>Make Label Column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_where_clause.html">make_where_clause()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
@@ -468,6 +546,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="ordered_phrase_search_ff.html">ordered_phrase_search_ff()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="parseLabel.html">parseLabel()</a></code> </p>
         </td>
         <td><p>Parse a Concept Label</p></td>
@@ -476,25 +560,25 @@
         <td>
           <p><code><a href="pivotConcept2.html">pivotConcept2()</a></code> </p>
         </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="pivotLevel.html">pivotLevel()</a></code> </p>
         </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="pivotRelationshipId.html">pivotRelationshipId()</a></code> </p>
         </td>
-        <td><p>Get all Loinc System (Specimen) Types for a Lab</p></td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="pivotRelative.html">pivotRelative()</a></code> </p>
         </td>
-        <td><p>Pivot all relatives of a set of concepts</p></td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
@@ -510,13 +594,61 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="plot_classification.html">plot_classification()</a></code> <code><a href="plot_classification.html">plot_concept_classification()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prime_concepts.html">prime_concepts()</a></code> </p>
+        </td>
+        <td><p>Make Modifications to Concepts for SQL querying</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_first_parentheses.html">process_first_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for the First Set of Parentheses</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_last_parentheses.html">process_last_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for the Last Set of Parentheses</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_longest_words.html">process_longest_words()</a></code> </p>
+        </td>
+        <td><p>Identify the Longest Word in the Concept</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_parentheses.html">process_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for Parenthetical Phrases</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_unique_words.html">process_unique_words()</a></code> </p>
+        </td>
+        <td><p>Identify Words Unique to the Concept in the Concept Set</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_words.html">process_words()</a></code> </p>
+        </td>
+        <td><p>Process the Words Column from the Concept Column</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="queryAncestors.html">queryAncestors()</a></code> </p>
         </td>
         <td><p>Query ancestors for a given concept_id</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="queryAthena.html">queryAthena()</a></code> </p>
+          <p><code><a href="queryAthena.html">executeAthena()</a></code> <code><a href="queryAthena.html">queryAthena()</a></code> </p>
         </td>
         <td><p>Query the Athena Postgres Database</p></td>
       </tr><tr>
@@ -546,15 +678,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="queryConceptParent.html">queryConceptParent()</a></code> </p>
+          <p><code><a href="queryDescendants.html">queryDescendants()</a></code> <code><a href="queryDescendants.html">queryRelationships()</a></code> </p>
         </td>
-        <td><p>Query concept children</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="queryDescendants.html">queryDescendants()</a></code> </p>
-        </td>
-        <td><p>Query descendants for a given concept_id</p></td>
+        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
@@ -630,6 +756,30 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="query_all_vocabulary_relationship.html">query_all_vocabulary_relationship()</a></code> </p>
+        </td>
+        <td><p>Query a Source Vocabulary's Relationships</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="query_vocabulary_relationships.html">query_vocabulary_relationships()</a></code> </p>
+        </td>
+        <td><p>Query for a Source Vocabulary's Relationships to Other Source Vocabularies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rank_word_frequency.html">rank_word_frequency()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rank_word_length.html">rank_word_length()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="renderConceptClassRelationships.html">renderConceptClassRelationships()</a></code> </p>
         </td>
         <td><p>Render Concept Class Relationships</p></td>
@@ -690,9 +840,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="search_cdm_for_concept_id.html">search_cdm_for_concept_id()</a></code> </p>
+          <p><code><a href="return_relationship_ids.html">return_relationship_ids()</a></code> </p>
         </td>
-        <td><p>Search CDM instance for a concept_id</p></td>
+        <td><p>Return all Hierarchical Relationship Ids</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sendAthena.html">sendAthena()</a></code> </p>
+        </td>
+        <td><p>Send a SQL Statement</p></td>
       </tr><tr>
         
         <td>
@@ -708,15 +864,39 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="stage_drug_strengths.html">stage_drug_strengths()</a></code> </p>
+        </td>
+        <td><p>Stage Drug Strength Expressions for Evaluation</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="stripToLabel.html">stripToLabel()</a></code> </p>
         </td>
         <td><p>Convert a Merge Strip to a Label</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="tokenized_phrase_search_ff.html">tokenized_phrase_search_ff()</a></code> </p>
+        </td>
+        <td><p>FUNCTION_TITLE</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="unmergeStrip.html">unmergeStrip()</a></code> </p>
         </td>
         <td><p>Unmerge OMOP Concept Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="writeConceptParentTable.html">writeConceptParentTable()</a></code> </p>
+        </td>
+        <td><p>Write a CONCEPT_PARENT Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="writeConceptRelationshipMapTable.html">writeConceptRelationshipMapTable()</a></code> </p>
+        </td>
+        <td><p>Write a CONCEPT_PARENT Table</p></td>
       </tr>
     </tbody>
     </table>

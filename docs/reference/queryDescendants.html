@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query descendants for a given concept_id — queryDescendants • chariot</title>
+<title>FUNCTION_TITLE — queryDescendants • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Query descendants for a given concept_id — queryDescendants" />
-<meta property="og:description" content="Query descendants for a given concept_id" />
+<meta property="og:title" content="FUNCTION_TITLE — queryDescendants" />
+<meta property="og:description" content="FUNCTION_DESCRIPTION
+FUNCTION_DESCRIPTION" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,13 +120,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Query descendants for a given concept_id</h1>
+    <h1>FUNCTION_TITLE</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/query_functions.R'><code>R/query_functions.R</code></a></small>
     <div class="hidden name"><code>queryDescendants.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Query descendants for a given concept_id</p>
+    <p>FUNCTION_DESCRIPTION</p>
+<p>FUNCTION_DESCRIPTION</p>
     </div>
 
     <pre class="usage"><span class='fu'>queryDescendants</span><span class='op'>(</span>
@@ -140,10 +142,96 @@
   render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sleepTime <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span>
+
+<span class='fu'>queryRelationships</span><span class='op'>(</span>
+  <span class='va'>concept_id_1s</span>,
+  <span class='va'>schema</span>,
+  relationship_ids <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ancestor_concept_ids</th>
+      <td><p>PARAM_DESCRIPTION</p></td>
+    </tr>
+    <tr>
+      <th>schema</th>
+      <td><p>PARAM_DESCRIPTION</p></td>
+    </tr>
+    <tr>
+      <th>min_levels_of_separation</th>
+      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>max_levels_of_separation</th>
+      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>conn</th>
+      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
+    </tr>
+    <tr>
+      <th>cache_only</th>
+      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>skip_cache</th>
+      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>override_cache</th>
+      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>render_sql</th>
+      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>sleepTime</th>
+      <td><p>PARAM_DESCRIPTION, Default: 1</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>OUTPUT_DESCRIPTION</p>
+<p>OUTPUT_DESCRIPTION</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Query descendants for a given concept_id</p>
+<p>DETAILS</p>
+<p>DETAILS</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p>
+<p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p></div>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+ <span class='co'>#EXAMPLE1</span>
+ <span class='op'>}</span>
+<span class='op'>}</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+ <span class='co'>#EXAMPLE1</span>
+ <span class='op'>}</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

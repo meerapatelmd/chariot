@@ -128,13 +128,13 @@
     <p>This function filters a column that contains Concept Strips using Concept Table parameters. The target column may contain 1 or more merged concept strip, and the multiple strips must be separated by a new line \"\n\" for the filter to operate correctly. It is important to note that the the filter is applied to the entire Concept Strip cell and will not alter the data content within the cell otherwise. For example, if the filter `vocabulary_id == 'RxNorm'` is used for `ColumnA`, a `ColumnA` cell that contains at least 1 RxNorm concept will be filtered for though there are other non-RxNorm concepts in that same cell.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filterStrip</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>merge_col</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filterStrip</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>merge_col</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
+      <th>data</th>
       <td><p>dataframe with the merged concept column</p></td>
     </tr>
     <tr>
@@ -165,7 +165,7 @@
     <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>tidyeval-compat</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter_all.html'>filter_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>
  <code><a href='https://rlang.r-lib.org/reference/as_name.html'>as_name</a></code>
  <code><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></code>
- <code><a href='https://rdrr.io/pkg/rubix/man/normalize_all_to_na.html'>normalize_all_to_na</a></code></p></div>
+ <code><a href='https://meerapatelmd.github.io/rubix/reference/normalize_all_to_na.html'>normalize_all_to_na</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

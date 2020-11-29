@@ -4,10 +4,10 @@
 \alias{separateConceptStrip}
 \title{Separate Concept Strips by Row}
 \usage{
-separateConceptStrip(.data, ...)
+separateConceptStrip(data, ...)
 }
 \arguments{
-\item{.data}{A data frame.}
+\item{data}{A data frame.}
 
 \item{...}{Columns to separate across multiple rows that are passed to \code{\link[tidyr]{separate_rows}}.}
 }

@@ -4,7 +4,7 @@
 \alias{labelToStrip}
 \title{Concert a Label Column to a Merge Column}
 \usage{
-labelToStrip(.data, label_col, into, remove = FALSE)
+labelToStrip(data, label_col, into, remove = FALSE)
 }
 \description{
 Concert a Label Column to a Merge Column

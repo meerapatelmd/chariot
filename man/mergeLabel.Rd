@@ -4,16 +4,16 @@
 \alias{mergeLabel}
 \title{Merge OMOP Concepts into a Strip}
 \usage{
-mergeLabel(.data, into, has_suffix = NULL, has_prefix = NULL, remove = TRUE)
+mergeLabel(data, into, suffix = NULL, prefix = NULL, remove = TRUE)
 }
 \arguments{
-\item{.data}{dataframe with the following required fields from the output}
+\item{data}{dataframe with the following required fields from the output}
 
 \item{into}{name of the column that the new combined string will be in}
 
-\item{has_suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
+\item{suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
 
-\item{has_prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
+\item{prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
 
 \item{remove}{If TRUE, remove any possible Concept Table fields in the output, leaving only the newly created label field. All other fields will stay in the output.}
 

@@ -128,13 +128,13 @@
     <p>This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `&lt;NA&gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mergeStrip</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>into</span>, <span class='va'>...</span>, has_suffix <span class='op'>=</span> <span class='cn'>NULL</span>, has_prefix <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>mergeStrip</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>into</span>, <span class='va'>...</span>, suffix <span class='op'>=</span> <span class='cn'>NULL</span>, prefix <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>.data</th>
+      <th>data</th>
       <td><p>dataframe with the following required fields from the output</p></td>
     </tr>
     <tr>
@@ -146,11 +146,11 @@
       <td><p>columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.</p></td>
     </tr>
     <tr>
-      <th>has_suffix</th>
+      <th>suffix</th>
       <td><p>if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns</p></td>
     </tr>
     <tr>
-      <th>has_prefix</th>
+      <th>prefix</th>
       <td><p>if the omop concept element column names are prefixed, include it so it can point to the correct set of columns</p></td>
     </tr>
     </table>

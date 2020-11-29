@@ -4,10 +4,10 @@
 \alias{filterAtStrip}
 \title{Filter Multiple Concept Strip Columns}
 \usage{
-filterAtStrip(.data, merge_cols, all = TRUE, ...)
+filterAtStrip(data, merge_cols, all = TRUE, ...)
 }
 \arguments{
-\item{.data}{Dataframe}
+\item{data}{Dataframe}
 
 \item{merge_cols}{Character vector of column names to filter}
 

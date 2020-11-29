@@ -4,18 +4,18 @@
 \alias{mergeStrip}
 \title{Merge OMOP Concepts into a Strip}
 \usage{
-mergeStrip(.data, into, ..., has_suffix = NULL, has_prefix = NULL)
+mergeStrip(data, into, ..., suffix = NULL, prefix = NULL)
 }
 \arguments{
-\item{.data}{dataframe with the following required fields from the output}
+\item{data}{dataframe with the following required fields from the output}
 
 \item{into}{name of the column that the new combined string will be in}
 
 \item{...}{columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.}
 
-\item{has_suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
+\item{suffix}{if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns}
 
-\item{has_prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
+\item{prefix}{if the omop concept element column names are prefixed, include it so it can point to the correct set of columns}
 }
 \value{
 A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid_start_date` and `valid_end_date` fields are permanently removed, 2. 8 out of the 10 remaining Concept Table fields (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason) are merged into a single column with the provided column name, 3. the concept_id column is renamed to the format of the provided merged column name: {into_}concept_id. The remaining of the 7 Concept Table fields may also be preserved outside of the merge if provided. All other columns present in the input data are returned along with the transformations described.
