@@ -1,3 +1,7 @@
+# chariot 0.2.0 (2020-11-28)
+* optimize hemonc functions
+* streamline collapsibleTree plotting functions  
+
 # chariot 1.2.0 (2020-08-04)
 * optimize filter functions
 * streamline concept.tree() into umbrella and bottleneck style plots

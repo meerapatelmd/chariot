@@ -1,7 +1,7 @@
 Type: Package
 Package: chariot
 Title: chariot Package
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "Meera",
            family = "Patel, MD",
@@ -16,7 +16,25 @@ URL: https://meerapatelmd.github.io/chariot/,
 BugReports: https://github.com/meerapatelmd/chariot/issues/
 Depends: 
     R (>= 2.10)
-Imports:     DatabaseConnector,    R.cache,    SqlRender,    cave,    centipede,    collapsibleTree,    colorspace,    dplyr,    magrittr,    pg13,    purrr,    rlang,    rubix,    secretary,    stampede,    stringr,    tibble,    tidyr
+Imports: 
+    DatabaseConnector,
+    R.cache,
+    SqlRender,
+    cave,
+    centipede,
+    collapsibleTree,
+    colorspace,
+    dplyr,
+    magrittr,
+    pg13,
+    purrr,
+    rlang,
+    rubix,
+    secretary,
+    stampede,
+    stringr,
+    tibble,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown
