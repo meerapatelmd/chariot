@@ -6,7 +6,8 @@ Authors@R:
     person(given = "Meera",
            family = "Patel, MD",
            role = c("aut", "cre"),
-           email = "patelmeeray@gmail.com")
+           email = "patelmeeray@gmail.com",
+           comment = c(ORCID = "0000-0002-3401-3948"))
 Description: Functions that query and model concepts in the
     OMOP Vocabularies available for download at
     \href{athena.ohdsi.org}{athena.ohdsi.org}
