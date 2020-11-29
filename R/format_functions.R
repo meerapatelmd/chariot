@@ -303,7 +303,6 @@ labelToStrip <-
                                         into = c("concept_id", "concept_name"),
                                         regex = "(^.*?) (.*$)",
                                         remove = remove) %>%
-                        rubix::mutate_to_integer(concept_id) %>%
                         dplyr::rename(label_concept_id = concept_id) %>%
                         left_join_concept(column = "label_concept_id",
                                           include_synonyms = FALSE)  %>%

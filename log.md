@@ -17,3 +17,8 @@ Timestamp	Activity Type	Function	File	Details
 2020-10-11T18:26:51Z	write	write_temp_csv	/var/folders/9z/j0tn6zsx0pgctc2cnd7c6_p00000gn/T//RtmpSzXWMi/file55c22574daee.csv	
 2020-11-03T20:12:51Z	write	copy_to_clipboard		
 2020-11-03T20:16:44Z	write	copy_to_clipboard		
+2020-11-28T20:33:57Z	read	read_clipboard		
+2020-11-28T20:34:04Z	read	read_clipboard		
+2020-11-28T20:34:17Z	write	copy_to_clipboard		
+2020-11-28T20:34:45Z	read	read_clipboard		
+2020-11-28T20:34:47Z	write	copy_to_clipboard		
