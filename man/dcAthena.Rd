@@ -4,7 +4,7 @@
 \alias{dcAthena}
 \title{Disconnect Local Athena}
 \usage{
-dcAthena(conn, remove = FALSE)
+dcAthena(conn, remove = FALSE, verbose = TRUE)
 }
 \description{
 Disconnect Local Athena

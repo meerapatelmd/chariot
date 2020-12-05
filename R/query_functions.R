@@ -31,39 +31,54 @@
 queryAthena <-
         function(sql_statement,
                  conn = NULL,
+                 conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
                  cache_resultset = TRUE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
+                 render_sql = TRUE,
+                 verbose = TRUE,
                  sleepTime = 1) {
 
-                if (is.null(conn)) {
 
-                        conn_was_missing <- TRUE
-                        conn <- connectAthena()
-                        on.exit(dcAthena(conn = conn))
+                if (!missing(conn_fun)) {
 
-
-                } else {
-
-                        conn_was_missing <- FALSE
-
-                        if (!.hasSlot(conn, name = "jConnection")) {
-
-                                stop('conn object must be a Database Connector JDBC Connection')
-
-                        }
+                        conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+                        on.exit(expr = dcAthena(conn = conn,
+                                                verbose = verbose),
+                                add = TRUE,
+                                after = TRUE)
 
                 }
 
-                if (conn_was_missing) {
+                if (is.null(conn)) {
 
-                        if (skip_cache) {
+                        conn <- connectAthena(verbose = verbose)
+                        on.exit(dcAthena(conn = conn,
+                                         verbose = verbose))
+
+
+                }
+
+                if (!.hasSlot(conn, name = "jConnection")) {
+
+                        stop('conn object must be a Database Connector JDBC Connection')
+
+                }
+
+
+                if (!pg13::is_conn_open(conn)) {
+
+                        stop("`conn` object has closed connection.")
+
+                }
+
+                db <- get_conn_db(conn = conn)
+
+                if (skip_cache) {
 
                                 if (verbose) {
-                                        secretary::typewrite("Skipping cache")
+                                        secretary::typewrite(secretary::magentaTxt("Skipping cache..."))
                                 }
 
                                 resultset <- pg13::query(conn = conn,
@@ -76,7 +91,7 @@ queryAthena <-
                                 if (override_cache) {
 
                                         if (verbose) {
-                                                secretary::typewrite("Overriding cache")
+                                                secretary::typewrite(secretary::magentaTxt("Overriding cache... Querying Athena..."))
                                         }
 
                                         resultset <- pg13::query(conn = conn,
@@ -84,20 +99,25 @@ queryAthena <-
                                                                  verbose = verbose,
                                                                  render_sql = render_sql)
 
+                                        if (verbose) {
+                                                secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
+                                        }
+
                                         pg13::cacheQuery(resultset,
                                                          sqlQuery = sql_statement,
-                                                         db = "athena")
+                                                         db = db)
 
 
                                 } else {
 
                                         if (verbose) {
-                                                secretary::typewrite("Loading Cache")
+                                                secretary::typewrite(secretary::magentaTxt("Loading Cache..."))
+                                                secretary::typewrite(secretary::magentaTxt("Cached SQL:"), sql_statement)
                                         }
 
 
                                         resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                                    db = "athena"),
+                                                                                    db = db),
                                                               error = function(e) NULL)
 
                                         if (!cache_only) {
@@ -106,7 +126,7 @@ queryAthena <-
 
 
                                                         if (verbose) {
-                                                                secretary::typewrite("Cache was NULL, querying Athena")
+                                                                secretary::typewrite(secretary::magentaTxt("No cached resultset found... querying Athena..."))
                                                         }
 
                                                         Sys.sleep(time = sleepTime)
@@ -115,17 +135,22 @@ queryAthena <-
                                                                                  verbose = verbose,
                                                                                  render_sql = render_sql)
 
+                                                        if (verbose) {
+                                                                secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
+                                                        }
+
                                                         pg13::cacheQuery(resultset,
                                                                          sqlQuery = sql_statement,
-                                                                         db = "athena")
+                                                                         db = db)
 
                                                 }
+
 
                                         } else {
 
                                                 if (verbose) {
 
-                                                        secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
+                                                        secretary::typewrite(secretary::magentaTxt("Cached resultset found..."))
 
                                                 }
                                         }
@@ -133,17 +158,6 @@ queryAthena <-
                                 }
                         }
 
-                } else {
-
-
-                        Sys.sleep(time = sleepTime)
-                        resultset <- pg13::query(conn = conn,
-                                                 sql_statement = sql_statement,
-                                                 verbose = verbose,
-                                                 render_sql = render_sql)
-
-
-                }
 
                 tibble::as_tibble(resultset)
 
@@ -152,6 +166,7 @@ queryAthena <-
 
 #' Query ancestors for a given concept_id
 #' @export
+#' @rdname queryAncestors
 
 queryAncestors <-
     function(descendant_concept_ids,
@@ -162,8 +177,8 @@ queryAncestors <-
              cache_only = FALSE,
              skip_cache = FALSE,
              override_cache = FALSE,
-             render_sql = FALSE,
-             verbose = FALSE,
+             render_sql = TRUE,
+             verbose = TRUE,
              sleepTime = 1) {
 
             if (is.null(conn)) {
@@ -173,10 +188,14 @@ queryAncestors <-
             }
 
 
-            sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
-                                                  schema = schema,
-                                                  min_levels_of_separation = min_levels_of_separation,
-                                                  max_levels_of_separation = max_levels_of_separation)
+            sql_statement <- "SELECT *
+                                FROM @schema.concept_ancestor ca
+                                WHERE ca.descendant_concept_id IN (@descendant_concept_ids);"
+
+            sql_statement <-
+                    SqlRender::render(sql = sql_statement,
+                                      schema = schema,
+                                      descendant_concept_ids = descendant_concept_ids)
 
             queryAthena(sql_statement = sql_statement,
                         conn = conn,
@@ -196,6 +215,7 @@ queryAncestors <-
 #' @param ... vector of codes to collectively feed into the LIKE sql statement
 #' @return resultset as a dataframe with all column types as character and trimmed white space
 #' @export
+#' @rdname queryCode
 
 queryCode <-
         function(code,
@@ -203,7 +223,6 @@ queryCode <-
                  caseInsensitive = TRUE,
                  limit = NULL,
                  verbose = FALSE,
-                 type = c("like", "exact"),
                  conn = NULL,
                  cache_only = FALSE,
                  skip_cache = FALSE,
@@ -211,14 +230,8 @@ queryCode <-
                  render_sql = FALSE,
                  sleepTime = 1) {
 
-                if (length(type) != 1) {
-                        warning("type is not length 1. Defaulting to 'exact'")
-                        type <- "exact"
-                }
 
-                if (type == "exact") {
-
-                        sql_statement <-
+                sql_statement <-
                                 pg13::buildQuery(schema = schema,
                                                  tableName = "concept",
                                                  whereInField = "concept_code",
@@ -227,19 +240,6 @@ queryCode <-
                                                  n = limit,
                                                  n_type = "limit")
 
-                } else if (type == "like") {
-
-                        sql_statement <-
-                                pg13::buildQueryLike(schema = schema,
-                                                     tableName = "concept",
-                                                     whereLikeField = "concept_code",
-                                                     whereLikeValue = code,
-                                                     caseInsensitive = caseInsensitive,
-                                                     limit_n = limit)
-
-                } else {
-                        stop('type not recognized: ', type)
-                }
 
                queryAthena(sql_statement = sql_statement,
                                          conn = conn,

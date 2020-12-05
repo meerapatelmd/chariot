@@ -20,12 +20,13 @@ executeAthena(
 queryAthena(
   sql_statement,
   conn = NULL,
+  conn_fun = "connectAthena()",
   cache_only = FALSE,
   skip_cache = FALSE,
   override_cache = FALSE,
   cache_resultset = TRUE,
-  render_sql = FALSE,
-  verbose = FALSE,
+  render_sql = TRUE,
+  verbose = TRUE,
   sleepTime = 1
 )
 }
