@@ -9,8 +9,6 @@
 #' @rdname list_fields
 #' @export
 #' @importFrom pg13 lsFields
-
-
 list_fields <-
         function(schema,
                  tableName,
@@ -38,10 +36,16 @@ list_fields <-
         }
 
 
-#' @title
-#' List all hierarchical relationship ids from the Relationship Table
-#' @export
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param schema PARAM_DESCRIPTION
+#' @inheritParams queryAthena
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname list_hierarchical_relationships
+#' @export
+#' @importFrom SqlRender render
 list_hierarchical_relationships <-
         function(schema,
                  conn = NULL,
@@ -66,10 +70,32 @@ list_hierarchical_relationships <-
                             sleepTime = sleepTime)
         }
 
-#' @title
-#' List all hierarchical relationship ids from the Relationship Table
-#' @export
 
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param schema PARAM_DESCRIPTION
+#' @param conn PARAM_DESCRIPTION, Default: NULL
+#' @param conn_fun PARAM_DESCRIPTION, Default: 'connectAthena()'
+#' @param cache_only PARAM_DESCRIPTION, Default: FALSE
+#' @param skip_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param override_cache PARAM_DESCRIPTION, Default: FALSE
+#' @param cache_resultset PARAM_DESCRIPTION, Default: TRUE
+#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
+#' @param verbose PARAM_DESCRIPTION, Default: TRUE
+#' @param sleepTime PARAM_DESCRIPTION, Default: 1
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname list_lineage_relationships
+#' @export
+#' @importFrom SqlRender render
 list_lineage_relationships <-
         function(schema,
                  conn = NULL,
