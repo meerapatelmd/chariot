@@ -1,15 +1,3 @@
-#' @title
-#' Return all Hierarchical Relationship Ids
-
-return_relationship_ids <-
-    function(vocabSchema,
-             conn = NULL) {
-
-                queryAthena(SqlRender::render("SELECT * FROM @vocabSchema.relationship;", vocabSchema = vocabSchema),
-                            conn = conn)
-    }
-
-
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param vocabulary_id PARAM_DESCRIPTION
