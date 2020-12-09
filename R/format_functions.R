@@ -1,3 +1,89 @@
+#' @title =
+#' Get Strip
+#' @example inst/example/format.R
+#' @seealso
+#'  \code{\link[dplyr]{select}}
+#' @rdname getStrip
+#' @export
+#' @importFrom dplyr select
+
+getStrip <-
+    function(concept_id,
+             schema = "public") {
+
+        queryConceptId(concept_ids = concept_id,
+                       schema = schema) %>%
+            mergeStrip(into = "Concept") %>%
+            dplyr::select("Concept") %>%
+            unlist() %>%
+            unname()
+
+    }
+
+#' @title
+#' Unbox Strip
+#' @description
+#' First separates rows by the `row_sep` argument, followed by unmerging the strip
+#' @seealso
+#'  \code{\link[tidyr]{separate_rows}}
+#' @rdname unboxStrip
+#' @export
+#' @importFrom tidyr separate_rows
+
+
+unboxStrip <-
+    function(data,
+             strip_col,
+             row_sep = "\n",
+             remove = FALSE) {
+
+
+            # test_data <-
+            #     tibble::tibble(Concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
+
+            data %>%
+                 tidyr::separate_rows({{ strip_col }}, sep = row_sep) %>%
+                    unmergeStrip(strip_col = {{ strip_col }},
+                                 remove = remove)
+
+
+
+    }
+
+
+#' @title
+#' Unbox Strip
+#' @description
+#' First separates rows by the `row_sep` argument, followed by unmerging the strip
+#' @seealso
+#'  \code{\link[tidyr]{separate_rows}}
+#' @rdname unboxLabel
+#' @export
+#' @importFrom tidyr separate_rows extract
+
+
+unboxLabel <-
+    function(data,
+             label_col,
+             row_sep = "\n",
+             remove = FALSE) {
+
+
+        # test_data <-
+        #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
+
+        data %>%
+            tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
+            tidyr::extract(col = {{ label_col }},
+                           into = c("concept_id", "concept_name"),
+                           regex = "(^.*?) (.*$)",
+                           remove = remove)
+
+
+
+    }
+
+
 #' @title Filter Multiple Concept Strip Columns
 #' @description
 #' This function performs the same style of filtering as \code{\link{filterStrip}} over multiple columns.
@@ -506,7 +592,8 @@ mergeLabel <-
 
 
 #' Merge OMOP Concepts into a Strip
-#' @description This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
+#' @description
+#' All the OMOP Vocabulary Concept Table fields other than the date fields are "merged"into a single string, called a "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 #' @return A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid_start_date` and `valid_end_date` fields are permanently removed, 2. 8 out of the 10 remaining Concept Table fields (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason) are merged into a single column with the provided column name, 3. the concept_id column is renamed to the format of the provided merged column name: {into_}concept_id. The remaining of the 7 Concept Table fields may also be preserved outside of the merge if provided. All other columns present in the input data are returned along with the transformations described.
 #' @param data dataframe with the following required fields from the output
 #' @param into name of the column that the new combined string will be in
@@ -726,7 +813,7 @@ stripToLabel <-
                  into,
                  remove = FALSE) {
 
-                unmerge_concepts(dataframe = data,
+                unmergeStrip(dataframe = data,
                                           concept_col = {{ merge_col }},
                                           remove = remove) %>%
                         makeLabel(into = {{ into }},
@@ -858,22 +945,4 @@ unmergeStrip <-
 
     }
 
-
-#' Get Merged Concept Id
-#' @importFrom dplyr select
-#' @export
-
-
-getMerge <-
-    function(concept_id,
-             schema = "public") {
-
-        queryConceptId(concept_ids = concept_id,
-                       schema = schema) %>%
-                mergeStrip(into = "Concept") %>%
-                dplyr::select("Concept") %>%
-                unlist() %>%
-                unname()
-
-    }
 
