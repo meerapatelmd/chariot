@@ -21,30 +21,30 @@ library(chariot)
 conn <- chariot::connectAthena()
 ```
 
-The target LOINC Class first should be identified and a concept class object is derived. The Concept Id `37060596` for `Pathology` is used in this example.    
+The target LOINC Class first should be identified and a concept class object is derived. The Concept Id `37052681` for `Molecular Pathology` is used in this example.    
 
-```{r}
-loinc_class_concept <- get_concept(37060596,
+```{r concept_class_obj}
+loinc_class_concept <- get_concept(37052681,
                           vocab_schema = "omop_vocabulary",
                           conn = conn)
 ```
 
 A `concept` class object contains slots for each field in the original Concept table with data type constraints. Concepts are handled as S4 classes in this package to allow the end-user to have access to all the concept attributes at any given point during their analysis. The concept class object of the example is as follows:
 
-```{r}
+```{r concept_class_obj2}
 loinc_class_concept
 ```
 
 The `loinc_class_concept` is used as an argument for the `loinc_classification` function first to understand the number of levels below this concept in the hierarchy, as well as the number of descendants at each of these levels to apply filters to create a manageable plot.  
 
-```{r}
+```{r preview}
 preview_loinc_classification(concept_class_obj = loinc_class_concept,
                      conn = conn)
 ```
 
 There are a total of `r 1+299+1002+708+6` across 5 levels. I will now plot levels 1 to 3. 
 
-```{r}
+```{r plot}
 temp_html <- tempfile(fileext = ".html")
 plot_loinc_classification(conn = conn,
                           concept_class_obj = loinc_class_concept,
@@ -52,13 +52,13 @@ plot_loinc_classification(conn = conn,
                           file = temp_html)
 ```
 
-```{r}
+```{r display}
 htmltools::includeHTML(path = temp_html)
 ```
 
 
 
-```{r}
+```{r final}
 unlink(temp_html)
 dcAthena(conn = conn)
 ```
