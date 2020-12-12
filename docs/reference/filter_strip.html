@@ -95,6 +95,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/plot-atc-classification.html">Plot an ATC Classification</a>
+    </li>
+    <li>
+      <a href="../articles/plot-loinc-classification.html">Plot a LOINC Classification</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -164,10 +179,10 @@
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-12 11:15:31]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 11:15:31]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-12 11:15:31]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2020-12-12 11:15:31]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-12 11:15:31]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-12 17:25:27]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-12 17:25:27]	Postgres connection closed</div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 2</span><span>
@@ -238,10 +253,10 @@
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-12 11:15:32]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 11:15:32]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-12 11:15:32]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
-#&gt; [2020-12-12 11:15:32]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-12 11:15:32]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-12 17:25:28]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
+#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-12 17:25:28]	Postgres connection closed</div><div class='input'>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
