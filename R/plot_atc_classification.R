@@ -5,24 +5,24 @@
 #' Due to the high amount of records, used to determine the appropriate range based on row counts per level to supply the optional `range` argument for \code{\link{plot_loinc_classification}}, where this fucntion is called again and can be optionally filtered on a numeric range before plotting.
 #'
 #' @export
-#' @rdname atc_classification
+#' @rdname preview_atc_classification
 
-atc_classification <-
+preview_atc_classification <-
         function(conn,
-                 concept_obj,
+                 concept_class_obj,
                  vocab_schema = "omop_vocabulary",
                  verbose = TRUE,
                  render_sql = TRUE,
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_obj)) {
+                if (is.concept(concept_class_obj)) {
 
-                        concept_id <- concept_obj@concept_id
+                        concept_id <- concept_class_obj@concept_id
 
                 } else {
 
-                        stop("`concept_obj` must be a concept class object")
+                        stop("`concept_class_obj` must be a concept class object")
 
                 }
 
@@ -158,7 +158,7 @@ atc_classification <-
 
                 }
 
-                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_obj@concept_id, concept_obj@concept_name)))
+                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_class_obj@concept_id, concept_class_obj@concept_name)))
                 secretary::typewrite("Row counts:")
                 1:length(range_output) %>%
                         purrr::map2(range_output,
@@ -185,7 +185,7 @@ atc_classification <-
 #'  \code{\link[colorspace]{rainbow_hcl}}
 #'  \code{\link[secretary]{c("typewrite", "typewrite")}},\code{\link[secretary]{press_enter}}
 #'  \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
-#' @rdname plot_loinc_classification
+#' @rdname plot_atc_classification
 #' @export
 #' @importFrom tibble tibble
 #' @importFrom dplyr bind_rows mutate_all distinct group_by summarize_at vars ungroup select left_join
@@ -195,9 +195,9 @@ atc_classification <-
 #' @importFrom collapsibleTree collapsibleTreeNetwork
 #' @importFrom htmlwidgets saveWidget
 
-plot_loinc_classification <-
+plot_atc_classification <-
         function(conn,
-                 concept_obj,
+                 concept_class_obj,
                  range,
                  file,
                  vocab_schema = "omop_vocabulary",
@@ -207,13 +207,13 @@ plot_loinc_classification <-
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_obj)) {
+                if (is.concept(concept_class_obj)) {
 
-                        concept_id <- concept_obj@concept_id
+                        concept_id <- concept_class_obj@concept_id
 
                 } else {
 
-                        stop("`concept_obj` must be a concept class object")
+                        stop("`concept_class_obj` must be a concept class object")
 
                 }
 
@@ -225,8 +225,8 @@ plot_loinc_classification <-
                                        child = child)
 
 
-                range_output <- loinc_class_descendants(conn = conn,
-                                                        concept_obj = concept_obj,
+                range_output <- preview_atc_classification(conn = conn,
+                                                        concept_class_obj = concept_class_obj,
                                                         vocab_schema = vocab_schema,
                                                         verbose = verbose,
                                                         render_sql = render_sql,
@@ -271,8 +271,7 @@ plot_loinc_classification <-
                         dplyr::left_join(tooltip) %>%
                         dplyr::distinct()
 
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plot? ")
-                secretary::press_enter()
+                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
 
                 if (missing(file)) {
 
