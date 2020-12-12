@@ -7,8 +7,8 @@
 unmerge_strip(
   data,
   strip_col,
-  add_suffix = NULL,
-  add_prefix = NULL,
+  suffix = NULL,
+  prefix = NULL,
   remove = TRUE,
   r_trimws = TRUE
 )

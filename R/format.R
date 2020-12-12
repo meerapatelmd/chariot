@@ -37,8 +37,8 @@ unbox_strip <-
     function(data,
              strip_col,
              sep = "\n",
-             add_suffix = NULL,
-             add_prefix = NULL,
+             suffix = NULL,
+             prefix = NULL,
              remove = TRUE,
              r_trimws = TRUE) {
 
@@ -49,8 +49,8 @@ unbox_strip <-
             data %>%
                  tidyr::separate_rows({{ strip_col }}, sep = sep) %>%
                     unmerge_strip(strip_col = {{ strip_col }},
-                                  add_suffix = add_suffix,
-                                  add_prefix = add_prefix,
+                                  suffix = suffix,
+                                  prefix = prefix,
                                   remove = remove,
                                   r_trimws = r_trimws)
 
@@ -569,8 +569,8 @@ strip_to_label <-
 unmerge_strip <-
     function(data,
              strip_col,
-             add_suffix = NULL,
-             add_prefix = NULL,
+             suffix = NULL,
+             prefix = NULL,
              remove = TRUE,
              r_trimws = TRUE) {
 
@@ -585,9 +585,9 @@ unmerge_strip <-
                                   "domain_id",
                                   "concept_class_id")
 
-                    new_cols <- paste0(add_prefix,
+                    new_cols <- paste0(prefix,
                                        colOrder,
-                                       add_suffix) %>%
+                                       suffix) %>%
                                 as.list()
 
                     names(new_cols) <- colOrder
