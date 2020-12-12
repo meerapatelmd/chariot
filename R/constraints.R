@@ -51,7 +51,6 @@ constraints <-
 
                          queryAthena(sql_statement = sql_statement,
                                      conn = conn,
-                                     cache_only = cache_only,
                                      skip_cache = skip_cache,
                                      override_cache = override_cache,
                                      render_sql = render_sql,

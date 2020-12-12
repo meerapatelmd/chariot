@@ -3,7 +3,7 @@
 #' @param vocabulary_id PARAM_DESCRIPTION
 #' @param domain_id PARAM_DESCRIPTION
 #' @param conn PARAM_DESCRIPTION
-#' @param vocabSchema PARAM_DESCRIPTION
+#' @param vocab_schema PARAM_DESCRIPTION
 #' @param range PARAM_DESCRIPTION, Default: 1:10
 #' @param color_by PARAM_DESCRIPTION, Default: 'vocabulary_id'
 #' @param terminal_vocabulary_id PARAM_DESCRIPTION
@@ -36,10 +36,11 @@ plot_classification <-
     function(vocabulary_id,
              domain_id,
              conn,
-             vocabSchema,
+             vocab_schema,
              range = 1:10,
              color_by = "vocabulary_id",
              terminal_vocabulary_id,
+             verbose = TRUE,
              render_sql = TRUE) {
 
         child <- paste0(vocabulary_id, " ", domain_id)
@@ -58,10 +59,10 @@ plot_classification <-
                                 "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                    FROM @vocabSchema.concept c
-                                    INNER JOIN @vocabSchema.concept_ancestor ca
+                                    FROM @vocab_schema.concept c
+                                    INNER JOIN @vocab_schema.concept_ancestor ca
                                     ON ca.ancestor_concept_id = c.concept_id
-                                    INNER JOIN @vocabSchema.concept c2
+                                    INNER JOIN @vocab_schema.concept c2
                                     ON ca.descendant_concept_id = c2.concept_id
                                     WHERE
                                     c.vocabulary_id IN (@vocabulary_id)
@@ -78,19 +79,19 @@ plot_classification <-
 
                             SELECT DISTINCT c.*
                                 FROM ancestry a
-                            LEFT JOIN @vocabSchema.concept c
+                            LEFT JOIN @vocab_schema.concept c
                             ON c.concept_id = a.ancestor_concept_id
                             WHERE a.ancestor_concept_id NOT IN (
                                 SELECT a2.descendant_concept_id
-                                FROM ancestry a2
-                            )
-                            ;",
-                                vocabSchema = vocabSchema,
+                                FROM ancestry a2);",
+                                vocab_schema = vocab_schema,
                                 vocabulary_id = vocabulary_id,
                                 domain_id = domain_id),
                         conn = conn,
                         render_sql = TRUE
             )
+
+        stopifnot(nrow(level_1) > 0)
 
             level_1 <-
                 level_1 %>%
@@ -108,10 +109,9 @@ plot_classification <-
             range_output <- list()
             range_output[[1]] <- level_1
 
-            proceed <- TRUE
+
             for (i in 2:max(range)) {
 
-                if (proceed) {
 
                         new_parents <-
                                 range_output[[i-1]] %>%
@@ -126,10 +126,10 @@ plot_classification <-
                                                 "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                        FROM @vocabSchema.concept c
-                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        FROM @vocab_schema.concept c
+                                        INNER JOIN @vocab_schema.concept_ancestor ca
                                         ON ca.ancestor_concept_id = c.concept_id
-                                        INNER JOIN @vocabSchema.concept c2
+                                        INNER JOIN @vocab_schema.concept c2
                                         ON ca.descendant_concept_id = c2.concept_id
                                         WHERE
                                         c.vocabulary_id IN (@vocabulary_id)
@@ -149,30 +149,32 @@ plot_classification <-
                                         CONCAT(child.concept_id, ' ', child.concept_name) AS child,
                                         child.*
                                     FROM ancestry a
-                                    LEFT JOIN @vocabSchema.concept parent
+                                    LEFT JOIN @vocab_schema.concept parent
                                     ON a.ancestor_concept_id = parent.concept_id
-                                    LEFT JOIN @vocabSchema.concept child
+                                    LEFT JOIN @vocab_schema.concept child
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                                vocabSchema = vocabSchema,
+                                                vocab_schema = vocab_schema,
                                                 vocabulary_id = vocabulary_id,
                                                 domain_id = domain_id,
                                                 new_parents = new_parents),
                                         conn = conn,
-                                        render_sql = TRUE
+                                        verbose = verbose,
+                                        render_sql = render_sql
                             )
+
 
                         if (nrow(level_n) == 0) {
 
-                            proceed <- FALSE
+                            break()
+
                         } else {
                             range_output[[i]] <- level_n
                         }
 
-                }
-
             }
+
 
             terminal_class <- range_output[[length(range_output)]] %>%
                                     dplyr::select(concept_id) %>%
@@ -186,10 +188,10 @@ plot_classification <-
                                 "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                        FROM @vocabSchema.concept c
-                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        FROM @vocab_schema.concept c
+                                        INNER JOIN @vocab_schema.concept_ancestor ca
                                         ON ca.ancestor_concept_id = c.concept_id
-                                        INNER JOIN @vocabSchema.concept c2
+                                        INNER JOIN @vocab_schema.concept c2
                                         ON ca.descendant_concept_id = c2.concept_id
                                         WHERE
                                         c.vocabulary_id IN (@vocabulary_id)
@@ -209,18 +211,19 @@ plot_classification <-
                                         CONCAT(child.concept_id, ' ', child.concept_name) AS child,
                                         child.*
                                     FROM ancestry a
-                                    LEFT JOIN @vocabSchema.concept parent
+                                    LEFT JOIN @vocab_schema.concept parent
                                     ON a.ancestor_concept_id = parent.concept_id
-                                    LEFT JOIN @vocabSchema.concept child
+                                    LEFT JOIN @vocab_schema.concept child
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 vocabulary_id = terminal_vocabulary_id,
                                 domain_id = domain_id,
                                 new_parents = terminal_class),
                         conn = conn,
-                        render_sql = TRUE
+                        verbose = verbose,
+                        render_sql = render_sql
             )
 
 
@@ -261,6 +264,9 @@ plot_classification <-
                 dplyr::left_join(tooltip) %>%
                 dplyr::distinct()
 
+            secretary::typewrite("There are", nrow(df), "rows in the data tree. Plot? ")
+            secretary::press_enter()
+
             collapsibleTree::collapsibleTreeNetwork(df = df,
                                                     tooltipHtml = "tooltip",
                                                     fill = "color")
@@ -273,7 +279,7 @@ plot_classification <-
 #' @param vocabulary_id PARAM_DESCRIPTION
 #' @param domain_id PARAM_DESCRIPTION
 #' @param conn PARAM_DESCRIPTION
-#' @param vocabSchema PARAM_DESCRIPTION
+#' @param vocab_schema PARAM_DESCRIPTION
 #' @param range PARAM_DESCRIPTION, Default: 1:10
 #' @param color_by PARAM_DESCRIPTION, Default: 'vocabulary_id'
 #' @param terminal_vocabulary_id PARAM_DESCRIPTION
@@ -306,7 +312,7 @@ plot_concept_classification <-
     function(vocabulary_id,
              domain_id,
              conn,
-             vocabSchema,
+             vocab_schema,
              range = 1:10,
              color_by = "vocabulary_id",
              terminal_vocabulary_id,
@@ -328,10 +334,10 @@ plot_concept_classification <-
                                 "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                    FROM @vocabSchema.concept c
-                                    INNER JOIN @vocabSchema.concept_ancestor ca
+                                    FROM @vocab_schema.concept c
+                                    INNER JOIN @vocab_schema.concept_ancestor ca
                                     ON ca.ancestor_concept_id = c.concept_id
-                                    INNER JOIN @vocabSchema.concept c2
+                                    INNER JOIN @vocab_schema.concept c2
                                     ON ca.descendant_concept_id = c2.concept_id
                                     WHERE
                                     c.vocabulary_id IN (@vocabulary_id)
@@ -348,14 +354,14 @@ plot_concept_classification <-
 
                             SELECT DISTINCT c.*
                                 FROM ancestry a
-                            LEFT JOIN @vocabSchema.concept c
+                            LEFT JOIN @vocab_schema.concept c
                             ON c.concept_id = a.ancestor_concept_id
                             WHERE a.ancestor_concept_id NOT IN (
                                 SELECT a2.descendant_concept_id
                                 FROM ancestry a2
                             )
                             ;",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 vocabulary_id = vocabulary_id,
                                 domain_id = domain_id),
                         conn = conn,
@@ -396,10 +402,10 @@ plot_concept_classification <-
                                         "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                        FROM @vocabSchema.concept c
-                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        FROM @vocab_schema.concept c
+                                        INNER JOIN @vocab_schema.concept_ancestor ca
                                         ON ca.ancestor_concept_id = c.concept_id
-                                        INNER JOIN @vocabSchema.concept c2
+                                        INNER JOIN @vocab_schema.concept c2
                                         ON ca.descendant_concept_id = c2.concept_id
                                         WHERE
                                         c.vocabulary_id IN (@vocabulary_id)
@@ -419,13 +425,13 @@ plot_concept_classification <-
                                         CONCAT(child.concept_id, ' ', child.concept_name) AS child,
                                         child.*
                                     FROM ancestry a
-                                    LEFT JOIN @vocabSchema.concept parent
+                                    LEFT JOIN @vocab_schema.concept parent
                                     ON a.ancestor_concept_id = parent.concept_id
-                                    LEFT JOIN @vocabSchema.concept child
+                                    LEFT JOIN @vocab_schema.concept child
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                        vocabSchema = vocabSchema,
+                                        vocab_schema = vocab_schema,
                                         vocabulary_id = vocabulary_id,
                                         domain_id = domain_id,
                                         new_parents = new_parents),
@@ -456,10 +462,10 @@ plot_concept_classification <-
                                 "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
-                                        FROM @vocabSchema.concept c
-                                        INNER JOIN @vocabSchema.concept_ancestor ca
+                                        FROM @vocab_schema.concept c
+                                        INNER JOIN @vocab_schema.concept_ancestor ca
                                         ON ca.ancestor_concept_id = c.concept_id
-                                        INNER JOIN @vocabSchema.concept c2
+                                        INNER JOIN @vocab_schema.concept c2
                                         ON ca.descendant_concept_id = c2.concept_id
                                         WHERE
                                         c.vocabulary_id IN (@vocabulary_id)
@@ -479,13 +485,13 @@ plot_concept_classification <-
                                         CONCAT(child.concept_id, ' ', child.concept_name) AS child,
                                         child.*
                                     FROM ancestry a
-                                    LEFT JOIN @vocabSchema.concept parent
+                                    LEFT JOIN @vocab_schema.concept parent
                                     ON a.ancestor_concept_id = parent.concept_id
-                                    LEFT JOIN @vocabSchema.concept child
+                                    LEFT JOIN @vocab_schema.concept child
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 vocabulary_id = terminal_vocabulary_id,
                                 domain_id = domain_id,
                                 new_parents = terminal_class),
@@ -541,7 +547,7 @@ plot_concept_classification <-
 
 
 plot_is_a <-
-    function(vocabSchema,
+    function(vocab_schema,
              writeSchema,
              conceptParentSchema,
              vocabulary_id,
@@ -557,7 +563,7 @@ plot_is_a <-
 
 
 
-            # vocabSchema <- "omop_vocabulary"
+            # vocab_schema <- "omop_vocabulary"
             # writeSchema <- "patelm9"
             # conceptParentSchema <- "patelm9"
             # vocabulary_id <- "HemOnc"
@@ -570,7 +576,7 @@ plot_is_a <-
             # sleepTime <- 1
 
 
-            concept_filters <- generate_concept_filters(vocabSchema = vocabSchema,
+            concept_filters <- generate_concept_filters(vocab_schema = vocab_schema,
                                                         vocabulary_id = vocabulary_id,
                                                         domain_id = domain_id,
                                                         concept_class_id = concept_class_id,
@@ -587,7 +593,7 @@ plot_is_a <-
                                         WITH target_cids AS (
                                                 SELECT DISTINCT
                                                             concept_id
-                                                FROM @vocabSchema.concept
+                                                FROM @vocab_schema.concept
                                                 WHERE @concept_filters
                                         )
 
@@ -605,7 +611,7 @@ plot_is_a <-
                                         INNER JOIN target_cids t
                                         ON t.concept_id = cp.child_concept_id
                                         ;",
-                                        vocabSchema = vocabSchema,
+                                        vocab_schema = vocab_schema,
                                         conceptParentSchema = conceptParentSchema,
                                         concept_filters = concept_filters
                     ),
@@ -644,7 +650,7 @@ plot_is_a <-
                 leftJoinConceptId(output2,
                                   column = "child_concept_id",
                                   writeSchema = writeSchema,
-                                  athena_schema = vocabSchema,
+                                  athena_schema = vocab_schema,
                                   conn = conn)
 
             output4 <-
@@ -743,7 +749,7 @@ plot_is_a <-
                                           parent_concept_id = child_concept_id) %>%
                             dplyr::inner_join(output8, by = c("parent", "parent_concept_id")) %>%
                             dplyr::select(-child) %>%
-                            leftJoinConceptId(column = "child_concept_id", writeSchema = writeSchema, athena_schema =  vocabSchema, conn = conn) %>%
+                            leftJoinConceptId(column = "child_concept_id", writeSchema = writeSchema, athena_schema =  vocab_schema, conn = conn) %>%
                             tidyr::unite(col = child,
                                          child_concept_id,
                                          concept_name,
@@ -853,11 +859,11 @@ plot_concept_ancestors <-
                            SqlRender::render(
                                 "
                                 SELECT *
-                                FROM @vocabSchema.concept_ancestor ca
+                                FROM @vocab_schema.concept_ancestor ca
                                 WHERE ca.descendant_concept_id IN (@concept_ids)
                                     AND ca.max_levels_of_separation = 1
                                 ",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 concept_ids = concept_ids),
                        conn = conn
                        )
@@ -870,11 +876,11 @@ plot_concept_ancestors <-
                                         SqlRender::render(
                                             "
                                 SELECT *
-                                FROM @vocabSchema.concept_ancestor ca
+                                FROM @vocab_schema.concept_ancestor ca
                                 WHERE ca.descendant_concept_id IN (@new_descendant_concept_ids)
                                     AND ca.max_levels_of_separation = 1
                                 ",
-                                            vocabSchema = vocabSchema,
+                                            vocab_schema = vocab_schema,
                                             new_descendant_concept_ids = new_descendant_concept_ids),
                                     conn = conn
                         )
@@ -889,11 +895,11 @@ plot_concept_ancestors <-
                             SqlRender::render(
                                 "
                                 SELECT *
-                                FROM @vocabSchema.concept_ancestor ca
+                                FROM @vocab_schema.concept_ancestor ca
                                 WHERE ca.ancestor_concept_id IN (@concept_ids)
                                     AND ca.max_levels_of_separation = 1
                                 ",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 concept_ids = concept_ids),
                         conn = conn
             )
@@ -906,11 +912,11 @@ plot_concept_ancestors <-
                                     SqlRender::render(
                                         "
                                     SELECT *
-                                    FROM @vocabSchema.concept_ancestor ca
+                                    FROM @vocab_schema.concept_ancestor ca
                                     WHERE ca.ancestor_concept_id IN (@new_ancestor_concept_ids)
                                         AND ca.max_levels_of_separation = 1
                                     ",
-                                        vocabSchema = vocabSchema,
+                                        vocab_schema = vocab_schema,
                                         new_ancestor_concept_ids = new_ancestor_concept_ids),
                                 conn = conn
                     )
@@ -1133,17 +1139,17 @@ plot_concept_relationships <-
                                     c2.domain_id AS domain_id_2,
                                     c2.concept_class_id AS concept_class_id_2,
                                     c2.standard_concept AS standard_concept_2
-                                FROM @vocabSchema.concept_relationship cr
-                                LEFT JOIN @vocabSchema.concept c1
+                                FROM @vocab_schema.concept_relationship cr
+                                LEFT JOIN @vocab_schema.concept c1
                                 ON c1.concept_id = cr.concept_id_1
-                                LEFT JOIN @vocabSchema.concept c2
+                                LEFT JOIN @vocab_schema.concept c2
                                 ON c2.concept_id = cr.concept_id_2
                                 WHERE cr.concept_id_1 = (@concept_ids)
                                     AND cr.invalid_reason IS NULL
                                     AND c1.invalid_reason IS NULL
                                     AND c2.invalid_reason IS NULL
                                 ",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 concept_ids = concept_ids),
                         conn = conn
             ) %>%
