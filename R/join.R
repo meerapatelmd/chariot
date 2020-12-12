@@ -1,119 +1,85 @@
 #' @title
 #' Join a R dataframe to Athena's concept table
 #' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
-#' @param dataframe dataframe to join
+#' @param data dataframe to join
 #' @param column string of the column name to join on. If NULL, the 1st column is used.
-#' @param athena_column name of column to join dataframe on. Defaults to concept ID.
+#' @param vocab_column name of column to join dataframe on. Defaults to concept ID.
 #' @export
 
 join <-
     function(data,
              joinType,
              column = NULL,
-             athena_schema,
-             athena_table,
-             athena_column,
-             where_athena_col = NULL,
-             where_athena_col_in = NULL,
+             write_schema,
+             vocab_schema,
+             vocab_table,
+             vocab_column,
+             where_vocab_col = NULL,
+             where_vocab_col_in = NULL,
              verbose = FALSE,
-             conn = NULL,
+             conn,
+             conn_fun = "connectAthena()",
              render_sql = FALSE,
              sleepTime = 1) {
 
 
-        table_name <- paste0("v", stampede::stamp_this(without_punct = TRUE))
+        if (missing(conn)) {
+
+            conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+            on.exit(expr = dcAthena(conn = conn,
+                                    verbose = verbose),
+                    add = TRUE,
+                    after = TRUE)
+
+        }
+
+
+        table_name <- paste0("v", format(Sys.time(), "%Y%m%d%H%M%S"))
 
         if (is.null(column)) {
             column <- colnames(data)[1]
         }
 
-
-        if (is.null(conn)) {
-
-            conn <- connectAthena()
             pg13::writeTable(conn = conn,
-                             schema = athena_schema,
-                             tableName = table_name,
-                             data = data)
-            dcAthena(conn = conn)
-
-
-            if (!is.null(where_athena_col)) {
-
-                where_athena_col <- paste0(athena_schema,".",
-                                           athena_table, ".",
-                                           where_athena_col)
-            }
-
-            sql_statement <-
-                pg13::buildJoinQuery(schema = "public",
-                                     tableName = table_name,
-                                     column = column,
-                                     joinType = joinType,
-                                     caseInsensitive = FALSE,
-                                     joinOnSchema = athena_schema,
-                                     joinOnTableName = athena_table,
-                                     joinOnColumn = athena_column,
-                                     whereInField = where_athena_col,
-                                     whereInVector = where_athena_col_in)
-
-
-
-            resultset <- queryAthena(sql_statement = sql_statement,
-                                     verbose = verbose,
-                                     cache_resultset = FALSE,
-                                     render_sql = render_sql,
-                                     sleepTime = sleepTime)
-
-
-
-            conn <- connectAthena()
-            dropJoinTables(conn = conn,
-                           schema = athena_schema)
-            dcAthena(conn = conn)
-
-
-        } else {
-
-            pg13::writeTable(conn = conn,
-                             schema = athena_schema,
+                             schema = write_schema,
                              tableName = table_name,
                              data = data)
 
 
-            if (!is.null(where_athena_col)) {
+            if (!is.null(where_vocab_col)) {
 
-                where_athena_col <- paste0(athena_schema,".",
-                                           athena_table, ".",
-                                           where_athena_col)
+                where_vocab_col <- paste0(vocab_schema,".",
+                                           vocab_table, ".",
+                                           where_vocab_col)
             }
 
             sql_statement <-
-                pg13::buildJoinQuery(schema = "public",
+                pg13::buildJoinQuery(schema = write_schema,
                                      tableName = table_name,
                                      column = column,
                                      joinType = joinType,
                                      caseInsensitive = FALSE,
-                                     joinOnSchema = athena_schema,
-                                     joinOnTableName = athena_table,
-                                     joinOnColumn = athena_column,
-                                     whereInField = where_athena_col,
-                                     whereInVector = where_athena_col_in)
+                                     joinOnSchema = vocab_schema,
+                                     joinOnTableName = vocab_table,
+                                     joinOnColumn = vocab_column,
+                                     whereInField = where_vocab_col,
+                                     whereInVector = where_vocab_col_in)
 
 
 
             resultset <- queryAthena(sql_statement = sql_statement,
-                                     verbose = verbose,
-                                     skip_cache = TRUE,
                                      conn = conn,
+                                     skip_cache = TRUE,
                                      render_sql = render_sql,
+                                     verbose = verbose,
                                      sleepTime = sleepTime)
 
-            dropJoinTables(conn = conn,
-                           schema = athena_schema)
-        }
 
-        return(resultset)
+            dropJoinTables(conn = conn,
+                           schema = write_schema)
+
+
+            resultset
     }
 
 
@@ -155,11 +121,12 @@ dropJoinTables <-
 innerJoin <-
     function(data,
              column = NULL,
-             athena_schema,
-             athena_table,
-             athena_column,
-             where_athena_col = NULL,
-             where_athena_col_in = NULL,
+             write_schema,
+             vocab_schema = "omop_vocabulary",
+             vocab_table,
+             vocab_column,
+             where_vocab_col = NULL,
+             where_vocab_col_in = NULL,
              render_sql = TRUE,
              conn = NULL) {
 
@@ -167,11 +134,12 @@ innerJoin <-
                     join(data = data,
                          joinType = "INNER",
                          column = column,
-                         athena_schema = athena_schema,
-                         athena_table = athena_table,
-                         athena_column = athena_column,
-                         where_athena_col = where_athena_col_in,
-                         where_athena_col_in = where_athena_col_in,
+                         write_schema = write_schema,
+                         vocab_schema = vocab_schema,
+                         vocab_table = vocab_table,
+                         vocab_column = vocab_column,
+                         where_vocab_col = where_vocab_col_in,
+                         where_vocab_col_in = where_vocab_col_in,
                          render_sql = render_sql,
                          conn = conn)
 
@@ -188,11 +156,12 @@ innerJoin <-
 leftJoin <-
     function(data,
              column = NULL,
-             athena_schema,
-             athena_table,
-             athena_column,
-             where_athena_col = NULL,
-             where_athena_col_in = NULL,
+             write_schema,
+             vocab_schema = "omop_vocabulary",
+             vocab_table,
+             vocab_column,
+             where_vocab_col = NULL,
+             where_vocab_col_in = NULL,
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
@@ -203,11 +172,12 @@ leftJoin <-
                     join(data = data,
                          joinType = "LEFT",
                          column = column,
-                         athena_schema = athena_schema,
-                         athena_table = athena_table,
-                         athena_column = athena_column,
-                         where_athena_col = where_athena_col,
-                         where_athena_col_in = where_athena_col_in,
+                         write_schema = write_schema,
+                         vocab_schema = vocab_schema,
+                         vocab_table = vocab_table,
+                         vocab_column = vocab_column,
+                         where_vocab_col = where_vocab_col,
+                         where_vocab_col_in = where_vocab_col_in,
                          verbose = verbose,
                          conn = conn,
                          render_sql = render_sql,
@@ -224,7 +194,7 @@ leftJoin <-
 #'
 #' @param data                 A data frame
 #' @param column                Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.
-#' @param athena_schema         Schema of the OMOP Concept Table
+#' @param vocab_schema         Schema of the OMOP Concept Table
 #' @param concept_column        Column in the concept
 #' @param verbose               If TRUE, prints whether the cache is being loaded or being actively queried in the Postgres database, Default: FALSE
 #' @param conn                  Connection object if another database is used. Default: NULL
@@ -248,8 +218,8 @@ leftJoin <-
 leftJoinConceptId <-
     function(data,
              column = NULL,
-             writeSchema,
-             athena_schema = "public",
+             write_schema,
+             vocab_schema = "public",
              synonyms = FALSE,
              vocabulary_id,
              domain_id,
@@ -273,7 +243,7 @@ leftJoinConceptId <-
                             }
 
 
-                            concept_filters <- generate_concept_filters(vocabSchema = athena_schema,
+                            concept_filters <- generate_concept_filters(vocabSchema = vocab_schema,
                                                                         vocabulary_id = vocabulary_id,
                                                                         domain_id = domain_id,
                                                                         concept_class_id = concept_class_id,
@@ -284,9 +254,9 @@ leftJoinConceptId <-
                             # output <-
                             #     leftJoin(data = data,
                             #              column = column,
-                            #              athena_schema = athena_schema,
-                            #              athena_table = "concept",
-                            #              athena_column = concept_column,
+                            #              vocab_schema = vocab_schema,
+                            #              vocab_table = "concept",
+                            #              vocab_column = concept_column,
                             #              verbose = verbose,
                             #              conn = conn,
                             #              render_sql = render_sql,
@@ -305,12 +275,12 @@ leftJoinConceptId <-
                             temp_table <- make_temp_table_name()
 
                             pg13::dropTable(conn = write_conn,
-                                            schema = writeSchema,
+                                            schema = write_schema,
                                             tableName = temp_table)
 
 
                             pg13::writeTable(conn = write_conn,
-                                            schema = writeSchema,
+                                            schema = write_schema,
                                             tableName = temp_table,
                                             data)
 
@@ -325,13 +295,13 @@ leftJoinConceptId <-
                                                                     "
                                                                 WITH concepts AS (
                                                                     SELECT c.*
-                                                                    FROM @writeSchema.@temp_table temp
-                                                                    INNER JOIN @athena_schema.concept c
+                                                                    FROM @write_schema.@temp_table temp
+                                                                    INNER JOIN @vocab_schema.concept c
                                                                     ON c.@concept_column = temp.@column
                                                                 ),
                                                                 concept_synonyms AS (
                                                                     SELECT cs.concept_id, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
-                                                                    FROM @athena_schema.concept_synonym cs
+                                                                    FROM @vocab_schema.concept_synonym cs
                                                                     INNER JOIN concepts c1
                                                                     ON c1.concept_id = cs.concept_id
                                                                     GROUP BY cs.concept_id
@@ -341,15 +311,15 @@ leftJoinConceptId <-
                                                                         temp.*,
                                                                         c2.*,
                                                                         cs2.concept_synonyms
-                                                                FROM @writeSchema.@temp_table temp
+                                                                FROM @write_schema.@temp_table temp
                                                                 LEFT JOIN concepts c2
                                                                 ON c2.@concept_column = temp.@column
                                                                 LEFT JOIN concept_synonyms cs2
                                                                 ON c2.@concept_column = cs2.@concept_column
                                                                 ",
-                                                                    writeSchema = writeSchema,
+                                                                    write_schema = write_schema,
                                                                     temp_table = temp_table,
-                                                                    athena_schema = athena_schema,
+                                                                    vocab_schema = vocab_schema,
                                                                     concept_column = concept_column,
                                                                     column = column
                                                                 ),
@@ -368,21 +338,21 @@ leftJoinConceptId <-
                                                                     "
                                                                 WITH concepts AS (
                                                                     SELECT c.*
-                                                                    FROM @writeSchema.@temp_table temp
-                                                                    INNER JOIN @athena_schema.concept c
+                                                                    FROM @write_schema.@temp_table temp
+                                                                    INNER JOIN @vocab_schema.concept c
                                                                     ON c.@concept_column = temp.@column
                                                                 )
 
                                                                 SELECT DISTINCT
                                                                         temp.*,
                                                                         c2.*
-                                                                FROM @writeSchema.@temp_table temp
+                                                                FROM @write_schema.@temp_table temp
                                                                 LEFT JOIN concepts c2
                                                                 ON c2.@concept_column = temp.@column
                                                                 ",
-                                                                    writeSchema = writeSchema,
+                                                                    write_schema = write_schema,
                                                                     temp_table = temp_table,
-                                                                    athena_schema = athena_schema,
+                                                                    vocab_schema = vocab_schema,
                                                                     concept_column = concept_column,
                                                                     column = column
                                                                 ),
@@ -404,15 +374,15 @@ leftJoinConceptId <-
                                                 SqlRender::render(
                                                     "
                                                                         WITH concepts AS (
-                                                                            SELECT @athena_schema.concept.*
-                                                                            FROM @writeSchema.@temp_table temp
-                                                                            INNER JOIN @athena_schema.concept
-                                                                            ON @athena_schema.concept.@concept_column = temp.@column
+                                                                            SELECT @vocab_schema.concept.*
+                                                                            FROM @write_schema.@temp_table temp
+                                                                            INNER JOIN @vocab_schema.concept
+                                                                            ON @vocab_schema.concept.@concept_column = temp.@column
                                                                             WHERE @concept_filters
                                                                         ),
                                                                         concept_synonyms AS (
                                                                             SELECT cs.concept_id, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
-                                                                            FROM @athena_schema.concept_synonym cs
+                                                                            FROM @vocab_schema.concept_synonym cs
                                                                             INNER JOIN concepts c1
                                                                             ON c1.concept_id = cs.concept_id
                                                                             GROUP BY cs.concept_id
@@ -422,15 +392,15 @@ leftJoinConceptId <-
                                                                                 temp.*,
                                                                                 c2.*,
                                                                                 cs2.concept_synonyms
-                                                                        FROM @writeSchema.@temp_table temp
+                                                                        FROM @write_schema.@temp_table temp
                                                                         LEFT JOIN concepts c2
                                                                         ON c2.@concept_column = temp.@column
                                                                         LEFT JOIN concept_synonyms cs2
                                                                         ON c2.@concept_column = cs2.@concept_column
                                                                         ",
-                                                    writeSchema = writeSchema,
+                                                    write_schema = write_schema,
                                                     temp_table = temp_table,
-                                                    athena_schema = athena_schema,
+                                                    vocab_schema = vocab_schema,
                                                     concept_column = concept_column,
                                                     column = column,
                                                     concept_filters = concept_filters
@@ -449,23 +419,23 @@ leftJoinConceptId <-
                                                 SqlRender::render(
                                                     "
                                                                         WITH concepts AS (
-                                                                            SELECT @athena_schema.concept.*
-                                                                            FROM @writeSchema.@temp_table temp
-                                                                            INNER JOIN @athena_schema.concept
-                                                                            ON @athena_schema.concept.@concept_column = temp.@column
+                                                                            SELECT @vocab_schema.concept.*
+                                                                            FROM @write_schema.@temp_table temp
+                                                                            INNER JOIN @vocab_schema.concept
+                                                                            ON @vocab_schema.concept.@concept_column = temp.@column
                                                                             WHERE @concept_filters
                                                                         )
 
                                                                         SELECT DISTINCT
                                                                                 temp.*,
                                                                                 c2.*
-                                                                        FROM @writeSchema.@temp_table temp
+                                                                        FROM @write_schema.@temp_table temp
                                                                         LEFT JOIN concepts c2
                                                                         ON c2.@concept_column = temp.@column
                                                                         ",
-                                                    writeSchema = writeSchema,
+                                                    write_schema = write_schema,
                                                     temp_table = temp_table,
-                                                    athena_schema = athena_schema,
+                                                    vocab_schema = vocab_schema,
                                                     concept_column = concept_column,
                                                     column = column,
                                                     concept_filters = concept_filters
@@ -482,7 +452,7 @@ leftJoinConceptId <-
 
 
                             pg13::dropTable(conn = write_conn,
-                                            schema = writeSchema,
+                                            schema = write_schema,
                                             tableName = temp_table)
 
                             if (is.null(conn)) {
@@ -500,7 +470,7 @@ leftJoinConceptId <-
 #' @description FUNCTION_DESCRIPTION
 #' @param data PARAM_DESCRIPTION
 #' @param column PARAM_DESCRIPTION, Default: NULL
-#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param vocab_schema PARAM_DESCRIPTION, Default: 'public'
 #' @param concept_synonym_column PARAM_DESCRIPTION, Default: 'concept_synonm_name'
 #' @param verbose PARAM_DESCRIPTION, Default: FALSE
 #' @param conn PARAM_DESCRIPTION, Default: NULL
@@ -803,7 +773,7 @@ leftJoinSynonymNames <-
 
 #' @title Left Join a data frame to the Concept Ancestor Table
 #' @param data PARAM_DESCRIPTION
-#' @param athena_schema PARAM_DESCRIPTION, Default: 'public'
+#' @param vocab_schema PARAM_DESCRIPTION, Default: 'public'
 #' @param descendant_id_column PARAM_DESCRIPTION, Default: NULL
 #' @param whereLevelIn PARAM_DESCRIPTION, Default: NULL
 #' @param whereLevelType PARAM_DESCRIPTION, Default: NULL
@@ -825,7 +795,7 @@ leftJoinSynonymNames <-
 
 leftJoinForAncestors <-
         function(data,
-                 athena_schema = "public",
+                 vocab_schema = "public",
                  descendant_id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
@@ -855,11 +825,11 @@ leftJoinForAncestors <-
                                 ancestors <-
                                         leftJoin(data = data,
                                                  column = descendant_id_column,
-                                                 athena_schema = athena_schema,
-                                                 athena_table = "concept_ancestor",
-                                                 athena_column = "descendant_concept_id",
-                                                 where_athena_col = whereAthenaField,
-                                                 where_athena_col_in = whereLevelIn,
+                                                 vocab_schema = vocab_schema,
+                                                 vocab_table = "concept_ancestor",
+                                                 vocab_column = "descendant_concept_id",
+                                                 where_vocab_col = whereAthenaField,
+                                                 where_vocab_col_in = whereLevelIn,
                                                  verbose = verbose,
                                                  conn = conn,
                                                  render_sql = render_sql,
@@ -871,9 +841,9 @@ leftJoinForAncestors <-
                                 ancestors <-
                                         leftJoin(data = data,
                                                  column = descendant_id_column,
-                                                 athena_schema = athena_schema,
-                                                 athena_table = "concept_ancestor",
-                                                 athena_column = "descendant_concept_id",
+                                                 vocab_schema = vocab_schema,
+                                                 vocab_table = "concept_ancestor",
+                                                 vocab_column = "descendant_concept_id",
                                                  verbose = verbose,
                                                  conn = conn,
                                                  render_sql = render_sql,
@@ -886,7 +856,7 @@ leftJoinForAncestors <-
                                 ancestors_detail <-
                                         leftJoinConcept(ancestors %>%
                                                                 dplyr::select(ancestor_concept_id),
-                                                        athena_schema = athena_schema,
+                                                        vocab_schema = vocab_schema,
                                                         synonyms = FALSE,
                                                         verbose = verbose,
                                                         conn = conn,
@@ -917,7 +887,7 @@ leftJoinForAncestors <-
 
 leftJoinFoChildren <-
         function(data,
-                 athena_schema,
+                 vocab_schema,
                  parent_id_column = NULL,
                  render_sql = TRUE,
                  conn = NULL) {
@@ -925,9 +895,9 @@ leftJoinFoChildren <-
 
                 leftJoin(data = data,
                          column = parent_id_column,
-                         athena_schema = athena_schema,
-                         athena_table = "concept_parent",
-                         athena_column = "parent_concept_id",
+                         vocab_schema = vocab_schema,
+                         vocab_table = "concept_parent",
+                         vocab_column = "parent_concept_id",
                          render_sql = render_sql,
                          conn = conn) %>%
                         dplyr::filter(parent_concept_id != child_concept_id)
@@ -941,7 +911,7 @@ leftJoinFoChildren <-
 #' @title Left Join a data frame to the Concept Ancestor Table
 #' @description FUNCTION_DESCRIPTION
 #' @param data PARAM_DESCRIPTION
-#' @param athena_schema Default: 'public'
+#' @param vocab_schema Default: 'public'
 #' @param ancestor_id_column Default: NULL
 #' @param whereLevelIn Default: NULL
 #' @param whereLevelType Default: NULL
@@ -958,7 +928,7 @@ leftJoinFoChildren <-
 
 leftJoinForDescendants <-
         function(data,
-                 athena_schema = "public",
+                 vocab_schema = "public",
                  ancestor_id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
@@ -988,11 +958,11 @@ leftJoinForDescendants <-
                                 descendants <-
                                         leftJoin(data = data,
                                                  column = ancestor_id_column,
-                                                 athena_schema = athena_schema,
-                                                 athena_table = "concept_ancestor",
-                                                 athena_column = "ancestor_concept_id",
-                                                 where_athena_col = whereAthenaField,
-                                                 where_athena_col_in = whereLevelIn,
+                                                 vocab_schema = vocab_schema,
+                                                 vocab_table = "concept_ancestor",
+                                                 vocab_column = "ancestor_concept_id",
+                                                 where_vocab_col = whereAthenaField,
+                                                 where_vocab_col_in = whereLevelIn,
                                                  verbose = verbose,
                                                  conn = conn,
                                                  render_sql = render_sql,
@@ -1004,9 +974,9 @@ leftJoinForDescendants <-
                                 descendants <-
                                         leftJoin(data = data,
                                                  column = ancestor_id_column,
-                                                 athena_schema = athena_schema,
-                                                 athena_table = "concept_ancestor",
-                                                 athena_column = "ancestor_concept_id",
+                                                 vocab_schema = vocab_schema,
+                                                 vocab_table = "concept_ancestor",
+                                                 vocab_column = "ancestor_concept_id",
                                                  verbose = verbose,
                                                  conn = conn,
                                                  render_sql = render_sql,
@@ -1019,7 +989,7 @@ leftJoinForDescendants <-
                                 descendants_detail <-
                                         leftJoinConcept(descendants %>%
                                                                 dplyr::select(descendant_concept_id),
-                                                        athena_schema = athena_schema,
+                                                        vocab_schema = vocab_schema,
                                                         synonyms = FALSE,
                                                         verbose = verbose,
                                                         conn = conn,
@@ -1050,7 +1020,7 @@ leftJoinForDescendants <-
 
 leftJoinForParents <-
         function(data,
-                 athena_schema,
+                 vocab_schema,
                  child_id_column = NULL,
                  render_sql = TRUE,
                  conn = NULL) {
@@ -1058,9 +1028,9 @@ leftJoinForParents <-
 
                 leftJoin(data = data,
                          column = child_id_column,
-                         athena_schema = athena_schema,
-                         athena_table = "concept_parent",
-                         athena_column = "parent_concept_id",
+                         vocab_schema = vocab_schema,
+                         vocab_table = "concept_parent",
+                         vocab_column = "parent_concept_id",
                          render_sql = render_sql,
                          conn = conn) %>%
                         dplyr::filter(parent_concept_id != child_concept_id)
@@ -1076,7 +1046,7 @@ leftJoinForParents <-
 leftJoinRelationship <-
         function(data,
                  column = NULL,
-                 athena_schema = "public",
+                 vocab_schema = "public",
                  render_sql = TRUE,
                  conn = NULL) {
 
@@ -1091,9 +1061,9 @@ leftJoinRelationship <-
                 .output1 <-
                         leftJoin(data = data %>%
                                          dplyr::select(all_of(column)),
-                                 athena_schema = athena_schema,
-                                 athena_table = "concept_relationship",
-                                 athena_column = "concept_id_1",
+                                 vocab_schema = vocab_schema,
+                                 vocab_table = "concept_relationship",
+                                 vocab_column = "concept_id_1",
                                  render_sql = render_sql,
                                  conn = conn) %>%
                         dplyr::filter(is.na(invalid_reason)) %>%
@@ -1109,7 +1079,7 @@ leftJoinRelationship <-
                 .output2 <-
                         leftJoinConcept(data = .output1 %>%
                                                 dplyr::select(concept_id_2),
-                                        athena_schema = athena_schema,
+                                        vocab_schema = vocab_schema,
                                         render_sql = render_sql,
                                         conn = conn) %>%
                                         dplyr::select(-concept_id_2) %>%
@@ -1136,7 +1106,7 @@ leftJoinRelationship <-
 
 leftJoinRelatives <-
         function(data,
-                 athena_schema = "public",
+                 vocab_schema = "public",
                  id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
@@ -1147,7 +1117,7 @@ leftJoinRelatives <-
 
                 ancestors <-
                         leftJoinForAncestors(data = data,
-                                             athena_schema = athena_schema,
+                                             vocab_schema = vocab_schema,
                                              descendant_id_column = id_column,
                                              whereLevelIn = whereLevelIn,
                                              whereLevelType = whereLevelType,
@@ -1156,7 +1126,7 @@ leftJoinRelatives <-
 
                 descendants <-
                         leftJoinForDescendants(data = data,
-                                               athena_schema = athena_schema,
+                                               vocab_schema = vocab_schema,
                                                ancestor_id_column = id_column,
                                                whereLevelIn = whereLevelIn,
                                                whereLevelType = whereLevelType,
@@ -1208,7 +1178,7 @@ leftJoinRelatives <-
 #'
 #' @param data                 A data frame
 #' @param column                Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.
-#' @param athena_schema         Schema of the OMOP Vocabulary Tables
+#' @param vocab_schema         Schema of the OMOP Vocabulary Tables
 #' @param verbose               If TRUE, prints whether the cache is being loaded or being actively queried in the Postgres database, Default: FALSE
 #' @param conn                  PARAM_DESCRIPTION, Default: NULL
 #' @param render_sql            If TRUE, will print the SQL to the console before executing. Default: FALSE
@@ -1229,7 +1199,7 @@ leftJoinRelatives <-
 leftJoinSynonymId <-
     function(data,
              column = NULL,
-             athena_schema,
+             vocab_schema,
              verbose = FALSE,
              conn = NULL,
              render_sql = FALSE,
@@ -1248,12 +1218,12 @@ leftJoinSynonymId <-
 
                             leftJoin(data = data,
                                       column = column,
-                                      athena_schema = athena_schema,
-                                      athena_table = "concept_synonym",
-                                      athena_column = "concept_id",
+                                      vocab_schema = vocab_schema,
+                                      vocab_table = "concept_synonym",
+                                      vocab_column = "concept_id",
                                       render_sql = render_sql,
-                                      where_athena_col = "language_concept_id",
-                                      where_athena_col_in = 4180186,
+                                      where_vocab_col = "language_concept_id",
+                                      where_vocab_col_in = 4180186,
                                       verbose = verbose,
                                       conn = conn,
                                       sleepTime = sleepTime) %>%

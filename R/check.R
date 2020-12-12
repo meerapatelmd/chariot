@@ -17,6 +17,24 @@ check_conn <-
         }
 
 #' @export
+#' @rdname check_conn_type
+#' @importFrom cli cli_alert_success cli_alert_danger
+
+check_conn_type <-
+        function(conn) {
+
+                if (!.hasSlot(conn, name = "jConnection")) {
+
+                        cli::cli_alert_danger("Connection not JDBC Connection")
+
+                } else {
+
+                        cli::cli_alert_success("Connection is JDBC Connection")
+                }
+
+        }
+
+#' @export
 #' @rdname check_concept_id
 #' @importFrom cli cli_alert_success cli_alert_danger
 

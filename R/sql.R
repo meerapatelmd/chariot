@@ -50,14 +50,8 @@ queryAthena <-
 
                 }
 
-                if (!.hasSlot(conn, name = "jConnection")) {
-
-                        stop('conn object must be a Database Connector JDBC Connection')
-
-                }
-
-
                 check_conn(conn = conn)
+                check_conn_type(conn = conn)
 
                 db <- get_conn_db(conn = conn)
 
