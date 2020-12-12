@@ -8,10 +8,11 @@ plot_classification(
   vocabulary_id,
   domain_id,
   conn,
-  vocabSchema,
+  vocab_schema,
   range = 1:10,
   color_by = "vocabulary_id",
   terminal_vocabulary_id,
+  verbose = TRUE,
   render_sql = TRUE
 )
 }
@@ -22,7 +23,7 @@ plot_classification(
 
 \item{conn}{PARAM_DESCRIPTION}
 
-\item{vocabSchema}{PARAM_DESCRIPTION}
+\item{vocab_schema}{PARAM_DESCRIPTION}
 
 \item{range}{PARAM_DESCRIPTION, Default: 1:10}
 

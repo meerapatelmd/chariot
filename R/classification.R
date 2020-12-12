@@ -1,3 +1,9 @@
+#' @title
+#' Get the Top Classes
+#'
+#' @description
+#' Get the top classes in the Concept Ancestor table by vocabulary with the option of filtering further for domain.
+#'
 #' @export
 
 lookup_top_classes <-
