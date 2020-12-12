@@ -120,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Join a data frame with the Concept Synonym Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join.R'><code>R/join.R</code></a></small>
     <div class="hidden name"><code>leftJoinSynonymId.Rd</code></div>
     </div>
 
@@ -131,7 +131,7 @@
     <pre class="usage"><span class='fu'>leftJoinSynonymId</span><span class='op'>(</span>
   <span class='va'>data</span>,
   column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>athena_schema</span>,
+  <span class='va'>vocab_schema</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   conn <span class='op'>=</span> <span class='cn'>NULL</span>,
   render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -150,7 +150,7 @@
       <td><p>Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.</p></td>
     </tr>
     <tr>
-      <th>athena_schema</th>
+      <th>vocab_schema</th>
       <td><p>Schema of the OMOP Vocabulary Tables</p></td>
     </tr>
     <tr>

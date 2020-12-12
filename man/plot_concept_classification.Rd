@@ -5,16 +5,19 @@
 \title{FUNCTION_TITLE}
 \usage{
 plot_concept_classification(
-  class_vocabulary_id,
-  concept_vocabulary_id,
+  vocabulary_id,
   domain_id,
   conn,
   vocabSchema,
   range = 1:10,
-  render_sql = FALSE
+  color_by = "vocabulary_id",
+  terminal_vocabulary_id,
+  render_sql = TRUE
 )
 }
 \arguments{
+\item{vocabulary_id}{PARAM_DESCRIPTION}
+
 \item{domain_id}{PARAM_DESCRIPTION}
 
 \item{conn}{PARAM_DESCRIPTION}
@@ -23,13 +26,11 @@ plot_concept_classification(
 
 \item{range}{PARAM_DESCRIPTION, Default: 1:10}
 
-\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
-
-\item{vocabulary_id}{PARAM_DESCRIPTION}
-
 \item{color_by}{PARAM_DESCRIPTION, Default: 'vocabulary_id'}
 
 \item{terminal_vocabulary_id}{PARAM_DESCRIPTION}
+
+\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
 }
 \value{
 OUTPUT_DESCRIPTION

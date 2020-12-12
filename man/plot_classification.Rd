@@ -2,7 +2,6 @@
 % Please edit documentation in R/collapsibleTrees_functions.R
 \name{plot_classification}
 \alias{plot_classification}
-\alias{plot_concept_classification}
 \title{FUNCTION_TITLE}
 \usage{
 plot_classification(
@@ -14,16 +13,6 @@ plot_classification(
   color_by = "vocabulary_id",
   terminal_vocabulary_id,
   render_sql = TRUE
-)
-
-plot_concept_classification(
-  class_vocabulary_id,
-  concept_vocabulary_id,
-  domain_id,
-  conn,
-  vocabSchema,
-  range = 1:10,
-  render_sql = FALSE
 )
 }
 \arguments{
@@ -45,17 +34,11 @@ plot_concept_classification(
 }
 \value{
 OUTPUT_DESCRIPTION
-
-OUTPUT_DESCRIPTION
 }
 \description{
 FUNCTION_DESCRIPTION
-
-FUNCTION_DESCRIPTION
 }
 \details{
-DETAILS
-
 DETAILS
 }
 \examples{
@@ -64,20 +47,8 @@ if(interactive()){
  #EXAMPLE1
  }
 }
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
 }
 \seealso{
-\code{\link[tibble]{tibble}}
- \code{\link[SqlRender]{render}}
- \code{\link[dplyr]{mutate}},\code{\link[dplyr]{select}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{group_by}},\code{\link[dplyr]{summarise_all}},\code{\link[dplyr]{mutate-joins}}
- \code{\link[tidyr]{unite}},\code{\link[tidyr]{pivot_longer}}
- \code{\link[colorspace]{rainbow_hcl}}
- \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
-
 \code{\link[tibble]{tibble}}
  \code{\link[SqlRender]{render}}
  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{select}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{group_by}},\code{\link[dplyr]{summarise_all}},\code{\link[dplyr]{mutate-joins}}

@@ -120,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Join a dataframe object with the Concept Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join.R'><code>R/join.R</code></a></small>
     <div class="hidden name"><code>leftJoinConcept.Rd</code></div>
     </div>
 
@@ -131,8 +131,8 @@
     <pre class="usage"><span class='fu'>leftJoinConceptId</span><span class='op'>(</span>
   <span class='va'>data</span>,
   column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>writeSchema</span>,
-  athena_schema <span class='op'>=</span> <span class='st'>"public"</span>,
+  <span class='va'>write_schema</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"public"</span>,
   synonyms <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>vocabulary_id</span>,
   <span class='va'>domain_id</span>,
@@ -157,7 +157,7 @@
       <td><p>Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.</p></td>
     </tr>
     <tr>
-      <th>athena_schema</th>
+      <th>vocab_schema</th>
       <td><p>Schema of the OMOP Concept Table</p></td>
     </tr>
     <tr>

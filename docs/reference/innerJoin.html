@@ -120,7 +120,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>INNER JOIN an OMOP Vocabulary Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join.R'><code>R/join.R</code></a></small>
     <div class="hidden name"><code>innerJoin.Rd</code></div>
     </div>
 
@@ -131,11 +131,12 @@
     <pre class="usage"><span class='fu'>innerJoin</span><span class='op'>(</span>
   <span class='va'>data</span>,
   column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>athena_schema</span>,
-  <span class='va'>athena_table</span>,
-  <span class='va'>athena_column</span>,
-  where_athena_col <span class='op'>=</span> <span class='cn'>NULL</span>,
-  where_athena_col_in <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>write_schema</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
+  <span class='va'>vocab_table</span>,
+  <span class='va'>vocab_column</span>,
+  where_vocab_col <span class='op'>=</span> <span class='cn'>NULL</span>,
+  where_vocab_col_in <span class='op'>=</span> <span class='cn'>NULL</span>,
   render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
   conn <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span></pre>
