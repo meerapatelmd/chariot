@@ -225,7 +225,7 @@ plot_loinc_classification <-
                                        child = child)
 
 
-                range_output <- loinc_classification(conn = conn,
+                range_output <- preview_loinc_classification(conn = conn,
                                                         concept_class_obj = concept_class_obj,
                                                         vocab_schema = vocab_schema,
                                                         verbose = verbose,
