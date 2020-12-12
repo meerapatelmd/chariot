@@ -13,7 +13,7 @@
 
 queryAncestors <-
     function(descendant_concept_ids,
-             schema,
+             vocab_schema,
              min_levels_of_separation = NULL,
              max_levels_of_separation = NULL,
              conn = NULL,
@@ -24,21 +24,11 @@ queryAncestors <-
              verbose = TRUE,
              sleepTime = 1) {
 
-            if (is.null(conn)) {
 
-                    schema <- "public"
-
-            }
-
-
-            sql_statement <- "SELECT *
-                                FROM @schema.concept_ancestor ca
-                                WHERE ca.descendant_concept_id IN (@descendant_concept_ids);"
-
-            sql_statement <-
-                    SqlRender::render(sql = sql_statement,
-                                      schema = schema,
-                                      descendant_concept_ids = descendant_concept_ids)
+        sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
+                                              vocab_schema = vocab_schema,
+                                              min_levels_of_separation = min_levels_of_separation,
+                                              max_levels_of_separation = max_levels_of_separation)
 
             queryAthena(sql_statement = sql_statement,
                         conn = conn,
@@ -68,7 +58,7 @@ queryAncestors <-
 
 queryCode <-
         function(code,
-                 schema,
+                 vocab_schema,
                  caseInsensitive = TRUE,
                  limit = NULL,
                  verbose = FALSE,
@@ -81,7 +71,7 @@ queryCode <-
 
 
                 sql_statement <-
-                                pg13::buildQuery(schema = schema,
+                                pg13::buildQuery(schema = vocab_schema,
                                                  tableName = "concept",
                                                  whereInField = "concept_code",
                                                  whereInVector = code,
@@ -113,24 +103,19 @@ queryCode <-
 queryConceptClassRelationships <-
     function(vocabulary_id_1,
              vocabulary_id_2 = NULL,
-             schema = NULL,
+             vocab_schema,
              conn = NULL,
              cache_only = FALSE,
              skip_cache = FALSE,
              override_cache = FALSE,
-             render_sql = FALSE,
+             render_sql = TRUE,
              verbose = FALSE,
              sleepTime = 1) {
 
-                        if (is.null(schema)) {
-
-                                schema <- "public"
-
-                        }
 
                         sql_statement <- renderConceptClassRelationships(vocabulary_id_1 = vocabulary_id_1,
                                                                         vocabulary_id_2 = vocabulary_id_2,
-                                                                        schema = schema)
+                                                                        vocab_schema = vocab_schema)
 
 
                         queryAthena(sql_statement = sql_statement,
@@ -159,7 +144,7 @@ queryConceptClassRelationships <-
 #' @importFrom SqlRender render
 queryConceptId <-
     function(concept_ids,
-             schema,
+             vocab_schema,
              conn = NULL,
              cache_only = FALSE,
              skip_cache = FALSE,
@@ -169,6 +154,7 @@ queryConceptId <-
              sleepTime = 1) {
 
 
+            .Deprecated("lookup_concept_id")
                             # sql <-
                             # pg13::buildQuery(schema = schema,
                             #                  tableName = "concept",
@@ -178,10 +164,10 @@ queryConceptId <-
 
                             sql <-
                                     SqlRender::render("SELECT *
-                                                        FROM @schema.concept c
+                                                        FROM @vocab_schema.concept c
                                                         WHERE c.concept_id IN (@concept_ids)
                                                       ",
-                                                        schema = schema,
+                                                        vocab_schema = vocab_schema,
                                                       concept_ids = concept_ids)
 
 
@@ -202,7 +188,7 @@ queryConceptId <-
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param ancestor_concept_ids PARAM_DESCRIPTION
-#' @param schema PARAM_DESCRIPTION
+#' @param vocab_schema PARAM_DESCRIPTION
 #' @param min_levels_of_separation PARAM_DESCRIPTION, Default: NULL
 #' @param max_levels_of_separation PARAM_DESCRIPTION, Default: NULL
 #' @inheritParams queryAthena
@@ -216,7 +202,7 @@ queryConceptId <-
 
 queryDescendants <-
     function(ancestor_concept_ids,
-             schema,
+             vocab_schema,
              min_levels_of_separation = NULL,
              max_levels_of_separation = NULL,
              conn = NULL,
@@ -226,45 +212,11 @@ queryDescendants <-
              render_sql = FALSE,
              verbose = FALSE,
              sleepTime = 1) {
-            sql_statement <-
-                    SqlRender::render(
-                            "
-                            SELECT
-                                c.concept_id AS ancestor_concept_id,
-                                c.concept_name AS ancestor_concept_name,
-                                c.domain_id AS ancestor_domain_id,
-                                c.vocabulary_id AS ancestor_vocabulary_id,
-                                c.concept_class_id AS ancestor_concept_class_id,
-                                c.standard_concept AS ancestor_standard_concept,
-                                c.concept_code AS ancestor_concept_code,
-                                c.valid_start_date AS ancestor_valid_start_date,
-                                c.valid_end_date AS ancestor_valid_end_date,
-                                c.invalid_reason AS ancestor_invalid_reason,
-                                ca.min_levels_of_separation,
-                                ca.max_levels_of_separation,
-                                c2.concept_id AS descendant_concept_id,
-                                c2.concept_name AS descendant_concept_name,
-                                c2.domain_id AS descendant_domain_id,
-                                c2.vocabulary_id AS descendant_vocabulary_id,
-                                c2.concept_class_id AS descendant_concept_class_id,
-                                c2.standard_concept AS descendant_standard_concept,
-                                c2.concept_code AS descendant_concept_code,
-                                c2.valid_start_date AS descendant_valid_start_date,
-                                c2.valid_end_date AS descendant_valid_end_date,
-                                c2.invalid_reason AS descendant_invalid_reason
-                            FROM @schema.concept_ancestor ca
-                            INNER JOIN @schema.concept c
-                            ON c.concept_id = ca.ancestor_concept_id
-                            INNER JOIN @schema.concept c2
-                            ON c2.concept_id = ca.descendant_concept_id
-                            WHERE
-                                ca.ancestor_concept_id IN (@ancestor_concept_ids)
-                                AND c.invalid_reason IS NULL
-                                AND c2.invalid_reason IS NULL
-                            ;",
-                            schema = schema,
-                            ancestor_concept_ids = ancestor_concept_ids
-                    )
+
+        sql_statement <- renderQueryDescendants(ancestor_concept_ids = ancestor_concept_ids,
+                                                vocab_schema = vocab_schema,
+                                                min_levels_of_separation = min_levels_of_separation,
+                                                max_levels_of_separation = max_levels_of_separation)
 
             queryAthena(sql_statement = sql_statement,
                         conn = conn,
@@ -283,7 +235,7 @@ queryDescendants <-
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param concept_id_1s PARAM_DESCRIPTION
-#' @param schema PARAM_DESCRIPTION
+#' @param vocab_schema PARAM_DESCRIPTION
 #' @inheritParams queryAthena
 #' @return a [tibble][tibble::tibble-package]
 #' @seealso
@@ -295,7 +247,7 @@ queryDescendants <-
 
 queryRelationships <-
         function(concept_id_1s,
-                 schema,
+                 vocab_schema,
                  relationship_ids = NULL,
                  conn = NULL,
                  cache_only = FALSE,
@@ -332,10 +284,10 @@ queryRelationships <-
                                 c2.valid_start_date AS valid_start_date_2,
                                 c2.valid_end_date AS valid_end_date_2,
                                 c2.invalid_reason AS invalid_reason_2
-                            FROM @schema.concept_relationship cr
-                            INNER JOIN @schema.concept c
+                            FROM @vocab_schema.concept_relationship cr
+                            INNER JOIN @vocab_schema.concept c
                             ON c.concept_id = cr.concept_id_1
-                            INNER JOIN @schema.concept c2
+                            INNER JOIN @vocab_schema.concept c2
                             ON c2.concept_id = cr.concept_id_2
                             WHERE
                                 cr.concept_id_1 IN (@concept_id_1s)
@@ -343,7 +295,7 @@ queryRelationships <-
                                 AND cr.invalid_reason IS NULL
                                 AND c2.invalid_reason IS NULL
                             ;",
-                                schema = schema,
+                                vocab_schema = vocab_schema,
                                 concept_id_1s = concept_id_1s
                         )
                 } else {
@@ -375,10 +327,10 @@ queryRelationships <-
                                 c2.valid_start_date AS valid_start_date_2,
                                 c2.valid_end_date AS valid_end_date_2,
                                 c2.invalid_reason AS invalid_reason_2
-                            FROM @schema.concept_relationship cr
-                            INNER JOIN @schema.concept c
+                            FROM @vocab_schema.concept_relationship cr
+                            INNER JOIN @vocab_schema.concept c
                             ON c.concept_id = cr.concept_id_1
-                            INNER JOIN @schema.concept c2
+                            INNER JOIN @vocab_schema.concept c2
                             ON c2.concept_id = cr.concept_id_2
                             WHERE
                                 cr.concept_id_1 IN (@concept_id_1s)
@@ -387,7 +339,7 @@ queryRelationships <-
                                 AND cr.invalid_reason IS NULL
                                 AND c2.invalid_reason IS NULL
                             ;",
-                                        schema = schema,
+                                        vocab_schema = vocab_schema,
                                         concept_id_1s = concept_id_1s,
                                         relationship_ids = relationship_ids
                                 )
@@ -409,7 +361,7 @@ queryRelationships <-
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param concept_id PARAM_DESCRIPTION
-#' @param schema PARAM_DESCRIPTION, Default: NULL
+#' @param vocab_schema PARAM_DESCRIPTION, Default: NULL
 #' @param language_concept_id PARAM_DESCRIPTION, Default: 4180186
 #' @param conn PARAM_DESCRIPTION, Default: NULL
 #' @param cache_only PARAM_DESCRIPTION, Default: FALSE
@@ -427,7 +379,7 @@ queryRelationships <-
 #' @importFrom dplyr select
 querySynonyms <-
         function(concept_id,
-                 schema = NULL,
+                 vocab_schema = NULL,
                  language_concept_id = 4180186,
                  conn = NULL,
                  cache_only = FALSE,
@@ -438,7 +390,7 @@ querySynonyms <-
                  sleepTime = 1) {
 
                 sql_statement <- renderSynonyms(concept_id = concept_id,
-                                                schema = schema,
+                                                schema = vocab_schema,
                                                 language_concept_id = language_concept_id)
 
                 queryAthena(sql_statement = sql_statement,

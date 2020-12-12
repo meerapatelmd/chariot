@@ -29,7 +29,7 @@
 
 queryAthena <-
         function(sql_statement,
-                 conn = NULL,
+                 conn,
                  conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
@@ -40,22 +40,13 @@ queryAthena <-
                  sleepTime = 1) {
 
 
-                if (!missing(conn_fun)) {
+                if (missing(conn)) {
 
                         conn <- eval(expr = rlang::parse_expr(x = conn_fun))
                         on.exit(expr = dcAthena(conn = conn,
                                                 verbose = verbose),
                                 add = TRUE,
                                 after = TRUE)
-
-                }
-
-                if (is.null(conn)) {
-
-                        conn <- connectAthena(verbose = verbose)
-                        on.exit(dcAthena(conn = conn,
-                                         verbose = verbose))
-
 
                 }
 

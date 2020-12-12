@@ -10,11 +10,11 @@
 renderConceptClassRelationships <-
     function(vocabulary_id_1,
              vocabulary_id_2 = NULL,
-             schema = NULL) {
+             vocab_schema = NULL) {
 
-                        if (is.null(schema)) {
+                        if (is.null(vocab_schema)) {
 
-                                schema <- "public"
+                                vocab_schema <- "public"
 
                         }
 
@@ -48,7 +48,7 @@ renderConceptClassRelationships <-
 
                         sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = schema,
+                                                  schema = vocab_schema,
                                                   concept_class_id_1 = concept_class_id_1,
                                                   concept_class_id_2 = concept_class_id_2,
                                                   vocabulary_id_1 = vocabulary_id_1,
@@ -70,11 +70,11 @@ renderConceptClassRelationships <-
 
 renderHemOncCompToReg <-
     function(component_concept_ids,
-             schema = NULL) {
+             vocab_schema = NULL) {
 
-                        if (is.null(schema)) {
+                        if (is.null(vocab_schema)) {
 
-                                schema <- "public"
+                                vocab_schema <- "public"
 
                         }
 
@@ -84,7 +84,7 @@ renderHemOncCompToReg <-
 
                         sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = schema,
+                                                  schema = vocab_schema,
                                                   component_concept_ids = component_concept_ids)
 
                         return(sql_statement)
@@ -107,11 +107,11 @@ renderHemOncCompToReg <-
 
 renderHemOncRegToAntineoplastics <-
     function(regimen_concept_ids,
-             schema = NULL) {
+             vocab_schema = NULL) {
 
-                        if (is.null(schema)) {
+                        if (is.null(vocab_schema)) {
 
-                                schema <- "public"
+                                vocab_schema <- "public"
 
                         }
 
@@ -121,7 +121,7 @@ renderHemOncRegToAntineoplastics <-
 
                         sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = schema,
+                                                  schema = vocab_schema,
                                                   regimen_concept_ids = regimen_concept_ids)
 
                         return(sql_statement)
@@ -140,14 +140,14 @@ renderHemOncRegToAntineoplastics <-
 
 renderQueryAncestors <-
         function(descendant_concept_ids,
-                 schema,
+                 vocab_schema,
                  min_levels_of_separation = NULL,
                  max_levels_of_separation = NULL) {
 
 
                 sql_statement <-
                         stringr::str_remove_all(
-                                pg13::buildQuery(schema = schema,
+                                pg13::buildQuery(schema = vocab_schema,
                                                  tableName = "concept_ancestor",
                                                  whereInField = "descendant_concept_id",
                                                  whereInVector = descendant_concept_ids,
@@ -186,14 +186,14 @@ renderQueryAncestors <-
 
 renderQueryDescendants <-
         function(ancestor_concept_ids,
-                 schema,
+                 vocab_schema,
                  min_levels_of_separation = NULL,
                  max_levels_of_separation = NULL) {
 
 
                 sql_statement <-
                         stringr::str_remove_all(
-                                pg13::buildQuery(schema = schema,
+                                pg13::buildQuery(schema = vocab_schema,
                                                  tableName = "concept_ancestor",
                                                  whereInField = "ancestor_concept_id",
                                                  whereInVector = ancestor_concept_ids,
@@ -233,7 +233,7 @@ renderQueryDescendants <-
 
 
 renderQueryPhraseExactSynonym <-
-        function(schema,
+        function(vocab_schema,
                  phrase,
                  caseInsensitive = TRUE) {
 
@@ -249,7 +249,7 @@ renderQueryPhraseExactSynonym <-
 
                                 path_to_sourceFile <-paste0(path, "/queryLowerPhraseExactSynonym.sql")
                                 SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                                  schema = schema,
+                                                  schema = vocab_schema,
                                                   phrase = tolower(phrase))
 
 
@@ -257,7 +257,7 @@ renderQueryPhraseExactSynonym <-
 
                         path_to_sourceFile <-paste0(path, "/queryPhraseExactSynonym.sql")
                         SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                          schema = schema,
+                                          schema = vocab_schema,
                                           phrase = phrase)
 
                 }
@@ -275,7 +275,7 @@ renderQueryPhraseExactSynonym <-
 
 
 renderQueryPhraseLikeSynonym <-
-        function(schema,
+        function(vocab_schema,
                  phrase,
                  caseInsensitive = TRUE) {
 
@@ -290,7 +290,7 @@ renderQueryPhraseLikeSynonym <-
 
                                 path_to_sourceFile <-paste0(path, "/queryLowerPhraseLikeSynonym.sql")
                                 SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                                  schema = schema,
+                                                  schema = vocab_schema,
                                                   phrase = tolower(phrase))
 
 
@@ -298,7 +298,7 @@ renderQueryPhraseLikeSynonym <-
 
                         path_to_sourceFile <-paste0(path, "/queryPhraseLikeSynonym.sql")
                         SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                          schema = schema,
+                                          schema = vocab_schema,
                                           phrase = phrase)
 
                 }
@@ -311,18 +311,18 @@ renderQueryPhraseLikeSynonym <-
 
 #' Render SQL Statement for Concept Synonyms
 #' @description Get all the synonyms for a concept by concept_id.
-#' @param schema If NULL, defaults to the public schema.
+#' @param vocab_schema If NULL, defaults to the public schema.
 #' @import SqlRender
 #' @export
 
 renderSynonyms <-
         function(concept_id,
-                 schema = NULL,
+                 vocab_schema = NULL,
                  language_concept_id = 4180186) {
 
-                if (is.null(schema)) {
+                if (is.null(vocab_schema)) {
 
-                        schema <- "public"
+                        vocab_schema <- "public"
 
                 }
 
@@ -331,7 +331,7 @@ renderSynonyms <-
 
                 SqlRender::render(SqlRender::readSql(paste0(path, "/synonyms.sql")),
                                   concept_id = concept_id,
-                                  schema = schema,
+                                  schema = vocab_schema,
                                   language_concept_id = language_concept_id)
 
 
