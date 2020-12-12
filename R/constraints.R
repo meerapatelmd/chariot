@@ -15,7 +15,6 @@
 #' @importFrom SqlRender render
 
 
-
 constraints <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -62,3 +61,54 @@ constraints <-
 
 
         }
+
+#' @export
+
+constraints_ff <-
+        function(table,
+                 field,
+                 vocab_schema,
+                 conn_fun = "connectAthena()") {
+
+                function(conn,
+                         skip_cache = FALSE,
+                         override_cache = FALSE,
+                         render_sql = TRUE,
+                         verbose = TRUE,
+                         sleepTime = 1) {
+
+                        constraints(conn = conn,
+                                    conn_fun = conn_fun,
+                                    vocab_schema = vocab_schema,
+                                    table = table,
+                                    field = field,
+                                    skip_cache = skip_cache,
+                                    override_cache = override_cache,
+                                    render_sql = render_sql,
+                                    verbose = verbose,
+                                    sleepTime = sleepTime)
+                }
+        }
+
+#' @export
+
+vocabulary_id_constraints <-
+        constraints_ff(table = "concept",
+                       field = "vocabulary_id",
+                       vocab_schema = "omop_vocabulary")
+
+#' @export
+
+domain_id_constraints <-
+        constraints_ff(table = "concept",
+                       field = "domain_id",
+                       vocab_schema = "omop_vocabulary")
+
+#' @export
+
+concept_class_id_constraints <-
+        constraints_ff(table = "concept",
+                       field = "concept_class_id",
+                       vocab_schema = "omop_vocabulary")
+
+
