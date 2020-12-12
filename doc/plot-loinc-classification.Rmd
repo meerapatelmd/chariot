@@ -1,0 +1,38 @@
+---
+title: "Plotting LOINC Classification"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"  
+vignette: >
+  %\VignetteIndexEntry{plot-loinc-classification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = "hide"
+)
+```
+
+```{r setup}
+library(chariot)
+```
+
+The target LOINC Class first should be identified and a concept class object is derived. The Concept Id `37060596` for `Pathology` is used in this example.    
+
+```{r}
+loinc_class_concept <- get_concept(37060596,
+                          vocab_schema = "omop_vocabulary")
+```
+
+A `concept` class object contains slots for each field in the original Concept table with data type constraints. Concepts are handled as S4 classes in this package to allow the end-user to have access to all the concept attributes at any given point during their analysis. The concept class object of the example is as follows:
+
+```{r}
+loinc_class_concept
+```
+
+The `loinc_class_concept` is used as an argument for the `loinc_classification` function first to understand the number of levels below this concept in the hierarchy, as well as the number of descendants at each of these levels.  
+
+

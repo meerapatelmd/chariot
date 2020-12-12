@@ -41,7 +41,7 @@ lookup_top_classes <-
                                     AND c2.standard_concept = 'C'
                                     AND c2.vocabulary_id IN ('@vocabulary_id')
                                     AND ca.ancestor_concept_id <> ca.descendant_concept_id
-                                    AND ca.min_levels_of_separation = 1 OR ca.max_levels_of_separation = 1
+                                    AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
                                 )
 
                             SELECT DISTINCT c.*

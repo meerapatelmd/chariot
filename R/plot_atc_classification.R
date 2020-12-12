@@ -1,15 +1,15 @@
 #' @title
-#' Vuew LOINC Class Descendants
+#' Vuew ATC Class Descendants
 #'
 #' @description
 #' Due to the high amount of records, used to determine the appropriate range based on row counts per level to supply the optional `range` argument for \code{\link{plot_loinc_classification}}, where this fucntion is called again and can be optionally filtered on a numeric range before plotting.
 #'
 #' @export
-#' @rdname loinc_class_descendants
+#' @rdname atc_classification
 
-loinc_classification <-
+atc_classification <-
         function(conn,
-                 concept_class_obj,
+                 concept_obj,
                  vocab_schema = "omop_vocabulary",
                  verbose = TRUE,
                  render_sql = TRUE,
@@ -26,12 +26,12 @@ loinc_classification <-
 
                 }
 
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
+                domain_id <- "Drug"
+                vocabulary_id <- "ATC"
 
 
 
-                level_1 <-
+                level_1 <<-
                         queryAthena(sql_statement =
                                             SqlRender::render(
                                                     "
@@ -196,7 +196,7 @@ loinc_classification <-
 
 plot_loinc_classification <-
         function(conn,
-                 concept_class_obj,
+                 concept_obj,
                  range,
                  file,
                  vocab_schema = "omop_vocabulary",
