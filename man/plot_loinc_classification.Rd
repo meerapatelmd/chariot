@@ -32,7 +32,7 @@ plot_loinc_classification(
 \description{
 Plot a LOINC Class. Due to the high amount of records, use \code{\link{loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
 
-Plot a LOINC Class. Due to the high amount of records, use \code{\link{loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
+Plot a LOINC Class. Due to the high amount of records, use \code{\link{preview_loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
 }
 \seealso{
 \code{\link[tibble]{tibble}}

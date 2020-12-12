@@ -28,6 +28,7 @@ atc_classification <-
 
                 domain_id <- "Drug"
                 vocabulary_id <- "ATC"
+                child <- domain_id
 
 
 

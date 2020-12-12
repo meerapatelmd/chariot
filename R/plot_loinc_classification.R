@@ -1,13 +1,13 @@
 #' @title
-#' Vuew LOINC Class Descendants
+#' View LOINC Class Descendants
 #'
 #' @description
 #' Due to the high amount of records, used to determine the appropriate range based on row counts per level to supply the optional `range` argument for \code{\link{plot_loinc_classification}}, where this fucntion is called again and can be optionally filtered on a numeric range before plotting.
 #'
 #' @export
-#' @rdname loinc_class_descendants
+#' @rdname preview_loinc_classification
 
-loinc_classification <-
+preview_loinc_classification <-
         function(conn,
                  concept_class_obj,
                  vocab_schema = "omop_vocabulary",
@@ -16,18 +16,19 @@ loinc_classification <-
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_obj)) {
+                if (is.concept(concept_class_obj)) {
 
-                        concept_id <- concept_obj@concept_id
+                        concept_id <- concept_class_obj@concept_id
 
                 } else {
 
-                        stop("`concept_obj` must be a concept class object")
+                        stop("`concept_class_obj` must be a concept class object")
 
                 }
 
                 domain_id <- "Measurement"
                 vocabulary_id <- "LOINC"
+                child <- domain_id
 
 
 
@@ -157,7 +158,7 @@ loinc_classification <-
 
                 }
 
-                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_obj@concept_id, concept_obj@concept_name)))
+                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_class_obj@concept_id, concept_class_obj@concept_name)))
                 secretary::typewrite("Row counts:")
                 1:length(range_output) %>%
                         purrr::map2(range_output,
@@ -175,7 +176,7 @@ loinc_classification <-
 #' Plot a LOINC Class
 #'
 #' @description
-#' Plot a LOINC Class. Due to the high amount of records, use \code{\link{loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
+#' Plot a LOINC Class. Due to the high amount of records, use \code{\link{preview_loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
 #'
 #' @seealso
 #'  \code{\link[tibble]{tibble}}
@@ -206,13 +207,13 @@ plot_loinc_classification <-
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_obj)) {
+                if (is.concept(concept_class_obj)) {
 
-                        concept_id <- concept_obj@concept_id
+                        concept_id <- concept_class_obj@concept_id
 
                 } else {
 
-                        stop("`concept_obj` must be a concept class object")
+                        stop("`concept_class_obj` must be a concept class object")
 
                 }
 
@@ -224,8 +225,8 @@ plot_loinc_classification <-
                                        child = child)
 
 
-                range_output <- loinc_class_descendants(conn = conn,
-                                                        concept_obj = concept_obj,
+                range_output <- loinc_classification(conn = conn,
+                                                        concept_class_obj = concept_class_obj,
                                                         vocab_schema = vocab_schema,
                                                         verbose = verbose,
                                                         render_sql = render_sql,
@@ -270,8 +271,7 @@ plot_loinc_classification <-
                         dplyr::left_join(tooltip) %>%
                         dplyr::distinct()
 
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plot? ")
-                secretary::press_enter()
+                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting... ")
 
                 if (missing(file)) {
 

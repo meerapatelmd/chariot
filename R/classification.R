@@ -114,6 +114,3 @@ lookup_top_classes <-
                 }
         }
 
-
-#' @export
-
