@@ -12,7 +12,7 @@ NULL
 #' Lookup a Source Vocabulary's Relationships
 #'
 #' @details
-#' Lookup all of the Source Vocabulary's non-null relationships in the Concept Relationship Table.
+#' Lookup all of a Source Vocabulary's non-null relationships in the Concept Relationship Table.
 #'
 #' @inherit vocabulary_level_functions description
 #'
@@ -37,8 +37,6 @@ lookup_vocabulary_relationships <-
                  verbose = FALSE,
                  sleepTime = 1) {
 
-                vocabulary_id <- paste0("'", vocabulary_id, "'")
-
                 queryAthena(sql_statement =
                                     SqlRender::render(
                                             "SELECT DISTINCT
@@ -50,7 +48,7 @@ lookup_vocabulary_relationships <-
                                                         ON cr.concept_id_1 = c.concept_id
                                                         LEFT JOIN public.concept c2
                                                         ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN (@vocabulary_id)
+                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
                                                                 AND c.invalid_reason IS NULL
                                                                 AND cr.invalid_reason IS NULL",
                                             vocabulary_id = vocabulary_id),

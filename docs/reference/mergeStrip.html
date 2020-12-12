@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Merge OMOP Concepts into a Strip — mergeStrip" />
-<meta property="og:description" content="This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept &quot;Strip&quot;. If the Strip output is `&amp;lt;NA&amp;gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment." />
+<meta property="og:description" content="All the OMOP Vocabulary Concept Table fields other than the date fields are &quot;merged&quot;into a single string, called a &quot;Strip&quot;. If the Strip output is `&amp;lt;NA&amp;gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -102,7 +102,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/meerapatelmd/chariot/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,7 +125,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `&lt;NA&gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.</p>
+    <p>All the OMOP Vocabulary Concept Table fields other than the date fields are "merged"into a single string, called a "Strip". If the Strip output is `&lt;NA&gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.</p>
     </div>
 
     <pre class="usage"><span class='fu'>mergeStrip</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>into</span>, <span class='va'>...</span>, suffix <span class='op'>=</span> <span class='cn'>NULL</span>, prefix <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Left Join a data frame to the Concept Ancestor Table — leftJoinForAncestors • chariot</title>
+<title>Connect Local Athena Function Factory — connectAthena_ff • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Left Join a data frame to the Concept Ancestor Table — leftJoinForAncestors" />
-<meta property="og:description" content="Left Join a data frame to the Concept Ancestor Table" />
+<meta property="og:title" content="Connect Local Athena Function Factory — connectAthena_ff" />
+<meta property="og:description" content="Connect Local Athena Function Factory" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,83 +119,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Left Join a data frame to the Concept Ancestor Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join_functions.R'><code>R/join_functions.R</code></a></small>
-    <div class="hidden name"><code>leftJoinForAncestors.Rd</code></div>
+    <h1>Connect Local Athena Function Factory</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/connection_functions.R'><code>R/connection_functions.R</code></a></small>
+    <div class="hidden name"><code>connectAthena_ff.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Left Join a data frame to the Concept Ancestor Table</p>
+    <p>Connect Local Athena Function Factory</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinForAncestors</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  athena_schema <span class='op'>=</span> <span class='st'>"public"</span>,
-  descendant_id_column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  whereLevelIn <span class='op'>=</span> <span class='cn'>NULL</span>,
-  whereLevelType <span class='op'>=</span> <span class='cn'>NULL</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  sleepTime <span class='op'>=</span> <span class='fl'>1</span>,
-  <span class='va'>...</span>
+    <pre class="usage"><span class='fu'>connectAthena_ff</span><span class='op'>(</span>
+  user <span class='op'>=</span> <span class='cn'>NULL</span>,
+  password <span class='op'>=</span> <span class='cn'>NULL</span>,
+  port <span class='op'>=</span> <span class='fl'>5432</span>,
+  server <span class='op'>=</span> <span class='st'>"localhost/athena"</span>
 <span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>PARAM_DESCRIPTION</p></td>
-    </tr>
-    <tr>
-      <th>athena_schema</th>
-      <td><p>PARAM_DESCRIPTION, Default: 'public'</p></td>
-    </tr>
-    <tr>
-      <th>descendant_id_column</th>
-      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>whereLevelIn</th>
-      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>whereLevelType</th>
-      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>render_sql</th>
-      <td><p>PARAM_DESCRIPTION, Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>sleepTime</th>
-      <td><p>PARAM_DESCRIPTION, Default: 1</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>PARAM_DESCRIPTION</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>OUTPUT_DESCRIPTION</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>DETAILS</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>mutate-joins</a></code>
- <code><a href='https://meerapatelmd.github.io/rubix/reference/rename_all_with_prefix.html'>rename_all_with_prefix</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
