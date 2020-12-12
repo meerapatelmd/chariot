@@ -28,11 +28,13 @@ test_strip <- tibble::tibble(concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [D
 unmerge_strip(test_strip,
               strip_col = concept)
 
-test_data <-
-        queryAthena("SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;",
-                    cache_only = TRUE)
-merge_strip(test_data,
-            into = "concept")
+unbox_strip(test_strip,
+            strip_col = concept)
+
+test_strip <- tibble::tibble(concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
+unbox_strip(test_strip,
+            strip_col = concept)
+
 }
 \seealso{
 \code{\link[tidyr]{separate_rows}}

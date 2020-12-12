@@ -31,7 +31,7 @@ get_strip <-
 #' @rdname unbox_strip
 #' @export
 #' @importFrom tidyr separate_rows
-#' @example inst/example/format_merge.R
+#' @example inst/example/format_unbox.R
 
 unbox_strip <-
     function(data,
@@ -68,7 +68,7 @@ unbox_strip <-
 #' @rdname unbox_label
 #' @export
 #' @importFrom tidyr separate_rows extract
-
+#' @example inst/example/format_unbox.R
 
 unbox_label <-
     function(data,

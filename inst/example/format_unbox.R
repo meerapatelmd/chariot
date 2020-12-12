@@ -15,8 +15,3 @@ test_strip <- tibble::tibble(concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [D
 unbox_strip(test_strip,
             strip_col = concept)
 
-unboxStrip(data = test_data,
-           strip_col = Concept)
-unboxStrip(data = test_data,
-           strip_col = Concept,
-           remove = TRUE)
