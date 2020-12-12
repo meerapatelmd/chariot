@@ -48,8 +48,8 @@ FUNCTION_DESCRIPTION
 \code{\link[pg13]{buildQueryLike}}
 
 Other query functions: 
-\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
+\code{\link{queryAthena}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

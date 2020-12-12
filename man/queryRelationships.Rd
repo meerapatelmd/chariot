@@ -6,7 +6,7 @@
 \usage{
 queryRelationships(
   concept_id_1s,
-  schema,
+  vocab_schema,
   relationship_ids = NULL,
   conn = NULL,
   cache_only = FALSE,
@@ -20,7 +20,7 @@ queryRelationships(
 \arguments{
 \item{concept_id_1s}{PARAM_DESCRIPTION}
 
-\item{schema}{PARAM_DESCRIPTION}
+\item{vocab_schema}{PARAM_DESCRIPTION}
 
 \item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
 
@@ -46,8 +46,8 @@ FUNCTION_DESCRIPTION
 \code{\link[SqlRender]{render}}
 
 Other query functions: 
-\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
+\code{\link{queryAthena}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

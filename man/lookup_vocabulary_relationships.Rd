@@ -36,7 +36,7 @@ lookup_vocabulary_relationships(
 This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets.
 }
 \details{
-Lookup all of the Source Vocabulary's non-null relationships in the Concept Relationship Table.
+Lookup all of a Source Vocabulary's non-null relationships in the Concept Relationship Table.
 }
 \seealso{
 \code{\link[SqlRender]{render}}

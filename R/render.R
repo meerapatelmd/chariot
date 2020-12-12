@@ -10,13 +10,7 @@
 renderConceptClassRelationships <-
     function(vocabulary_id_1,
              vocabulary_id_2 = NULL,
-             vocab_schema = NULL) {
-
-                        if (is.null(vocab_schema)) {
-
-                                vocab_schema <- "public"
-
-                        }
+             vocab_schema = "omop_vocabulary") {
 
                         base <- system.file(package = "chariot")
                         path <- paste0(base, "/sql/conceptClassRelationship.sql")
@@ -46,7 +40,7 @@ renderConceptClassRelationships <-
 
                         }
 
-                        sql_statement <-
+
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
                                                   schema = vocab_schema,
                                                   concept_class_id_1 = concept_class_id_1,
@@ -54,7 +48,7 @@ renderConceptClassRelationships <-
                                                   vocabulary_id_1 = vocabulary_id_1,
                                                   vocabulary_id_2 = vocabulary_id_2)
 
-                        return(sql_statement)
+
     }
 
 
@@ -70,24 +64,17 @@ renderConceptClassRelationships <-
 
 renderHemOncCompToReg <-
     function(component_concept_ids,
-             vocab_schema = NULL) {
+             vocab_schema = "omop_vocabulary") {
 
-                        if (is.null(vocab_schema)) {
-
-                                vocab_schema <- "public"
-
-                        }
 
                         base <- system.file(package = "chariot")
                         path <- paste0(base, "/sql/hemOncComponentToRegimen.sql")
 
 
-                        sql_statement <-
                                 SqlRender::render(SqlRender::readSql(sourceFile = path),
                                                   schema = vocab_schema,
                                                   component_concept_ids = component_concept_ids)
 
-                        return(sql_statement)
     }
 
 

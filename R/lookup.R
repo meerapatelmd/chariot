@@ -56,6 +56,8 @@ get_concept <-
                                        sleepTime = sleepTime)
 
 
+                check_concept_id(concept_id = df$concept_id)
+
                 new(Class = "concept",
                     concept_id = df$concept_id,
                     concept_name = df$concept_name,

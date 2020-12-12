@@ -57,11 +57,7 @@ queryAthena <-
                 }
 
 
-                if (!pg13::is_conn_open(conn)) {
-
-                        stop("`conn` object has closed connection.")
-
-                }
+                check_conn(conn = conn)
 
                 db <- get_conn_db(conn = conn)
 
@@ -181,29 +177,34 @@ queryAthena <-
 
 
 sendAthena <-
-        function(conn = NULL,
+        function(conn,
+                 conn_fun = "connectAthena()",
                  sql_statement,
-                 render_sql = FALSE) {
+                 verbose = TRUE,
+                 render_sql = TRUE) {
 
 
-                if (is.null(conn)) {
+                if (missing(conn)) {
 
-                        send_conn <- connectAthena()
-                        on.exit(dcAthena(conn = send_conn))
-
-                } else {
-
-                        send_conn <- conn
+                        conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+                        on.exit(expr = dcAthena(conn = conn,
+                                                verbose = verbose),
+                                add = TRUE,
+                                after = TRUE)
 
                 }
+
+                check_conn(conn = conn)
 
                 if (render_sql) {
 
                         typewrite_sql(sql_statement = sql_statement)
                 }
 
-                pg13::send(conn = send_conn,
-                           sql_statement = sql_statement)
+                pg13::send(conn = conn,
+                           sql_statement = sql_statement,
+                           verbose = verbose,
+                           render_sql = render_sql)
 
         }
 
@@ -248,7 +249,8 @@ sendAthena <-
 
 executeAthena <-
         function(sql_statement,
-                 conn = NULL,
+                 conn,
+                 conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
@@ -257,26 +259,18 @@ executeAthena <-
                  verbose = FALSE,
                  sleepTime = 1) {
 
-                if (is.null(conn)) {
+                if (missing(conn)) {
 
-                        conn_was_missing <- TRUE
-                        conn <- connectAthena()
-                        on.exit(dcAthena(conn = conn))
-
-
-                } else {
-
-                        conn_was_missing <- FALSE
-
-                        if (!.hasSlot(conn, name = "jConnection")) {
-
-                                stop('conn object must be a Database Connector JDBC Connection')
-
-                        }
+                        conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+                        on.exit(expr = dcAthena(conn = conn,
+                                                verbose = verbose),
+                                add = TRUE,
+                                after = TRUE)
 
                 }
 
-                if (conn_was_missing) {
+                check_conn(conn = conn)
+
 
                         if (skip_cache) {
 
@@ -350,18 +344,6 @@ executeAthena <-
 
                                 }
                         }
-
-                } else {
-
-
-                        Sys.sleep(time = sleepTime)
-                        resultset <- pg13::query(conn = conn,
-                                                 sql_statement = sql_statement,
-                                                 verbose = verbose,
-                                                 render_sql = render_sql)
-
-
-                }
 
                 tibble::as_tibble(resultset)
 
