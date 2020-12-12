@@ -14,3 +14,4 @@ Get Strip
 \seealso{
 \code{\link[dplyr]{select}}
 }
+\keyword{internal}

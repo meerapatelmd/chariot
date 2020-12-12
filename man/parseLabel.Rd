@@ -9,3 +9,4 @@ parseLabel(data, label_col, remove = FALSE)
 \description{
 Parse a concept Label in the format of "{concept_id} {concept_name}".
 }
+\keyword{internal}

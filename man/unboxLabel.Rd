@@ -12,3 +12,4 @@ First separates rows by the `row_sep` argument, followed by unmerging the strip
 \seealso{
 \code{\link[tidyr]{separate_rows}}
 }
+\keyword{internal}

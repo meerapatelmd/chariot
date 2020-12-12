@@ -17,3 +17,4 @@ extractHemOncRegimens(
 \description{
 This function uses the grepl function on the HemOnc Concept Names and naming patterns to return HemOnc Regimens based on a single Component and total number of Components in the source regimen.
 }
+\keyword{internal}

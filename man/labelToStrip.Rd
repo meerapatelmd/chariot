@@ -9,3 +9,4 @@ labelToStrip(data, label_col, into, remove = FALSE)
 \description{
 Concert a Label Column to a Merge Column
 }
+\keyword{internal}

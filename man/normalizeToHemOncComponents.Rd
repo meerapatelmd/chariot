@@ -12,3 +12,4 @@ normalizeToHemOncComponents(hemonc_concept_ids, schema = NULL)
 \description{
 This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
 }
+\keyword{internal}

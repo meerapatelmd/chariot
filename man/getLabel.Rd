@@ -9,3 +9,4 @@ getLabel(concept_id, schema = "public")
 \description{
 Get Merged Concept Id
 }
+\keyword{internal}

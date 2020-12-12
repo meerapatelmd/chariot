@@ -20,3 +20,4 @@ This function separates a merged Concept Strip Column into rows by new line \"\\
 \seealso{
 \code{\link[tidyr]{separate_rows}}
 }
+\keyword{internal}

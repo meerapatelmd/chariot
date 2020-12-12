@@ -4,7 +4,7 @@
 #' @seealso
 #'  \code{\link[dplyr]{select}}
 #' @rdname getStrip
-#' @export
+#' @keywords internal
 #' @importFrom dplyr select
 
 getStrip <-
@@ -27,7 +27,7 @@ getStrip <-
 #' @seealso
 #'  \code{\link[tidyr]{separate_rows}}
 #' @rdname unboxStrip
-#' @export
+#' @keywords internal
 #' @importFrom tidyr separate_rows
 
 
@@ -58,7 +58,7 @@ unboxStrip <-
 #' @seealso
 #'  \code{\link[tidyr]{separate_rows}}
 #' @rdname unboxLabel
-#' @export
+#' @keywords internal
 #' @importFrom tidyr separate_rows extract
 
 
@@ -100,7 +100,7 @@ unboxLabel <-
 #'  \code{\link[tidyr]{separate_rows}}
 #'  \code{\link[rubix]{normalize_all_to_na}}
 #' @rdname filterAtStrip
-#' @export
+#' @keywords internal
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select rename_at bind_cols filter_at filter distinct bind_rows
 #' @importFrom tidyr separate_rows
@@ -285,7 +285,7 @@ filterAtStrip <-
 #'  \code{\link[tidyr]{separate_rows}}
 #'  \code{\link[rubix]{normalize_all_to_na}}
 #' @rdname filterStrip
-#' @export
+#' @keywords internal
 #' @importFrom magrittr %>%
 #' @importFrom dplyr enquo mutate filter_at filter select distinct
 #' @importFrom rlang as_name
@@ -351,7 +351,7 @@ filterStrip <-
 
 #' Get Merged Concept Id
 #' @importFrom dplyr select
-#' @export
+#' @keywords internal
 
 
 getLabel <-
@@ -373,7 +373,7 @@ getLabel <-
 #' @import dplyr
 #' @import tidyr
 #' @import rubix
-#' @export
+#' @keywords internal
 
 labelToStrip <-
         function(data,
@@ -403,7 +403,7 @@ labelToStrip <-
 #' @description A Label is in the format of "{concept_id} concept_name". It is less comprehensive than a merged strip using the merge_concepts function, but more human readable when interfacing with others.
 #' @importFrom tidyr unite
 #' @import dplyr
-#' @export
+#' @keywords internal
 
 makeLabel <-
         function(data,
@@ -442,7 +442,7 @@ makeLabel <-
 #' @import dplyr
 #' @import tidyr
 #' @importFrom tibble as_tibble
-#' @export
+#' @keywords internal
 
 mergeLabel <-
             function(data,
@@ -603,7 +603,7 @@ mergeLabel <-
 #' @import dplyr
 #' @import tidyr
 #' @importFrom tibble as_tibble
-#' @export
+#' @keywords internal
 
 mergeStrip <-
             function(data,
@@ -752,7 +752,7 @@ mergeStrip <-
 #' @description Parse a concept Label in the format of "{concept_id} {concept_name}".
 #' @import tidyr
 #' @import dplyr
-#' @export
+#' @keywords internal
 
 
 
@@ -788,7 +788,7 @@ parseLabel <-
 #' @seealso
 #'  \code{\link[tidyr]{separate_rows}}
 #' @rdname separateConceptStrip
-#' @export
+#' @keywords internal
 #' @importFrom tidyr separate_rows
 
 separateConceptStrip <-
@@ -805,7 +805,7 @@ separateConceptStrip <-
 
 #' Convert a Merge Strip to a Label
 #' @import dplyr
-#' @export
+#' @keywords internal
 
 stripToLabel <-
         function(data,
@@ -835,7 +835,7 @@ stripToLabel <-
 #' @importFrom stringr str_remove_all
 #' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
-#' @export
+#' @keywords internal
 
 unmergeStrip <-
     function(data,
@@ -952,7 +952,7 @@ unmergeStrip <-
 
 
 #' QA to make sure the concept_id exists in OMOP
-#' @export
+#' @keywords internal
 
 
 conceptIdExists <-
@@ -983,7 +983,7 @@ conceptIdExists <-
 
 #' Returns all possible OMOP domains in Athena
 #' @return dataframe of unique `domain_id` variables from the `concept` table
-#' @export
+#' @keywords internal
 
 return_omop_vocabs <-
         function() {
@@ -1001,7 +1001,7 @@ return_omop_vocabs <-
 #' @seealso
 #'  \code{\link[pg13]{buildQuery}}
 #' @rdname getConceptClasses
-#' @export
+#' @keywords internal
 #' @importFrom pg13 buildQuery
 
 getConceptClasses <-
@@ -1039,7 +1039,7 @@ getConceptClasses <-
 #' @seealso
 #'  \code{\link[pg13]{buildQuery}}
 #' @rdname getConceptClasses
-#' @export
+#' @keywords internal
 #' @importFrom pg13 buildQuery
 
 getDomain <-
@@ -1079,7 +1079,7 @@ getDomain <-
 #' @param component_count If NULL or the component_count is larger than the maximum number of components possible for all Regimens with a positive string match to the `component` parameter, the unfiltered result of the initial query for `component` is returned.
 #' @importFrom rubix filter_at_grepl
 #' @importFrom rubix arrange_by_nchar
-#' @export
+#' @keywords internal
 
 extractHemOncRegimens <-
     function(component,
@@ -1154,7 +1154,7 @@ extractHemOncRegimens <-
 #' @param hemonc_concept_ids HemOnc Vocabulary Concept Ids of either Regimen or Component concept classes.
 #' @import rubix
 #' @import dplyr
-#' @export
+#' @keywords internal
 
 
 
@@ -1211,7 +1211,7 @@ normalizeToHemOncComponents <-
 
 
 
-#' @export
+#' @keywords internal
 
 ids_to_integer <-
         function(data) {

@@ -42,3 +42,4 @@ Get all OMOP Domain
 
 \code{\link[pg13]{buildQuery}}
 }
+\keyword{internal}

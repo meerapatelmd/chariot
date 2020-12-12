@@ -9,3 +9,4 @@ conceptIdExists(concept_id, schema)
 \description{
 QA to make sure the concept_id exists in OMOP
 }
+\keyword{internal}

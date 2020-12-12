@@ -9,3 +9,4 @@ stripToLabel(data, merge_col, into, remove = FALSE)
 \description{
 Convert a Merge Strip to a Label
 }
+\keyword{internal}

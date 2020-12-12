@@ -35,3 +35,4 @@ This function:
  \code{\link[tidyr]{separate_rows}}
  \code{\link[rubix]{normalize_all_to_na}}
 }
+\keyword{internal}

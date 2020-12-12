@@ -12,3 +12,4 @@ dataframe of unique `domain_id` variables from the `concept` table
 \description{
 Returns all possible OMOP domains in Athena
 }
+\keyword{internal}

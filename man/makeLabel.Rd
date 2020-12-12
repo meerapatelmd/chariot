@@ -9,3 +9,4 @@ makeLabel(data, into, prefix = NULL, suffix = NULL, remove = FALSE)
 \description{
 A Label is in the format of "{concept_id} concept_name". It is less comprehensive than a merged strip using the merge_concepts function, but more human readable when interfacing with others.
 }
+\keyword{internal}

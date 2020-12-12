@@ -27,3 +27,4 @@ This function performs the same style of filtering as \code{\link{filterStrip}} 
  \code{\link[tidyr]{separate_rows}}
  \code{\link[rubix]{normalize_all_to_na}}
 }
+\keyword{internal}

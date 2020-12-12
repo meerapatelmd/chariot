@@ -25,3 +25,4 @@ A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid
 \description{
 This function takes a set of the OMOP Vocabulary Concept Table fields and merges all of them except for the date fields into a single Concept "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 }
+\keyword{internal}

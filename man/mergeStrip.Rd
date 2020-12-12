@@ -23,3 +23,4 @@ A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid
 \description{
 All the OMOP Vocabulary Concept Table fields other than the date fields are "merged"into a single string, called a "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 }
+\keyword{internal}
