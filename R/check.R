@@ -1,4 +1,5 @@
-
+#' @title
+#' Check Connection
 #' @export
 #' @rdname check_conn
 #' @importFrom cli cli_alert_success cli_alert_danger
@@ -16,6 +17,8 @@ check_conn <-
                 }
         }
 
+#' @title
+#' Check Connection Type
 #' @export
 #' @rdname check_conn_type
 #' @importFrom cli cli_alert_success cli_alert_danger
@@ -34,6 +37,8 @@ check_conn_type <-
 
         }
 
+#' @title
+#' Check Concept Id
 #' @export
 #' @rdname check_concept_id
 #' @importFrom cli cli_alert_success cli_alert_danger

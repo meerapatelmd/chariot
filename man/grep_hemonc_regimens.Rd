@@ -6,10 +6,11 @@
 \usage{
 ho_grep_regimens(
   conn,
+  conn_fun,
   components,
   check_validity = TRUE,
   component_count = NULL,
-  vocabSchema = "omop_vocabulary",
+  vocab_schema = "omop_vocabulary",
   cache_only = FALSE,
   skip_cache = FALSE,
   override_cache = FALSE,
@@ -20,8 +21,6 @@ ho_grep_regimens(
 }
 \arguments{
 \item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
-
-\item{components}{Character vector of length 1 or greater of components that comprise the regimen.}
 
 \item{check_validity}{If TRUE, a query is run to comfirm that there is a HemOnc Component that has an exact string match to each of the components provided.}
 
@@ -38,6 +37,8 @@ ho_grep_regimens(
 \item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
 
 \item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
+
+\item{component}{Character vector of length 1 or greater of components that comprise the regimen.}
 }
 \description{
 This function uses the grepl function on the HemOnc Concept Names and naming patterns to return HemOnc Regimens based on a single Component and total number of Components in the source regimen.

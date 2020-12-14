@@ -6,7 +6,7 @@
 \usage{
 ho_lookup_antineoplastics(
   regimen_concept_ids,
-  vocabSchema = NULL,
+  vocab_schema = NULL,
   check_validity = TRUE,
   conn,
   cache_only = FALSE,

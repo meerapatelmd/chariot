@@ -178,6 +178,7 @@ preview_atc_classification <-
 #' @description
 #' Plot a LOINC Class. Due to the high amount of records, use \code{\link{loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
 #'
+#' @param skip_plot If true, returns the dataframe before it is plotted and plotting is not done. This is an option to troubleshoot or customize a plot beyond what is available within the function.
 #' @seealso
 #'  \code{\link[tibble]{tibble}}
 #'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{group_by}},\code{\link[dplyr]{summarise_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{select}},\code{\link[dplyr]{mutate-joins}}
@@ -204,7 +205,8 @@ plot_atc_classification <-
                  color_by = "standard_concept",
                  verbose = TRUE,
                  render_sql = TRUE,
-                 sleep_time = 1) {
+                 sleep_time = 1,
+                 skip_plot = FALSE) {
 
 
                 if (is.concept(concept_class_obj)) {
@@ -271,6 +273,11 @@ plot_atc_classification <-
                         dplyr::left_join(tooltip) %>%
                         dplyr::distinct()
 
+                if (skip_plot) {
+
+                        df
+
+                } else {
                 secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
 
                 if (missing(file)) {
@@ -287,6 +294,7 @@ plot_atc_classification <-
 
                         htmlwidgets::saveWidget(widget = p,
                                                 file = file)
+                }
                 }
 
         }

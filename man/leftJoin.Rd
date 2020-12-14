@@ -7,7 +7,7 @@
 leftJoin(
   data,
   column = NULL,
-  write_schema,
+  write_schema = "patelm9",
   vocab_schema = "omop_vocabulary",
   vocab_table,
   vocab_column,

@@ -139,7 +139,8 @@ filter_at_all_strip <-
 
         }
 
-
+#' @title
+#' Filter At Any Strip
 #' @rdname filter_at_any_strip
 #' @export
 #' @importFrom magrittr %>%

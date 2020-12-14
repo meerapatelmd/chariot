@@ -5,7 +5,7 @@
 #' This function uses the grepl function on the HemOnc Concept Names and naming patterns to return HemOnc Regimens based on a single Component and total number of Components in the source regimen.
 #'
 #' @inheritParams queryAthena
-#' @param components Character vector of length 1 or greater of components that comprise the regimen.
+#' @param component Character vector of length 1 or greater of components that comprise the regimen.
 #' @param check_validity If TRUE, a query is run to comfirm that there is a HemOnc Component that has an exact string match to each of the components provided.
 #' @param component_count If NULL or the component_count is larger than the maximum number of components possible for all Regimens with a positive string match to the `component` parameter, the unfiltered result of the initial query for `components` is returned.
 #' @seealso
@@ -24,10 +24,11 @@
 
 ho_grep_regimens <-
     function(conn,
+             conn_fun,
              components,
              check_validity = TRUE,
              component_count = NULL,
-             vocabSchema = "omop_vocabulary",
+             vocab_schema = "omop_vocabulary",
              cache_only = FALSE,
              skip_cache = FALSE,
              override_cache = FALSE,
@@ -38,7 +39,7 @@ ho_grep_regimens <-
         # component <- "trastuzumab"
         # component_count <- NULL
         # omop <- FALSE
-        # vocabSchema <- "omop_vocabulary"
+        # vocab_schema <- "omop_vocabulary"
 
         if (check_validity) {
 
@@ -58,8 +59,8 @@ ho_grep_regimens <-
                                 SELECT DISTINCT
                                         c.concept_id,
                                         cs.concept_synonym_name AS concept_name
-                                FROM @vocabSchema.concept c
-                                LEFT JOIN @vocabSchema.concept_synonym cs
+                                FROM @vocab_schema.concept c
+                                LEFT JOIN @vocab_schema.concept_synonym cs
                                 ON cs.concept_id = c.concept_id
                                 WHERE
                                     c.invalid_reason IS NULL
@@ -69,18 +70,19 @@ ho_grep_regimens <-
 
                         SELECT DISTINCT c.*
                         FROM components comp
-                        LEFT JOIN @vocabSchema.concept c
+                        LEFT JOIN @vocab_schema.concept c
                         ON c.concept_id = comp.concept_id
-                        WHERE LOWER(comp.concept_name) LIKE LOWER('%@component%')
+                        WHERE LOWER(comp.concept_name) LIKE '%@component%'
                         ",
-                            vocabSchema = vocabSchema,
-                            component = components[i]
+                            vocab_schema = vocab_schema,
+                            component = tolower(components[i])
                     )
 
 
                 output <-
                     queryAthena(sql_statement = sql_statement,
                                 conn = conn,
+                                conn_fun = conn_fun,
                                 cache_only = cache_only,
                                 skip_cache = skip_cache,
                                 override_cache = override_cache,
@@ -103,7 +105,7 @@ ho_grep_regimens <-
         if (verbose) {
 
                 cli::cat_line()
-                cli::cli_rule(left = "Querying")
+                cli::cli_rule(left = "Query")
 
         }
 
@@ -117,8 +119,8 @@ ho_grep_regimens <-
                                         SELECT DISTINCT
                                                 c.concept_id,
                                                 cs.concept_synonym_name AS concept_name
-                                        FROM @vocabSchema.concept c
-                                        LEFT JOIN @vocabSchema.concept_synonym cs
+                                        FROM @vocab_schema.concept c
+                                        LEFT JOIN @vocab_schema.concept_synonym cs
                                         ON cs.concept_id = c.concept_id
                                         WHERE
                                             c.invalid_reason IS NULL
@@ -128,17 +130,18 @@ ho_grep_regimens <-
 
                                 SELECT DISTINCT c.*
                                 FROM regimens r
-                                LEFT JOIN @vocabSchema.concept c
+                                LEFT JOIN @vocab_schema.concept c
                                 ON c.concept_id = r.concept_id
                                 WHERE LOWER(r.concept_name) LIKE LOWER('%@component%')
                                 ",
-                                vocabSchema = vocabSchema,
+                                vocab_schema = vocab_schema,
                                 component = components[i])
 
 
                 output[[i]] <-
                         queryAthena(sql_statement = sql_statement,
                                     conn = conn,
+                                    conn_fun = conn_fun,
                                     cache_only = cache_only,
                                     skip_cache = skip_cache,
                                     override_cache = override_cache,
@@ -152,7 +155,17 @@ ho_grep_regimens <-
 
         output <-
             output %>%
-            purrr::reduce(dplyr::inner_join, by = c("concept_id", "concept_name", "domain_id", "vocabulary_id", "concept_class_id", "standard_concept", "concept_code", "valid_start_date", "valid_end_date", "invalid_reason"))
+            purrr::reduce(dplyr::inner_join,
+                          by = c("concept_id",
+                                 "concept_name",
+                                 "domain_id",
+                                 "vocabulary_id",
+                                 "concept_class_id",
+                                 "standard_concept",
+                                 "concept_code",
+                                 "valid_start_date",
+                                 "valid_end_date",
+                                 "invalid_reason"))
 
 
         if (is.null(component_count)) {
@@ -214,7 +227,7 @@ ho_grep_regimens <-
 
 ho_lookup_antineoplastics <-
     function(regimen_concept_ids,
-             vocabSchema = NULL,
+             vocab_schema = NULL,
              check_validity = TRUE,
              conn,
              cache_only = FALSE,
@@ -237,13 +250,13 @@ ho_lookup_antineoplastics <-
                     SqlRender::render(
                             "
                             SELECT *
-                            FROM @vocabSchema.concept c
+                            FROM @vocab_schema.concept c
                             WHERE c.concept_id IN (@regimen_concept_ids)
                                     AND c.invalid_reason IS NULL
                                     AND c.concept_class_id = 'Regimen'
                                     AND c.vocabulary_id = 'HemOnc'
                             ",
-                            vocabSchema = vocabSchema,
+                            vocab_schema = vocab_schema,
                             regimen_concept_ids = regimen_concept_ids
                     )
 
@@ -366,7 +379,7 @@ deconstruct_hemonc_ids <-
 ho_lookup_regimen <-
     function(component_concept_ids,
              schema = NULL,
-             vocabSchema,
+             vocab_schema,
              writeSchema,
              conn = NULL,
              cache_only = FALSE,
@@ -384,12 +397,12 @@ ho_lookup_regimen <-
             queryAthena(sql_statement =
                             SqlRender::render(
                             "SELECT *
-                             FROM @vocabSchema.concept c
+                             FROM @vocab_schema.concept c
                              WHERE c.concept_id IN (@component_concept_ids)
                                 AND c.invalid_reason IS NULL
                                 AND c.concept_class_id <> 'Component';",
                                     component_concept_ids = component_concept_ids,
-                                    vocabSchema = vocabSchema))
+                                    vocab_schema = vocab_schema))
 
 
         if (nrow(qa) > 0) {
@@ -418,8 +431,8 @@ ho_lookup_regimen <-
                                SqlRender::render(
                                "WITH component_regimens AS (
                                         SELECT cr.concept_id_2 AS regimen_i_concept_id
-                                        FROM @vocabSchema.concept c
-                                        LEFT JOIN @vocabSchema.concept_relationship cr
+                                        FROM @vocab_schema.concept c
+                                        LEFT JOIN @vocab_schema.concept_relationship cr
                                         ON cr.concept_id_1 = c.concept_id
                                         WHERE c.concept_id IN (@component_concept_id)
                                             AND cr.relationship_id = 'Antineoplastic of'
@@ -427,8 +440,8 @@ ho_lookup_regimen <-
                                 ),
                                 regimens AS (
                                        SELECT DISTINCT cr.concept_id_1 AS regimen_concept_id
-                                       FROM @vocabSchema.concept c
-                                       LEFT JOIN @vocabSchema.concept_relationship cr
+                                       FROM @vocab_schema.concept c
+                                       LEFT JOIN @vocab_schema.concept_relationship cr
                                        ON c.concept_id = cr.concept_id_1
                                        WHERE c.vocabulary_id = 'HemOnc'
                                        AND c.invalid_reason IS NULL
@@ -445,7 +458,7 @@ ho_lookup_regimen <-
                                 ON t.regimen_concept_id = cr.regimen_i_concept_id
                                 ;
                                 ",
-                                    vocabSchema = vocabSchema,
+                                    vocab_schema = vocab_schema,
                                     component_count = length(component_concept_ids),
                                     component_concept_id = component_concept_ids[i]
                                ))

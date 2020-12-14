@@ -10,20 +10,22 @@ join <-
     function(data,
              joinType,
              column = NULL,
-             write_schema,
-             vocab_schema,
+             write_schema = "patelm9",
+             vocab_schema = "omop_vocabulary",
              vocab_table,
              vocab_column,
              where_vocab_col = NULL,
              where_vocab_col_in = NULL,
-             verbose = FALSE,
+             verbose = TRUE,
              conn,
              conn_fun = "connectAthena()",
-             render_sql = FALSE,
+             render_sql = TRUE,
              sleepTime = 1) {
 
 
         if (missing(conn)) {
+
+            cli::cli_rule(left = "Making Connection")
 
             conn <- eval(expr = rlang::parse_expr(x = conn_fun))
             on.exit(expr = dcAthena(conn = conn,
@@ -33,17 +35,22 @@ join <-
 
         }
 
-
+        cli::cli_rule(left = "Writing data to table")
         table_name <- paste0("v", format(Sys.time(), "%Y%m%d%H%M%S"))
+        secretary::typewrite("New table:", table_name)
 
         if (is.null(column)) {
             column <- colnames(data)[1]
         }
+        secretary::typewrite("Target column:", column)
 
             pg13::writeTable(conn = conn,
                              schema = write_schema,
                              tableName = table_name,
-                             data = data)
+                             data = data,
+                             drop_existing = TRUE,
+                             verbose = verbose,
+                             render_sql = render_sql)
 
 
             if (!is.null(where_vocab_col)) {
@@ -121,7 +128,7 @@ dropJoinTables <-
 innerJoin <-
     function(data,
              column = NULL,
-             write_schema,
+             write_schema = "patelm9",
              vocab_schema = "omop_vocabulary",
              vocab_table,
              vocab_column,
@@ -156,7 +163,7 @@ innerJoin <-
 leftJoin <-
     function(data,
              column = NULL,
-             write_schema,
+             write_schema = "patelm9",
              vocab_schema = "omop_vocabulary",
              vocab_table,
              vocab_column,
@@ -928,15 +935,15 @@ leftJoinFoChildren <-
 
 leftJoinForDescendants <-
         function(data,
-                 vocab_schema = "public",
+                 write_schema = "patelm9",
+                 vocab_schema = "omop_vocabulary",
                  ancestor_id_column = NULL,
                  whereLevelIn = NULL,
                  whereLevelType = NULL,
-                 verbose = FALSE,
-                 conn = NULL,
-                 render_sql = FALSE,
-                 sleepTime = 1,
-                 ...) {
+                 verbose = TRUE,
+                 conn,
+                 render_sql = TRUE,
+                 sleepTime = 1) {
 
                         if (!is.null(whereLevelIn) && length(whereLevelType) != 1) {
 
@@ -945,6 +952,17 @@ leftJoinForDescendants <-
                                 whereLevelType <- "max"
 
                         }
+
+                        # Make sure concept id column is integer
+                        if (is.null(ancestor_id_column)) {
+
+                            ancestor_id_column <- colnames(data)[1]
+
+                        }
+
+                        data <-
+                            data %>%
+                            dplyr::mutate_at(dplyr::vars(dplyr::all_of(ancestor_id_column)), as.integer)
 
                         if (!is.null(whereLevelIn)) {
 
@@ -956,46 +974,51 @@ leftJoinForDescendants <-
 
 
                                 descendants <-
-                                        leftJoin(data = data,
-                                                 column = ancestor_id_column,
-                                                 vocab_schema = vocab_schema,
-                                                 vocab_table = "concept_ancestor",
-                                                 vocab_column = "ancestor_concept_id",
-                                                 where_vocab_col = whereAthenaField,
-                                                 where_vocab_col_in = whereLevelIn,
-                                                 verbose = verbose,
-                                                 conn = conn,
-                                                 render_sql = render_sql,
-                                                 sleepTime = sleepTime,
-                                                 ...)
+                                        join(data = data,
+                                             joinType = "LEFT",
+                                             column = ancestor_id_column,
+                                             write_schema = write_schema,
+                                             vocab_schema = vocab_schema,
+                                             vocab_table = "CONCEPT_ANCESTOR",
+                                             vocab_column = "ancestor_concept_id",
+                                             where_vocab_col = whereAthenaField,
+                                             where_vocab_col_in = whereLevelIn,
+                                             verbose = verbose,
+                                             conn = conn,
+                                             render_sql = render_sql,
+                                             sleepTime = sleepTime)
 
                         } else {
 
                                 descendants <-
-                                        leftJoin(data = data,
-                                                 column = ancestor_id_column,
-                                                 vocab_schema = vocab_schema,
-                                                 vocab_table = "concept_ancestor",
-                                                 vocab_column = "ancestor_concept_id",
-                                                 verbose = verbose,
-                                                 conn = conn,
-                                                 render_sql = render_sql,
-                                                 sleepTime = sleepTime,
-                                                 ...)
+                                    join(data = data,
+                                         joinType = "LEFT",
+                                         column = ancestor_id_column,
+                                         write_schema = write_schema,
+                                         vocab_schema = vocab_schema,
+                                         vocab_table = "CONCEPT_ANCESTOR",
+                                         vocab_column = "ancestor_concept_id",
+                                         verbose = verbose,
+                                         conn = conn,
+                                         render_sql = render_sql,
+                                         sleepTime = sleepTime)
+
                         }
 
 
-
-                                descendants_detail <-
-                                        leftJoinConcept(descendants %>%
-                                                                dplyr::select(descendant_concept_id),
-                                                        vocab_schema = vocab_schema,
-                                                        synonyms = FALSE,
-                                                        verbose = verbose,
-                                                        conn = conn,
-                                                        render_sql = render_sql,
-                                                        sleepTime = sleepTime,
-                                                        ...) %>%
+                        descendants_detail <-
+                            join(data = descendants,
+                                 joinType = "LEFT",
+                                 column = "descendant_concept_id",
+                                 write_schema = write_schema,
+                                 vocab_schema = vocab_schema,
+                                 vocab_table = "CONCEPT",
+                                 vocab_column = "concept_id",
+                                 verbose = verbose,
+                                 conn = conn,
+                                 conn_fun = conn_fun,
+                                 render_sql = render_sql,
+                                 sleepTime = sleepTime) %>%
                                         dplyr::select(-descendant_concept_id) %>%
                                         rubix::rename_all_with_prefix("descendant_") %>%
                                         dplyr::distinct()
@@ -1008,7 +1031,7 @@ leftJoinForDescendants <-
                                         dplyr::select(-ancestor_concept_id)
 
 
-                                return(final_descendants)
+                               final_descendants
 
         }
 

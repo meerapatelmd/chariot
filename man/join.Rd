@@ -8,16 +8,16 @@ join(
   data,
   joinType,
   column = NULL,
-  write_schema,
-  vocab_schema,
+  write_schema = "patelm9",
+  vocab_schema = "omop_vocabulary",
   vocab_table,
   vocab_column,
   where_vocab_col = NULL,
   where_vocab_col_in = NULL,
-  verbose = FALSE,
+  verbose = TRUE,
   conn,
   conn_fun = "connectAthena()",
-  render_sql = FALSE,
+  render_sql = TRUE,
   sleepTime = 1
 )
 }

@@ -1,33 +1,30 @@
 #' @title
-#' View LOINC Class Descendants
-#'
-#' @description
-#' Due to the high amount of records, used to determine the appropriate range based on row counts per level to supply the optional `range` argument for \code{\link{plot_loinc_classification}}, where this fucntion is called again and can be optionally filtered on a numeric range before plotting.
+#' Preview Concept Lineage
 #'
 #' @export
-#' @rdname preview_loinc_classification
+#' @rdname preview_concept_classification
 
-preview_loinc_classification <-
+preview_rxnorm_atc_classification <-
         function(conn,
-                 concept_class_obj,
+                 rxnorm_concept_obj,
                  vocab_schema = "omop_vocabulary",
                  verbose = TRUE,
                  render_sql = TRUE,
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_class_obj)) {
+                if (is.concept(concept_obj)) {
 
-                        concept_id <- concept_class_obj@concept_id
+                        concept_id <- concept_obj@concept_id
 
                 } else {
 
-                        stop("`concept_class_obj` must be a concept class object")
+                        stop("`concept_obj` must be a concept class object")
 
                 }
 
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
+                domain_id <- "Drug"
+                vocabulary_id <- "ATC"
                 child <- domain_id
 
 
@@ -44,26 +41,25 @@ preview_loinc_classification <-
                                     INNER JOIN @vocab_schema.concept c2
                                     ON ca.descendant_concept_id = c2.concept_id
                                     WHERE
-                                    c.vocabulary_id IN ('@vocabulary_id')
+                                    c.vocabulary_id IN ('ATC', 'RxNorm', 'RxNorm Extension')
                                     AND c.standard_concept = 'C'
                                     AND c.invalid_reason IS NULL
                                     AND c2.invalid_reason IS NULL
-                                    AND c2.standard_concept = 'C'
-                                    AND c2.vocabulary_id IN ('@vocabulary_id')
-                                    AND c.domain_id = '@domain_id'
-                                    AND c2.domain_id = '@domain_id'
+                                    -- AND c2.standard_concept = 'C'
+                                    AND c2.vocabulary_id IN ('ATC', 'RxNorm', 'RxNorm Extension')
+                                    AND c.domain_id = 'Drug'
+                                    AND c2.domain_id = 'Drug'
                                     AND ca.ancestor_concept_id <> ca.descendant_concept_id
-                                    AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
+                                    -- AND ca.min_levels_of_separation = 1 AND ca.max_levels_of_separation = 1
                                 )
 
                             SELECT DISTINCT c.*
                                 FROM ancestry a
                             LEFT JOIN @vocab_schema.concept c
                             ON c.concept_id = a.ancestor_concept_id
-                            WHERE a.ancestor_concept_id IN (@concept_id);",
+                            WHERE a.descendant_concept_id IN (@concept_id)
+                                                     AND c.concept_class_id = 'ATC 1st';",
                                                     vocab_schema = vocab_schema,
-                                                    vocabulary_id = vocabulary_id,
-                                                    domain_id = domain_id,
                                                     concept_id = concept_id),
                                     conn = conn,
                                     conn_fun = conn_fun,
@@ -115,12 +111,12 @@ preview_loinc_classification <-
                                         INNER JOIN @vocab_schema.concept c2
                                         ON ca.descendant_concept_id = c2.concept_id
                                         WHERE
-                                        c.vocabulary_id IN ('@vocabulary_id')
+                                        c.vocabulary_id IN ('ATC', 'RxNorm', 'RxNorm Extension')
                                         AND c.standard_concept = 'C'
                                         AND c.invalid_reason IS NULL
                                         AND c2.invalid_reason IS NULL
                                         --AND c2.standard_concept = 'C'
-                                        AND c2.vocabulary_id IN ('@vocabulary_id')
+                                        AND c2.vocabulary_id IN ('ATC', 'RxNorm', 'RxNorm Extension')
                                         AND c.domain_id = '@domain_id'
                                         AND c2.domain_id = '@domain_id'
                                         AND ca.ancestor_concept_id <> ca.descendant_concept_id
@@ -139,7 +135,6 @@ preview_loinc_classification <-
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
                                                             vocab_schema = vocab_schema,
-                                                            vocabulary_id = vocabulary_id,
                                                             domain_id = domain_id,
                                                             new_parents = new_parents),
                                             conn = conn,
@@ -158,7 +153,7 @@ preview_loinc_classification <-
 
                 }
 
-                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_class_obj@concept_id, concept_class_obj@concept_name)))
+                secretary::typewrite("There are", length(range_output), "levels above", secretary::inside_out(sprintf('%s %s', concept_obj@concept_id, concept_obj@concept_name)))
                 secretary::typewrite("Row counts:")
                 1:length(range_output) %>%
                         purrr::map2(range_output,
@@ -176,8 +171,7 @@ preview_loinc_classification <-
 #' Plot a LOINC Class
 #'
 #' @description
-#' Plot a LOINC Class. Due to the high amount of records, use \code{\link{preview_loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
-#' @param skip_plot If true, returns the dataframe before it is plotted and plotting is not done. This is an option to troubleshoot or customize a plot beyond what is available within the function.
+#' Plot a LOINC Class. Due to the high amount of records, use \code{\link{loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
 #'
 #' @seealso
 #'  \code{\link[tibble]{tibble}}
@@ -186,7 +180,7 @@ preview_loinc_classification <-
 #'  \code{\link[colorspace]{rainbow_hcl}}
 #'  \code{\link[secretary]{c("typewrite", "typewrite")}},\code{\link[secretary]{press_enter}}
 #'  \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
-#' @rdname plot_loinc_classification
+#' @rdname plot_atc_classification
 #' @export
 #' @importFrom tibble tibble
 #' @importFrom dplyr bind_rows mutate_all distinct group_by summarize_at vars ungroup select left_join
@@ -196,26 +190,25 @@ preview_loinc_classification <-
 #' @importFrom collapsibleTree collapsibleTreeNetwork
 #' @importFrom htmlwidgets saveWidget
 
-plot_loinc_classification <-
+plot_atc_classification <-
         function(conn,
-                 concept_class_obj,
+                 concept_obj,
                  range,
                  file,
                  vocab_schema = "omop_vocabulary",
                  color_by = "standard_concept",
-                 skip_plot = FALSE,
                  verbose = TRUE,
                  render_sql = TRUE,
                  sleep_time = 1) {
 
 
-                if (is.concept(concept_class_obj)) {
+                if (is.concept(concept_obj)) {
 
-                        concept_id <- concept_class_obj@concept_id
+                        concept_id <- concept_obj@concept_id
 
                 } else {
 
-                        stop("`concept_class_obj` must be a concept class object")
+                        stop("`concept_obj` must be a concept class object")
 
                 }
 
@@ -227,8 +220,8 @@ plot_loinc_classification <-
                                        child = child)
 
 
-                range_output <- preview_loinc_classification(conn = conn,
-                                                        concept_class_obj = concept_class_obj,
+                range_output <- preview_atc_classification(conn = conn,
+                                                        concept_obj = concept_obj,
                                                         vocab_schema = vocab_schema,
                                                         verbose = verbose,
                                                         render_sql = render_sql,
@@ -273,13 +266,7 @@ plot_loinc_classification <-
                         dplyr::left_join(tooltip) %>%
                         dplyr::distinct()
 
-
-                if (skip_plot) {
-
-                        df
-                } else {
-
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting... ")
+                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
 
                 if (missing(file)) {
 
@@ -295,7 +282,6 @@ plot_loinc_classification <-
 
                         htmlwidgets::saveWidget(widget = p,
                                                 file = file)
-                }
                 }
 
         }

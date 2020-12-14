@@ -73,7 +73,8 @@ get_concept <-
 
         }
 
-
+#' @title
+#' Lookup a Concept Id
 #' @export
 #' @rdname lookup_concept_id
 
@@ -108,6 +109,8 @@ lookup_concept_id <-
         }
 
 
+#' @title
+#' Lookup Synonyms
 #' @export
 #' @rdname lookup_synonyms
 

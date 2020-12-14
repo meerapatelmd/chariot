@@ -6,15 +6,15 @@
 \usage{
 leftJoinForDescendants(
   data,
-  vocab_schema = "public",
+  write_schema = "patelm9",
+  vocab_schema = "omop_vocabulary",
   ancestor_id_column = NULL,
   whereLevelIn = NULL,
   whereLevelType = NULL,
-  verbose = FALSE,
-  conn = NULL,
-  render_sql = FALSE,
-  sleepTime = 1,
-  ...
+  verbose = TRUE,
+  conn,
+  render_sql = TRUE,
+  sleepTime = 1
 )
 }
 \arguments{

@@ -11,10 +11,14 @@ plot_loinc_classification(
   file,
   vocab_schema = "omop_vocabulary",
   color_by = "standard_concept",
+  skip_plot = FALSE,
   verbose = TRUE,
   render_sql = TRUE,
   sleep_time = 1
 )
+}
+\arguments{
+\item{skip_plot}{If true, returns the dataframe before it is plotted and plotting is not done. This is an option to troubleshoot or customize a plot beyond what is available within the function.}
 }
 \description{
 Plot a LOINC Class. Due to the high amount of records, use \code{\link{preview_loinc_classification}} to determine the appropriate range based on row counts per level to supply the optional `range` argument.
