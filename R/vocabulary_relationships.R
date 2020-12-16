@@ -83,7 +83,8 @@ lookup_vocabulary_relationships <-
 
 lookup_intervocabulary_relationship <-
         function(vocabulary_id,
-                 conn = NULL,
+                 conn,
+                 conn_fun = "connectAthena()",
                  vocab_schema = "omop_vocabulary",
                  cache_only = FALSE,
                  skip_cache = FALSE,
@@ -108,7 +109,7 @@ lookup_intervocabulary_relationship <-
                                                         LEFT JOIN @vocab_schema.concept c2
                                                         ON c2.concept_id = cr.concept_id_2
                                                         WHERE c.vocabulary_id IN ('@vocabulary_id')
-                                                                AND c2.vocabulary NOT IN ('@vocabulary_id')
+                                                                AND c2.vocabulary_id NOT IN ('@vocabulary_id')
                                                                 AND c.invalid_reason IS NULL
                                                                 AND c2.invalid_reason IS NULL
                                                                 AND cr.invalid_reason IS NULL",
@@ -116,6 +117,7 @@ lookup_intervocabulary_relationship <-
                                             vocabulary_id = vocabulary_id
                                     ),
                             conn = conn,
+                            conn_fun = conn_fun,
                             cache_only = cache_only,
                             skip_cache = skip_cache,
                             override_cache = override_cache,
@@ -127,6 +129,187 @@ lookup_intervocabulary_relationship <-
         }
 
 
+
+
+
+
+
+lookup_intersnomed_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "SNOMED",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
+
+
+
+
+lookup_interloinc_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "LOINC",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
+
+
+
+
+lookup_interhemonc_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "HemOnc",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
+
+
+lookup_interrxnorm_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "RxNorm",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
+
+
+
+lookup_interrxnormextension_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "RxNorm Extension",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
+
+lookup_interatc_relationships <-
+        function( conn,
+                  conn_fun = "connectAthena()",
+                  vocab_schema = "omop_vocabulary",
+                  cache_only = FALSE,
+                  skip_cache = FALSE,
+                  override_cache = FALSE,
+                  cache_resultset = TRUE,
+                  render_sql = FALSE,
+                  verbose = FALSE,
+                  sleepTime = 1) {
+
+
+                lookup_intervocabulary_relationship(
+                        vocabulary_id = "ATC",
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        vocab_schema = vocab_schema,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                )
+        }
 
 #' @title
 #' Query a Source Vocabulary's Relationships

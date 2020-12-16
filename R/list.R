@@ -10,7 +10,7 @@
 #' @export
 #' @importFrom pg13 lsFields
 list_fields <-
-        function(schema,
+        function(vocab_schema,
                  tableName,
                  conn = NULL) {
 
@@ -47,7 +47,7 @@ list_fields <-
 #' @export
 #' @importFrom SqlRender render
 list_hierarchical_relationships <-
-        function(schema,
+        function(vocab_schema,
                  conn = NULL,
                  conn_fun = "connectAthena()",
                  cache_only = FALSE,
@@ -97,7 +97,7 @@ list_hierarchical_relationships <-
 #' @export
 #' @importFrom SqlRender render
 list_defines_ancestry <-
-        function(schema,
+        function(vocab_schema,
                  conn = NULL,
                  conn_fun = "connectAthena()",
                  cache_only = FALSE,
@@ -118,6 +118,50 @@ list_defines_ancestry <-
                             render_sql = render_sql,
                             verbose = verbose,
                             sleepTime = sleepTime)
+        }
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname list_vocabulary_ids
+#' @export
+#' @importFrom SqlRender render
+
+list_vocabulary_ids <-
+        function(vocab_schema = "omop_vocabulary",
+                 conn,
+                 conn_fun = "connectAthena()",
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 cache_resultset = TRUE,
+                 render_sql = TRUE,
+                 verbose = TRUE,
+                 sleepTime = 1) {
+
+                queryAthena(
+                        sql_statement =
+                                SqlRender::render(
+                                        "
+                                        SELECT DISTINCT vocabulary_id
+                                        FROM @vocab_schema.concept
+                                        ",
+                                        vocab_schema = vocab_schema
+                                ),
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        cache_only = cache_only,
+                        skip_cache = skip_cache,
+                        override_cache = override_cache,
+                        cache_resultset = cache_resultset,
+                        render_sql = render_sql,
+                        verbose = verbose,
+                        sleepTime = sleepTime
+                ) %>%
+                        unlist()
+
+
         }
 
 
