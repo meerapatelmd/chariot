@@ -24,7 +24,7 @@
 #'  \code{\link[colorspace]{rainbow_hcl}}
 #'  \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
 #' @rdname plot_classification
-#' @export
+#' @noRd
 #' @importFrom tibble tibble
 #' @importFrom SqlRender render
 #' @importFrom dplyr mutate select everything distinct bind_rows mutate_all group_by summarize_at ungroup left_join
@@ -300,7 +300,7 @@ plot_classification <-
 #'  \code{\link[colorspace]{rainbow_hcl}}
 #'  \code{\link[collapsibleTree]{collapsibleTreeNetwork}}
 #' @rdname plot_concept_classification
-#' @export
+#' @noRd
 #' @importFrom tibble tibble
 #' @importFrom SqlRender render
 #' @importFrom dplyr mutate select everything distinct bind_rows mutate_all group_by summarize_at ungroup left_join

@@ -93,10 +93,10 @@ list_hierarchical_relationships <-
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_lineage_relationships
+#' @rdname list_defines_ancestry
 #' @export
 #' @importFrom SqlRender render
-list_lineage_relationships <-
+list_defines_ancestry <-
         function(schema,
                  conn = NULL,
                  conn_fun = "connectAthena()",
