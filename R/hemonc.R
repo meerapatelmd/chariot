@@ -93,8 +93,12 @@ ho_grep_regimens <-
 
                 if (nrow(output) == 0) {
 
+                        cli::cli_alert_danger(components[i])
                         stop(sprintf("'%s' is not a valid HemOnc Component", components[i]))
 
+                } else {
+
+                        cli::cli_alert_success(components[i])
                 }
             }
 
