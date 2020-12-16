@@ -5,7 +5,7 @@
 \title{FUNCTION_TITLE}
 \usage{
 list_hierarchical_relationships(
-  schema,
+  vocab_schema,
   conn = NULL,
   conn_fun = "connectAthena()",
   cache_only = FALSE,
@@ -18,8 +18,6 @@ list_hierarchical_relationships(
 )
 }
 \arguments{
-\item{schema}{PARAM_DESCRIPTION}
-
 \item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
 
 \item{cache_only}{Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.}
@@ -35,6 +33,8 @@ list_hierarchical_relationships(
 \item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
 
 \item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
+
+\item{schema}{PARAM_DESCRIPTION}
 }
 \description{
 FUNCTION_DESCRIPTION

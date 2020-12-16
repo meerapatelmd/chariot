@@ -4,14 +4,14 @@
 \alias{list_fields}
 \title{List Table Fields}
 \usage{
-list_fields(schema, tableName, conn = NULL)
+list_fields(vocab_schema, tableName, conn = NULL)
 }
 \arguments{
-\item{schema}{Schema of the Vocabulary Table}
-
 \item{tableName}{Vocabulary Table}
 
 \item{conn}{Connection object. If NULL, automatically queries the local Athena database. Default: NULL}
+
+\item{schema}{Schema of the Vocabulary Table}
 }
 \value{
 Vector of field names for the table.
