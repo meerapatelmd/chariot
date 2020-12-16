@@ -64,10 +64,10 @@ lookup_vocabulary_relationships <-
         }
 
 #' @title
-#' Query a Source Vocabulary's Relationships
+#' Query a Source Vocabulary's Relationships to Other Vocabularies
 #'
 #' @details
-#' Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset that filters on both ends of the relationship, see \code{\link{query_vocabulary_relationships}}.
+#' Query for the Source Vocabulary's valid relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset for relationships within the vocabulary, see \code{\link{lookup_intravocabulary_relationship}}.
 #'
 #' @inherit vocabulary_level_functions description
 #'
@@ -76,14 +76,15 @@ lookup_vocabulary_relationships <-
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname query_all_vocabulary_relationship
+#' @rdname lookup_intervocabulary_relationship
 #'
 #' @export
 #' @importFrom SqlRender render
 
-query_all_vocabulary_relationship <-
+lookup_intervocabulary_relationship <-
         function(vocabulary_id,
                  conn = NULL,
+                 vocab_schema = "omop_vocabulary",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
@@ -91,9 +92,6 @@ query_all_vocabulary_relationship <-
                  render_sql = FALSE,
                  verbose = FALSE,
                  sleepTime = 1) {
-
-
-                vocabulary_id <- paste0("'", vocabulary_id, "'")
 
 
                 queryAthena(sql_statement =
@@ -104,15 +102,17 @@ query_all_vocabulary_relationship <-
                                                         cr.relationship_id,
                                                         c2.vocabulary_id AS vocabulary_id_2,
                                                         c2.concept_class_id AS concept_class_id_2
-                                                        FROM public.concept c
-                                                        LEFT JOIN public.concept_relationship cr
+                                                        FROM @vocab_schema.concept c
+                                                        LEFT JOIN @vocab_schema.concept_relationship cr
                                                         ON cr.concept_id_1 = c.concept_id
-                                                        LEFT JOIN public.concept c2
+                                                        LEFT JOIN @vocab_schema.concept c2
                                                         ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN (@vocabulary_id)
+                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
+                                                                AND c2.vocabulary NOT IN ('@vocabulary_id')
                                                                 AND c.invalid_reason IS NULL
                                                                 AND c2.invalid_reason IS NULL
                                                                 AND cr.invalid_reason IS NULL",
+                                            vocab_schema = vocab_schema,
                                             vocabulary_id = vocabulary_id
                                     ),
                             conn = conn,
@@ -125,6 +125,77 @@ query_all_vocabulary_relationship <-
                             sleepTime = sleepTime)
 
         }
+
+
+
+#' @title
+#' Query a Source Vocabulary's Relationships
+#'
+#' @details
+#' Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset that filters for relationships to other vocabularies, see \code{\link{query_intervocabulary_relationship}}.
+#'
+#' @inherit vocabulary_level_functions description
+#'
+#' @inheritParams lookup_vocabulary_relationships
+#'
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#'
+#' @rdname lookup_intravocabulary_relationship
+#'
+#' @export
+#' @importFrom SqlRender render
+
+lookup_intravocabulary_relationship <-
+        function(vocabulary_id,
+                 conn = NULL,
+                 vocab_schema = "omop_vocabulary",
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 cache_resultset = TRUE,
+                 render_sql = FALSE,
+                 verbose = FALSE,
+                 sleepTime = 1) {
+
+
+                queryAthena(sql_statement =
+                                    SqlRender::render(
+                                            "SELECT DISTINCT
+                                                        c.vocabulary_id AS vocabulary_id_1,
+                                                        c.concept_class_id AS concept_class_id_1,
+                                                        cr.relationship_id,
+                                                        c2.vocabulary_id AS vocabulary_id_2,
+                                                        c2.concept_class_id AS concept_class_id_2
+                                                        FROM @vocab_schema.concept c
+                                                        LEFT JOIN @vocab_schema.concept_relationship cr
+                                                        ON cr.concept_id_1 = c.concept_id
+                                                        LEFT JOIN @vocab_schema.concept c2
+                                                        ON c2.concept_id = cr.concept_id_2
+                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
+                                                                AND c2.vocabulary IN ('@vocabulary_id')
+                                                                AND c.invalid_reason IS NULL
+                                                                AND c2.invalid_reason IS NULL
+                                                                AND cr.invalid_reason IS NULL",
+                                            vocab_schema = vocab_schema,
+                                            vocabulary_id = vocabulary_id
+                                    ),
+                            conn = conn,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
+                            override_cache = override_cache,
+                            cache_resultset = cache_resultset,
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
+
+        }
+
+
+
+
+
+
 
 #' @title
 #' Query for a Source Vocabulary's Relationships to Other Source Vocabularies
