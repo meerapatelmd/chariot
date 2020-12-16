@@ -1,7 +1,7 @@
 #' @export
 
 name_cluster <-
-        function(concept_id,
+        function(concept_obj,
                  vocab_schema = "omop_vocabulary",
                  conn,
                  conn_fun = "connectAthena()",
@@ -13,6 +13,16 @@ name_cluster <-
                  sleepTime = 1) {
 
                 # concept_id <- 1112807
+
+                if (class(concept_obj) == "concept") {
+
+                        concept_id <- concept@concept_id
+
+                } else {
+
+                        concept_id <- concept_obj
+                }
+
 
                 sql_statement <-
                 SqlRender::render(
