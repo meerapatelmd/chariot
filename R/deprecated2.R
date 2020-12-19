@@ -1624,8 +1624,6 @@ mergeLabel <-
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
 #' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
-#' @import dplyr
-#' @import tidyr
 #' @importFrom tibble as_tibble
 #' @noRd
 
@@ -1774,8 +1772,6 @@ mergeStrip <-
 
 #' Parse a Concept Label
 #' @description Parse a concept Label in the format of "{concept_id} {concept_name}".
-#' @import tidyr
-#' @import dplyr
 #' @noRd
 
 
@@ -1828,7 +1824,6 @@ separateConceptStrip <-
 
 
 #' Convert a Merge Strip to a Label
-#' @import dplyr
 #' @noRd
 
 stripToLabel <-
@@ -2040,7 +2035,7 @@ getConceptClasses <-
 
 
                 sql_statement <-
-                        pg13::buildQuery(fields = c("domain_id", "vocabulary_id", "concept_class_id"),
+                        pg13::build_query(fields = c("domain_id", "vocabulary_id", "concept_class_id"),
                                          distinct = TRUE,
                                          schema = schema,
                                          tableName = "concept")
@@ -2078,7 +2073,7 @@ getDomain <-
 
 
                 sql_statement <-
-                        pg13::buildQuery(fields = c("domain_id"),
+                        pg13::build_query(fields = c("domain_id"),
                                          distinct = TRUE,
                                          schema = schema,
                                          tableName = "concept")

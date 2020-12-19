@@ -40,7 +40,7 @@ a [tibble][tibble::tibble-package]
 FUNCTION_DESCRIPTION
 }
 \seealso{
-\code{\link[pg13]{buildQuery}}
+\code{\link[pg13]{build_query}}
 
 Other query functions: 
 \code{\link{queryAncestors}()},

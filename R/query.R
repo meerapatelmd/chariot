@@ -50,7 +50,7 @@ queryAncestors <-
 #' @inheritParams queryAthena
 #' @return a [tibble][tibble::tibble-package]
 #' @seealso
-#'  \code{\link[pg13]{buildQuery}}
+#'  \code{\link[pg13]{build_query}}
 #' @rdname queryCode
 #' @export
 #' @family query functions
@@ -71,7 +71,7 @@ queryCode <-
 
 
                 sql_statement <-
-                                pg13::buildQuery(schema = vocab_schema,
+                                pg13::build_query(schema = vocab_schema,
                                                  tableName = "concept",
                                                  whereInField = "concept_code",
                                                  whereInVector = code,
@@ -156,7 +156,7 @@ queryConceptId <-
 
             .Deprecated("lookup_concept_id")
                             # sql <-
-                            # pg13::buildQuery(schema = schema,
+                            # pg13::build_query(schema = schema,
                             #                  tableName = "concept",
                             #                  whereInField = "concept_id",
                             #                  whereInVector = concept_ids,

@@ -31,7 +31,7 @@ searchCode <-
                                                          replacement = "%")
 
                         sql_statement <-
-                                pg13::buildQueryLike(schema = schema,
+                                pg13::build_query_like(schema = schema,
                                                      tableName = "concept",
                                                      whereLikeField = "concept_code",
                                                      whereLikeValue = code,
@@ -400,7 +400,7 @@ searchPhraseLike <-
                  sleepTime = 1) {
 
                 sql_statement <-
-                        pg13::buildQueryLike(tableName = "concept",
+                        pg13::build_query_like(tableName = "concept",
                                              schema = schema,
                                              whereLikeField = "concept_name",
                                              whereLikeValue = phrase,
@@ -506,7 +506,7 @@ searchPhraseString <-
                  sleepTime = 1) {
 
                 sql_statement <-
-                        pg13::buildQueryString(schema = schema,
+                        pg13::build_query_string(schema = schema,
                                                tableName = "concept",
                                                whereLikeField = "concept_name",
                                                string=phrase,
@@ -567,7 +567,7 @@ searchPhraseStringSynonym <-
                  sleepTime = 1) {
 
                 sql_statement <-
-                        pg13::buildQueryString(schema = schema,
+                        pg13::build_query_string(schema = schema,
                                                tableName = "concept_synonym",
                                                whereLikeField = "concept_synonym_name",
                                                string=phrase,
