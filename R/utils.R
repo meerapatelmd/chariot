@@ -177,6 +177,16 @@ function (sql_statement)
         secretary::typewrite(secretary::greenTxt("SQL:"), sql_statement)
 }
 
+#' Typewrite Activity
+#' @importFrom secretary typewrite yellowTxt
+#' @noRd
+
+typewrite_activity <-
+        function (activity)
+        {
+                secretary::typewrite(secretary::yellowTxt(activity))
+        }
+
 
 #' @noRd
 

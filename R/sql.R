@@ -23,7 +23,6 @@
 #' @export
 #' @family query functions
 #' @importFrom rlang parse_expr
-#' @importFrom pg13 is_conn_open query cacheQuery loadCachedQuery
 #' @importFrom secretary typewrite magentaTxt
 #' @importFrom tibble as_tibble
 
@@ -61,7 +60,7 @@ queryAthena <-
                                 secretary::typewrite(secretary::magentaTxt("Skipping cache..."))
                         }
 
-                        resultset <- pg13::query(conn = conn,
+                        resultset <- lowLevelQuery(conn = conn,
                                                  sql_statement = sql_statement,
                                                  verbose = verbose,
                                                  render_sql = render_sql)
@@ -74,7 +73,7 @@ queryAthena <-
                                         secretary::typewrite(secretary::magentaTxt("Overriding cache... Querying Athena..."))
                                 }
 
-                                resultset <- pg13::query(conn = conn,
+                                resultset <- lowLevelQuery(conn = conn,
                                                          sql_statement = sql_statement,
                                                          verbose = verbose,
                                                          render_sql = render_sql)
@@ -83,9 +82,8 @@ queryAthena <-
                                         secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
                                 }
 
-                                pg13::cacheQuery(resultset,
-                                                 sqlQuery = sql_statement,
-                                                 db = db)
+                                lowLevelCache(data = resultset,
+                                              query = sql_statement)
 
 
                         } else {
@@ -96,9 +94,7 @@ queryAthena <-
                                 }
 
 
-                                resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                            db = db),
-                                                      error = function(e) NULL)
+                                resultset <- lowLevelLoadCache(query = sql_statement)
 
                                 if (!cache_only) {
 
@@ -110,7 +106,7 @@ queryAthena <-
                                                 }
 
                                                 Sys.sleep(time = sleepTime)
-                                                resultset <- pg13::query(conn = conn,
+                                                resultset <- lowLevelQuery(conn = conn,
                                                                          sql_statement = sql_statement,
                                                                          verbose = verbose,
                                                                          render_sql = render_sql)
@@ -119,9 +115,8 @@ queryAthena <-
                                                         secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
                                                 }
 
-                                                pg13::cacheQuery(resultset,
-                                                                 sqlQuery = sql_statement,
-                                                                 db = db)
+                                                lowLevelCache(data = resultset,
+                                                              query = sql_statement)
 
                                         }
 
@@ -166,7 +161,6 @@ queryAthena <-
 #'  \code{\link[pg13]{send}}
 #' @rdname sendAthena
 #' @export
-#' @importFrom pg13 send
 
 
 
@@ -195,7 +189,7 @@ sendAthena <-
                         typewrite_sql(sql_statement = sql_statement)
                 }
 
-                pg13::send(conn = conn,
+                lowLevelSend(conn = conn,
                            sql_statement = sql_statement,
                            verbose = verbose,
                            render_sql = render_sql)
@@ -237,7 +231,6 @@ sendAthena <-
 #' @export
 #' @importFrom secretary typewrite_bold typewrite
 #' @importFrom stringr str_replace_all str_remove_all
-#' @importFrom pg13 query cacheQuery loadCachedQuery
 #' @importFrom tibble as_tibble
 
 
@@ -272,7 +265,7 @@ executeAthena <-
                                         secretary::typewrite("Skipping cache")
                                 }
 
-                                resultset <- pg13::execute(conn = conn,
+                                resultset <- lowLevelQuery(conn = conn,
                                                          sql_statement = sql_statement,
                                                          verbose = verbose,
                                                          render_sql = render_sql)
@@ -285,14 +278,13 @@ executeAthena <-
                                                 secretary::typewrite("Overriding cache")
                                         }
 
-                                        resultset <- pg13::query(conn = conn,
+                                        resultset <- lowLevelQuery(conn = conn,
                                                                  sql_statement = sql_statement,
                                                                  verbose = verbose,
                                                                  render_sql = render_sql)
 
-                                        pg13::cacheQuery(resultset,
-                                                         sqlQuery = sql_statement,
-                                                         db = "athena")
+                                        lowLevelCache(data = resultset,
+                                                      query = sql_statement)
 
 
                                 } else {
@@ -302,9 +294,7 @@ executeAthena <-
                                         }
 
 
-                                        resultset <- tryCatch(pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                                                                    db = "athena"),
-                                                              error = function(e) NULL)
+                                        resultset <- lowLevelLoadCache(query = sql_statement)
 
                                         if (!cache_only) {
 
@@ -316,14 +306,13 @@ executeAthena <-
                                                         }
 
                                                         Sys.sleep(time = sleepTime)
-                                                        resultset <- pg13::query(conn = conn,
+                                                        resultset <- lowLevelQuery(conn = conn,
                                                                                  sql_statement = sql_statement,
                                                                                  verbose = verbose,
                                                                                  render_sql = render_sql)
 
-                                                        pg13::cacheQuery(resultset,
-                                                                         sqlQuery = sql_statement,
-                                                                         db = "athena")
+                                                        lowLevelCache(data = resultset,
+                                                                         query = sql_statement)
 
                                                 }
 
