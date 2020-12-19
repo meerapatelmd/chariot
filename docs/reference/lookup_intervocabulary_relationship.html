@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List Join Tables — lsJoinTables • chariot</title>
+<title>Query a Source Vocabulary's Relationships to Other Vocabularies — lookup_intervocabulary_relationship • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="List Join Tables — lsJoinTables" />
-<meta property="og:description" content="List Join Tables" />
+<meta property="og:title" content="Query a Source Vocabulary's Relationships to Other Vocabularies — lookup_intervocabulary_relationship" />
+<meta property="og:description" content="This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -95,21 +95,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/plot-atc-classification.html">Plot an ATC Classification</a>
-    </li>
-    <li>
-      <a href="../articles/plot-loinc-classification.html">Plot a LOINC Classification</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -134,18 +119,72 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List Join Tables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/join.R'><code>R/join.R</code></a></small>
-    <div class="hidden name"><code>lsJoinTables.Rd</code></div>
+    <h1>Query a Source Vocabulary's Relationships to Other Vocabularies</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/vocabulary_relationships.R'><code>R/vocabulary_relationships.R</code></a></small>
+    <div class="hidden name"><code>lookup_intervocabulary_relationship.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>List Join Tables</p>
+    <p>This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lsJoinTables</span><span class='op'>(</span><span class='va'>conn</span>, schema <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>lookup_intervocabulary_relationship</span><span class='op'>(</span>
+  <span class='va'>vocabulary_id</span>,
+  <span class='va'>conn</span>,
+  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
+  cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>vocabulary_id</th>
+      <td><p>Vector of 1 or more `vocabulary_id` from the OMOP Vocabulary</p></td>
+    </tr>
+    <tr>
+      <th>conn</th>
+      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
+    </tr>
+    <tr>
+      <th>cache_only</th>
+      <td><p>Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.</p></td>
+    </tr>
+    <tr>
+      <th>skip_cache</th>
+      <td><p>Skip the caching altogether and directly query the database.</p></td>
+    </tr>
+    <tr>
+      <th>override_cache</th>
+      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>render_sql</th>
+      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+    </tr>
+    <tr>
+      <th>sleepTime</th>
+      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Query for the Source Vocabulary's valid relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset for relationships within the vocabulary, see <code><a href='lookup_intravocabulary_relationship.html'>lookup_intravocabulary_relationship</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

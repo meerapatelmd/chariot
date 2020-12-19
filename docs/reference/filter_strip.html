@@ -95,21 +95,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/plot-atc-classification.html">Plot an ATC Classification</a>
-    </li>
-    <li>
-      <a href="../articles/plot-loinc-classification.html">Plot a LOINC Classification</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -179,10 +164,10 @@
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-12 17:25:27]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2020-12-12 17:25:27]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-12 17:25:27]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-19 15:28:08]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-19 15:28:08]	Postgres connection closed</div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 2</span><span>
@@ -253,10 +238,10 @@
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-12 17:25:28]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
-#&gt; [2020-12-12 17:25:28]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-12 17:25:28]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-19 15:28:08]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
+#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-19 15:28:08]	Postgres connection closed</div><div class='input'>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -273,8 +258,8 @@
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
 #&gt;   concept_a                               concept_b                             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
-#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 21154268 rabeprazole 20 MG De…</div><div class='input'>
-<span class='fu'>filter_at_any_strip</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
+#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 36069843 clindamycin 12 MG/ML…</div><div class='input'>
+<span class='fu'><a href='filter_at_any_strip.html'>filter_at_any_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                     strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                    <span class='st'>"concept_b"</span><span class='op'>)</span>,
                     all <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -282,9 +267,9 @@
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   concept_a                               concept_b                             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
-#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 21154268 rabeprazole 20 MG De…
-#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 21154268 rabeprazole 20 MG Del… [V] [S] 40965108 Albuterol 2.4 MG/ML …
-#&gt; </span><span style='color: #555555;'>3</span><span> [V] [S] 40965108 Albuterol 2.4 MG/ML I… [V] [S] 36069843 clindamycin 12 MG/ML…</div></span></pre>
+#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 21154268 rabeprazole 20 MG Del… [D] [N] 45365010 Sertraline 25 MG Ora…
+#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 36069843 clindamycin 12 MG/ML…
+#&gt; </span><span style='color: #555555;'>3</span><span> [V] [S] 4238628 Entire macula of saccu… [V] [S] 21154268 rabeprazole 20 MG De…</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query a Source Vocabulary's Relationships — query_all_vocabulary_relationship • chariot</title>
+<title>Query a Source Vocabulary's Relationships — lookup_intravocabulary_relationship • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Query a Source Vocabulary's Relationships — query_all_vocabulary_relationship" />
+<meta property="og:title" content="Query a Source Vocabulary's Relationships — lookup_intravocabulary_relationship" />
 <meta property="og:description" content="This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets." />
 <meta property="og:image" content="/logo.png" />
 
@@ -95,21 +95,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/plot-atc-classification.html">Plot an ATC Classification</a>
-    </li>
-    <li>
-      <a href="../articles/plot-loinc-classification.html">Plot a LOINC Classification</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -135,17 +120,18 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Query a Source Vocabulary's Relationships</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/vocabulary_level_functions.R'><code>R/vocabulary_level_functions.R</code></a></small>
-    <div class="hidden name"><code>query_all_vocabulary_relationship.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/vocabulary_relationships.R'><code>R/vocabulary_relationships.R</code></a></small>
+    <div class="hidden name"><code>lookup_intravocabulary_relationship.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>query_all_vocabulary_relationship</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>lookup_intravocabulary_relationship</span><span class='op'>(</span>
   <span class='va'>vocabulary_id</span>,
   conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
   cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
   skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
   override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -194,7 +180,7 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset that filters on both ends of the relationship, see <code><a href='query_vocabulary_relationships.html'>query_vocabulary_relationships</a></code>.</p>
+    <p>Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset that filters for relationships to other vocabularies, see <code>query_intervocabulary_relationship</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p></div>

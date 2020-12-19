@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter Multiple Concept Strip Columns — filter_at_all_strip • chariot</title>
+<title>Filter At Any Strip — filter_at_any_strip • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Filter Multiple Concept Strip Columns — filter_at_all_strip" />
-<meta property="og:description" content="This function performs the same style of filtering as filter_strip over multiple columns." />
+<meta property="og:title" content="Filter At Any Strip — filter_at_any_strip" />
+<meta property="og:description" content="Filter At Any Strip" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,64 +119,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter Multiple Concept Strip Columns</h1>
+    <h1>Filter At Any Strip</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/format.R'><code>R/format.R</code></a></small>
-    <div class="hidden name"><code>filter_at_all_strip.Rd</code></div>
+    <div class="hidden name"><code>filter_at_any_strip.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function performs the same style of filtering as <code><a href='filter_strip.html'>filter_strip</a></code> over multiple columns.</p>
+    <p>Filter At Any Strip</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filter_at_all_strip</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>strip_cols</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>filter_at_any_strip</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>strip_cols</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>Dataframe</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Filter arguments passed to the dplyr filter function using the base Concept Table fields.</p></td>
-    </tr>
-    <tr>
-      <th>merge_cols</th>
-      <td><p>Character vector of column names to filter</p></td>
-    </tr>
-    <tr>
-      <th>all</th>
-      <td><p>Equivalent to the `all_vars()` variable predicate in the Tidyverse system. If TRUE, all `merge_cols` are filtered for. If FALSE, the equivalent to `any_vars()` is performed. Default: TRUE</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A tibble.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code>filterStrip</code>
-<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/select_all.html'>select_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter_all.html'>filter_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>
- <code><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></code>
- <code><a href='https://meerapatelmd.github.io/rubix/reference/normalize_all_to_na.html'>normalize_all_to_na</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'><span style='color: #BBBBBB;'>── </span><span style='color: #BBBBBB;font-weight: bold;'>Attaching packages</span><span style='color: #BBBBBB;'> ─────────────────────────────────────── tidyverse 1.3.0 ──</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>ggplot2</span><span style='color: #BBBBBB;'> 3.3.2.</span><span style='color: #BB0000;'>9000</span><span style='color: #BBBBBB;'>     </span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>purrr  </span><span style='color: #BBBBBB;'> 0.3.4     </span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>tibble </span><span style='color: #BBBBBB;'> 3.0.4          </span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>dplyr  </span><span style='color: #BBBBBB;'> 1.0.2     </span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>tidyr  </span><span style='color: #BBBBBB;'> 1.1.2          </span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>stringr</span><span style='color: #BBBBBB;'> 1.4.0     </span>
-#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>readr  </span><span style='color: #BBBBBB;'> 1.4.0          </span><span style='color: #00BB00;'>✓</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>forcats</span><span style='color: #BBBBBB;'> 0.5.0     </span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BBBBBB;'>── </span><span style='color: #BBBBBB;font-weight: bold;'>Conflicts</span><span style='color: #BBBBBB;'> ────────────────────────────────────────── tidyverse_conflicts() ──</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>dplyr</span><span style='color: #BBBBBB;'>::</span><span style='color: #00BB00;'>filter()</span><span style='color: #BBBBBB;'> masks </span><span style='color: #0000BB;'>stats</span><span style='color: #BBBBBB;'>::filter()</span>
-#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span style='color: #BBBBBB;'> </span><span style='color: #0000BB;'>dplyr</span><span style='color: #BBBBBB;'>::</span><span style='color: #00BB00;'>lag()</span><span style='color: #BBBBBB;'>    masks </span><span style='color: #0000BB;'>stats</span><span style='color: #BBBBBB;'>::lag()</span><span></span></div><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://meerapatelmd.github.io/chariot/'>chariot</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://meerapatelmd.github.io/chariot/'>chariot</a></span><span class='op'>)</span>
 
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-19 15:27:58]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-19 15:27:58]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-19 15:28:03]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:03]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-19 15:28:03]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2020-12-19 15:28:03]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-19 15:28:03]	Postgres connection closed</div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 2</span><span>
@@ -247,10 +213,10 @@
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-19 15:27:58]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
-#&gt; [2020-12-19 15:27:58]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-19 15:27:58]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; [2020-12-19 15:28:04]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:04]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2020-12-19 15:28:04]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
+#&gt; [2020-12-19 15:28:04]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2020-12-19 15:28:04]	Postgres connection closed</div><div class='input'>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -259,7 +225,7 @@
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>concept_b <span class='op'>=</span> <span class='va'>concept</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>filter_at_all_strip</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
+<span class='fu'><a href='filter_at_all_strip.html'>filter_at_all_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                 strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                <span class='st'>"concept_b"</span><span class='op'>)</span>,
                 all <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -268,7 +234,7 @@
 #&gt;   concept_a                               concept_b                             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
 #&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 21154268 rabeprazole 20 MG De…</div><div class='input'>
-<span class='fu'><a href='filter_at_any_strip.html'>filter_at_any_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
+<span class='fu'>filter_at_any_strip</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                     strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                    <span class='st'>"concept_b"</span><span class='op'>)</span>,
                     all <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -277,8 +243,8 @@
 #&gt;   concept_a                               concept_b                             
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
 #&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 21154268 rabeprazole 20 MG De…
-#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 21154268 rabeprazole 20 MG Del… [V] [C] 36661255 PRKAR1A gene deletio…
-#&gt; </span><span style='color: #555555;'>3</span><span> [V] [S] 41089514 terbinafine 250 MG Or… [V] [S] 36069843 clindamycin 12 MG/ML…</div></span></pre>
+#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 21154268 rabeprazole 20 MG Del… [V] [S] 40965108 Albuterol 2.4 MG/ML …
+#&gt; </span><span style='color: #555555;'>3</span><span> [V] [S] 40965108 Albuterol 2.4 MG/ML I… [V] [S] 36069843 clindamycin 12 MG/ML…</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

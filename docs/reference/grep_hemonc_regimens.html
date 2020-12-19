@@ -95,21 +95,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/plot-atc-classification.html">Plot an ATC Classification</a>
-    </li>
-    <li>
-      <a href="../articles/plot-loinc-classification.html">Plot a LOINC Classification</a>
-    </li>
-  </ul>
-</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -145,10 +130,11 @@
 
     <pre class="usage"><span class='fu'>ho_grep_regimens</span><span class='op'>(</span>
   <span class='va'>conn</span>,
+  <span class='va'>conn_fun</span>,
   <span class='va'>components</span>,
   check_validity <span class='op'>=</span> <span class='cn'>TRUE</span>,
   component_count <span class='op'>=</span> <span class='cn'>NULL</span>,
-  vocabSchema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
   cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
   skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
   override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -163,10 +149,6 @@
     <tr>
       <th>conn</th>
       <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
-    </tr>
-    <tr>
-      <th>components</th>
-      <td><p>Character vector of length 1 or greater of components that comprise the regimen.</p></td>
     </tr>
     <tr>
       <th>check_validity</th>
@@ -199,6 +181,10 @@
     <tr>
       <th>sleepTime</th>
       <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+    </tr>
+    <tr>
+      <th>component</th>
+      <td><p>Character vector of length 1 or greater of components that comprise the regimen.</p></td>
     </tr>
     </table>
 

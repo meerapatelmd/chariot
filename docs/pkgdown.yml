@@ -1,8 +1,6 @@
 pandoc: 2.3.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles:
-  plot-atc-classification: plot-atc-classification.html
-  plot-loinc-classification: plot-loinc-classification.html
-last_built: 2020-12-12T22:24Z
+articles: {}
+last_built: 2020-12-19T20:27Z
 
