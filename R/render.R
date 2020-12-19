@@ -122,7 +122,6 @@ renderHemOncRegToAntineoplastics <-
 
 
 #' Render SQL to Query for Ancestors
-#' @import pg13
 #' @export
 
 renderQueryAncestors <-
@@ -134,7 +133,7 @@ renderQueryAncestors <-
 
                 sql_statement <-
                         stringr::str_remove_all(
-                                pg13::buildQuery(schema = vocab_schema,
+                                pg13::build_query(schema = vocab_schema,
                                                  tableName = "concept_ancestor",
                                                  whereInField = "descendant_concept_id",
                                                  whereInVector = descendant_concept_ids,
@@ -168,7 +167,6 @@ renderQueryAncestors <-
 
 
 #' Render SQL to Query for Descendants
-#' @import pg13
 #' @export
 
 renderQueryDescendants <-
@@ -180,7 +178,7 @@ renderQueryDescendants <-
 
                 sql_statement <-
                         stringr::str_remove_all(
-                                pg13::buildQuery(schema = vocab_schema,
+                                pg13::build_query(schema = vocab_schema,
                                                  tableName = "concept_ancestor",
                                                  whereInField = "ancestor_concept_id",
                                                  whereInVector = ancestor_concept_ids,
@@ -214,7 +212,6 @@ renderQueryDescendants <-
 
 
 #' Render Query Concept Synonym Table
-#' @import pg13
 #' @import stringr
 #' @export
 
@@ -256,7 +253,6 @@ renderQueryPhraseExactSynonym <-
 
 
 #' Render Query Concept Synonym Table
-#' @import pg13
 #' @import stringr
 #' @export
 
@@ -328,7 +324,6 @@ renderSynonyms <-
 
 
 #' Render Vocabulary Table DDL
-#' @import pg13
 #' @import SqlRender
 #' @export
 

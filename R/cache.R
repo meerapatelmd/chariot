@@ -1,35 +1,6 @@
-#' Is this query cached?
-#' @import pg13
-#' @export
-
-isQueryCached <-
-        function(sql_statement,
-                 db) {
-
-
-                .Deprecated(new = "is_cached")
-
-
-                cachedData <-
-                        pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                              db = db)
-
-                if (!is.null(cachedData)) {
-
-                        TRUE
-
-                } else {
-
-                        FALSE
-                }
-
-        }
-
-
 #' @title
 #' Is the query cached?
 #'
-#' @importFrom pg13 loadCachedQuery
 #'
 #' @export
 
@@ -37,8 +8,7 @@ is_cached <-
     function(sql_statement) {
 
         cachedData <-
-            loadQuery(sqlQuery = sql_statement,
-                                  db = "chariot")
+            lowLevelLoadCache(sql_statement)
 
         if (!is.null(cachedData)) {
 
@@ -53,20 +23,7 @@ is_cached <-
 
 
 
-#' Load a Cached Athena Query
-#' @importFrom pg13 loadCachedQuery
-#' @export
-
-loadQuery <-
-        function(sql_statement) {
-
-                pg13::loadCachedQuery(sqlQuery = sql_statement,
-                                      db = "chariot")
-
-        }
-
-
-#' Load cacheed results of a query
+#' Load cached results of a query
 #' @description This function uses the R.cache::loadCache function with the destination directory set to Package name "Athena".
 #' @return Cached query resultset
 #' @importFrom R.cache loadCache

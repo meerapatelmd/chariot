@@ -2,7 +2,7 @@
 % Please edit documentation in R/cache.R
 \name{load_cached_query}
 \alias{load_cached_query}
-\title{Load cacheed results of a query}
+\title{Load cached results of a query}
 \usage{
 load_cached_query(key)
 }

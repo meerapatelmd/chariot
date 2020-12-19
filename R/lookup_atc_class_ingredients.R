@@ -1,10 +1,7 @@
 
 
 
-
-
-
-
+#' @export
 
 lookup_atc_class_ingredients <-
         function(conn,
