@@ -3,7 +3,7 @@
 read_cdm_wiki_table <-
         function() {
 
-                response <<- xml2::read_html("https://ohdsi.github.io/CommonDataModel/cdm60.html")
+                response <- xml2::read_html("https://ohdsi.github.io/CommonDataModel/cdm60.html")
 
                 data <-
                 response %>%
