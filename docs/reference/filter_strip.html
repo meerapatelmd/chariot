@@ -164,84 +164,30 @@
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-19 15:28:08]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-19 15:28:08]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in pg13::connect(user = user, password = password, port = port,     server = server, verbose = verbose): trying to get slot "jConnection" from an object of a basic class ("list") with no slots</span></div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 2</span><span>
-#&gt;    concept_id concept                                                           
-#&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                             
-#&gt; </span><span style='color: #555555;'> 1</span><span>   45</span><span style='text-decoration: underline;'>905</span><span>682 [V] [N] 45905682 100 ML albumin human, USP 250 MG/ML Injection [A…
-#&gt; </span><span style='color: #555555;'> 2</span><span>   44</span><span style='text-decoration: underline;'>338</span><span>392 [V] [C] 44338392 LEADER MUCUS DM - dextromethorphan hbr, guaifene…
-#&gt; </span><span style='color: #555555;'> 3</span><span>   35</span><span style='text-decoration: underline;'>403</span><span>442 [V] [N] 35403442 memantine hydrochloride 10 MG Oral Tablet [NDC 6…
-#&gt; </span><span style='color: #555555;'> 4</span><span>    2</span><span style='text-decoration: underline;'>068</span><span>957 [V] [S] 2068957 lamotrigine 100 MG Oral Tablet [LAMEPTIL] [RxNorm…
-#&gt; </span><span style='color: #555555;'> 5</span><span>   46</span><span style='text-decoration: underline;'>000</span><span>567 [V] [N] 46000567 Co-amilozide 5mg/50mg/5ml oral solution (Special…
-#&gt; </span><span style='color: #555555;'> 6</span><span>   40</span><span style='text-decoration: underline;'>713</span><span>545 [V] [S] 40713545 60 ACTUAT fluticasone 0.05 MG/ACTUAT Inhalant Po…
-#&gt; </span><span style='color: #555555;'> 7</span><span>   44</span><span style='text-decoration: underline;'>467</span><span>708 [V] [N] 44467708 modafinil 200mg/1 ORAL TABLET [NDC 001439969] [D…
-#&gt; </span><span style='color: #555555;'> 8</span><span>   44</span><span style='text-decoration: underline;'>931</span><span>227 [D] [N] 44931227 quackgrass pollen extract 40000 UNT/ML Injectabl…
-#&gt; </span><span style='color: #555555;'> 9</span><span>   43</span><span style='text-decoration: underline;'>597</span><span>834 [V] [S] 43597834 1000 ML Alanine 6.95 MG/ML / Ammonium Chloride 2…
-#&gt; </span><span style='color: #555555;'>10</span><span>    1</span><span style='text-decoration: underline;'>020</span><span>048 [V] [N] 1020048 Right lacrimal gland [LOINC LP30097-7] [Observati…
-#&gt; </span><span style='color: #555555;'>11</span><span>   36</span><span style='text-decoration: underline;'>377</span><span>442 [V] [C] 36377442 nitrogen 990mL/L RESPIRATORY (INHALATION) GAS [S…
-#&gt; </span><span style='color: #555555;'>12</span><span>   41</span><span style='text-decoration: underline;'>014</span><span>174 [V] [S] 41014174 ethylene glycol 0.106 MG/MG [RxNorm Extension OM…
-#&gt; </span><span style='color: #555555;'>13</span><span>   45</span><span style='text-decoration: underline;'>663</span><span>496 [V] [C] 45663496 MEPIVACAINE HYDROCHLORIDE AND LEVONORDEFRIN - me…
-#&gt; </span><span style='color: #555555;'>14</span><span>   45</span><span style='text-decoration: underline;'>303</span><span>688 [V] [N] 45303688 Acetaminophen, Dextromethorphan Hydrobromide, Ph…
-#&gt; </span><span style='color: #555555;'>15</span><span>    1</span><span style='text-decoration: underline;'>186</span><span>708 [V] [C] 1186708 actaea spicata, aesculus hippocastanum, arnica mo…
-#&gt; </span><span style='color: #555555;'>16</span><span>    3</span><span style='text-decoration: underline;'>035</span><span>754 [V] [S] 3035754 Glucagon Ag [Presence] in Tissue by Immune stain …
-#&gt; </span><span style='color: #555555;'>17</span><span>   44</span><span style='text-decoration: underline;'>464</span><span>406 [D] [N] 44464406 Erythromycin 0.005 MG/MG Ophthalmic Ointment [ND…
-#&gt; </span><span style='color: #555555;'>18</span><span>   42</span><span style='text-decoration: underline;'>005</span><span>689 [V] [S] 42005689 北10条西20 [OSM 5541128] [Geography] [10th level]
-#&gt; </span><span style='color: #555555;'>19</span><span>   36</span><span style='text-decoration: underline;'>375</span><span>896 [V] [C] 36375896 didecyldimonium chloride and benzalkonium chlori…
-#&gt; </span><span style='color: #555555;'>20</span><span>   36</span><span style='text-decoration: underline;'>060</span><span>797 [V] [S] 36060797 febuxostat 80 MG Oral Tablet by Dr Reddy's [RxNo…</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span>,
             <span class='va'>vocabulary_id</span>,
             <span class='va'>concept_class_id</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 4</span><span>
-#&gt;    concept_id concept                           vocabulary_id  concept_class_id 
-#&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                             </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            
-#&gt; </span><span style='color: #555555;'> 1</span><span>   45</span><span style='text-decoration: underline;'>905</span><span>682 [V] [N] 45905682 100 ML albumin … NDC            11-digit NDC     
-#&gt; </span><span style='color: #555555;'> 2</span><span>   44</span><span style='text-decoration: underline;'>338</span><span>392 [V] [C] 44338392 LEADER MUCUS DM… SPL            OTC Drug         
-#&gt; </span><span style='color: #555555;'> 3</span><span>   35</span><span style='text-decoration: underline;'>403</span><span>442 [V] [N] 35403442 memantine hydro… NDC            11-digit NDC     
-#&gt; </span><span style='color: #555555;'> 4</span><span>    2</span><span style='text-decoration: underline;'>068</span><span>957 [V] [S] 2068957 lamotrigine 100 … RxNorm Extens… Branded Drug     
-#&gt; </span><span style='color: #555555;'> 5</span><span>   46</span><span style='text-decoration: underline;'>000</span><span>567 [V] [N] 46000567 Co-amilozide 5m… SNOMED         Pharma/Biol Prod…
-#&gt; </span><span style='color: #555555;'> 6</span><span>   40</span><span style='text-decoration: underline;'>713</span><span>545 [V] [S] 40713545 60 ACTUAT fluti… RxNorm Extens… Marketed Product 
-#&gt; </span><span style='color: #555555;'> 7</span><span>   44</span><span style='text-decoration: underline;'>467</span><span>708 [V] [N] 44467708 modafinil 200mg… NDC            9-digit NDC      
-#&gt; </span><span style='color: #555555;'> 8</span><span>   44</span><span style='text-decoration: underline;'>931</span><span>227 [D] [N] 44931227 quackgrass poll… NDC            11-digit NDC     
-#&gt; </span><span style='color: #555555;'> 9</span><span>   43</span><span style='text-decoration: underline;'>597</span><span>834 [V] [S] 43597834 1000 ML Alanine… RxNorm Extens… Quant Branded Dr…
-#&gt; </span><span style='color: #555555;'>10</span><span>    1</span><span style='text-decoration: underline;'>020</span><span>048 [V] [N] 1020048 Right lacrimal g… LOINC          LOINC System     
-#&gt; </span><span style='color: #555555;'>11</span><span>   36</span><span style='text-decoration: underline;'>377</span><span>442 [V] [C] 36377442 nitrogen 990mL/… SPL            Prescription Drug
-#&gt; </span><span style='color: #555555;'>12</span><span>   41</span><span style='text-decoration: underline;'>014</span><span>174 [V] [S] 41014174 ethylene glycol… RxNorm Extens… Clinical Drug Co…
-#&gt; </span><span style='color: #555555;'>13</span><span>   45</span><span style='text-decoration: underline;'>663</span><span>496 [V] [C] 45663496 MEPIVACAINE HYD… SPL            Prescription Drug
-#&gt; </span><span style='color: #555555;'>14</span><span>   45</span><span style='text-decoration: underline;'>303</span><span>688 [V] [N] 45303688 Acetaminophen, … NDC            9-digit NDC      
-#&gt; </span><span style='color: #555555;'>15</span><span>    1</span><span style='text-decoration: underline;'>186</span><span>708 [V] [C] 1186708 actaea spicata, … SPL            OTC Drug         
-#&gt; </span><span style='color: #555555;'>16</span><span>    3</span><span style='text-decoration: underline;'>035</span><span>754 [V] [S] 3035754 Glucagon Ag [Pre… LOINC          Lab Test         
-#&gt; </span><span style='color: #555555;'>17</span><span>   44</span><span style='text-decoration: underline;'>464</span><span>406 [D] [N] 44464406 Erythromycin 0.… NDC            11-digit NDC     
-#&gt; </span><span style='color: #555555;'>18</span><span>   42</span><span style='text-decoration: underline;'>005</span><span>689 [V] [S] 42005689 北10条西20 [OSM 55… OSM            10th level       
-#&gt; </span><span style='color: #555555;'>19</span><span>   36</span><span style='text-decoration: underline;'>375</span><span>896 [V] [C] 36375896 didecyldimonium… SPL            OTC Drug         
-#&gt; </span><span style='color: #555555;'>20</span><span>   36</span><span style='text-decoration: underline;'>060</span><span>797 [V] [S] 36060797 febuxostat 80 M… RxNorm Extens… Marketed Product </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='va'>test_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                         into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
                 <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>concept_id</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='co'># Filter at a Strip Column</span>
 <span class='fu'>filter_strip</span><span class='op'>(</span><span class='va'>test_output</span>,
              strip_col <span class='op'>=</span> <span class='va'>concept</span>,
              <span class='va'>vocabulary_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RxNorm"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 1</span><span>
-#&gt;   concept                                                                       
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                                         
-#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 41014174 ethylene glycol 0.106 MG/MG [RxNorm Extension OMOP2212136] […
-#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 36060797 febuxostat 80 MG Oral Tablet by Dr Reddy's [RxNorm Extension…</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_output' not found</span></div><div class='input'>
 <span class='co'># Filter at more than 1 Strip Column</span>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2020-12-19 15:28:08]	Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is open</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Connection is JDBC Connection</span></div><div class='output co'>#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;
-#&gt; [2020-12-19 15:28:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2020-12-19 15:28:08]	Postgres connection closed</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in pg13::connect(user = user, password = password, port = port,     server = server, verbose = verbose): trying to get slot "jConnection" from an object of a basic class ("list") with no slots</span></div><div class='input'>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -249,27 +195,19 @@
                          <span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>concept_b <span class='op'>=</span> <span class='va'>concept</span><span class='op'>)</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='error'>Error in rubix::randomize(.): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'><a href='filter_at_all_strip.html'>filter_at_all_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                 strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                <span class='st'>"concept_b"</span><span class='op'>)</span>,
                 all <span class='op'>=</span> <span class='cn'>TRUE</span>,
                 <span class='va'>vocabulary_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RxNorm"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
-#&gt;   concept_a                               concept_b                             
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
-#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 36069843 clindamycin 12 MG/ML…</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'><a href='filter_at_any_strip.html'>filter_at_any_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                     strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                    <span class='st'>"concept_b"</span><span class='op'>)</span>,
                     all <span class='op'>=</span> <span class='cn'>TRUE</span>,
                     <span class='va'>vocabulary_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RxNorm"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
-#&gt;   concept_a                               concept_b                             
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                 
-#&gt; </span><span style='color: #555555;'>1</span><span> [V] [S] 21154268 rabeprazole 20 MG Del… [D] [N] 45365010 Sertraline 25 MG Ora…
-#&gt; </span><span style='color: #555555;'>2</span><span> [V] [S] 36069843 clindamycin 12 MG/ML … [V] [S] 36069843 clindamycin 12 MG/ML…
-#&gt; </span><span style='color: #555555;'>3</span><span> [V] [S] 4238628 Entire macula of saccu… [V] [S] 21154268 rabeprazole 20 MG De…</div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

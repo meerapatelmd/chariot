@@ -78,29 +78,152 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="chariot" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#chariot" class="anchor"></a>chariot <img src="reference/figures/logo.png" align="right" alt="" width="120">
 </h1></div>
-<p>This package queries a local Postgres instance using files manually downloaded from Athena at athena.ohdsi.org. The package spawned out of my own homegrown functions I’ve written to help me map clinical concepts. As a result, much of the functions are hard-coded to specifically query Athena exports that are populated in the public schema of a Postgre database called “Athena”. Over time, I hope to be able to modify the parameters to make it more open-source for anyone else. There still may be some blockers should you install your own Postgres with the same exact parameters as mine.</p>
-</div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<pre><code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("meerapatelmd/chariot")</a></code></pre>
-<div id="requirements" class="section level2">
+<!-- badges: start -->
+<!-- badges: end -->
+<p>Query, analyze, and explore a Postgres instance of the OMOP Vocabularies for a multitude of use cases, including standardizing data to the OMOP Vocabularies, automatically annotating data pulled from the OMOP CDM with the concept attributes, and calculating cumulative drug dosage from data found in the Drug Exposures table.</p>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h2>
-<p>A Postgres instance of the OMOP Vocabularies can be instantiated by either using the <a href="https://github.com/meerapatelmd/setupAthena">setupAthena R Package</a> or can be manually instantiated by running scripts at <a href="https://github.com/OHDSI/CommonDataModel/tree/master/PostgreSQL">OHDSI/CommonDataModel repo PostgreSQL folder</a> directly importing the csvs into your client.</p>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"meerapatelmd/chariot"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="code-of-conduct" class="section level2">
+<div id="related-packages" class="section level2">
 <h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the broca project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<a href="#related-packages" class="anchor"></a>Related Packages</h2>
+<ul>
+<li>
+<a href="https://meerapatelmd.github.io/setupAthena">setupAthena</a>: sets up a Postgres instance of the Athena vocabularies downloaded from athena.ohdsi.org.<br>
+</li>
+<li>
+<a href="https://meerapatelmd.github.io/amphora">amphora</a>: plots concept ancestries to assist in knowledge management projects such as data standardization.<br>
+</li>
+<li>
+<a href="https://meerapatelmd.github.io/metaorite">metaorite</a>: the UMLS Metathesaurus equivalent of this package</li>
+</ul>
+</div>
+<div id="concept-objects" class="section level2">
+<h2 class="hasAnchor">
+<a href="#concept-objects" class="anchor"></a>Concept Objects</h2>
+<p>This package was inititally written with the objective of exploring the vocabularies for concept mapping. To avoid the challenge of using solely the Concept Id in the R environment when exploring a certain concept, an S4 <code>Concept</code> class is introduced, where <code>Concept</code> objects store all the concept attributes found in the Concept Table as slots. This is a basic example which shows you how to solve a common problem:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meerapatelmd.github.io/chariot/">chariot</a></span><span class="op">)</span>
+<span class="va">aspirin</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_concept.html">get_concept</a></span><span class="op">(</span>concept_id <span class="op">=</span> <span class="fl">1112807</span>,
+                       vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span>,
+                       conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">aspirin</span><span class="op">)</span>
+<span class="co">#&gt; [1] "concept"</span>
+<span class="co">#&gt; attr(,"package")</span>
+<span class="co">#&gt; [1] "chariot"</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">aspirin</span>
+<span class="co">#&gt; An object of class "concept"</span>
+<span class="co">#&gt; Slot "concept_id":</span>
+<span class="co">#&gt; [1] 1112807</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_name":</span>
+<span class="co">#&gt; [1] "aspirin"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_synonym_names":</span>
+<span class="co">#&gt; [1] ""</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "domain_id":</span>
+<span class="co">#&gt; [1] "Drug"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "vocabulary_id":</span>
+<span class="co">#&gt; [1] "RxNorm"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_class_id":</span>
+<span class="co">#&gt; [1] "Ingredient"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "standard_concept":</span>
+<span class="co">#&gt; [1] "S"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_code":</span>
+<span class="co">#&gt; [1] "1191"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "valid_start_date":</span>
+<span class="co">#&gt; [1] "1970-01-01"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "valid_end_date":</span>
+<span class="co">#&gt; [1] "2099-12-31"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "invalid_reason":</span>
+<span class="co">#&gt; [1] NA</span></code></pre></div>
+<p><code>Concept</code> class objects keep the user informed of all the attributes of a concept during a session using the <code>chariot</code> package. For example, I can look up the RxNorm Ingredients belonging to the ATC 5th Concept Class <code>lisinopril</code> using the Concept Id <code>21601787</code> alone.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resultset</span> <span class="op">&lt;-</span>
+<span class="fu">lookup_atc_class_ingredients</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
+                             vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span>,
+                             atc_concept_obj <span class="op">=</span> <span class="fl">21601787</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resultset</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id</span>
+<span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span>
+<span class="co">#&gt; 1    1308216 lisinopril   Drug      RxNorm        Ingredient      </span>
+<span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span>
+<span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></code></pre></div>
+<p>However, upon viewing the output, the only knowledge known based on the arguments is the <code>21601787</code> concept id. When using the <code>Concept</code> class, this information is not lost.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lisinopril_class_concept</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_concept.html">get_concept</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>,
+                                        concept_id <span class="op">=</span> <span class="fl">21601787</span>, 
+                                        vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span><span class="op">)</span>
+<span class="va">resultset</span> <span class="op">&lt;-</span>
+<span class="fu">lookup_atc_class_ingredients</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
+                             vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span>,
+                             atc_concept_obj <span class="op">=</span> <span class="va">lisinopril_class_concept</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">resultset</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id</span>
+<span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span>
+<span class="co">#&gt; 1    1308216 lisinopril   Drug      RxNorm        Ingredient      </span>
+<span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span>
+<span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></code></pre></div>
+<p>The resultset can be referenced back to the <code>lisinopril_class_concept</code> object that has retained all the concept attributes:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lisinopril_class_concept</span>
+<span class="co">#&gt; An object of class "concept"</span>
+<span class="co">#&gt; Slot "concept_id":</span>
+<span class="co">#&gt; [1] 21601787</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_name":</span>
+<span class="co">#&gt; [1] "lisinopril; oral"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_synonym_names":</span>
+<span class="co">#&gt; [1] "lisinopril"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "domain_id":</span>
+<span class="co">#&gt; [1] "Drug"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "vocabulary_id":</span>
+<span class="co">#&gt; [1] "ATC"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_class_id":</span>
+<span class="co">#&gt; [1] "ATC 5th"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "standard_concept":</span>
+<span class="co">#&gt; [1] "C"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "concept_code":</span>
+<span class="co">#&gt; [1] "C09AA03"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "valid_start_date":</span>
+<span class="co">#&gt; [1] "1970-01-01"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "valid_end_date":</span>
+<span class="co">#&gt; [1] "2099-12-31"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Slot "invalid_reason":</span>
+<span class="co">#&gt; [1] NA</span></code></pre></div>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
