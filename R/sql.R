@@ -49,8 +49,6 @@ queryAthena <-
 
                 }
 
-                check_conn(conn = conn)
-                check_conn_type(conn = conn)
 
                 db <- get_conn_db(conn = conn)
 

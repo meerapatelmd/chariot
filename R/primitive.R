@@ -4,7 +4,6 @@ lowLevelQuery <-
                   sql_statement,
                   verbose = TRUE,
                   render_sql = TRUE,
-                  warn_no_rows = TRUE,
                   render_only = FALSE,
                   ...)
 
@@ -22,10 +21,7 @@ lowLevelQuery <-
                                 if (render_sql) {
                                         typewrite_sql(sql_statement = sql_statement)
                                 }
-                                if (warn_no_rows) {
-                                        on.exit(flag_no_rows(data = resultset), add = TRUE,
-                                                after = TRUE)
-                                }
+
                                 if (verbose) {
                                         typewrite_activity("Querying...")
                                 }
