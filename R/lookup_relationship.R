@@ -5,60 +5,53 @@
 
 
 lookup_relationship <-
-        function(concept_ids,
-                 check_validity = TRUE,
-                 conn,
-                 vocabSchema,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
+  function(concept_ids,
+           check_validity = TRUE,
+           conn,
+           vocabSchema,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    if (check_validity) {
+      if (verbose) {
+        cli::cli_rule(left = "Checking Validity")
+      }
 
-
-                if (check_validity) {
-
-                        if (verbose) {
-
-                                cli::cli_rule(left = "Checking Validity")
-
-                        }
-
-                        sql_statement <-
-                                SqlRender::render(
-                                        "
+      sql_statement <-
+        SqlRender::render(
+          "
                             SELECT *
                             FROM @vocabSchema.concept c
                             WHERE c.concept_id IN (@concept_ids)
                                     AND c.invalid_reason IS NULL
                             ",
-                                        vocabSchema = vocabSchema,
-                                        concept_ids =  concept_ids
-                                )
+          vocabSchema = vocabSchema,
+          concept_ids =  concept_ids
+        )
 
-                        output <- queryAthena(sql_statement = sql_statement,
-                                              conn = conn,
-                                              cache_only = cache_only,
-                                              skip_cache = skip_cache,
-                                              override_cache = override_cache,
-                                              render_sql = render_sql,
-                                              verbose = verbose,
-                                              sleepTime = sleepTime)
+      output <- queryAthena(
+        sql_statement = sql_statement,
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
 
-                        if (nrow(output) != length(concept_ids)) {
+      if (nrow(output) != length(concept_ids)) {
+        invalid_ids <- concept_ids[!(concept_ids %in% output$concept_id)]
+        stop("Invalid concept ids: %s", paste(invalid_ids, collapse = ", "))
+      }
+    }
 
-                                invalid_ids <- concept_ids[!(concept_ids %in% output$concept_id)]
-                                stop("Invalid concept ids: %s", paste(invalid_ids, collapse = ", "))
-
-                        }
-
-
-                }
-
-                sql_statement <-
-                        SqlRender::render(
-                                "
+    sql_statement <-
+      SqlRender::render(
+        "
                                 SELECT
                                         cr.relationship_id,
                                         c1.concept_id AS concept_id_1,
@@ -89,51 +82,48 @@ lookup_relationship <-
                                 WHERE cr.concept_id_1 IN (@concept_ids)
                                         AND cr.invalid_reason IS NULL
                                 ",
-                                vocabSchema = vocabSchema,
-                                concept_ids = concept_ids
-                        )
+        vocabSchema = vocabSchema,
+        concept_ids = concept_ids
+      )
 
 
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
 
 pivot_relationship <-
-        function(concept_ids,
-                 check_validity = TRUE,
-                 conn,
-                 vocabSchema,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
-
-
-                output <-
-                        lookup_relationship(
-                                concept_ids = concept_ids,
-                                check_validity = check_validity,
-                                conn = conn,
-                                vocabSchema = vocabSchema,
-                                cache_only = cache_only,
-                                skip_cache = skip_cache,
-                                override_cache = override_cache,
-                                render_sql = render_sql,
-                                verbose = verbose,
-                                sleepTime = sleepTime)
-
-
-        }
+  function(concept_ids,
+           check_validity = TRUE,
+           conn,
+           vocabSchema,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    output <-
+      lookup_relationship(
+        concept_ids = concept_ids,
+        check_validity = check_validity,
+        conn = conn,
+        vocabSchema = vocabSchema,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+  }

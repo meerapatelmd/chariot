@@ -104,7 +104,7 @@ search_exact_phrase <-
 #' Search Concepts that Contain a Phrase
 #' @description
 #' Search for concepts that contain a phrase in the Concept Synonym table.
-#' @inherit search_exact_phrase example
+#' @example inst/example/search_phrase.R
 #' @inheritParams search_exact_phrase
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -198,7 +198,7 @@ search_like_phrase <-
 #' Search Concepts that Start With a Phrase
 #' @description
 #' Search for concepts that start with a phrase in the Concept Synonym table.
-#' @inherit search_exact_phrase example
+#' @example inst/example/search_phrase.R
 #' @inheritParams search_exact_phrase
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -293,7 +293,7 @@ search_starts_with_phrase <-
 #' Search Concepts that End With a Phrase
 #' @description
 #' Search for concepts that end with a phrase in the Concept Synonym table.
-#' @inherit search_exact_phrase example
+#' @example inst/example/search_phrase.R
 #' @inheritParams search_exact_phrase
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -390,7 +390,7 @@ search_ends_with_phrase <-
 #' Search for concepts that contain all the fragments of a phrase created by the
 #' `split` argument in the Concept Synonym table.
 #' @inheritParams strsplit
-#' @inherit search_exact_phrase example
+#' @example inst/example/search_phrase.R
 #' @inheritParams search_exact_phrase
 #' @seealso
 #'  \code{\link[SqlRender]{render}}

@@ -18,7 +18,8 @@ get_concept(
 )
 }
 \value{
-Concept Class object
+Concept Class object if the `concept_id` argument is found in the Concept table.
+If it is not found, nothing is returned.
 }
 \description{
 Lookup a Concept Id

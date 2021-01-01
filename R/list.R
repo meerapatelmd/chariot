@@ -10,30 +10,31 @@
 #' @export
 #' @importFrom pg13 lsFields
 list_fields <-
-        function(vocab_schema,
-                 tableName,
-                 conn = NULL) {
+  function(vocab_schema,
+           tableName,
+           conn = NULL) {
+    if (is.null(conn)) {
+      conn <- connectAthena()
 
-                if (is.null(conn)) {
+      resultset <-
+        pg13::lsFields(
+          conn = conn,
+          tableName = tableName,
+          schema = schema
+        )
 
-                        conn <- connectAthena()
+      dcAthena(conn = conn)
+    } else {
+      resultset <-
+        pg13::lsFields(
+          conn = conn,
+          tableName = tableName,
+          schema = schema
+        )
+    }
 
-                        resultset <-
-                                pg13::lsFields(conn = conn,
-                                               tableName = tableName,
-                                               schema = schema)
-
-                        dcAthena(conn = conn)
-
-                } else {
-                        resultset <-
-                                pg13::lsFields(conn = conn,
-                                               tableName = tableName,
-                                               schema = schema)
-                }
-
-                resultset
-        }
+    resultset
+  }
 
 
 
@@ -47,28 +48,29 @@ list_fields <-
 #' @export
 #' @importFrom SqlRender render
 list_hierarchical_relationships <-
-        function(vocab_schema,
-                 conn = NULL,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = TRUE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
-
-                queryAthena(sql_statement = SqlRender::render("SELECT * FROM @schema.relationship WHERE is_hierarchical <> '0';", schema = schema),
-                            conn = conn,
-                            conn_fun = conn_fun,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+  function(vocab_schema,
+           conn = NULL,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+    queryAthena(
+      sql_statement = SqlRender::render("SELECT * FROM @schema.relationship WHERE is_hierarchical <> '0';", schema = schema),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 #' @title FUNCTION_TITLE
@@ -87,9 +89,9 @@ list_hierarchical_relationships <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -97,28 +99,28 @@ list_hierarchical_relationships <-
 #' @export
 #' @importFrom SqlRender render
 list_defines_ancestry <-
-        function(vocab_schema,
-                 conn = NULL,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = TRUE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
-
-                queryAthena(SqlRender::render("SELECT * FROM @schema.relationship WHERE defines_ancestry <> '0';", schema = schema),
-                            conn = conn,
-                            conn_fun = conn_fun,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+  function(vocab_schema,
+           conn = NULL,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+    queryAthena(SqlRender::render("SELECT * FROM @schema.relationship WHERE defines_ancestry <> '0';", schema = schema),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -129,39 +131,34 @@ list_defines_ancestry <-
 #' @importFrom SqlRender render
 
 list_vocabulary_ids <-
-        function(vocab_schema = "omop_vocabulary",
-                 conn,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = TRUE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
-
-                queryAthena(
-                        sql_statement =
-                                SqlRender::render(
-                                        "
+  function(vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+    queryAthena(
+      sql_statement =
+        SqlRender::render(
+          "
                                         SELECT DISTINCT vocabulary_id
                                         FROM @vocab_schema.concept
                                         ",
-                                        vocab_schema = vocab_schema
-                                ),
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                ) %>%
-                        unlist()
-
-
-        }
-
-
+          vocab_schema = vocab_schema
+        ),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    ) %>%
+      unlist()
+  }

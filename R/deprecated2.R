@@ -7,25 +7,23 @@
 #' @noRd
 
 lookup_top_classes <-
-        function(vocabulary_id,
-                 domain_id,
-                 vocab_schema = "omop_vocabulary",
-                 conn,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = TRUE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
-
-
-                if (missing(domain_id)) {
-
-                        queryAthena(sql_statement =
-                                            SqlRender::render(
-                                                    "
+  function(vocabulary_id,
+           domain_id,
+           vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+    if (missing(domain_id)) {
+      queryAthena(
+        sql_statement =
+          SqlRender::render(
+            "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                     FROM @vocab_schema.concept c
@@ -51,26 +49,24 @@ lookup_top_classes <-
                             WHERE a.ancestor_concept_id NOT IN (
                                 SELECT a2.descendant_concept_id
                                 FROM ancestry a2);",
-                                                    vocab_schema = vocab_schema,
-                                                    vocabulary_id = vocabulary_id),
-                                    conn = conn,
-                                    conn_fun = conn_fun,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    cache_resultset = cache_resultset,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime
-                        )
-
-
-
-                } else {
-
-                        queryAthena(sql_statement =
-                                            SqlRender::render(
-                                                    "
+            vocab_schema = vocab_schema,
+            vocabulary_id = vocabulary_id
+          ),
+        conn = conn,
+        conn_fun = conn_fun,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        cache_resultset = cache_resultset,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    } else {
+      queryAthena(
+        sql_statement =
+          SqlRender::render(
+            "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                     FROM @vocab_schema.concept c
@@ -98,21 +94,22 @@ lookup_top_classes <-
                             WHERE a.ancestor_concept_id NOT IN (
                                 SELECT a2.descendant_concept_id
                                 FROM ancestry a2);",
-                                                    vocab_schema = vocab_schema,
-                                                    vocabulary_id = vocabulary_id,
-                                                    domain_id = domain_id),
-                                    conn = conn,
-                                    conn_fun = conn_fun,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    cache_resultset = cache_resultset,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime
-                        )
-                }
-        }
+            vocab_schema = vocab_schema,
+            vocabulary_id = vocabulary_id,
+            domain_id = domain_id
+          ),
+        conn = conn,
+        conn_fun = conn_fun,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        cache_resultset = cache_resultset,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    }
+  }
 
 
 
@@ -129,34 +126,29 @@ lookup_top_classes <-
 #' @rdname preview_atc_classification
 
 preview_atc_classification <-
-        function(conn,
-                 concept_class_obj,
-                 vocab_schema = "omop_vocabulary",
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1) {
+  function(conn,
+           concept_class_obj,
+           vocab_schema = "omop_vocabulary",
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1) {
+    if (is.concept(concept_class_obj)) {
+      concept_id <- concept_class_obj@concept_id
+    } else {
+      stop("`concept_class_obj` must be a concept class object")
+    }
 
-
-                if (is.concept(concept_class_obj)) {
-
-                        concept_id <- concept_class_obj@concept_id
-
-                } else {
-
-                        stop("`concept_class_obj` must be a concept class object")
-
-                }
-
-                domain_id <- "Drug"
-                vocabulary_id <- "ATC"
-                child <- domain_id
+    domain_id <- "Drug"
+    vocabulary_id <- "ATC"
+    child <- domain_id
 
 
 
-                level_1 <<-
-                        queryAthena(sql_statement =
-                                            SqlRender::render(
-                                                    "
+    level_1 <<-
+      queryAthena(
+        sql_statement =
+          SqlRender::render(
+            "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                     FROM @vocab_schema.concept c
@@ -182,52 +174,56 @@ preview_atc_classification <-
                             LEFT JOIN @vocab_schema.concept c
                             ON c.concept_id = a.ancestor_concept_id
                             WHERE a.ancestor_concept_id IN (@concept_id);",
-                                                    vocab_schema = vocab_schema,
-                                                    vocabulary_id = vocabulary_id,
-                                                    domain_id = domain_id,
-                                                    concept_id = concept_id),
-                                    conn = conn,
-                                    conn_fun = conn_fun,
-                                    skip_cache = TRUE,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime
-                        )
+            vocab_schema = vocab_schema,
+            vocabulary_id = vocabulary_id,
+            domain_id = domain_id,
+            concept_id = concept_id
+          ),
+        conn = conn,
+        conn_fun = conn_fun,
+        skip_cache = TRUE,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
 
-                stopifnot(nrow(level_1) > 0)
+    stopifnot(nrow(level_1) > 0)
 
-                level_1 <-
-                        level_1 %>%
-                        dplyr::mutate(parent = child) %>%
-                        tidyr::unite(col = child,
-                                     concept_id,
-                                     concept_name,
-                                     sep = " ",
-                                     na.rm = TRUE,
-                                     remove = FALSE) %>%
-                        dplyr::select(parent,
-                                      child,
-                                      dplyr::everything())
+    level_1 <-
+      level_1 %>%
+      dplyr::mutate(parent = child) %>%
+      tidyr::unite(
+        col = child,
+        concept_id,
+        concept_name,
+        sep = " ",
+        na.rm = TRUE,
+        remove = FALSE
+      ) %>%
+      dplyr::select(
+        parent,
+        child,
+        dplyr::everything()
+      )
 
-                range_output <- list()
-                range_output[[1]] <- level_1
+    range_output <- list()
+    range_output[[1]] <- level_1
 
 
-                range <- 1:100
-                for (i in 2:max(range)) {
+    range <- 1:100
+    for (i in 2:max(range)) {
+      new_parents <-
+        range_output[[i - 1]] %>%
+        dplyr::select(concept_id) %>%
+        dplyr::distinct() %>%
+        unlist() %>%
+        as.integer()
 
-
-                        new_parents <-
-                                range_output[[i-1]] %>%
-                                dplyr::select(concept_id) %>%
-                                dplyr::distinct() %>%
-                                unlist() %>%
-                                as.integer()
-
-                        level_n <-
-                                queryAthena(sql_statement =
-                                                    SqlRender::render(
-                                                            "
+      level_n <-
+        queryAthena(
+          sql_statement =
+            SqlRender::render(
+              "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                         FROM @vocab_schema.concept c
@@ -259,37 +255,37 @@ preview_atc_classification <-
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                                            vocab_schema = vocab_schema,
-                                                            vocabulary_id = vocabulary_id,
-                                                            domain_id = domain_id,
-                                                            new_parents = new_parents),
-                                            conn = conn,
-                                            verbose = verbose,
-                                            render_sql = render_sql
-                                )
+              vocab_schema = vocab_schema,
+              vocabulary_id = vocabulary_id,
+              domain_id = domain_id,
+              new_parents = new_parents
+            ),
+          conn = conn,
+          verbose = verbose,
+          render_sql = render_sql
+        )
 
 
-                        if (nrow(level_n) == 0) {
+      if (nrow(level_n) == 0) {
+        break()
+      } else {
+        range_output[[i]] <- level_n
+      }
+    }
 
-                                break()
-
-                        } else {
-                                range_output[[i]] <- level_n
-                        }
-
-                }
-
-                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_class_obj@concept_id, concept_class_obj@concept_name)))
-                secretary::typewrite("Row counts:")
-                1:length(range_output) %>%
-                        purrr::map2(range_output,
-                                    function(x,y)
-                                            secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
-                        )
-
-
-                range_output
+    secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf("%s %s", concept_class_obj@concept_id, concept_class_obj@concept_name)))
+    secretary::typewrite("Row counts:")
+    1:length(range_output) %>%
+      purrr::map2(
+        range_output,
+        function(x, y) {
+          secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
         }
+      )
+
+
+    range_output
+  }
 
 
 
@@ -318,107 +314,110 @@ preview_atc_classification <-
 #' @importFrom htmlwidgets saveWidget
 
 plot_atc_classification <-
-        function(conn,
-                 concept_class_obj,
-                 range,
-                 file,
-                 vocab_schema = "omop_vocabulary",
-                 color_by = "standard_concept",
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1,
-                 skip_plot = FALSE) {
+  function(conn,
+           concept_class_obj,
+           range,
+           file,
+           vocab_schema = "omop_vocabulary",
+           color_by = "standard_concept",
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1,
+           skip_plot = FALSE) {
+    if (is.concept(concept_class_obj)) {
+      concept_id <- concept_class_obj@concept_id
+    } else {
+      stop("`concept_class_obj` must be a concept class object")
+    }
+
+    domain_id <- "Measurement"
+    vocabulary_id <- "LOINC"
+    child <- domain_id
+    root <-
+      tibble::tibble(
+        parent = NA_character_,
+        child = child
+      )
 
 
-                if (is.concept(concept_class_obj)) {
+    range_output <- preview_atc_classification(
+      conn = conn,
+      concept_class_obj = concept_class_obj,
+      vocab_schema = vocab_schema,
+      verbose = verbose,
+      render_sql = render_sql,
+      sleep_time = sleep_time
+    )
 
-                        concept_id <- concept_class_obj@concept_id
+    if (!missing(range)) {
+      range_output <- range_output[range]
+    }
 
-                } else {
+    df <- dplyr::bind_rows(
+      root,
+      range_output
+    )
 
-                        stop("`concept_class_obj` must be a concept class object")
+    tooltip <-
+      df %>%
+      dplyr::mutate_all(as.character) %>%
+      tidyr::pivot_longer(
+        cols = !c(parent, child),
+        names_to = "attribute",
+        values_to = "attribute_value",
+        values_drop_na = TRUE
+      ) %>%
+      tidyr::unite(
+        col = tooltip,
+        attribute,
+        attribute_value,
+        sep = ": ",
+        remove = TRUE,
+        na.rm = TRUE
+      ) %>%
+      dplyr::distinct() %>%
+      dplyr::group_by(child) %>%
+      dplyr::summarize_at(dplyr::vars(tooltip), ~ paste(., collapse = "<br>")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
 
-                }
+    color <- unlist(df[, color_by])
+    color[is.na(color)] <- "NA"
+    df$color <- factor(color)
+    levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
+    df$color <- as.character(df$color)
 
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
-                child <- domain_id
-                root <-
-                        tibble::tibble(parent = NA_character_,
-                                       child = child)
+    df <-
+      df %>%
+      dplyr::select(parent, child, color) %>%
+      dplyr::left_join(tooltip) %>%
+      dplyr::distinct()
 
+    if (skip_plot) {
+      df
+    } else {
+      secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
 
-                range_output <- preview_atc_classification(conn = conn,
-                                                        concept_class_obj = concept_class_obj,
-                                                        vocab_schema = vocab_schema,
-                                                        verbose = verbose,
-                                                        render_sql = render_sql,
-                                                        sleep_time = sleep_time)
+      if (missing(file)) {
+        collapsibleTree::collapsibleTreeNetwork(
+          df = df,
+          tooltipHtml = "tooltip",
+          fill = "color"
+        )
+      } else {
+        p <- collapsibleTree::collapsibleTreeNetwork(
+          df = df,
+          tooltipHtml = "tooltip",
+          fill = "color"
+        )
 
-                if (!missing(range)) {
-
-                        range_output <- range_output[range]
-                }
-
-                df <- dplyr::bind_rows(root,
-                                       range_output)
-
-                tooltip <-
-                        df %>%
-                        dplyr::mutate_all(as.character) %>%
-                        tidyr::pivot_longer(cols = !c(parent,child),
-                                            names_to = "attribute",
-                                            values_to = "attribute_value",
-                                            values_drop_na = TRUE) %>%
-                        tidyr::unite(col = tooltip,
-                                     attribute,
-                                     attribute_value,
-                                     sep = ": ",
-                                     remove = TRUE,
-                                     na.rm = TRUE) %>%
-                        dplyr::distinct() %>%
-                        dplyr::group_by(child) %>%
-                        dplyr::summarize_at(dplyr::vars(tooltip), ~paste(., collapse = "<br>")) %>%
-                        dplyr::ungroup() %>%
-                        dplyr::distinct()
-
-                color <- unlist(df[,color_by])
-                color[is.na(color)] <- "NA"
-                df$color <- factor(color)
-                levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
-                df$color <- as.character(df$color)
-
-                df <-
-                        df %>%
-                        dplyr::select(parent, child, color) %>%
-                        dplyr::left_join(tooltip) %>%
-                        dplyr::distinct()
-
-                if (skip_plot) {
-
-                        df
-
-                } else {
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
-
-                if (missing(file)) {
-
-                        collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                } else {
-
-                        p <- collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                        htmlwidgets::saveWidget(widget = p,
-                                                file = file)
-                }
-                }
-
-        }
+        htmlwidgets::saveWidget(
+          widget = p,
+          file = file
+        )
+      }
+    }
+  }
 
 
 
@@ -431,34 +430,29 @@ plot_atc_classification <-
 #' @rdname preview_concept_classification
 
 preview_rxnorm_atc_classification <-
-        function(conn,
-                 rxnorm_concept_obj,
-                 vocab_schema = "omop_vocabulary",
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1) {
+  function(conn,
+           rxnorm_concept_obj,
+           vocab_schema = "omop_vocabulary",
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1) {
+    if (is.concept(concept_obj)) {
+      concept_id <- concept_obj@concept_id
+    } else {
+      stop("`concept_obj` must be a concept class object")
+    }
 
-
-                if (is.concept(concept_obj)) {
-
-                        concept_id <- concept_obj@concept_id
-
-                } else {
-
-                        stop("`concept_obj` must be a concept class object")
-
-                }
-
-                domain_id <- "Drug"
-                vocabulary_id <- "ATC"
-                child <- domain_id
+    domain_id <- "Drug"
+    vocabulary_id <- "ATC"
+    child <- domain_id
 
 
 
-                level_1 <-
-                        queryAthena(sql_statement =
-                                            SqlRender::render(
-                                                    "
+    level_1 <-
+      queryAthena(
+        sql_statement =
+          SqlRender::render(
+            "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                     FROM @vocab_schema.concept c
@@ -485,50 +479,54 @@ preview_rxnorm_atc_classification <-
                             ON c.concept_id = a.ancestor_concept_id
                             WHERE a.descendant_concept_id IN (@concept_id)
                                                      AND c.concept_class_id = 'ATC 1st';",
-                                                    vocab_schema = vocab_schema,
-                                                    concept_id = concept_id),
-                                    conn = conn,
-                                    conn_fun = conn_fun,
-                                    skip_cache = TRUE,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime
-                        )
+            vocab_schema = vocab_schema,
+            concept_id = concept_id
+          ),
+        conn = conn,
+        conn_fun = conn_fun,
+        skip_cache = TRUE,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
 
-                stopifnot(nrow(level_1) > 0)
+    stopifnot(nrow(level_1) > 0)
 
-                level_1 <-
-                        level_1 %>%
-                        dplyr::mutate(parent = child) %>%
-                        tidyr::unite(col = child,
-                                     concept_id,
-                                     concept_name,
-                                     sep = " ",
-                                     na.rm = TRUE,
-                                     remove = FALSE) %>%
-                        dplyr::select(parent,
-                                      child,
-                                      dplyr::everything())
+    level_1 <-
+      level_1 %>%
+      dplyr::mutate(parent = child) %>%
+      tidyr::unite(
+        col = child,
+        concept_id,
+        concept_name,
+        sep = " ",
+        na.rm = TRUE,
+        remove = FALSE
+      ) %>%
+      dplyr::select(
+        parent,
+        child,
+        dplyr::everything()
+      )
 
-                range_output <- list()
-                range_output[[1]] <- level_1
+    range_output <- list()
+    range_output[[1]] <- level_1
 
 
-                range <- 1:100
-                for (i in 2:max(range)) {
+    range <- 1:100
+    for (i in 2:max(range)) {
+      new_parents <-
+        range_output[[i - 1]] %>%
+        dplyr::select(concept_id) %>%
+        dplyr::distinct() %>%
+        unlist() %>%
+        as.integer()
 
-
-                        new_parents <-
-                                range_output[[i-1]] %>%
-                                dplyr::select(concept_id) %>%
-                                dplyr::distinct() %>%
-                                unlist() %>%
-                                as.integer()
-
-                        level_n <-
-                                queryAthena(sql_statement =
-                                                    SqlRender::render(
-                                                            "
+      level_n <-
+        queryAthena(
+          sql_statement =
+            SqlRender::render(
+              "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                         FROM @vocab_schema.concept c
@@ -560,36 +558,36 @@ preview_rxnorm_atc_classification <-
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                                            vocab_schema = vocab_schema,
-                                                            domain_id = domain_id,
-                                                            new_parents = new_parents),
-                                            conn = conn,
-                                            verbose = verbose,
-                                            render_sql = render_sql
-                                )
+              vocab_schema = vocab_schema,
+              domain_id = domain_id,
+              new_parents = new_parents
+            ),
+          conn = conn,
+          verbose = verbose,
+          render_sql = render_sql
+        )
 
 
-                        if (nrow(level_n) == 0) {
+      if (nrow(level_n) == 0) {
+        break()
+      } else {
+        range_output[[i]] <- level_n
+      }
+    }
 
-                                break()
-
-                        } else {
-                                range_output[[i]] <- level_n
-                        }
-
-                }
-
-                secretary::typewrite("There are", length(range_output), "levels above", secretary::inside_out(sprintf('%s %s', concept_obj@concept_id, concept_obj@concept_name)))
-                secretary::typewrite("Row counts:")
-                1:length(range_output) %>%
-                        purrr::map2(range_output,
-                                    function(x,y)
-                                            secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
-                        )
-
-
-                range_output
+    secretary::typewrite("There are", length(range_output), "levels above", secretary::inside_out(sprintf("%s %s", concept_obj@concept_id, concept_obj@concept_name)))
+    secretary::typewrite("Row counts:")
+    1:length(range_output) %>%
+      purrr::map2(
+        range_output,
+        function(x, y) {
+          secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
         }
+      )
+
+
+    range_output
+  }
 
 
 
@@ -617,100 +615,105 @@ preview_rxnorm_atc_classification <-
 #' @importFrom htmlwidgets saveWidget
 
 plot_atc_classification <-
-        function(conn,
-                 concept_obj,
-                 range,
-                 file,
-                 vocab_schema = "omop_vocabulary",
-                 color_by = "standard_concept",
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1) {
+  function(conn,
+           concept_obj,
+           range,
+           file,
+           vocab_schema = "omop_vocabulary",
+           color_by = "standard_concept",
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1) {
+    if (is.concept(concept_obj)) {
+      concept_id <- concept_obj@concept_id
+    } else {
+      stop("`concept_obj` must be a concept class object")
+    }
+
+    domain_id <- "Measurement"
+    vocabulary_id <- "LOINC"
+    child <- domain_id
+    root <-
+      tibble::tibble(
+        parent = NA_character_,
+        child = child
+      )
 
 
-                if (is.concept(concept_obj)) {
+    range_output <- preview_atc_classification(
+      conn = conn,
+      concept_obj = concept_obj,
+      vocab_schema = vocab_schema,
+      verbose = verbose,
+      render_sql = render_sql,
+      sleep_time = sleep_time
+    )
 
-                        concept_id <- concept_obj@concept_id
+    if (!missing(range)) {
+      range_output <- range_output[range]
+    }
 
-                } else {
+    df <- dplyr::bind_rows(
+      root,
+      range_output
+    )
 
-                        stop("`concept_obj` must be a concept class object")
+    tooltip <-
+      df %>%
+      dplyr::mutate_all(as.character) %>%
+      tidyr::pivot_longer(
+        cols = !c(parent, child),
+        names_to = "attribute",
+        values_to = "attribute_value",
+        values_drop_na = TRUE
+      ) %>%
+      tidyr::unite(
+        col = tooltip,
+        attribute,
+        attribute_value,
+        sep = ": ",
+        remove = TRUE,
+        na.rm = TRUE
+      ) %>%
+      dplyr::distinct() %>%
+      dplyr::group_by(child) %>%
+      dplyr::summarize_at(dplyr::vars(tooltip), ~ paste(., collapse = "<br>")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
 
-                }
+    color <- unlist(df[, color_by])
+    color[is.na(color)] <- "NA"
+    df$color <- factor(color)
+    levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
+    df$color <- as.character(df$color)
 
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
-                child <- domain_id
-                root <-
-                        tibble::tibble(parent = NA_character_,
-                                       child = child)
+    df <-
+      df %>%
+      dplyr::select(parent, child, color) %>%
+      dplyr::left_join(tooltip) %>%
+      dplyr::distinct()
 
+    secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
 
-                range_output <- preview_atc_classification(conn = conn,
-                                                        concept_obj = concept_obj,
-                                                        vocab_schema = vocab_schema,
-                                                        verbose = verbose,
-                                                        render_sql = render_sql,
-                                                        sleep_time = sleep_time)
+    if (missing(file)) {
+      collapsibleTree::collapsibleTreeNetwork(
+        df = df,
+        tooltipHtml = "tooltip",
+        fill = "color"
+      )
+    } else {
+      p <- collapsibleTree::collapsibleTreeNetwork(
+        df = df,
+        tooltipHtml = "tooltip",
+        fill = "color"
+      )
 
-                if (!missing(range)) {
-
-                        range_output <- range_output[range]
-                }
-
-                df <- dplyr::bind_rows(root,
-                                       range_output)
-
-                tooltip <-
-                        df %>%
-                        dplyr::mutate_all(as.character) %>%
-                        tidyr::pivot_longer(cols = !c(parent,child),
-                                            names_to = "attribute",
-                                            values_to = "attribute_value",
-                                            values_drop_na = TRUE) %>%
-                        tidyr::unite(col = tooltip,
-                                     attribute,
-                                     attribute_value,
-                                     sep = ": ",
-                                     remove = TRUE,
-                                     na.rm = TRUE) %>%
-                        dplyr::distinct() %>%
-                        dplyr::group_by(child) %>%
-                        dplyr::summarize_at(dplyr::vars(tooltip), ~paste(., collapse = "<br>")) %>%
-                        dplyr::ungroup() %>%
-                        dplyr::distinct()
-
-                color <- unlist(df[,color_by])
-                color[is.na(color)] <- "NA"
-                df$color <- factor(color)
-                levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
-                df$color <- as.character(df$color)
-
-                df <-
-                        df %>%
-                        dplyr::select(parent, child, color) %>%
-                        dplyr::left_join(tooltip) %>%
-                        dplyr::distinct()
-
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting...")
-
-                if (missing(file)) {
-
-                        collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                } else {
-
-                        p <- collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                        htmlwidgets::saveWidget(widget = p,
-                                                file = file)
-                }
-
-        }
+      htmlwidgets::saveWidget(
+        widget = p,
+        file = file
+      )
+    }
+  }
 
 
 
@@ -726,34 +729,29 @@ plot_atc_classification <-
 #' @rdname preview_loinc_classification
 
 preview_loinc_classification <-
-        function(conn,
-                 concept_class_obj,
-                 vocab_schema = "omop_vocabulary",
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1) {
+  function(conn,
+           concept_class_obj,
+           vocab_schema = "omop_vocabulary",
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1) {
+    if (is.concept(concept_class_obj)) {
+      concept_id <- concept_class_obj@concept_id
+    } else {
+      stop("`concept_class_obj` must be a concept class object")
+    }
 
-
-                if (is.concept(concept_class_obj)) {
-
-                        concept_id <- concept_class_obj@concept_id
-
-                } else {
-
-                        stop("`concept_class_obj` must be a concept class object")
-
-                }
-
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
-                child <- domain_id
+    domain_id <- "Measurement"
+    vocabulary_id <- "LOINC"
+    child <- domain_id
 
 
 
-                level_1 <-
-                        queryAthena(sql_statement =
-                                            SqlRender::render(
-                                                    "
+    level_1 <-
+      queryAthena(
+        sql_statement =
+          SqlRender::render(
+            "
                                 WITH ancestry AS (
                                     SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                     FROM @vocab_schema.concept c
@@ -779,52 +777,56 @@ preview_loinc_classification <-
                             LEFT JOIN @vocab_schema.concept c
                             ON c.concept_id = a.ancestor_concept_id
                             WHERE a.ancestor_concept_id IN (@concept_id);",
-                                                    vocab_schema = vocab_schema,
-                                                    vocabulary_id = vocabulary_id,
-                                                    domain_id = domain_id,
-                                                    concept_id = concept_id),
-                                    conn = conn,
-                                    conn_fun = conn_fun,
-                                    skip_cache = TRUE,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime
-                        )
+            vocab_schema = vocab_schema,
+            vocabulary_id = vocabulary_id,
+            domain_id = domain_id,
+            concept_id = concept_id
+          ),
+        conn = conn,
+        conn_fun = conn_fun,
+        skip_cache = TRUE,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
 
-                stopifnot(nrow(level_1) > 0)
+    stopifnot(nrow(level_1) > 0)
 
-                level_1 <-
-                        level_1 %>%
-                        dplyr::mutate(parent = child) %>%
-                        tidyr::unite(col = child,
-                                     concept_id,
-                                     concept_name,
-                                     sep = " ",
-                                     na.rm = TRUE,
-                                     remove = FALSE) %>%
-                        dplyr::select(parent,
-                                      child,
-                                      dplyr::everything())
+    level_1 <-
+      level_1 %>%
+      dplyr::mutate(parent = child) %>%
+      tidyr::unite(
+        col = child,
+        concept_id,
+        concept_name,
+        sep = " ",
+        na.rm = TRUE,
+        remove = FALSE
+      ) %>%
+      dplyr::select(
+        parent,
+        child,
+        dplyr::everything()
+      )
 
-                range_output <- list()
-                range_output[[1]] <- level_1
+    range_output <- list()
+    range_output[[1]] <- level_1
 
 
-                range <- 1:100
-                for (i in 2:max(range)) {
+    range <- 1:100
+    for (i in 2:max(range)) {
+      new_parents <-
+        range_output[[i - 1]] %>%
+        dplyr::select(concept_id) %>%
+        dplyr::distinct() %>%
+        unlist() %>%
+        as.integer()
 
-
-                        new_parents <-
-                                range_output[[i-1]] %>%
-                                dplyr::select(concept_id) %>%
-                                dplyr::distinct() %>%
-                                unlist() %>%
-                                as.integer()
-
-                        level_n <-
-                                queryAthena(sql_statement =
-                                                    SqlRender::render(
-                                                            "
+      level_n <-
+        queryAthena(
+          sql_statement =
+            SqlRender::render(
+              "
                                     WITH ancestry AS (
                                         SELECT DISTINCT ca.ancestor_concept_id, ca.descendant_concept_id
                                         FROM @vocab_schema.concept c
@@ -856,37 +858,37 @@ preview_loinc_classification <-
                                     ON a.descendant_concept_id = child.concept_id
                                     WHERE a.ancestor_concept_id IN (@new_parents)
                                     ;",
-                                                            vocab_schema = vocab_schema,
-                                                            vocabulary_id = vocabulary_id,
-                                                            domain_id = domain_id,
-                                                            new_parents = new_parents),
-                                            conn = conn,
-                                            verbose = verbose,
-                                            render_sql = render_sql
-                                )
+              vocab_schema = vocab_schema,
+              vocabulary_id = vocabulary_id,
+              domain_id = domain_id,
+              new_parents = new_parents
+            ),
+          conn = conn,
+          verbose = verbose,
+          render_sql = render_sql
+        )
 
 
-                        if (nrow(level_n) == 0) {
+      if (nrow(level_n) == 0) {
+        break()
+      } else {
+        range_output[[i]] <- level_n
+      }
+    }
 
-                                break()
-
-                        } else {
-                                range_output[[i]] <- level_n
-                        }
-
-                }
-
-                secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf('%s %s', concept_class_obj@concept_id, concept_class_obj@concept_name)))
-                secretary::typewrite("Row counts:")
-                1:length(range_output) %>%
-                        purrr::map2(range_output,
-                                    function(x,y)
-                                            secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
-                        )
-
-
-                range_output
+    secretary::typewrite("There are", length(range_output), "levels below", secretary::inside_out(sprintf("%s %s", concept_class_obj@concept_id, concept_class_obj@concept_name)))
+    secretary::typewrite("Row counts:")
+    1:length(range_output) %>%
+      purrr::map2(
+        range_output,
+        function(x, y) {
+          secretary::typewrite(sprintf("%s: %s", x, nrow(y)), tabs = 4, timepunched = FALSE)
         }
+      )
+
+
+    range_output
+  }
 
 
 
@@ -915,108 +917,111 @@ preview_loinc_classification <-
 #' @importFrom htmlwidgets saveWidget
 
 plot_loinc_classification <-
-        function(conn,
-                 concept_class_obj,
-                 range,
-                 file,
-                 vocab_schema = "omop_vocabulary",
-                 color_by = "standard_concept",
-                 skip_plot = FALSE,
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 sleep_time = 1) {
+  function(conn,
+           concept_class_obj,
+           range,
+           file,
+           vocab_schema = "omop_vocabulary",
+           color_by = "standard_concept",
+           skip_plot = FALSE,
+           verbose = TRUE,
+           render_sql = TRUE,
+           sleep_time = 1) {
+    if (is.concept(concept_class_obj)) {
+      concept_id <- concept_class_obj@concept_id
+    } else {
+      stop("`concept_class_obj` must be a concept class object")
+    }
+
+    domain_id <- "Measurement"
+    vocabulary_id <- "LOINC"
+    child <- domain_id
+    root <-
+      tibble::tibble(
+        parent = NA_character_,
+        child = child
+      )
 
 
-                if (is.concept(concept_class_obj)) {
+    range_output <- preview_loinc_classification(
+      conn = conn,
+      concept_class_obj = concept_class_obj,
+      vocab_schema = vocab_schema,
+      verbose = verbose,
+      render_sql = render_sql,
+      sleep_time = sleep_time
+    )
 
-                        concept_id <- concept_class_obj@concept_id
+    if (!missing(range)) {
+      range_output <- range_output[range]
+    }
 
-                } else {
+    df <- dplyr::bind_rows(
+      root,
+      range_output
+    )
 
-                        stop("`concept_class_obj` must be a concept class object")
+    tooltip <-
+      df %>%
+      dplyr::mutate_all(as.character) %>%
+      tidyr::pivot_longer(
+        cols = !c(parent, child),
+        names_to = "attribute",
+        values_to = "attribute_value",
+        values_drop_na = TRUE
+      ) %>%
+      tidyr::unite(
+        col = tooltip,
+        attribute,
+        attribute_value,
+        sep = ": ",
+        remove = TRUE,
+        na.rm = TRUE
+      ) %>%
+      dplyr::distinct() %>%
+      dplyr::group_by(child) %>%
+      dplyr::summarize_at(dplyr::vars(tooltip), ~ paste(., collapse = "<br>")) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct()
 
-                }
+    color <- unlist(df[, color_by])
+    color[is.na(color)] <- "NA"
+    df$color <- factor(color)
+    levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
+    df$color <- as.character(df$color)
 
-                domain_id <- "Measurement"
-                vocabulary_id <- "LOINC"
-                child <- domain_id
-                root <-
-                        tibble::tibble(parent = NA_character_,
-                                       child = child)
-
-
-                range_output <- preview_loinc_classification(conn = conn,
-                                                        concept_class_obj = concept_class_obj,
-                                                        vocab_schema = vocab_schema,
-                                                        verbose = verbose,
-                                                        render_sql = render_sql,
-                                                        sleep_time = sleep_time)
-
-                if (!missing(range)) {
-
-                        range_output <- range_output[range]
-                }
-
-                df <- dplyr::bind_rows(root,
-                                       range_output)
-
-                tooltip <-
-                        df %>%
-                        dplyr::mutate_all(as.character) %>%
-                        tidyr::pivot_longer(cols = !c(parent,child),
-                                            names_to = "attribute",
-                                            values_to = "attribute_value",
-                                            values_drop_na = TRUE) %>%
-                        tidyr::unite(col = tooltip,
-                                     attribute,
-                                     attribute_value,
-                                     sep = ": ",
-                                     remove = TRUE,
-                                     na.rm = TRUE) %>%
-                        dplyr::distinct() %>%
-                        dplyr::group_by(child) %>%
-                        dplyr::summarize_at(dplyr::vars(tooltip), ~paste(., collapse = "<br>")) %>%
-                        dplyr::ungroup() %>%
-                        dplyr::distinct()
-
-                color <- unlist(df[,color_by])
-                color[is.na(color)] <- "NA"
-                df$color <- factor(color)
-                levels(df$color) <- colorspace::terrain_hcl(n = length(levels(df$color)))
-                df$color <- as.character(df$color)
-
-                df <-
-                        df %>%
-                        dplyr::select(parent, child, color) %>%
-                        dplyr::left_join(tooltip) %>%
-                        dplyr::distinct()
+    df <-
+      df %>%
+      dplyr::select(parent, child, color) %>%
+      dplyr::left_join(tooltip) %>%
+      dplyr::distinct()
 
 
-                if (skip_plot) {
+    if (skip_plot) {
+      df
+    } else {
+      secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting... ")
 
-                        df
-                } else {
+      if (missing(file)) {
+        collapsibleTree::collapsibleTreeNetwork(
+          df = df,
+          tooltipHtml = "tooltip",
+          fill = "color"
+        )
+      } else {
+        p <- collapsibleTree::collapsibleTreeNetwork(
+          df = df,
+          tooltipHtml = "tooltip",
+          fill = "color"
+        )
 
-                secretary::typewrite("There are", nrow(df), "rows in the data tree. Plotting... ")
-
-                if (missing(file)) {
-
-                        collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                } else {
-
-                        p <- collapsibleTree::collapsibleTreeNetwork(df = df,
-                                                                tooltipHtml = "tooltip",
-                                                                fill = "color")
-
-                        htmlwidgets::saveWidget(widget = p,
-                                                file = file)
-                }
-                }
-
-        }
+        htmlwidgets::saveWidget(
+          widget = p,
+          file = file
+        )
+      }
+    }
+  }
 
 
 
@@ -1032,17 +1037,17 @@ plot_loinc_classification <-
 #' @importFrom dplyr select
 
 getStrip <-
-    function(concept_id,
-             schema = "public") {
-
-        queryConceptId(concept_ids = concept_id,
-                       schema = schema) %>%
-            mergeStrip(into = "Concept") %>%
-            dplyr::select("Concept") %>%
-            unlist() %>%
-            unname()
-
-    }
+  function(concept_id,
+           schema = "public") {
+    queryConceptId(
+      concept_ids = concept_id,
+      schema = schema
+    ) %>%
+      mergeStrip(into = "Concept") %>%
+      dplyr::select("Concept") %>%
+      unlist() %>%
+      unname()
+  }
 
 #' @title
 #' Unbox Strip
@@ -1056,23 +1061,22 @@ getStrip <-
 
 
 unboxStrip <-
-    function(data,
-             strip_col,
-             row_sep = "\n",
-             remove = FALSE) {
+  function(data,
+           strip_col,
+           row_sep = "\n",
+           remove = FALSE) {
 
 
-            # test_data <-
-            #     tibble::tibble(Concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
+    # test_data <-
+    #     tibble::tibble(Concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
 
-            data %>%
-                 tidyr::separate_rows({{ strip_col }}, sep = row_sep) %>%
-                    unmergeStrip(strip_col = {{ strip_col }},
-                                 remove = remove)
-
-
-
-    }
+    data %>%
+      tidyr::separate_rows({{ strip_col }}, sep = row_sep) %>%
+      unmergeStrip(
+        strip_col = {{ strip_col }},
+        remove = remove
+      )
+  }
 
 
 #' @title
@@ -1087,25 +1091,24 @@ unboxStrip <-
 
 
 unboxLabel <-
-    function(data,
-             label_col,
-             row_sep = "\n",
-             remove = FALSE) {
+  function(data,
+           label_col,
+           row_sep = "\n",
+           remove = FALSE) {
 
 
-        # test_data <-
-        #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
+    # test_data <-
+    #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
 
-        data %>%
-            tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
-            tidyr::extract(col = {{ label_col }},
-                           into = c("concept_id", "concept_name"),
-                           regex = "(^.*?) (.*$)",
-                           remove = remove)
-
-
-
-    }
+    data %>%
+      tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
+      tidyr::extract(
+        col = {{ label_col }},
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      )
+  }
 
 
 #' @title Filter Multiple Concept Strip Columns
@@ -1133,151 +1136,151 @@ unboxLabel <-
 
 
 filterAtStrip <-
-        function(data,
-                 merge_cols,
-                 all = TRUE,
-                 ...) {
+  function(data,
+           merge_cols,
+           all = TRUE,
+           ...) {
+    data <-
+      data %>%
+      tibble::rowid_to_column("filterAtStripId")
 
 
-                data <-
-                        data %>%
-                        tibble::rowid_to_column("filterAtStripId")
+    reserveData <-
+      data
+
+    inputData <-
+      data %>%
+      dplyr::select(
+        filterAtStripId,
+        all_of(merge_cols)
+      ) %>%
+      tidyr::pivot_longer(
+        cols = !filterAtStripId,
+        names_to = "merge_col",
+        values_to = "Concept",
+        values_drop_na = TRUE
+      )
+
+    inputData2 <-
+      inputData %>%
+      separateConceptStrip(Concept) %>%
+      tibble::rowid_to_column("filterAtStripId2")
+
+    inputData3 <-
+      inputData2 %>%
+      unmergeStrip(strip_col = Concept)
+
+    inputData4 <-
+      inputData3 %>%
+      dplyr::filter(...)
 
 
-                reserveData <-
-                        data
-
-                inputData <-
-                        data %>%
-                        dplyr::select(filterAtStripId,
-                                      all_of(merge_cols)) %>%
-                        tidyr::pivot_longer(cols = !filterAtStripId,
-                                            names_to = "merge_col",
-                                            values_to = "Concept",
-                                            values_drop_na = TRUE)
-
-                inputData2 <-
-                        inputData %>%
-                        separateConceptStrip(Concept) %>%
-                        tibble::rowid_to_column("filterAtStripId2")
-
-                inputData3 <-
-                        inputData2 %>%
-                        unmergeStrip(strip_col = Concept)
-
-                inputData4 <-
-                        inputData3 %>%
-                        dplyr::filter(...)
+    if (all) {
+      inputData5 <-
+        inputData4 %>%
+        dplyr::select(
+          filterAtStripId,
+          merge_col,
+          concept_id
+        ) %>%
+        dplyr::distinct() %>%
+        dplyr::filter(!is.na(concept_id)) %>%
+        tidyr::pivot_wider(
+          id_cols = filterAtStripId,
+          names_from = merge_col,
+          values_from = concept_id,
+          values_fn = list(concept_id = function(x) length(unique(x)))
+        ) %>%
+        dplyr::filter_at(dplyr::vars(!filterAtStripId), dplyr::all_vars(!is.na(.)))
 
 
-                if (all) {
+      return(reserveData[(reserveData$filterAtStripId %in% inputData5$filterAtStripId), ] %>%
+        dplyr::select(-contains("filterAtStripId")))
+    } else {
+      return(
+        reserveData[(reserveData$filterAtStripId %in% inputData4$filterAtStripId), ] %>%
+          dplyr::select(-contains("filterAtStripId"))
+      )
+    }
 
-                        inputData5 <-
-                                inputData4 %>%
-                                dplyr::select(filterAtStripId,
-                                              merge_col,
-                                              concept_id) %>%
-                                dplyr::distinct() %>%
-                                dplyr::filter(!is.na(concept_id)) %>%
-                                tidyr::pivot_wider(
-                                                   id_cols = filterAtStripId,
-                                                   names_from = merge_col,
-                                                   values_from = concept_id,
-                                                   values_fn = list(concept_id = function(x) length(unique(x)))) %>%
-                                dplyr::filter_at(dplyr::vars(!filterAtStripId), dplyr::all_vars(!is.na(.)))
+    # column_names <-  c("concept_id",
+    #                    "concept_name",
+    #                    "domain_id",
+    #                    "vocabulary_id",
+    #                    "concept_class_id",
+    #                    "standard_concept",
+    #                    "concept_code",
+    #                    "valid_start_date",
+    #                    "valid_end_date",
+    #                    "invalid_reason")
 
-
-                        return(reserveData[(reserveData$filterAtStripId %in% inputData5$filterAtStripId),] %>%
-                                        dplyr::select(-contains("filterAtStripId")))
-
-                } else {
-
-                        return(
-                        reserveData[(reserveData$filterAtStripId %in% inputData4$filterAtStripId),] %>%
-                                dplyr::select(-contains("filterAtStripId")))
-
-
-                }
-
-                # column_names <-  c("concept_id",
-                #                    "concept_name",
-                #                    "domain_id",
-                #                    "vocabulary_id",
-                #                    "concept_class_id",
-                #                    "standard_concept",
-                #                    "concept_code",
-                #                    "valid_start_date",
-                #                    "valid_end_date",
-                #                    "invalid_reason")
-
-                # if (all) {
-                #         for (i in 1:length(merge_cols)) {
-                #
-                #                 tcol <- merge_cols[i]
-                #                 tmp_col <- paste0(tcol, "_tmp")
-                #
-                #                 tmp_data <-
-                #                         data %>%
-                #                         dplyr::select(!!tcol) %>%
-                #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
-                #
-                #                 data <-
-                #                         data %>%
-                #                         dplyr::bind_cols(tmp_data) %>%
-                #                         tidyr::separate_rows(!!tmp_col,
-                #                                              sep = "\n") %>%
-                #                         rubix::normalize_all_to_na() %>%
-                #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
-                #                         unmergeStrip(strip_col = !!tmp_col,
-                #                                      remove = FALSE) %>%
-                #                         dplyr::filter(...)  %>%
-                #                         dplyr::select(-any_of(column_names)) %>%
-                #                         dplyr::select(-!!tmp_col) %>%
-                #                         dplyr::distinct()
-                #
-                #                 if (nrow(data) == 0) {
-                #                         return(data)
-                #                 }
-                #
-                #         }
-                #
-                #         return(data)
-                #
-                # } else {
-                #         .output <- list()
-                #         for (i in 1:length(merge_cols)) {
-                #
-                #                 tcol <- merge_cols[i]
-                #                 tmp_col <- paste0(tcol, "_tmp")
-                #
-                #                 tmp_data <-
-                #                         data %>%
-                #                         dplyr::select(!!tcol) %>%
-                #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
-                #
-                #                 .output[[i]] <-
-                #                         data %>%
-                #                         dplyr::bind_cols(tmp_data) %>%
-                #                         tidyr::separate_rows(!!tmp_col,
-                #                                              sep = "\n") %>%
-                #                         rubix::normalize_all_to_na() %>%
-                #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
-                #                         unmergeStrip(strip_col = !!tmp_col,
-                #                                      remove = FALSE) %>%
-                #                         dplyr::filter(...)  %>%
-                #                         dplyr::select(-any_of(column_names)) %>%
-                #                         dplyr::select(-!!tmp_col) %>%
-                #                         dplyr::distinct()
-                #
-                #         }
-                #         .output <- dplyr::bind_rows(.output) %>%
-                #                                 dplyr::distinct()
-                #         return(.output)
-                #
-                #
-                # }
-
-        }
+    # if (all) {
+    #         for (i in 1:length(merge_cols)) {
+    #
+    #                 tcol <- merge_cols[i]
+    #                 tmp_col <- paste0(tcol, "_tmp")
+    #
+    #                 tmp_data <-
+    #                         data %>%
+    #                         dplyr::select(!!tcol) %>%
+    #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
+    #
+    #                 data <-
+    #                         data %>%
+    #                         dplyr::bind_cols(tmp_data) %>%
+    #                         tidyr::separate_rows(!!tmp_col,
+    #                                              sep = "\n") %>%
+    #                         rubix::normalize_all_to_na() %>%
+    #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
+    #                         unmergeStrip(strip_col = !!tmp_col,
+    #                                      remove = FALSE) %>%
+    #                         dplyr::filter(...)  %>%
+    #                         dplyr::select(-any_of(column_names)) %>%
+    #                         dplyr::select(-!!tmp_col) %>%
+    #                         dplyr::distinct()
+    #
+    #                 if (nrow(data) == 0) {
+    #                         return(data)
+    #                 }
+    #
+    #         }
+    #
+    #         return(data)
+    #
+    # } else {
+    #         .output <- list()
+    #         for (i in 1:length(merge_cols)) {
+    #
+    #                 tcol <- merge_cols[i]
+    #                 tmp_col <- paste0(tcol, "_tmp")
+    #
+    #                 tmp_data <-
+    #                         data %>%
+    #                         dplyr::select(!!tcol) %>%
+    #                         dplyr::rename_at(dplyr::vars(1), ~paste(tmp_col))
+    #
+    #                 .output[[i]] <-
+    #                         data %>%
+    #                         dplyr::bind_cols(tmp_data) %>%
+    #                         tidyr::separate_rows(!!tmp_col,
+    #                                              sep = "\n") %>%
+    #                         rubix::normalize_all_to_na() %>%
+    #                         dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
+    #                         unmergeStrip(strip_col = !!tmp_col,
+    #                                      remove = FALSE) %>%
+    #                         dplyr::filter(...)  %>%
+    #                         dplyr::select(-any_of(column_names)) %>%
+    #                         dplyr::select(-!!tmp_col) %>%
+    #                         dplyr::distinct()
+    #
+    #         }
+    #         .output <- dplyr::bind_rows(.output) %>%
+    #                                 dplyr::distinct()
+    #         return(.output)
+    #
+    #
+    # }
+  }
 
 
 
@@ -1317,58 +1320,58 @@ filterAtStrip <-
 #' @importFrom rubix normalize_all_to_na
 
 filterStrip <-
-    function(data,
-             merge_col,
-             ...) {
-
-            merge_col <- dplyr::enquo(merge_col)
-            tmp_col <- paste0(rlang::as_name(merge_col), "tmp")
-
-
-            column_names <-  c("concept_id",
-                                      "concept_name",
-                                      "domain_id",
-                                      "vocabulary_id",
-                                      "concept_class_id",
-                                      "standard_concept",
-                                      "concept_code",
-                                      "valid_start_date",
-                                      "valid_end_date",
-                                      "invalid_reason")
+  function(data,
+           merge_col,
+           ...) {
+    merge_col <- dplyr::enquo(merge_col)
+    tmp_col <- paste0(rlang::as_name(merge_col), "tmp")
 
 
-            if (any(column_names %in% colnames(data))) {
+    column_names <- c(
+      "concept_id",
+      "concept_name",
+      "domain_id",
+      "vocabulary_id",
+      "concept_class_id",
+      "standard_concept",
+      "concept_code",
+      "valid_start_date",
+      "valid_end_date",
+      "invalid_reason"
+    )
 
-                    qa <- column_names[column_names %in% colnames(data)]
 
-                    stop('data cannot have any concept table column names: ', paste(qa, collapse = ", "))
+    if (any(column_names %in% colnames(data))) {
+      qa <- column_names[column_names %in% colnames(data)]
 
-            }
-
-            .output <-
-            data %>%
-                dplyr::mutate(!!tmp_col := !!merge_col) %>%
-                separateConceptStrip(!!tmp_col) %>%
-                # tidyr::separate_rows(!!tmp_col,
-                #                      sep = "\n") %>%
-                rubix::normalize_all_to_na() %>%
-                dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
-                unmergeStrip(strip_col = !!tmp_col,
-                             remove = FALSE) %>%
-                dplyr::filter(...) %>%
-                dplyr::select(-any_of(column_names)) %>%
-                dplyr::select(-!!tmp_col) %>%
-                dplyr::distinct()
-
-            qa <- nrow(.output) > nrow(data)
-
-            if (qa) {
-                    warning('returned data has more rows than input data')
-            }
-
-            return(.output)
-
+      stop("data cannot have any concept table column names: ", paste(qa, collapse = ", "))
     }
+
+    .output <-
+      data %>%
+      dplyr::mutate(!!tmp_col := !!merge_col) %>%
+      separateConceptStrip(!!tmp_col) %>%
+      # tidyr::separate_rows(!!tmp_col,
+      #                      sep = "\n") %>%
+      rubix::normalize_all_to_na() %>%
+      dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
+      unmergeStrip(
+        strip_col = !!tmp_col,
+        remove = FALSE
+      ) %>%
+      dplyr::filter(...) %>%
+      dplyr::select(-any_of(column_names)) %>%
+      dplyr::select(-!!tmp_col) %>%
+      dplyr::distinct()
+
+    qa <- nrow(.output) > nrow(data)
+
+    if (qa) {
+      warning("returned data has more rows than input data")
+    }
+
+    return(.output)
+  }
 
 
 
@@ -1379,16 +1382,20 @@ filterStrip <-
 
 
 getLabel <-
-    function(concept_id,
-             schema = "public") {
-            queryConceptId(concept_ids = concept_id,
-                           schema = schema) %>%
-            makeLabel(into = "Label",
-                      remove = TRUE) %>%
-            dplyr::select(Label) %>%
-            unlist() %>%
-            unname()
-    }
+  function(concept_id,
+           schema = "public") {
+    queryConceptId(
+      concept_ids = concept_id,
+      schema = schema
+    ) %>%
+      makeLabel(
+        into = "Label",
+        remove = TRUE
+      ) %>%
+      dplyr::select(Label) %>%
+      unlist() %>%
+      unname()
+  }
 
 
 
@@ -1400,25 +1407,27 @@ getLabel <-
 #' @noRd
 
 labelToStrip <-
-        function(data,
-                 label_col,
-                 into,
-                 remove = FALSE) {
+  function(data,
+           label_col,
+           into,
+           remove = FALSE) {
+    label_col <- enquo(label_col)
+    into <- enquo(into)
 
-                label_col <- enquo(label_col)
-                into <- enquo(into)
-
-                data %>%
-                        tidyr::extract(col = !!label_col,
-                                        into = c("concept_id", "concept_name"),
-                                        regex = "(^.*?) (.*$)",
-                                        remove = remove) %>%
-                        dplyr::rename(label_concept_id = concept_id) %>%
-                        left_join_concept(column = "label_concept_id",
-                                          include_synonyms = FALSE)  %>%
-                        merge_concepts(into = !!into)
-
-        }
+    data %>%
+      tidyr::extract(
+        col = !!label_col,
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      ) %>%
+      dplyr::rename(label_concept_id = concept_id) %>%
+      left_join_concept(
+        column = "label_concept_id",
+        include_synonyms = FALSE
+      ) %>%
+      merge_concepts(into = !!into)
+  }
 
 
 
@@ -1430,26 +1439,26 @@ labelToStrip <-
 #' @noRd
 
 makeLabel <-
-        function(data,
-                 into,
-                 prefix = NULL,
-                 suffix = NULL,
-                 remove = FALSE) {
+  function(data,
+           into,
+           prefix = NULL,
+           suffix = NULL,
+           remove = FALSE) {
+    label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
+    names(label_parts) <- c("concept_id", "concept_name")
 
 
-                label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
-                names(label_parts) <- c("concept_id", "concept_name")
-
-
-                data %>%
-                        tidyr::unite(col = {{into}},
-                                     dplyr::all_of(label_parts$concept_id),
-                                     dplyr::all_of(label_parts$concept_name),
-                                     sep = " ",
-                                     na.rm = TRUE,
-                                     remove = remove) %>%
-                        dplyr::mutate_at(dplyr::vars({{into}}), ~na_if(., "NA NA"))
-        }
+    data %>%
+      tidyr::unite(
+        col = {{ into }},
+        dplyr::all_of(label_parts$concept_id),
+        dplyr::all_of(label_parts$concept_name),
+        sep = " ",
+        na.rm = TRUE,
+        remove = remove
+      ) %>%
+      dplyr::mutate_at(dplyr::vars({{ into }}), ~ na_if(., "NA NA"))
+  }
 
 
 
@@ -1469,147 +1478,159 @@ makeLabel <-
 #' @noRd
 
 mergeLabel <-
-            function(data,
-                     into,
-                     suffix = NULL,
-                     prefix = NULL,
-                     remove = TRUE) {
+  function(data,
+           into,
+           suffix = NULL,
+           prefix = NULL,
+           remove = TRUE) {
 
 
-                                # Enquo output column name
-                                into <- dplyr::enquo(into)
+    # Enquo output column name
+    into <- dplyr::enquo(into)
 
 
-                                # Generating a list of concept table columns that includes prefixes and suffixes
-                                column_names <- paste0(prefix,
-                                                        c("concept_id",
-                                                         "concept_name"
-                                                         # ,
-                                                         # "domain_id",
-                                                         # "vocabulary_id",
-                                                         # "concept_class_id",
-                                                         # "standard_concept",
-                                                         # "concept_code",
-                                                         # "valid_start_date",
-                                                         # "valid_end_date",
-                                                         # "invalid_reason"
-                                                         )
-                                                       ,
-                                                       suffix) %>%
-                                                as.list()
+    # Generating a list of concept table columns that includes prefixes and suffixes
+    column_names <- paste0(
+      prefix,
+      c(
+        "concept_id",
+        "concept_name"
+        # ,
+        # "domain_id",
+        # "vocabulary_id",
+        # "concept_class_id",
+        # "standard_concept",
+        # "concept_code",
+        # "valid_start_date",
+        # "valid_end_date",
+        # "invalid_reason"
+      ),
+      suffix
+    ) %>%
+      as.list()
 
-                                names(column_names) <-  c("concept_id",
-                                                          "concept_name"
-                                                          # ,
-                                                          # "domain_id",
-                                                          # "vocabulary_id",
-                                                          # "concept_class_id",
-                                                          # "standard_concept",
-                                                          # "concept_code",
-                                                          # "valid_start_date",
-                                                          # "valid_end_date",
-                                                          # "invalid_reason"
-                                                          )
+    names(column_names) <- c(
+      "concept_id",
+      "concept_name"
+      # ,
+      # "domain_id",
+      # "vocabulary_id",
+      # "concept_class_id",
+      # "standard_concept",
+      # "concept_code",
+      # "valid_start_date",
+      # "valid_end_date",
+      # "invalid_reason"
+    )
 
-                                if (!(all(unlist(column_names) %in% colnames(data)))) {
+    if (!(all(unlist(column_names) %in% colnames(data)))) {
+      qa <- unlist(column_names)[!(unlist(column_names) %in% colnames(data))]
 
-                                        qa <- unlist(column_names)[!(unlist(column_names) %in% colnames(data))]
+      if (length(qa)) {
+        stop("missing columns: ", qa)
+      }
+    }
 
-                                        if (length(qa)) {
-                                                stop("missing columns: ", qa)
-                                        }
-
-                                }
-
-                                output <-
-                                data %>%
-                                        tidyr::unite(col = !!into,
-                                                     all_of(c(column_names$concept_id,
-                                                              column_names$concept_name)),
-                                                     sep = " ",
-                                                     remove = FALSE)
-
-
-                                # If All NA concepts are not merged into a strip and returns a single NA
-                                output <-
-                                    output %>%
-                                    dplyr::mutate_at(dplyr::vars(!!into),
-                                                     function(x) ifelse(grepl("NA NA",
-                                                                              x,
-                                                                              ignore.case = FALSE),
-                                                                        NA_character_,
-                                                                        x))
+    output <-
+      data %>%
+      tidyr::unite(
+        col = !!into,
+        all_of(c(
+          column_names$concept_id,
+          column_names$concept_name
+        )),
+        sep = " ",
+        remove = FALSE
+      )
 
 
-                                # Normalizing all NA to be able to get a flag for any mis-merged concepts
-                                output <-
-                                        output %>%
-                                        tibble::as_tibble() %>%
-                                        dplyr::mutate_all(as.character) %>%
-                                        rubix::normalize_all_to_na()
-
-                                # QA NA merges
-                                qa <- output %>%
-                                        dplyr::filter_at(dplyr::vars(dplyr::all_of(column_names$concept_id)), dplyr::all_vars(!is.na(.))) %>%
-                                        dplyr::filter_at(dplyr::vars(!!into), dplyr::all_vars(is.na(.)))
-
-                                if (nrow(qa)) {
-                                        flagMergeLabel <<- qa
-                                        warning(nrow(qa), ' where concept id is not <NA>, but label is <NA>. See flagMergeLabel object.')
-                                }
-
-                                if (remove) {
-
-                                        column_names <- paste0(prefix,
-                                                               c("concept_id",
-                                                                 "concept_name",
-                                                                 "domain_id",
-                                                                 "vocabulary_id",
-                                                                 "concept_class_id",
-                                                                 "standard_concept",
-                                                                 "concept_code",
-                                                                 "valid_start_date",
-                                                                 "valid_end_date",
-                                                                 "invalid_reason"
-                                                               )
-                                                               ,
-                                                               suffix) %>%
-                                                as.list()
-
-                                        names(column_names) <-  c("concept_id",
-                                                                  "concept_name",
-                                                                  "domain_id",
-                                                                  "vocabulary_id",
-                                                                  "concept_class_id",
-                                                                  "standard_concept",
-                                                                  "concept_code",
-                                                                  "valid_start_date",
-                                                                  "valid_end_date",
-                                                                  "invalid_reason"
-                                        )
+    # If All NA concepts are not merged into a strip and returns a single NA
+    output <-
+      output %>%
+      dplyr::mutate_at(
+        dplyr::vars(!!into),
+        function(x) {
+          ifelse(grepl("NA NA",
+            x,
+            ignore.case = FALSE
+          ),
+          NA_character_,
+          x
+          )
+        }
+      )
 
 
-                                        output <-
-                                                output %>%
-                                                dplyr::select_at(dplyr::vars(!any_of(c(column_names$concept_id,
-                                                                     column_names$concept_name,
-                                                                     column_names$domain_id,
-                                                                     column_names$vocabulary_id,
-                                                                     column_names$concept_class_id,
-                                                                     column_names$standard_concept,
-                                                                     column_names$concept_code,
-                                                                     column_names$valid_start_date,
-                                                                     column_names$valid_end_date,
-                                                                     column_names$invalid_reason))))
+    # Normalizing all NA to be able to get a flag for any mis-merged concepts
+    output <-
+      output %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate_all(as.character) %>%
+      rubix::normalize_all_to_na()
+
+    # QA NA merges
+    qa <- output %>%
+      dplyr::filter_at(dplyr::vars(dplyr::all_of(column_names$concept_id)), dplyr::all_vars(!is.na(.))) %>%
+      dplyr::filter_at(dplyr::vars(!!into), dplyr::all_vars(is.na(.)))
+
+    if (nrow(qa)) {
+      flagMergeLabel <<- qa
+      warning(nrow(qa), " where concept id is not <NA>, but label is <NA>. See flagMergeLabel object.")
+    }
+
+    if (remove) {
+      column_names <- paste0(
+        prefix,
+        c(
+          "concept_id",
+          "concept_name",
+          "domain_id",
+          "vocabulary_id",
+          "concept_class_id",
+          "standard_concept",
+          "concept_code",
+          "valid_start_date",
+          "valid_end_date",
+          "invalid_reason"
+        ),
+        suffix
+      ) %>%
+        as.list()
+
+      names(column_names) <- c(
+        "concept_id",
+        "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "valid_start_date",
+        "valid_end_date",
+        "invalid_reason"
+      )
 
 
-                                }
+      output <-
+        output %>%
+        dplyr::select_at(dplyr::vars(!any_of(c(
+          column_names$concept_id,
+          column_names$concept_name,
+          column_names$domain_id,
+          column_names$vocabulary_id,
+          column_names$concept_class_id,
+          column_names$standard_concept,
+          column_names$concept_code,
+          column_names$valid_start_date,
+          column_names$valid_end_date,
+          column_names$invalid_reason
+        ))))
+    }
 
 
 
-                                return(output)
-
-            }
+    return(output)
+  }
 
 
 
@@ -1628,143 +1649,163 @@ mergeLabel <-
 #' @noRd
 
 mergeStrip <-
-            function(data,
-                     into,
-                     ...,
-                     suffix = NULL,
-                     prefix = NULL) {
+  function(data,
+           into,
+           ...,
+           suffix = NULL,
+           prefix = NULL) {
+    into_id_colname <- paste0(into, "_id")
+
+    # Enquo output column name
+    into <- dplyr::enquo(into)
+    # Preserve columns
+    preserve_cols <- dplyr::enquos(...)
 
 
-                                into_id_colname <- paste0(into, "_id")
+    # Generating a list of concept table columns that includes prefixes and suffixes
+    column_names <- paste0(
+      prefix,
+      c(
+        "concept_id",
+        "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "valid_start_date",
+        "valid_end_date",
+        "invalid_reason"
+      ),
+      suffix
+    ) %>%
+      as.list()
 
-                                # Enquo output column name
-                                into <- dplyr::enquo(into)
-                                # Preserve columns
-                                preserve_cols <- dplyr::enquos(...)
+    concept_fields <- c(
+      "concept_id",
+      "concept_name",
+      "domain_id",
+      "vocabulary_id",
+      "concept_class_id",
+      "standard_concept",
+      "concept_code",
+      "valid_start_date",
+      "valid_end_date",
+      "invalid_reason"
+    )
 
-
-                                # Generating a list of concept table columns that includes prefixes and suffixes
-                                column_names <- paste0(prefix,
-                                                        c("concept_id",
-                                                         "concept_name",
-                                                         "domain_id",
-                                                         "vocabulary_id",
-                                                         "concept_class_id",
-                                                         "standard_concept",
-                                                         "concept_code",
-                                                         "valid_start_date",
-                                                         "valid_end_date",
-                                                         "invalid_reason"),
-                                                       suffix) %>%
-                                                as.list()
-
-                                concept_fields <-  c("concept_id",
-                                                          "concept_name",
-                                                          "domain_id",
-                                                          "vocabulary_id",
-                                                          "concept_class_id",
-                                                          "standard_concept",
-                                                          "concept_code",
-                                                          "valid_start_date",
-                                                          "valid_end_date",
-                                                          "invalid_reason")
-
-                                names(column_names) <- concept_fields
+    names(column_names) <- concept_fields
 
 
-                                if (!(all(unlist(column_names) %in% colnames(data)))) {
+    if (!(all(unlist(column_names) %in% colnames(data)))) {
+      stop(sprintf("missing column names: %s", paste(unlist(column_names), collapse = ", ")))
+    }
 
-                                        stop(sprintf("missing column names: %s", paste(unlist(column_names), collapse = ", ")))
-
-                                }
-
-                                # All other column names
-                                other_cols <<- colnames(data)[!(colnames(data) %in% unlist(column_names))]
+    # All other column names
+    other_cols <<- colnames(data)[!(colnames(data) %in% unlist(column_names))]
 
 
-                                output <-
-                                data %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
-                                        tidyr::unite(col = vocabulary,
-                                                     dplyr::all_of(c(column_names$vocabulary_id,
-                                                              column_names$concept_code)),
-                                                     sep = " ") %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(column_names$domain_id,
-                                                                       "vocabulary",
-                                                                       column_names$concept_class_id))),
-                                                         function(x) paste0("[", x, "]")) %>%
-                                        #dplyr::select_at(dplyr::vars(!matches("valid.*date"))) %>%
-                                        tidyr::unite(col = {{ into }},
-                                                     all_of(c(column_names$invalid_reason,
-                                                              column_names$standard_concept,
-                                                              column_names$concept_id,
-                                                              column_names$concept_name,
-                                                              "vocabulary",
-                                                              column_names$domain_id,
-                                                              column_names$concept_class_id)),
-                                                     sep = " ",
-                                                     remove = FALSE) %>%
-                                        dplyr::select(!!into_id_colname := all_of(column_names$concept_id),
-                                                      {{ into }})
+    output <-
+      data %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
+      tidyr::unite(
+        col = vocabulary,
+        dplyr::all_of(c(
+          column_names$vocabulary_id,
+          column_names$concept_code
+        )),
+        sep = " "
+      ) %>%
+      dplyr::mutate_at(
+        dplyr::vars(dplyr::all_of(c(
+          column_names$domain_id,
+          "vocabulary",
+          column_names$concept_class_id
+        ))),
+        function(x) paste0("[", x, "]")
+      ) %>%
+      # dplyr::select_at(dplyr::vars(!matches("valid.*date"))) %>%
+      tidyr::unite(
+        col = {{ into }},
+        all_of(c(
+          column_names$invalid_reason,
+          column_names$standard_concept,
+          column_names$concept_id,
+          column_names$concept_name,
+          "vocabulary",
+          column_names$domain_id,
+          column_names$concept_class_id
+        )),
+        sep = " ",
+        remove = FALSE
+      ) %>%
+      dplyr::select(
+        !!into_id_colname := all_of(column_names$concept_id),
+        {{ into }}
+      )
 
 
-                                # If All NA concepts are not merged into a strip and returns a single NA
-                                output <-
-                                    output %>%
-                                    dplyr::mutate_at(dplyr::vars({{ into }}),
-                                                     function(x) ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
-                                                                              x,
-                                                                              ignore.case = FALSE),
-                                                                        NA_character_,
-                                                                        x))
+    # If All NA concepts are not merged into a strip and returns a single NA
+    output <-
+      output %>%
+      dplyr::mutate_at(
+        dplyr::vars({{ into }}),
+        function(x) {
+          ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
+            x,
+            ignore.case = FALSE
+          ),
+          NA_character_,
+          x
+          )
+        }
+      )
 
 
-                                # Normalizing all NA to be able to get a flag for any mis-merged concepts
-                                output <-
-                                        output %>%
-                                        tibble::as_tibble() %>%
-                                        rubix::normalize_all_to_na()
+    # Normalizing all NA to be able to get a flag for any mis-merged concepts
+    output <-
+      output %>%
+      tibble::as_tibble() %>%
+      rubix::normalize_all_to_na()
 
-                                # QA NA merges
-                                qa <- output %>%
-                                        dplyr::filter_at(dplyr::vars(!!into_id_colname), dplyr::all_vars(!is.na(.))) %>%
-                                        dplyr::filter_at(dplyr::vars({{ into }}), dplyr::all_vars(is.na(.)))
+    # QA NA merges
+    qa <- output %>%
+      dplyr::filter_at(dplyr::vars(!!into_id_colname), dplyr::all_vars(!is.na(.))) %>%
+      dplyr::filter_at(dplyr::vars({{ into }}), dplyr::all_vars(is.na(.)))
 
-                                if (nrow(qa)) {
-                                        flagMergeStrip <<- qa
-                                        warning(nrow(qa), ' where concept id is not <NA>, but merge strip is <NA>. See flagMergeStrip object.')
-                                }
-
-
-
-                                if (!missing(...)) {
-                                        output <-
-                                                dplyr::bind_cols(output,
-                                                                 data %>%
-                                                                         dplyr::select(!!!preserve_cols))
-
-
-
-                                }
+    if (nrow(qa)) {
+      flagMergeStrip <<- qa
+      warning(nrow(qa), " where concept id is not <NA>, but merge strip is <NA>. See flagMergeStrip object.")
+    }
 
 
 
+    if (!missing(...)) {
+      output <-
+        dplyr::bind_cols(
+          output,
+          data %>%
+            dplyr::select(!!!preserve_cols)
+        )
+    }
 
-                                if (length(other_cols)) {
-
-                                        output <-
-                                                dplyr::bind_cols(output,
-                                                                 data %>%
-                                                                     dplyr::select(dplyr::all_of(other_cols)))
-
-                                }
 
 
-                                return(output)
 
-            }
+    if (length(other_cols)) {
+      output <-
+        dplyr::bind_cols(
+          output,
+          data %>%
+            dplyr::select(dplyr::all_of(other_cols))
+        )
+    }
+
+
+    return(output)
+  }
 
 
 
@@ -1779,21 +1820,20 @@ mergeStrip <-
 
 
 parseLabel <-
-        function(data,
-                 label_col,
-                 remove = FALSE) {
+  function(data,
+           label_col,
+           remove = FALSE) {
+    label_col <- enquo(label_col)
 
 
-                label_col <- enquo(label_col)
-
-
-                data %>%
-                        tidyr::extract(col = !!label_col,
-                                       into = c("concept_id", "concept_name"),
-                                       regex = "(^.*?) (.*$)",
-                                       remove = remove)
-
-        }
+    data %>%
+      tidyr::extract(
+        col = !!label_col,
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      )
+  }
 
 
 
@@ -1812,13 +1852,13 @@ parseLabel <-
 #' @importFrom tidyr separate_rows
 
 separateConceptStrip <-
-        function(data,
-                 ...) {
-
-                tidyr::separate_rows(data,
-                                     ...,
-                                     sep = "(?<=\\])\n(?=\\[A-Z\\])")
-        }
+  function(data,
+           ...) {
+    tidyr::separate_rows(data,
+      ...,
+      sep = "(?<=\\])\n(?=\\[A-Z\\])"
+    )
+  }
 
 
 
@@ -1827,17 +1867,20 @@ separateConceptStrip <-
 #' @noRd
 
 stripToLabel <-
-        function(data,
-                 merge_col,
-                 into,
-                 remove = FALSE) {
-
-                unmergeStrip(dataframe = data,
-                                          concept_col = {{ merge_col }},
-                                          remove = remove) %>%
-                        makeLabel(into = {{ into }},
-                                  remove = remove)
-        }
+  function(data,
+           merge_col,
+           into,
+           remove = FALSE) {
+    unmergeStrip(
+      dataframe = data,
+      concept_col = {{ merge_col }},
+      remove = remove
+    ) %>%
+      makeLabel(
+        into = {{ into }},
+        remove = remove
+      )
+  }
 
 
 
@@ -1857,112 +1900,122 @@ stripToLabel <-
 #' @noRd
 
 unmergeStrip <-
-    function(data,
-             strip_col,
-             add_suffix = NULL,
-             add_prefix = NULL,
-             remove = TRUE,
-             r_trimws = TRUE) {
+  function(data,
+           strip_col,
+           add_suffix = NULL,
+           add_prefix = NULL,
+           remove = TRUE,
+           r_trimws = TRUE) {
+    strip_col <- dplyr::enquo(strip_col)
 
-                    strip_col <- dplyr::enquo(strip_col)
+    colOrder <- c(
+      "invalid_reason",
+      "standard_concept",
+      "concept_id",
+      "concept_name",
+      "vocabulary_id",
+      "concept_code",
+      "domain_id",
+      "concept_class_id"
+    )
 
-                    colOrder <- c("invalid_reason",
-                                  "standard_concept",
-                                  "concept_id",
-                                  "concept_name",
-                                  "vocabulary_id",
-                                  "concept_code",
-                                  "domain_id",
-                                  "concept_class_id")
+    new_cols <- paste0(
+      add_prefix,
+      colOrder,
+      add_suffix
+    ) %>%
+      as.list()
 
-                    new_cols <- paste0(add_prefix,
-                                       colOrder,
-                                       add_suffix) %>%
-                                as.list()
+    names(new_cols) <- colOrder
 
-                    names(new_cols) <- colOrder
+    new_cols <- new_cols
 
-                    new_cols <- new_cols
-
-                    if (any(unlist(new_cols) %in% colnames(data))) {
-                            qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(data)]
-                            stop('new column names already present: ', paste(qa, collapse = ", "))
-                    }
-
-                    output <-
-                    data %>%
-                        tidyr::extract(col = !!strip_col,
-                                       remove = FALSE,
-                                       into = unlist(new_cols),
-                                       regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])") %>%
-                           tibble::as_tibble() %>%
-                            rubix::normalize_all_to_na()
-
-                    output <-
-                        output %>%
-                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
-                                dplyr::mutate_at(dplyr::vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
-                                dplyr::select(dplyr::all_of(c(new_cols$concept_id,
-                                                       new_cols$concept_name,
-                                                       new_cols$domain_id,
-                                                       new_cols$vocabulary_id,
-                                                       new_cols$concept_class_id,
-                                                       new_cols$standard_concept,
-                                                       new_cols$concept_code,
-                                                       new_cols$invalid_reason)),
-                                              dplyr::everything())
-
-                    if (r_trimws == TRUE) {
-
-                            output <-
-                                output %>%
-                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(new_cols$concept_id,
-                                                               new_cols$concept_name,
-                                                               new_cols$domain_id,
-                                                               new_cols$vocabulary_id,
-                                                               new_cols$concept_class_id,
-                                                               new_cols$standard_concept,
-                                                               new_cols$concept_code,
-                                                               new_cols$invalid_reason))),
-                                                 base::trimws)
-
-                    }
-
-                    qa <-
-                        output %>%
-                        dplyr::filter_at(dplyr::vars(c(new_cols$concept_id,
-                                                new_cols$concept_name,
-                                                new_cols$domain_id,
-                                                new_cols$vocabulary_id,
-                                                new_cols$concept_class_id,
-                                                new_cols$standard_concept,
-                                                new_cols$concept_code,
-                                                new_cols$invalid_reason)),
-                                         dplyr::all_vars(is.na(.))) %>%
-                        dplyr::filter_at(dplyr::vars(!!strip_col),
-                                         dplyr::all_vars(!is.na(.)))
-
-                    if (nrow(qa) > 0) {
-
-
-                            flagUnmergeStrip <<- qa
-
-                            warning('Not all concepts unmerged: ', nrow(qa), '. See flagUnmergeStrip object.')
-
-
-                    }
-
-                    if (remove) {
-
-                        output <-
-                            output %>%
-                            dplyr::select(-!!strip_col)
-
-                    }
-
-                    return(output)
-
+    if (any(unlist(new_cols) %in% colnames(data))) {
+      qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(data)]
+      stop("new column names already present: ", paste(qa, collapse = ", "))
     }
+
+    output <-
+      data %>%
+      tidyr::extract(
+        col = !!strip_col,
+        remove = FALSE,
+        into = unlist(new_cols),
+        regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])"
+      ) %>%
+      tibble::as_tibble() %>%
+      rubix::normalize_all_to_na()
+
+    output <-
+      output %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
+      dplyr::mutate_at(dplyr::vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
+      dplyr::select(
+        dplyr::all_of(c(
+          new_cols$concept_id,
+          new_cols$concept_name,
+          new_cols$domain_id,
+          new_cols$vocabulary_id,
+          new_cols$concept_class_id,
+          new_cols$standard_concept,
+          new_cols$concept_code,
+          new_cols$invalid_reason
+        )),
+        dplyr::everything()
+      )
+
+    if (r_trimws == TRUE) {
+      output <-
+        output %>%
+        dplyr::mutate_at(
+          dplyr::vars(dplyr::all_of(c(
+            new_cols$concept_id,
+            new_cols$concept_name,
+            new_cols$domain_id,
+            new_cols$vocabulary_id,
+            new_cols$concept_class_id,
+            new_cols$standard_concept,
+            new_cols$concept_code,
+            new_cols$invalid_reason
+          ))),
+          base::trimws
+        )
+    }
+
+    qa <-
+      output %>%
+      dplyr::filter_at(
+        dplyr::vars(c(
+          new_cols$concept_id,
+          new_cols$concept_name,
+          new_cols$domain_id,
+          new_cols$vocabulary_id,
+          new_cols$concept_class_id,
+          new_cols$standard_concept,
+          new_cols$concept_code,
+          new_cols$invalid_reason
+        )),
+        dplyr::all_vars(is.na(.))
+      ) %>%
+      dplyr::filter_at(
+        dplyr::vars(!!strip_col),
+        dplyr::all_vars(!is.na(.))
+      )
+
+    if (nrow(qa) > 0) {
+      flagUnmergeStrip <<- qa
+
+      warning("Not all concepts unmerged: ", nrow(qa), ". See flagUnmergeStrip object.")
+    }
+
+    if (remove) {
+      output <-
+        output %>%
+        dplyr::select(-!!strip_col)
+    }
+
+    return(output)
+  }
 
 
 
@@ -1975,26 +2028,22 @@ unmergeStrip <-
 
 
 conceptIdExists <-
-    function(concept_id,
-             schema) {
+  function(concept_id,
+           schema) {
+    .Deprecated("concept_id_exists")
 
+    x <- queryConceptId(
+      concept_ids = concept_id,
+      schema = schema,
+      override_cache = TRUE
+    )
 
-            .Deprecated("concept_id_exists")
-
-                    x <- queryConceptId(concept_ids = concept_id,
-                                        schema = schema,
-                                        override_cache = TRUE)
-
-                    if (nrow(x) > 0) {
-
-                            TRUE
-
-                    } else {
-
-                           FALSE
-                    }
-
+    if (nrow(x) > 0) {
+      TRUE
+    } else {
+      FALSE
     }
+  }
 
 
 
@@ -2005,11 +2054,10 @@ conceptIdExists <-
 #' @noRd
 
 return_omop_vocabs <-
-        function() {
-                resultset <- query_athena("SELECT DISTINCT vocabulary_id FROM public.concept;")
-                return(resultset)
-
-        }
+  function() {
+    resultset <- query_athena("SELECT DISTINCT vocabulary_id FROM public.concept;")
+    return(resultset)
+  }
 
 
 
@@ -2024,31 +2072,33 @@ return_omop_vocabs <-
 #' @importFrom pg13 buildQuery
 
 getConceptClasses <-
-        function(schema = NULL,
-                 verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
-                 conn = NULL,
-                 render_sql = FALSE,
-                 sleepTime = 1,
-                 ...) {
+  function(schema = NULL,
+           verbose = FALSE,
+           cache_resultset = TRUE,
+           override_cache = FALSE,
+           conn = NULL,
+           render_sql = FALSE,
+           sleepTime = 1,
+           ...) {
+    sql_statement <-
+      pg13::build_query(
+        fields = c("domain_id", "vocabulary_id", "concept_class_id"),
+        distinct = TRUE,
+        schema = schema,
+        tableName = "concept"
+      )
 
-
-                sql_statement <-
-                        pg13::build_query(fields = c("domain_id", "vocabulary_id", "concept_class_id"),
-                                         distinct = TRUE,
-                                         schema = schema,
-                                         tableName = "concept")
-
-                queryAthena(sql_statement = sql_statement,
-                            verbose = verbose,
-                            cache_resultset = cache_resultset,
-                            override_cache = override_cache,
-                            conn = conn,
-                            render_sql = render_sql,
-                            sleepTime = sleepTime,
-                            ...)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      verbose = verbose,
+      cache_resultset = cache_resultset,
+      override_cache = override_cache,
+      conn = conn,
+      render_sql = render_sql,
+      sleepTime = sleepTime,
+      ...
+    )
+  }
 
 
 #' @title
@@ -2062,31 +2112,33 @@ getConceptClasses <-
 #' @importFrom pg13 buildQuery
 
 getDomain <-
-        function(schema = NULL,
-                 verbose = FALSE,
-                 cache_resultset = TRUE,
-                 override_cache = FALSE,
-                 conn = NULL,
-                 render_sql = FALSE,
-                 sleepTime = 1,
-                 ...) {
+  function(schema = NULL,
+           verbose = FALSE,
+           cache_resultset = TRUE,
+           override_cache = FALSE,
+           conn = NULL,
+           render_sql = FALSE,
+           sleepTime = 1,
+           ...) {
+    sql_statement <-
+      pg13::build_query(
+        fields = c("domain_id"),
+        distinct = TRUE,
+        schema = schema,
+        tableName = "concept"
+      )
 
-
-                sql_statement <-
-                        pg13::build_query(fields = c("domain_id"),
-                                         distinct = TRUE,
-                                         schema = schema,
-                                         tableName = "concept")
-
-                queryAthena(sql_statement = sql_statement,
-                            verbose = verbose,
-                            cache_resultset = cache_resultset,
-                            override_cache = override_cache,
-                            conn = conn,
-                            render_sql = render_sql,
-                            sleepTime = sleepTime,
-                            ...)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      verbose = verbose,
+      cache_resultset = cache_resultset,
+      override_cache = override_cache,
+      conn = conn,
+      render_sql = render_sql,
+      sleepTime = sleepTime,
+      ...
+    )
+  }
 
 
 
@@ -2101,71 +2153,64 @@ getDomain <-
 #' @noRd
 
 extractHemOncRegimens <-
-    function(component,
-             component_count = NULL,
-             omop = FALSE,
-             omop_schema = "omop_vocabulary") {
+  function(component,
+           component_count = NULL,
+           omop = FALSE,
+           omop_schema = "omop_vocabulary") {
+    .Deprecated()
 
+    output <-
+      query_phrase(component,
+        type = "like",
+        where_col = "vocabulary_id",
+        where_col_in = "HemOnc",
+        omop = omop,
+        omop_schema = omop_schema
+      )
 
-        .Deprecated()
+    output <-
+      output %>%
+      rubix::filter_at_grepl(concept_name,
+        grepl_phrase = ", | and | monotherapy"
+      ) %>%
+      rubix::arrange_by_nchar(nchar_col = concept_name)
 
-        output <-
-                query_phrase(component,
-                             type = "like",
-                             where_col = "vocabulary_id",
-                             where_col_in = "HemOnc",
-                             omop = omop,
-                             omop_schema = omop_schema)
-
-        output <-
+    if (is.null(component_count)) {
+      return(output)
+    } else if (component_count == 1) {
+      output <-
         output %>%
-            rubix::filter_at_grepl(concept_name,
-                                   grepl_phrase = ", | and | monotherapy") %>%
-            rubix::arrange_by_nchar(nchar_col = concept_name)
+        rubix::filter_at_grepl(concept_name,
+          grepl_phrase = " monotherapy"
+        ) %>%
+        rubix::arrange_by_nchar(nchar_col = concept_name)
 
-        if (is.null(component_count)) {
-                return(output)
-        } else if (component_count == 1) {
-
-            output <-
-                output %>%
-                rubix::filter_at_grepl(concept_name,
-                                       grepl_phrase = " monotherapy") %>%
-                rubix::arrange_by_nchar(nchar_col = concept_name)
-
-            return(output)
-
-        } else if (component_count == 2) {
-
-                output %>%
-                    rubix::filter_at_grepl(concept_name,
-                                           grepl_phrase = " and ") %>%
-                rubix::arrange_by_nchar(nchar_col = concept_name)
-        } else if (component_count == 3) {
-
-
-                output %>%
-                        dplyr::mutate(comma_count = centipede::nchar_comma(concept_name)) %>%
-                        dplyr::filter(comma_count == 2) %>%
-                rubix::arrange_by_nchar(nchar_col = concept_name)
-
-        } else if (component_count == 4) {
-
-                output %>%
-                    dplyr::mutate(comma_count = centipede::nchar_comma(concept_name)) %>%
-                    dplyr::filter(comma_count == 3) %>%
-                    rubix::arrange_by_nchar(nchar_col = concept_name)
-
-        } else {
-            max <-  1 + (output %>%
-                        dplyr::transmute(comma_count = centipede::nchar_comma(concept_name)) %>%
-                        unlist() %>%
-                        max(na.rm = TRUE))
-            warning('"component_count" max is: ', max,  ' returning unfiltered output')
-            return(output)
-
-        }
+      return(output)
+    } else if (component_count == 2) {
+      output %>%
+        rubix::filter_at_grepl(concept_name,
+          grepl_phrase = " and "
+        ) %>%
+        rubix::arrange_by_nchar(nchar_col = concept_name)
+    } else if (component_count == 3) {
+      output %>%
+        dplyr::mutate(comma_count = centipede::nchar_comma(concept_name)) %>%
+        dplyr::filter(comma_count == 2) %>%
+        rubix::arrange_by_nchar(nchar_col = concept_name)
+    } else if (component_count == 4) {
+      output %>%
+        dplyr::mutate(comma_count = centipede::nchar_comma(concept_name)) %>%
+        dplyr::filter(comma_count == 3) %>%
+        rubix::arrange_by_nchar(nchar_col = concept_name)
+    } else {
+      max <- 1 + (output %>%
+        dplyr::transmute(comma_count = centipede::nchar_comma(concept_name)) %>%
+        unlist() %>%
+        max(na.rm = TRUE))
+      warning('"component_count" max is: ', max, " returning unfiltered output")
+      return(output)
     }
+  }
 
 
 #' Normalize To HemOnc Components
@@ -2178,53 +2223,53 @@ extractHemOncRegimens <-
 
 
 normalizeToHemOncComponents <-
-    function(hemonc_concept_ids,
-             schema = NULL) {
+  function(hemonc_concept_ids,
+           schema = NULL) {
+    .Deprecated()
 
+    # If any of the concept_ids are regimens, to get their antineoplastic components
+    input_concept <- query_concept_id(hemonc_concept_ids)
 
-        .Deprecated()
+    qa <- input_concept %>%
+      rubix::filter_for(
+        filter_col = concept_class_id,
+        inclusion_vector = c(
+          "Regimen",
+          "Component"
+        ),
+        invert = TRUE
+      )
 
-        # If any of the concept_ids are regimens, to get their antineoplastic components
-        input_concept <- query_concept_id(hemonc_concept_ids)
-
-        qa <- input_concept %>%
-            rubix::filter_for(filter_col = concept_class_id,
-                              inclusion_vector = c("Regimen",
-                                                   "Component"),
-                              invert = TRUE)
-
-        if (nrow(qa)) {
-            qaNormalizeToHemOncComponents <<- qa
-            stop('input concept ids are not Regimen or Components. See qaNormalizeToHemOncComponents for more details.')
-        }
-
-        input_regimens <- input_concept %>%
-            dplyr::filter(concept_class_id == "Regimen")
-
-        input_components <- input_concept %>%
-            dplyr::filter(concept_class_id == "Component")
-
-
-        if (nrow(input_regimens)) {
-
-
-            component_concept_ids <-
-                c(input_components$concept_id,
-                  queryHemOncRegToAntineo(regimen_concept_ids = input_regimens$concept_id,
-                                          schema = schema) %>%
-                      dplyr::select(has_antineoplastic_concept_id) %>%
-                      unlist() %>%
-                      unname())
-
-
-        } else {
-
-            component_concept_ids <- input_components$concept_id
-
-        }
-
-        return(unique(component_concept_ids))
+    if (nrow(qa)) {
+      qaNormalizeToHemOncComponents <<- qa
+      stop("input concept ids are not Regimen or Components. See qaNormalizeToHemOncComponents for more details.")
     }
+
+    input_regimens <- input_concept %>%
+      dplyr::filter(concept_class_id == "Regimen")
+
+    input_components <- input_concept %>%
+      dplyr::filter(concept_class_id == "Component")
+
+
+    if (nrow(input_regimens)) {
+      component_concept_ids <-
+        c(
+          input_components$concept_id,
+          queryHemOncRegToAntineo(
+            regimen_concept_ids = input_regimens$concept_id,
+            schema = schema
+          ) %>%
+            dplyr::select(has_antineoplastic_concept_id) %>%
+            unlist() %>%
+            unname()
+        )
+    } else {
+      component_concept_ids <- input_components$concept_id
+    }
+
+    return(unique(component_concept_ids))
+  }
 
 
 
@@ -2233,56 +2278,57 @@ normalizeToHemOncComponents <-
 #' @noRd
 
 ids_to_integer <-
-        function(data) {
+  function(data) {
+    .Deprecated()
 
-                .Deprecated()
-
-                data %>%
-                        dplyr::mutate_at(dplyr::vars(contains("concept_id")),
-                                         as.integer)
-
-        }
+    data %>%
+      dplyr::mutate_at(
+        dplyr::vars(contains("concept_id")),
+        as.integer
+      )
+  }
 
 
 
 lowLevelQuery <-
-        function (conn,
-                  conn_fun,
-                  sql_statement,
-                  verbose = TRUE,
-                  render_sql = TRUE,
-                  render_only = FALSE,
-                  ...)
+  function(conn,
+           conn_fun,
+           sql_statement,
+           verbose = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE,
+           ...) {
+    .Deprecated(
+      new = "query",
+      package = "pg13"
+    )
+    if (render_only) {
+      typewrite_sql(sql_statement = sql_statement)
+    }
+    else {
+      if (!missing(conn_fun)) {
+        conn <- eval(rlang::parse_expr(conn_fun))
+        on.exit(dc(conn = conn))
+      }
+      cli::cat_rule("Checks")
+      check_conn(conn = conn)
+      if (render_sql) {
+        typewrite_sql(sql_statement = sql_statement)
+      }
 
-        {
-
-                .Deprecated(new = "query",
-                            package = "pg13")
-                if (render_only) {
-                        typewrite_sql(sql_statement = sql_statement)
-                }
-                else {
-                        if (!missing(conn_fun)) {
-                                conn <- eval(rlang::parse_expr(conn_fun))
-                                on.exit(dc(conn = conn))
-                        }
-                        cli::cat_rule("Checks")
-                        check_conn(conn = conn)
-                        if (render_sql) {
-                                typewrite_sql(sql_statement = sql_statement)
-                        }
-
-                        if (verbose) {
-                                typewrite_activity("Querying...")
-                        }
-                        resultset <- DatabaseConnector::dbGetQuery(conn, statement = sql_statement,
-                                                                   ...)
-                        if (verbose) {
-                                typewrite_activity("Querying...complete")
-                        }
-                        resultset
-                }
-        }
+      if (verbose) {
+        typewrite_activity("Querying...")
+      }
+      resultset <- DatabaseConnector::dbGetQuery(conn,
+        statement = sql_statement,
+        ...
+      )
+      if (verbose) {
+        typewrite_activity("Querying...complete")
+      }
+      resultset
+    }
+  }
 
 
 
@@ -2318,111 +2364,103 @@ lowLevelQuery <-
 
 
 executeAthena <-
-        function(sql_statement,
-                 conn,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
+  function(sql_statement,
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    .Deprecated(new = "query")
+
+    if (missing(conn)) {
+      conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+      on.exit(
+        expr = dcAthena(
+          conn = conn,
+          verbose = verbose
+        ),
+        add = TRUE,
+        after = TRUE
+      )
+    }
+
+    check_conn(conn = conn)
 
 
-                .Deprecated(new = "query")
+    if (skip_cache) {
+      if (verbose) {
+        secretary::typewrite("Skipping cache")
+      }
 
-                if (missing(conn)) {
-
-                        conn <- eval(expr = rlang::parse_expr(x = conn_fun))
-                        on.exit(expr = dcAthena(conn = conn,
-                                                verbose = verbose),
-                                add = TRUE,
-                                after = TRUE)
-
-                }
-
-                check_conn(conn = conn)
-
-
-                if (skip_cache) {
-
-                        if (verbose) {
-                                secretary::typewrite("Skipping cache")
-                        }
-
-                        resultset <-  pg13::query(conn = conn,
-                                                  sql_statement = sql_statement,
-                                                  verbose = verbose,
-                                                  render_sql = render_sql,
-                                                  render_only = render_only)
-
-
-                } else {
-
-                        if (override_cache) {
-
-                                if (verbose) {
-                                        secretary::typewrite("Overriding cache")
-                                }
-
-                                resultset <-  pg13::query(conn = conn,
-                                                          sql_statement = sql_statement,
-                                                          verbose = verbose,
-                                                          render_sql = render_sql,
-                                                          render_only = render_only)
-
-
-                                lowLevelCache(data = resultset,
-                                              query = sql_statement)
-
-
-                        } else {
-
-                                if (verbose) {
-                                        secretary::typewrite("Loading Cache")
-                                }
-
-
-                                resultset <- lowLevelLoadCache(query = sql_statement)
-
-                                if (!cache_only) {
-
-                                        if (is.null(resultset)) {
-
-
-                                                if (verbose) {
-                                                        secretary::typewrite("Cache was NULL, querying Athena")
-                                                }
-
-                                                Sys.sleep(time = sleepTime)
-                                                resultset <-  pg13::query(conn = conn,
-                                                                          sql_statement = sql_statement,
-                                                                          verbose = verbose,
-                                                                          render_sql = render_sql,
-                                                                          render_only = render_only)
-
-
-                                                lowLevelCache(data = resultset,
-                                                              query = sql_statement)
-
-                                        }
-
-                                } else {
-
-                                        if (verbose) {
-
-                                                secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
-
-                                        }
-                                }
-
-                        }
-                }
-
-                tibble::as_tibble(resultset)
-
+      resultset <- pg13::query(
+        conn = conn,
+        sql_statement = sql_statement,
+        verbose = verbose,
+        render_sql = render_sql,
+        render_only = render_only
+      )
+    } else {
+      if (override_cache) {
+        if (verbose) {
+          secretary::typewrite("Overriding cache")
         }
+
+        resultset <- pg13::query(
+          conn = conn,
+          sql_statement = sql_statement,
+          verbose = verbose,
+          render_sql = render_sql,
+          render_only = render_only
+        )
+
+
+        lowLevelCache(
+          data = resultset,
+          query = sql_statement
+        )
+      } else {
+        if (verbose) {
+          secretary::typewrite("Loading Cache")
+        }
+
+
+        resultset <- lowLevelLoadCache(query = sql_statement)
+
+        if (!cache_only) {
+          if (is.null(resultset)) {
+            if (verbose) {
+              secretary::typewrite("Cache was NULL, querying Athena")
+            }
+
+            Sys.sleep(time = sleepTime)
+            resultset <- pg13::query(
+              conn = conn,
+              sql_statement = sql_statement,
+              verbose = verbose,
+              render_sql = render_sql,
+              render_only = render_only
+            )
+
+
+            lowLevelCache(
+              data = resultset,
+              query = sql_statement
+            )
+          }
+        } else {
+          if (verbose) {
+            secretary::typewrite_bold("Loaded resultset from cache", line_number = 0)
+          }
+        }
+      }
+    }
+
+    tibble::as_tibble(resultset)
+  }
 
 
 #' Get Connection Database Name
@@ -2431,41 +2469,146 @@ executeAthena <-
 #' @export
 
 get_conn_db <-
-        function(conn) {
+  function(conn) {
+    .Deprecated(package = "pg13")
 
-                .Deprecated(package = "pg13")
-
-                conn@jConnection$getCatalog()
-        }
+    conn@jConnection$getCatalog()
+  }
 
 
 makeSelectFields <-
-        function(shortcut = NULL,
-                 schema,
-                 tableName,
-                 prefix = NULL,
-                 suffix = NULL,
-                 conn) {
+  function(shortcut = NULL,
+           schema,
+           tableName,
+           prefix = NULL,
+           suffix = NULL,
+           conn) {
+    if (is.null(prefix) && is.null(suffix)) {
+      stop("At least one prefix or one suffix must be supplied.")
+    }
 
-                if (is.null(prefix) && is.null(suffix)) {
+    if (!is.null(shortcut)) {
+      shortcut <- sprintf("%s.", shortcut)
+    }
 
-                        stop("At least one prefix or one suffix must be supplied.")
-
-                }
-
-                if (!is.null(shortcut)) {
-                        shortcut <- sprintf("%s.", shortcut)
-                }
-
-                fields <- pg13::lsFields(conn = conn,
-                                         schema = schema,
-                                         tableName = tableName)
+    fields <- pg13::lsFields(
+      conn = conn,
+      schema = schema,
+      tableName = tableName
+    )
 
 
-                paste0(shortcut, fields, " AS ", prefix, fields, suffix) %>%
-                        paste(collapse = ",\n") %>%
-                        cat()
+    paste0(shortcut, fields, " AS ", prefix, fields, suffix) %>%
+      paste(collapse = ",\n") %>%
+      cat()
+  }
 
-        }
+
+
+#' @title
+#' Query for a Source Vocabulary's Relationships to Other Source Vocabularies
+#'
+#' @details
+#' Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table to a second target set of OMOP Source Vocabulary and its Concept Classes. For a resultset that does not filters on both ends of the relationship, see \code{\link{query_all_vocabulary_relationships}}.
+#'
+#' @inherit vocabulary_level_functions description
+#'
+#' @inheritParams queryAthena
+#' @param vocabulary_id_1         Vector of 1 or more `vocabulary_id`
+#' @param vocabulary_id_2         Vector of 1 or more target `vocabulary_id`. If NULL, the target vocabulary is set to itself. Default: NULL.
+#'
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#'
+#' @rdname query_vocabulary_relationships
+#'
+#' @export
+#' @importFrom SqlRender render
+
+query_vocabulary_relationships <-
+  function(vocabulary_id_1,
+           vocabulary_id_2 = NULL,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+
+    .Deprecated()
+    vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
+
+    if (is.null(vocabulary_id_2)) {
+      vocabulary_id_2 <- vocabulary_id_1
+    } else {
+      vocabulary_id_2 <- paste0("'", vocabulary_id_2, "'")
+    }
+
+    queryAthena(
+      sql_statement =
+        SqlRender::render(
+          "SELECT DISTINCT
+                                                        c.vocabulary_id AS vocabulary_id_1,
+                                                        c.concept_class_id AS concept_class_id_1,
+                                                        cr.relationship_id,
+                                                        c2.vocabulary_id AS vocabulary_id_2,
+                                                        c2.concept_class_id AS concept_class_id_2
+                                                        FROM public.concept c
+                                                        LEFT JOIN public.concept_relationship cr
+                                                        ON cr.concept_id_1 = c.concept_id
+                                                        LEFT JOIN public.concept c2
+                                                        ON c2.concept_id = cr.concept_id_2
+                                                        WHERE c.vocabulary_id IN (@vocabulary_id_1)
+                                                                AND c.invalid_reason IS NULL
+                                                                AND c2.vocabulary_id IN (@vocabulary_id_2)
+                                                                AND c2.invalid_reason IS NULL
+                                                                AND cr.invalid_reason IS NULL",
+          vocabulary_id_1 = vocabulary_id_1,
+          vocabulary_id_2 = vocabulary_id_2
+        ),
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
+
+#' @title
+#' Check Connection
+#' @export
+#' @rdname check_conn
+#' @importFrom cli cli_alert_success cli_alert_danger
+
+check_conn <-
+  function(conn) {
+    if (pg13::is_conn_open(conn = conn)) {
+      cli::cli_alert_success("Connection is open")
+    } else {
+      cli::cli_alert_danger("Connection")
+      stop("Connection is closed")
+    }
+  }
+
+#' @title
+#' Check Connection Type
+#' @export
+#' @rdname check_conn_type
+#' @importFrom cli cli_alert_success cli_alert_danger
+
+check_conn_type <-
+  function(conn) {
+    if (!.hasSlot(conn, name = "jConnection")) {
+      cli::cli_alert_danger("Connection")
+      stop("Connection not JDBC Connection")
+    } else {
+      cli::cli_alert_success("Connection is JDBC Connection")
+    }
+  }
 
 

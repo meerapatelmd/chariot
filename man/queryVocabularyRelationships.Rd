@@ -49,13 +49,6 @@ Other query functions:
 \code{\link{queryConceptId}()},
 \code{\link{queryDescendants}()},
 \code{\link{queryRelationships}()},
-\code{\link{querySynonyms}()},
-\code{\link{searchPhraseExactSynonym}()},
-\code{\link{searchPhraseExact}()},
-\code{\link{searchPhraseLikeSynonym}()},
-\code{\link{searchPhraseLike}()},
-\code{\link{searchPhraseStringSynonym}()},
-\code{\link{searchPhraseString}()},
-\code{\link{searchPhrase}()}
+\code{\link{querySynonyms}()}
 }
 \concept{query functions}

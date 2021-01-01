@@ -18,9 +18,9 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -30,36 +30,32 @@
 
 
 lookup_upper_limit_ancestors <-
-        function(vocabSchema,
-                 vocabulary_id,
-                 concept_class_id,
-                 domain_id,
-                 conn = NULL,
-                 skip_cache = FALSE,
-                 cache_only = FALSE,
-                 override_cache = FALSE,
-                 verbose = FALSE,
-                 render_sql = FALSE,
-                 sleepTime = 1) {
-
-                concept_filters <-
-                generate_concept_filters(vocabSchema = vocabSchema,
-                                         vocabulary_id = vocabulary_id,
-                                         concept_class_id = concept_class_id,
-                                         domain_id = domain_id)
-
-
-                if (is.null(concept_filters)) {
-
-                        stop('`vocabulary_id`, `concept_class_id`, and/or `domain_id` required')
+  function(vocabSchema,
+           vocabulary_id,
+           concept_class_id,
+           domain_id,
+           conn = NULL,
+           skip_cache = FALSE,
+           cache_only = FALSE,
+           override_cache = FALSE,
+           verbose = FALSE,
+           render_sql = FALSE,
+           sleepTime = 1) {
+    concept_filters <-
+      generate_concept_filters(
+        vocabSchema = vocabSchema,
+        vocabulary_id = vocabulary_id,
+        concept_class_id = concept_class_id,
+        domain_id = domain_id
+      )
 
 
-                } else {
-
-
-                        sql_statement <-
-                                SqlRender::render(
-                                        "WITH all_ancestors AS (
+    if (is.null(concept_filters)) {
+      stop("`vocabulary_id`, `concept_class_id`, and/or `domain_id` required")
+    } else {
+      sql_statement <-
+        SqlRender::render(
+          "WITH all_ancestors AS (
                                         SELECT DISTINCT ca.ancestor_concept_id AS all_ancestor_concept_id, ca.max_levels_of_separation, ca.min_levels_of_separation
                                         FROM @vocabSchema.concept
                                         INNER JOIN @vocabSchema.concept_ancestor ca
@@ -83,22 +79,23 @@ lookup_upper_limit_ancestors <-
                                         )
                                                 AND c.invalid_reason IS NULL
                                         ",
-                                        vocabSchema = vocabSchema,
-                                        concept_filters = concept_filters)
+          vocabSchema = vocabSchema,
+          concept_filters = concept_filters
+        )
+    }
 
 
-                }
-
-
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 #' @title
@@ -121,9 +118,9 @@ lookup_upper_limit_ancestors <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -132,36 +129,32 @@ lookup_upper_limit_ancestors <-
 #' @importFrom SqlRender render
 
 lookup_orphan_concepts <-
-        function(vocabSchema,
-                 vocabulary_id,
-                 concept_class_id,
-                 domain_id,
-                 conn = NULL,
-                 skip_cache = FALSE,
-                 cache_only = FALSE,
-                 override_cache = FALSE,
-                 verbose = FALSE,
-                 render_sql = FALSE,
-                 sleepTime = 1) {
-
-                concept_filters <-
-                        generate_concept_filters(vocabSchema = vocabSchema,
-                                                 vocabulary_id = vocabulary_id,
-                                                 concept_class_id = concept_class_id,
-                                                 domain_id = domain_id)
-
-
-                if (is.null(concept_filters)) {
-
-                        stop('`vocabulary_id`, `concept_class_id`, and/or `domain_id` required')
+  function(vocabSchema,
+           vocabulary_id,
+           concept_class_id,
+           domain_id,
+           conn = NULL,
+           skip_cache = FALSE,
+           cache_only = FALSE,
+           override_cache = FALSE,
+           verbose = FALSE,
+           render_sql = FALSE,
+           sleepTime = 1) {
+    concept_filters <-
+      generate_concept_filters(
+        vocabSchema = vocabSchema,
+        vocabulary_id = vocabulary_id,
+        concept_class_id = concept_class_id,
+        domain_id = domain_id
+      )
 
 
-                } else {
-
-
-                        sql_statement <-
-                                SqlRender::render(
-                                        "
+    if (is.null(concept_filters)) {
+      stop("`vocabulary_id`, `concept_class_id`, and/or `domain_id` required")
+    } else {
+      sql_statement <-
+        SqlRender::render(
+          "
                                         WITH concept_ancestry AS (
                                         SELECT DISTINCT ca.*
                                         FROM @vocabSchema.concept
@@ -184,22 +177,23 @@ lookup_orphan_concepts <-
                                                 AND @concept_filters
                                                 AND ca.ancestor_concept_id IS NULL
                                         ",
-                                        vocabSchema = vocabSchema,
-                                        concept_filters = concept_filters)
+          vocabSchema = vocabSchema,
+          concept_filters = concept_filters
+        )
+    }
 
 
-                }
-
-
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 #' @title
@@ -221,9 +215,9 @@ lookup_orphan_concepts <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -232,36 +226,32 @@ lookup_orphan_concepts <-
 #' @importFrom SqlRender render
 
 lookup_top_ancestors <-
-        function(vocabSchema,
-                 vocabulary_id,
-                 concept_class_id,
-                 domain_id,
-                 conn = NULL,
-                 skip_cache = FALSE,
-                 cache_only = FALSE,
-                 override_cache = FALSE,
-                 verbose = FALSE,
-                 render_sql = FALSE,
-                 sleepTime = 1) {
-
-                concept_filters <-
-                        generate_concept_filters(vocabSchema = vocabSchema,
-                                                 vocabulary_id = vocabulary_id,
-                                                 concept_class_id = concept_class_id,
-                                                 domain_id = domain_id)
-
-
-                if (is.null(concept_filters)) {
-
-                        stop('`vocabulary_id`, `concept_class_id`, and/or `domain_id` required')
+  function(vocabSchema,
+           vocabulary_id,
+           concept_class_id,
+           domain_id,
+           conn = NULL,
+           skip_cache = FALSE,
+           cache_only = FALSE,
+           override_cache = FALSE,
+           verbose = FALSE,
+           render_sql = FALSE,
+           sleepTime = 1) {
+    concept_filters <-
+      generate_concept_filters(
+        vocabSchema = vocabSchema,
+        vocabulary_id = vocabulary_id,
+        concept_class_id = concept_class_id,
+        domain_id = domain_id
+      )
 
 
-                } else {
-
-
-                        sql_statement <-
-                                SqlRender::render(
-                                        "WITH all_ancestors AS (
+    if (is.null(concept_filters)) {
+      stop("`vocabulary_id`, `concept_class_id`, and/or `domain_id` required")
+    } else {
+      sql_statement <-
+        SqlRender::render(
+          "WITH all_ancestors AS (
                                         SELECT DISTINCT ca.ancestor_concept_id AS all_ancestor_concept_id
                                         FROM @vocabSchema.concept
                                         INNER JOIN @vocabSchema.concept_ancestor ca
@@ -300,19 +290,20 @@ lookup_top_ancestors <-
                                         WHERE c.invalid_reason IS NULL
                                                 AND b.ancestor_concept_id IS NULL
                                         ",
-                                        vocabSchema = vocabSchema,
-                                        concept_filters = concept_filters)
+          vocabSchema = vocabSchema,
+          concept_filters = concept_filters
+        )
+    }
 
 
-                }
-
-
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }

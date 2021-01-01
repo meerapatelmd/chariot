@@ -12,34 +12,35 @@
 #' @importFrom SqlRender render
 
 queryAncestors <-
-    function(descendant_concept_ids,
-             vocab_schema,
-             min_levels_of_separation = NULL,
-             max_levels_of_separation = NULL,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = TRUE,
-             verbose = TRUE,
-             sleepTime = 1) {
+  function(descendant_concept_ids,
+           vocab_schema,
+           min_levels_of_separation = NULL,
+           max_levels_of_separation = NULL,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+    sql_statement <- renderQueryAncestors(
+      descendant_concept_ids = descendant_concept_ids,
+      vocab_schema = vocab_schema,
+      min_levels_of_separation = min_levels_of_separation,
+      max_levels_of_separation = max_levels_of_separation
+    )
 
-
-        sql_statement <- renderQueryAncestors(descendant_concept_ids = descendant_concept_ids,
-                                              vocab_schema = vocab_schema,
-                                              min_levels_of_separation = min_levels_of_separation,
-                                              max_levels_of_separation = max_levels_of_separation)
-
-            queryAthena(sql_statement = sql_statement,
-                        conn = conn,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime)
-
-    }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
@@ -57,38 +58,40 @@ queryAncestors <-
 #' @importFrom pg13 buildQuery
 
 queryCode <-
-        function(code,
-                 vocab_schema,
-                 caseInsensitive = TRUE,
-                 limit = NULL,
-                 verbose = FALSE,
-                 conn = NULL,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 sleepTime = 1) {
+  function(code,
+           vocab_schema,
+           caseInsensitive = TRUE,
+           limit = NULL,
+           verbose = FALSE,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           sleepTime = 1) {
+    sql_statement <-
+      pg13::build_query(
+        schema = vocab_schema,
+        tableName = "concept",
+        whereInField = "concept_code",
+        whereInVector = code,
+        caseInsensitive = caseInsensitive,
+        n = limit,
+        n_type = "limit"
+      )
 
 
-                sql_statement <-
-                                pg13::build_query(schema = vocab_schema,
-                                                 tableName = "concept",
-                                                 whereInField = "concept_code",
-                                                 whereInVector = code,
-                                                 caseInsensitive = caseInsensitive,
-                                                 n = limit,
-                                                 n_type = "limit")
-
-
-               queryAthena(sql_statement = sql_statement,
-                                         conn = conn,
-                                         cache_only = cache_only,
-                                         skip_cache = skip_cache,
-                                         override_cache = override_cache,
-                                         render_sql = render_sql,
-                                         verbose = verbose,
-                                         sleepTime = sleepTime)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
@@ -101,32 +104,34 @@ queryCode <-
 #' @family query functions
 
 queryConceptClassRelationships <-
-    function(vocabulary_id_1,
-             vocabulary_id_2 = NULL,
-             vocab_schema,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = TRUE,
-             verbose = FALSE,
-             sleepTime = 1) {
+  function(vocabulary_id_1,
+           vocabulary_id_2 = NULL,
+           vocab_schema,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = TRUE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    sql_statement <- renderConceptClassRelationships(
+      vocabulary_id_1 = vocabulary_id_1,
+      vocabulary_id_2 = vocabulary_id_2,
+      vocab_schema = vocab_schema
+    )
 
 
-                        sql_statement <- renderConceptClassRelationships(vocabulary_id_1 = vocabulary_id_1,
-                                                                        vocabulary_id_2 = vocabulary_id_2,
-                                                                        vocab_schema = vocab_schema)
-
-
-                        queryAthena(sql_statement = sql_statement,
-                                    conn = conn,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime)
-    }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
@@ -143,44 +148,44 @@ queryConceptClassRelationships <-
 #' @family query functions
 #' @importFrom SqlRender render
 queryConceptId <-
-    function(concept_ids,
-             vocab_schema,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = FALSE,
-             verbose = FALSE,
-             sleepTime = 1) {
+  function(concept_ids,
+           vocab_schema,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    .Deprecated("lookup_concept_id")
+    # sql <-
+    # pg13::build_query(schema = schema,
+    #                  tableName = "concept",
+    #                  whereInField = "concept_id",
+    #                  whereInVector = concept_ids,
+    #                  caseInsensitive = FALSE)
 
-
-            .Deprecated("lookup_concept_id")
-                            # sql <-
-                            # pg13::build_query(schema = schema,
-                            #                  tableName = "concept",
-                            #                  whereInField = "concept_id",
-                            #                  whereInVector = concept_ids,
-                            #                  caseInsensitive = FALSE)
-
-                            sql <-
-                                    SqlRender::render("SELECT *
+    sql <-
+      SqlRender::render("SELECT *
                                                         FROM @vocab_schema.concept c
                                                         WHERE c.concept_id IN (@concept_ids)
                                                       ",
-                                                        vocab_schema = vocab_schema,
-                                                      concept_ids = concept_ids)
+        vocab_schema = vocab_schema,
+        concept_ids = concept_ids
+      )
 
 
-                            queryAthena(sql_statement = sql,
-                                        conn = conn,
-                                        cache_only = cache_only,
-                                        skip_cache = skip_cache,
-                                        override_cache = override_cache,
-                                        render_sql = render_sql,
-                                        verbose = verbose,
-                                        sleepTime = sleepTime)
-
-    }
+    queryAthena(
+      sql_statement = sql,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
@@ -201,33 +206,35 @@ queryConceptId <-
 #' @importFrom SqlRender render
 
 queryDescendants <-
-    function(ancestor_concept_ids,
-             vocab_schema,
-             min_levels_of_separation = NULL,
-             max_levels_of_separation = NULL,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = FALSE,
-             verbose = FALSE,
-             sleepTime = 1) {
+  function(ancestor_concept_ids,
+           vocab_schema,
+           min_levels_of_separation = NULL,
+           max_levels_of_separation = NULL,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    sql_statement <- renderQueryDescendants(
+      ancestor_concept_ids = ancestor_concept_ids,
+      vocab_schema = vocab_schema,
+      min_levels_of_separation = min_levels_of_separation,
+      max_levels_of_separation = max_levels_of_separation
+    )
 
-        sql_statement <- renderQueryDescendants(ancestor_concept_ids = ancestor_concept_ids,
-                                                vocab_schema = vocab_schema,
-                                                min_levels_of_separation = min_levels_of_separation,
-                                                max_levels_of_separation = max_levels_of_separation)
-
-            queryAthena(sql_statement = sql_statement,
-                        conn = conn,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime)
-
-    }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
@@ -246,22 +253,20 @@ queryDescendants <-
 #' @importFrom SqlRender render
 
 queryRelationships <-
-        function(concept_id_1s,
-                 vocab_schema,
-                 relationship_ids = NULL,
-                 conn = NULL,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
-
-
-                if (is.null(relationship_ids)) {
-                sql_statement <-
-                        SqlRender::render(
-                                "
+  function(concept_id_1s,
+           vocab_schema,
+           relationship_ids = NULL,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    if (is.null(relationship_ids)) {
+      sql_statement <-
+        SqlRender::render(
+          "
                             SELECT
                                 c.concept_id AS concept_id_1,
                                 c.concept_name AS concept_name_1,
@@ -295,16 +300,15 @@ queryRelationships <-
                                 AND cr.invalid_reason IS NULL
                                 AND c2.invalid_reason IS NULL
                             ;",
-                                vocab_schema = vocab_schema,
-                                concept_id_1s = concept_id_1s
-                        )
-                } else {
+          vocab_schema = vocab_schema,
+          concept_id_1s = concept_id_1s
+        )
+    } else {
+      relationship_ids <- paste0("'", tolower(relationship_ids), "'")
 
-                        relationship_ids <- paste0("'", tolower(relationship_ids), "'")
-
-                        sql_statement <-
-                                SqlRender::render(
-                                        "
+      sql_statement <-
+        SqlRender::render(
+          "
                             SELECT
                                 c.concept_id AS concept_id_1,
                                 c.concept_name AS concept_name_1,
@@ -339,23 +343,23 @@ queryRelationships <-
                                 AND cr.invalid_reason IS NULL
                                 AND c2.invalid_reason IS NULL
                             ;",
-                                        vocab_schema = vocab_schema,
-                                        concept_id_1s = concept_id_1s,
-                                        relationship_ids = relationship_ids
-                                )
+          vocab_schema = vocab_schema,
+          concept_id_1s = concept_id_1s,
+          relationship_ids = relationship_ids
+        )
+    }
 
-                }
-
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 #' @title FUNCTION_TITLE
@@ -378,32 +382,35 @@ queryRelationships <-
 #' @family query functions
 #' @importFrom dplyr select
 querySynonyms <-
-        function(concept_id,
-                 vocab_schema = NULL,
-                 language_concept_id = 4180186,
-                 conn = NULL,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
+  function(concept_id,
+           vocab_schema = NULL,
+           language_concept_id = 4180186,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    sql_statement <- renderSynonyms(
+      concept_id = concept_id,
+      schema = vocab_schema,
+      language_concept_id = language_concept_id
+    )
 
-                sql_statement <- renderSynonyms(concept_id = concept_id,
-                                                schema = vocab_schema,
-                                                language_concept_id = language_concept_id)
-
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime) %>%
-                        dplyr::select(concept_synonym_name) %>%
-                        unlist()
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    ) %>%
+      dplyr::select(concept_synonym_name) %>%
+      unlist()
+  }
 
 
 
@@ -425,30 +432,30 @@ querySynonyms <-
 #' @family query functions
 #' @importFrom SqlRender render readSql
 queryVocabularyRelationships <-
-    function(vocabulary_id,
-             verbose = FALSE,
-             conn = NULL,
-             cache_only = FALSE,
-             skip_cache = FALSE,
-             override_cache = FALSE,
-             render_sql = FALSE,
-             sleepTime = 1) {
+  function(vocabulary_id,
+           verbose = FALSE,
+           conn = NULL,
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           sleepTime = 1) {
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql/vocabularyRelationship.sql")
 
-                        base <- system.file(package = "chariot")
-                        path <- paste0(base, "/sql/vocabularyRelationship.sql")
+    sql_statement <-
+      SqlRender::render(SqlRender::readSql(sourceFile = path),
+        vocabulary_id = vocabulary_id
+      )
 
-                        sql_statement <-
-                                SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  vocabulary_id = vocabulary_id)
-
-                        queryAthena(sql_statement = sql_statement,
-                                    conn = conn,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime)
-    }
-
-
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }

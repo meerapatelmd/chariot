@@ -8,19 +8,19 @@
 #' @importFrom dplyr select
 
 get_strip <-
-    function(concept_id,
-             vocab_schema = "omop_vocabulary",
-             conn) {
-
-        lookup_concept_id(concept_id = concept_id,
-                       vocab_schema = vocab_schema,
-                       conn = conn) %>%
-            merge_strip(into = "Concept") %>%
-            dplyr::select("Concept") %>%
-            unlist() %>%
-            unname()
-
-    }
+  function(concept_id,
+           vocab_schema = "omop_vocabulary",
+           conn) {
+    lookup_concept_id(
+      concept_id = concept_id,
+      vocab_schema = vocab_schema,
+      conn = conn
+    ) %>%
+      merge_strip(into = "Concept") %>%
+      dplyr::select("Concept") %>%
+      unlist() %>%
+      unname()
+  }
 
 #' @title
 #' Unbox Strip
@@ -34,29 +34,28 @@ get_strip <-
 #' @example inst/example/format_unbox.R
 
 unbox_strip <-
-    function(data,
-             strip_col,
-             sep = "\n",
-             suffix = NULL,
-             prefix = NULL,
-             remove = TRUE,
-             r_trimws = TRUE) {
+  function(data,
+           strip_col,
+           sep = "\n",
+           suffix = NULL,
+           prefix = NULL,
+           remove = TRUE,
+           r_trimws = TRUE) {
 
 
-            # test_data <-
-            #     tibble::tibble(Concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
+    # test_data <-
+    #     tibble::tibble(Concept = "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]\n[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]")
 
-            data %>%
-                 tidyr::separate_rows({{ strip_col }}, sep = sep) %>%
-                    unmerge_strip(strip_col = {{ strip_col }},
-                                  suffix = suffix,
-                                  prefix = prefix,
-                                  remove = remove,
-                                  r_trimws = r_trimws)
-
-
-
-    }
+    data %>%
+      tidyr::separate_rows({{ strip_col }}, sep = sep) %>%
+      unmerge_strip(
+        strip_col = {{ strip_col }},
+        suffix = suffix,
+        prefix = prefix,
+        remove = remove,
+        r_trimws = r_trimws
+      )
+  }
 
 
 #' @title
@@ -71,25 +70,24 @@ unbox_strip <-
 #' @example inst/example/format_unbox.R
 
 unbox_label <-
-    function(data,
-             label_col,
-             row_sep = "\n",
-             remove = FALSE) {
+  function(data,
+           label_col,
+           row_sep = "\n",
+           remove = FALSE) {
 
 
-        # test_data <-
-        #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
+    # test_data <-
+    #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
 
-        data %>%
-            tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
-            tidyr::extract(col = {{ label_col }},
-                           into = c("concept_id", "concept_name"),
-                           regex = "(^.*?) (.*$)",
-                           remove = remove)
-
-
-
-    }
+    data %>%
+      tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
+      tidyr::extract(
+        col = {{ label_col }},
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      )
+  }
 
 
 #' @title
@@ -118,26 +116,21 @@ unbox_label <-
 #' @example inst/example/format_filter_strip.R
 
 filter_at_all_strip <-
-        function(data,
-                 strip_cols,
-                 ...) {
+  function(data,
+           strip_cols,
+           ...) {
+    for (i in seq_along(strip_cols)) {
+      strip_col <- strip_cols[i]
 
+      data <-
+        filter_strip(data,
+          strip_col = {{ strip_col }},
+          ...
+        )
+    }
 
-            for (i in seq_along(strip_cols)) {
-
-                strip_col <- strip_cols[i]
-
-                data <-
-                filter_strip(data,
-                             strip_col = {{ strip_col }},
-                             ...)
-
-
-            }
-
-            data
-
-        }
+    data
+  }
 
 #' @title
 #' Filter At Any Strip
@@ -151,28 +144,23 @@ filter_at_all_strip <-
 #' @example inst/example/format_filter_strip.R
 
 filter_at_any_strip <-
-    function(data,
-             strip_cols,
-             ...) {
+  function(data,
+           strip_cols,
+           ...) {
+    output <- list()
+    for (i in seq_along(strip_cols)) {
+      strip_col <- strip_cols[i]
 
-
-        output <- list()
-        for (i in seq_along(strip_cols)) {
-
-            strip_col <- strip_cols[i]
-
-            output[[i]] <-
-                filter_strip(data,
-                             strip_col = {{ strip_col }},
-                             ...)
-
-
-        }
-
-        dplyr::bind_rows(output) %>%
-            dplyr::distinct()
-
+      output[[i]] <-
+        filter_strip(data,
+          strip_col = {{ strip_col }},
+          ...
+        )
     }
+
+    dplyr::bind_rows(output) %>%
+      dplyr::distinct()
+  }
 
 #' @title  Filter Columns with Merged Concept Strips
 #' @description
@@ -200,74 +188,74 @@ filter_at_any_strip <-
 #' @example inst/example/format_filter_strip.R
 
 filter_strip <-
-    function(data,
-             strip_col,
-             ...) {
+  function(data,
+           strip_col,
+           ...) {
+    column_names <- c(
+      "concept_id",
+      "concept_name",
+      "domain_id",
+      "vocabulary_id",
+      "concept_class_id",
+      "standard_concept",
+      "concept_code",
+      "invalid_reason"
+    )
 
-
-            column_names <-  c("concept_id",
-                                      "concept_name",
-                                      "domain_id",
-                                      "vocabulary_id",
-                                      "concept_class_id",
-                                      "standard_concept",
-                                      "concept_code",
-                                      "invalid_reason")
-
-            if (any(column_names %in% colnames(data))) {
-
-                    stop("redundant column names")
-            }
-
-                data %>%
-                unmerge_strip(strip_col = {{ strip_col }},
-                              remove = FALSE) %>%
-                dplyr::filter(...) %>%
-                dplyr::select(!dplyr::any_of(column_names))
-            # column_names <-  c("concept_id",
-            #                           "concept_name",
-            #                           "domain_id",
-            #                           "vocabulary_id",
-            #                           "concept_class_id",
-            #                           "standard_concept",
-            #                           "concept_code",
-            #                           "valid_start_date",
-            #                           "valid_end_date",
-            #                           "invalid_reason")
-            #
-            #
-            # if (any(column_names %in% colnames(data))) {
-            #
-            #         qa <- column_names[column_names %in% colnames(data)]
-            #
-            #         stop('data cannot have any concept table column names: ', paste(qa, collapse = ", "))
-            #
-            # }
-            #
-            # .output <-
-            # data %>%
-            #     dplyr::mutate(!!tmp_col := !!merge_col) %>%
-            #     separateConceptStrip(!!tmp_col) %>%
-            #     # tidyr::separate_rows(!!tmp_col,
-            #     #                      sep = "\n") %>%
-            #     rubix::normalize_all_to_na() %>%
-            #     dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
-            #     unmergeStrip(strip_col = !!tmp_col,
-            #                  remove = FALSE) %>%
-            #     dplyr::filter(...) %>%
-            #     dplyr::select(-any_of(column_names)) %>%
-            #     dplyr::select(-!!tmp_col) %>%
-            #     dplyr::distinct()
-            #
-            # qa <- nrow(.output) > nrow(data)
-            #
-            # if (qa) {
-            #         warning('returned data has more rows than input data')
-            # }
-            #
-            # return(.output)
-
+    if (any(column_names %in% colnames(data))) {
+      stop("redundant column names")
     }
+
+    data %>%
+      unmerge_strip(
+        strip_col = {{ strip_col }},
+        remove = FALSE
+      ) %>%
+      dplyr::filter(...) %>%
+      dplyr::select(!dplyr::any_of(column_names))
+    # column_names <-  c("concept_id",
+    #                           "concept_name",
+    #                           "domain_id",
+    #                           "vocabulary_id",
+    #                           "concept_class_id",
+    #                           "standard_concept",
+    #                           "concept_code",
+    #                           "valid_start_date",
+    #                           "valid_end_date",
+    #                           "invalid_reason")
+    #
+    #
+    # if (any(column_names %in% colnames(data))) {
+    #
+    #         qa <- column_names[column_names %in% colnames(data)]
+    #
+    #         stop('data cannot have any concept table column names: ', paste(qa, collapse = ", "))
+    #
+    # }
+    #
+    # .output <-
+    # data %>%
+    #     dplyr::mutate(!!tmp_col := !!merge_col) %>%
+    #     separateConceptStrip(!!tmp_col) %>%
+    #     # tidyr::separate_rows(!!tmp_col,
+    #     #                      sep = "\n") %>%
+    #     rubix::normalize_all_to_na() %>%
+    #     dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
+    #     unmergeStrip(strip_col = !!tmp_col,
+    #                  remove = FALSE) %>%
+    #     dplyr::filter(...) %>%
+    #     dplyr::select(-any_of(column_names)) %>%
+    #     dplyr::select(-!!tmp_col) %>%
+    #     dplyr::distinct()
+    #
+    # qa <- nrow(.output) > nrow(data)
+    #
+    # if (qa) {
+    #         warning('returned data has more rows than input data')
+    # }
+    #
+    # return(.output)
+  }
 
 
 
@@ -279,41 +267,40 @@ filter_strip <-
 #' @importFrom tidyr extract
 
 label_to_strip <-
-        function(data,
-                 label_col,
-                 into_strip_col,
-                 remove = FALSE) {
+  function(data,
+           label_col,
+           into_strip_col,
+           remove = FALSE) {
 
-                # Other than the concept_id and concept_name that will be derived from the label column, are the other required columns present?
-                concept_fields <-
-                c(#"concept_id",
-                  #"concept_name",
-                  "domain_id",
-                  "vocabulary_id",
-                  "concept_class_id",
-                  "standard_concept",
-                  "concept_code",
-                  "invalid_reason")
+    # Other than the concept_id and concept_name that will be derived from the label column, are the other required columns present?
+    concept_fields <-
+      c( # "concept_id",
+        # "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "invalid_reason"
+      )
 
-                if (!(all(concept_fields %in% colnames(data)))) {
+    if (!(all(concept_fields %in% colnames(data)))) {
+      stop("missing required fields")
+    }
 
-                    stop("missing required fields")
+    if (any(c("concept_id", "concept_name") %in% colnames(data))) {
+      stop("cannot unmerge label_col with `concept_id` and `concept_name` already in the data")
+    }
 
-                }
-
-                if (any(c("concept_id", "concept_name") %in% colnames(data))) {
-
-                    stop("cannot unmerge label_col with `concept_id` and `concept_name` already in the data")
-                }
-
-                data %>%
-                        tidyr::extract(col = {{ label_col }},
-                                        into = c("concept_id", "concept_name"),
-                                        regex = "(^.*?) (.*$)",
-                                        remove = remove) %>%
-                        merge_strip(into = {{ into_strip_col }})
-
-        }
+    data %>%
+      tidyr::extract(
+        col = {{ label_col }},
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      ) %>%
+      merge_strip(into = {{ into_strip_col }})
+  }
 
 
 
@@ -329,26 +316,26 @@ label_to_strip <-
 #' @importFrom dplyr all_of mutate_at vars
 
 merge_label <-
-        function(data,
-                 into,
-                 prefix = NULL,
-                 suffix = NULL,
-                 remove = TRUE) {
+  function(data,
+           into,
+           prefix = NULL,
+           suffix = NULL,
+           remove = TRUE) {
+    label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
+    names(label_parts) <- c("concept_id", "concept_name")
 
 
-                label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
-                names(label_parts) <- c("concept_id", "concept_name")
-
-
-                data %>%
-                        tidyr::unite(col = {{into}},
-                                     dplyr::all_of(label_parts$concept_id),
-                                     dplyr::all_of(label_parts$concept_name),
-                                     sep = " ",
-                                     na.rm = TRUE,
-                                     remove = remove) %>%
-                        dplyr::mutate_at(dplyr::vars({{into}}), ~na_if(., "NA NA"))
-        }
+    data %>%
+      tidyr::unite(
+        col = {{ into }},
+        dplyr::all_of(label_parts$concept_id),
+        dplyr::all_of(label_parts$concept_name),
+        sep = " ",
+        na.rm = TRUE,
+        remove = remove
+      ) %>%
+      dplyr::mutate_at(dplyr::vars({{ into }}), ~ na_if(., "NA NA"))
+  }
 
 
 #' Merge OMOP Concepts into a Strip
@@ -367,143 +354,163 @@ merge_label <-
 #' @rdname merge_strip
 
 merge_strip <-
-            function(data,
-                     into,
-                     ...,
-                     suffix = NULL,
-                     prefix = NULL) {
+  function(data,
+           into,
+           ...,
+           suffix = NULL,
+           prefix = NULL) {
+    into_id_colname <- paste0(into, "_id")
+
+    # Enquo output column name
+    into <- dplyr::enquo(into)
+    # Preserve columns
+    preserve_cols <- dplyr::enquos(...)
 
 
-                                into_id_colname <- paste0(into, "_id")
+    # Generating a list of concept table columns that includes prefixes and suffixes
+    column_names <- paste0(
+      prefix,
+      c(
+        "concept_id",
+        "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "valid_start_date",
+        "valid_end_date",
+        "invalid_reason"
+      ),
+      suffix
+    ) %>%
+      as.list()
 
-                                # Enquo output column name
-                                into <- dplyr::enquo(into)
-                                # Preserve columns
-                                preserve_cols <- dplyr::enquos(...)
+    concept_fields <- c(
+      "concept_id",
+      "concept_name",
+      "domain_id",
+      "vocabulary_id",
+      "concept_class_id",
+      "standard_concept",
+      "concept_code",
+      "valid_start_date",
+      "valid_end_date",
+      "invalid_reason"
+    )
 
-
-                                # Generating a list of concept table columns that includes prefixes and suffixes
-                                column_names <- paste0(prefix,
-                                                        c("concept_id",
-                                                         "concept_name",
-                                                         "domain_id",
-                                                         "vocabulary_id",
-                                                         "concept_class_id",
-                                                         "standard_concept",
-                                                         "concept_code",
-                                                         "valid_start_date",
-                                                         "valid_end_date",
-                                                         "invalid_reason"),
-                                                       suffix) %>%
-                                                as.list()
-
-                                concept_fields <-  c("concept_id",
-                                                          "concept_name",
-                                                          "domain_id",
-                                                          "vocabulary_id",
-                                                          "concept_class_id",
-                                                          "standard_concept",
-                                                          "concept_code",
-                                                          "valid_start_date",
-                                                          "valid_end_date",
-                                                          "invalid_reason")
-
-                                names(column_names) <- concept_fields
+    names(column_names) <- concept_fields
 
 
-                                if (!(all(unlist(column_names) %in% colnames(data)))) {
+    if (!(all(unlist(column_names) %in% colnames(data)))) {
+      stop(sprintf("missing column names: %s", paste(unlist(column_names), collapse = ", ")))
+    }
 
-                                        stop(sprintf("missing column names: %s", paste(unlist(column_names), collapse = ", ")))
-
-                                }
-
-                                # All other column names
-                                other_cols <<- colnames(data)[!(colnames(data) %in% unlist(column_names))]
+    # All other column names
+    other_cols <<- colnames(data)[!(colnames(data) %in% unlist(column_names))]
 
 
-                                output <-
-                                data %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
-                                        tidyr::unite(col = vocabulary,
-                                                     dplyr::all_of(c(column_names$vocabulary_id,
-                                                              column_names$concept_code)),
-                                                     sep = " ") %>%
-                                        dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(column_names$domain_id,
-                                                                       "vocabulary",
-                                                                       column_names$concept_class_id))),
-                                                         function(x) paste0("[", x, "]")) %>%
-                                        #dplyr::select_at(dplyr::vars(!matches("valid.*date"))) %>%
-                                        tidyr::unite(col = {{ into }},
-                                                     all_of(c(column_names$invalid_reason,
-                                                              column_names$standard_concept,
-                                                              column_names$concept_id,
-                                                              column_names$concept_name,
-                                                              "vocabulary",
-                                                              column_names$domain_id,
-                                                              column_names$concept_class_id)),
-                                                     sep = " ",
-                                                     remove = FALSE) %>%
-                                        dplyr::select(!!into_id_colname := all_of(column_names$concept_id),
-                                                      {{ into }})
+    output <-
+      data %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) ifelse(is.na(x), "N", x)) %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$standard_concept)), function(x) paste0("[", x, "]")) %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(column_names$invalid_reason)), function(x) ifelse(is.na(x), "[V]", paste0("[", x, "]"))) %>%
+      tidyr::unite(
+        col = vocabulary,
+        dplyr::all_of(c(
+          column_names$vocabulary_id,
+          column_names$concept_code
+        )),
+        sep = " "
+      ) %>%
+      dplyr::mutate_at(
+        dplyr::vars(dplyr::all_of(c(
+          column_names$domain_id,
+          "vocabulary",
+          column_names$concept_class_id
+        ))),
+        function(x) paste0("[", x, "]")
+      ) %>%
+      # dplyr::select_at(dplyr::vars(!matches("valid.*date"))) %>%
+      tidyr::unite(
+        col = {{ into }},
+        all_of(c(
+          column_names$invalid_reason,
+          column_names$standard_concept,
+          column_names$concept_id,
+          column_names$concept_name,
+          "vocabulary",
+          column_names$domain_id,
+          column_names$concept_class_id
+        )),
+        sep = " ",
+        remove = FALSE
+      ) %>%
+      dplyr::select(
+        !!into_id_colname := all_of(column_names$concept_id),
+        {{ into }}
+      )
 
 
-                                # If All NA concepts are not merged into a strip and returns a single NA
-                                output <-
-                                    output %>%
-                                    dplyr::mutate_at(dplyr::vars({{ into }}),
-                                                     function(x) ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
-                                                                              x,
-                                                                              ignore.case = FALSE),
-                                                                        NA_character_,
-                                                                        x))
+    # If All NA concepts are not merged into a strip and returns a single NA
+    output <-
+      output %>%
+      dplyr::mutate_at(
+        dplyr::vars({{ into }}),
+        function(x) {
+          ifelse(grepl("NA NA \\[NA NA\\] \\[NA\\] \\[NA\\]",
+            x,
+            ignore.case = FALSE
+          ),
+          NA_character_,
+          x
+          )
+        }
+      )
 
 
-                                # Normalizing all NA to be able to get a flag for any mis-merged concepts
-                                output <-
-                                        output %>%
-                                        tibble::as_tibble() %>%
-                                        rubix::normalize_all_to_na()
+    # Normalizing all NA to be able to get a flag for any mis-merged concepts
+    output <-
+      output %>%
+      tibble::as_tibble() %>%
+      rubix::normalize_all_to_na()
 
-                                # QA NA merges
-                                qa <- output %>%
-                                        dplyr::filter_at(dplyr::vars(!!into_id_colname), dplyr::all_vars(!is.na(.))) %>%
-                                        dplyr::filter_at(dplyr::vars({{ into }}), dplyr::all_vars(is.na(.)))
+    # QA NA merges
+    qa <- output %>%
+      dplyr::filter_at(dplyr::vars(!!into_id_colname), dplyr::all_vars(!is.na(.))) %>%
+      dplyr::filter_at(dplyr::vars({{ into }}), dplyr::all_vars(is.na(.)))
 
-                                if (nrow(qa)) {
-                                        flagMergeStrip <<- qa
-                                        warning(nrow(qa), ' where concept id is not <NA>, but merge strip is <NA>. See flagMergeStrip object.')
-                                }
-
-
-
-                                if (!missing(...)) {
-                                        output <-
-                                                dplyr::bind_cols(output,
-                                                                 data %>%
-                                                                         dplyr::select(!!!preserve_cols))
-
-
-
-                                }
+    if (nrow(qa)) {
+      flagMergeStrip <<- qa
+      warning(nrow(qa), " where concept id is not <NA>, but merge strip is <NA>. See flagMergeStrip object.")
+    }
 
 
 
+    if (!missing(...)) {
+      output <-
+        dplyr::bind_cols(
+          output,
+          data %>%
+            dplyr::select(!!!preserve_cols)
+        )
+    }
 
-                                if (length(other_cols)) {
-
-                                        output <-
-                                                dplyr::bind_cols(output,
-                                                                 data %>%
-                                                                     dplyr::select(dplyr::all_of(other_cols)))
-
-                                }
 
 
-                                return(output)
 
-            }
+    if (length(other_cols)) {
+      output <-
+        dplyr::bind_cols(
+          output,
+          data %>%
+            dplyr::select(dplyr::all_of(other_cols))
+        )
+    }
+
+
+    return(output)
+  }
 
 
 
@@ -520,34 +527,36 @@ merge_strip <-
 
 
 unmerge_label <-
-        function(data,
-                 label_col,
-                 remove = FALSE) {
-
-                data %>%
-                        tidyr::extract(col = {{ label_col }},
-                                       into = c("concept_id", "concept_name"),
-                                       regex = "(^.*?) (.*$)",
-                                       remove = remove)
-
-        }
+  function(data,
+           label_col,
+           remove = FALSE) {
+    data %>%
+      tidyr::extract(
+        col = {{ label_col }},
+        into = c("concept_id", "concept_name"),
+        regex = "(^.*?) (.*$)",
+        remove = remove
+      )
+  }
 
 #' Convert a Merge Strip to a Label
 #' @rdname strip_to_label
 #' @export
 
 strip_to_label <-
-        function(data,
-                 strip_col,
-                 into_label_col,
-                 remove = FALSE) {
-
-                unmerge_strip(data,
-                              strip_col = {{ strip_col }},
-                              remove = remove) %>%
-                        merge_label(into = {{ into_label_col }},
-                                  remove = remove)
-        }
+  function(data,
+           strip_col,
+           into_label_col,
+           remove = FALSE) {
+    unmerge_strip(data,
+      strip_col = {{ strip_col }},
+      remove = remove
+    ) %>%
+      merge_label(
+        into = {{ into_label_col }},
+        remove = remove
+      )
+  }
 
 
 
@@ -568,111 +577,119 @@ strip_to_label <-
 #' @rdname unmerge_strip
 
 unmerge_strip <-
-    function(data,
-             strip_col,
-             suffix = NULL,
-             prefix = NULL,
-             remove = TRUE,
-             r_trimws = TRUE) {
+  function(data,
+           strip_col,
+           suffix = NULL,
+           prefix = NULL,
+           remove = TRUE,
+           r_trimws = TRUE) {
+    strip_col <- dplyr::enquo(strip_col)
 
-                    strip_col <- dplyr::enquo(strip_col)
+    colOrder <- c(
+      "invalid_reason",
+      "standard_concept",
+      "concept_id",
+      "concept_name",
+      "vocabulary_id",
+      "concept_code",
+      "domain_id",
+      "concept_class_id"
+    )
 
-                    colOrder <- c("invalid_reason",
-                                  "standard_concept",
-                                  "concept_id",
-                                  "concept_name",
-                                  "vocabulary_id",
-                                  "concept_code",
-                                  "domain_id",
-                                  "concept_class_id")
+    new_cols <- paste0(
+      prefix,
+      colOrder,
+      suffix
+    ) %>%
+      as.list()
 
-                    new_cols <- paste0(prefix,
-                                       colOrder,
-                                       suffix) %>%
-                                as.list()
+    names(new_cols) <- colOrder
 
-                    names(new_cols) <- colOrder
+    new_cols <- new_cols
 
-                    new_cols <- new_cols
-
-                    if (any(unlist(new_cols) %in% colnames(data))) {
-                            qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(data)]
-                            stop('new column names already present: ', paste(qa, collapse = ", "))
-                    }
-
-                    output <-
-                    data %>%
-                        tidyr::extract(col = !!strip_col,
-                                       remove = FALSE,
-                                       into = unlist(new_cols),
-                                       regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])") %>%
-                           tibble::as_tibble() %>%
-                            rubix::normalize_all_to_na()
-
-                    output <-
-                        output %>%
-                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
-                                dplyr::mutate_at(dplyr::vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
-                                dplyr::select(dplyr::all_of(c(new_cols$concept_id,
-                                                       new_cols$concept_name,
-                                                       new_cols$domain_id,
-                                                       new_cols$vocabulary_id,
-                                                       new_cols$concept_class_id,
-                                                       new_cols$standard_concept,
-                                                       new_cols$concept_code,
-                                                       new_cols$invalid_reason)),
-                                              dplyr::everything())
-
-                    if (r_trimws == TRUE) {
-
-                            output <-
-                                output %>%
-                                dplyr::mutate_at(dplyr::vars(dplyr::all_of(c(new_cols$concept_id,
-                                                               new_cols$concept_name,
-                                                               new_cols$domain_id,
-                                                               new_cols$vocabulary_id,
-                                                               new_cols$concept_class_id,
-                                                               new_cols$standard_concept,
-                                                               new_cols$concept_code,
-                                                               new_cols$invalid_reason))),
-                                                 base::trimws)
-
-                    }
-
-                    qa <-
-                        output %>%
-                        dplyr::filter_at(dplyr::vars(c(new_cols$concept_id,
-                                                new_cols$concept_name,
-                                                new_cols$domain_id,
-                                                new_cols$vocabulary_id,
-                                                new_cols$concept_class_id,
-                                                new_cols$standard_concept,
-                                                new_cols$concept_code,
-                                                new_cols$invalid_reason)),
-                                         dplyr::all_vars(is.na(.))) %>%
-                        dplyr::filter_at(dplyr::vars(!!strip_col),
-                                         dplyr::all_vars(!is.na(.)))
-
-                    if (nrow(qa) > 0) {
-
-
-                            flagUnmergeStrip <<- qa
-
-                            warning('Not all concepts unmerged: ', nrow(qa), '. See flagUnmergeStrip object.')
-
-
-                    }
-
-                    if (remove) {
-
-                        output <-
-                            output %>%
-                            dplyr::select(-!!strip_col)
-
-                    }
-
-                    output
-
+    if (any(unlist(new_cols) %in% colnames(data))) {
+      qa <- unlist(new_cols)[unlist(new_cols) %in% colnames(data)]
+      stop("new column names already present: ", paste(qa, collapse = ", "))
     }
 
+    output <-
+      data %>%
+      tidyr::extract(
+        col = !!strip_col,
+        remove = FALSE,
+        into = unlist(new_cols),
+        regex = "(\\[.{1}\\]) (\\[.{1}\\]) ([^ ]*) (.*?) (\\[.*?) (.*?\\]) (\\[.*?\\]) (\\[.*?\\])"
+      ) %>%
+      tibble::as_tibble() %>%
+      rubix::normalize_all_to_na()
 
+    output <-
+      output %>%
+      dplyr::mutate_at(dplyr::vars(dplyr::all_of(unlist(new_cols))), stringr::str_remove_all, "^\\[|\\]$") %>%
+      dplyr::mutate_at(dplyr::vars(new_cols$standard_concept, new_cols$invalid_reason), stringr::str_replace_all, "^N$|^V$", NA_character_) %>%
+      dplyr::select(
+        dplyr::all_of(c(
+          new_cols$concept_id,
+          new_cols$concept_name,
+          new_cols$domain_id,
+          new_cols$vocabulary_id,
+          new_cols$concept_class_id,
+          new_cols$standard_concept,
+          new_cols$concept_code,
+          new_cols$invalid_reason
+        )),
+        dplyr::everything()
+      )
+
+    if (r_trimws == TRUE) {
+      output <-
+        output %>%
+        dplyr::mutate_at(
+          dplyr::vars(dplyr::all_of(c(
+            new_cols$concept_id,
+            new_cols$concept_name,
+            new_cols$domain_id,
+            new_cols$vocabulary_id,
+            new_cols$concept_class_id,
+            new_cols$standard_concept,
+            new_cols$concept_code,
+            new_cols$invalid_reason
+          ))),
+          base::trimws
+        )
+    }
+
+    qa <-
+      output %>%
+      dplyr::filter_at(
+        dplyr::vars(c(
+          new_cols$concept_id,
+          new_cols$concept_name,
+          new_cols$domain_id,
+          new_cols$vocabulary_id,
+          new_cols$concept_class_id,
+          new_cols$standard_concept,
+          new_cols$concept_code,
+          new_cols$invalid_reason
+        )),
+        dplyr::all_vars(is.na(.))
+      ) %>%
+      dplyr::filter_at(
+        dplyr::vars(!!strip_col),
+        dplyr::all_vars(!is.na(.))
+      )
+
+    if (nrow(qa) > 0) {
+      flagUnmergeStrip <<- qa
+
+      warning("Not all concepts unmerged: ", nrow(qa), ". See flagUnmergeStrip object.")
+    }
+
+    if (remove) {
+      output <-
+        output %>%
+        dplyr::select(-!!strip_col)
+    }
+
+    output
+  }

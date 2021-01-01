@@ -14,6 +14,6 @@ NULL
 
 
 browse_athena <-
-        function(concept_id) {
-                browseURL(url = paste0("http://athena.ohdsi.org/search-terms/terms/", concept_id))
-        }
+  function(concept_id) {
+    browseURL(url = paste0("http://athena.ohdsi.org/search-terms/terms/", concept_id))
+  }

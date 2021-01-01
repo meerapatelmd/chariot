@@ -22,9 +22,9 @@ The resultset is not cached
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+if (interactive()) {
+  # EXAMPLE1
+}
 }
 }
 \seealso{

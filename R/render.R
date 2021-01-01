@@ -8,48 +8,42 @@
 
 
 renderConceptClassRelationships <-
-    function(vocabulary_id_1,
-             vocabulary_id_2 = NULL,
-             vocab_schema = "omop_vocabulary") {
+  function(vocabulary_id_1,
+           vocabulary_id_2 = NULL,
+           vocab_schema = "omop_vocabulary") {
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql/conceptClassRelationship.sql")
 
-                        base <- system.file(package = "chariot")
-                        path <- paste0(base, "/sql/conceptClassRelationship.sql")
+    # If vocabulary_id_2 is NULL, the relationships within vocabulary_id_1 are reported and if vocabulary_id_2 is not NULL, the relationships between the 2 vocabularies are reported
 
-                        # If vocabulary_id_2 is NULL, the relationships within vocabulary_id_1 are reported and if vocabulary_id_2 is not NULL, the relationships between the 2 vocabularies are reported
+    if (!is.null(vocabulary_id_2)) {
 
-                        if (!is.null(vocabulary_id_2)) {
+      ## CREATE VARIABLES FOR SQL RENDER
+      # Create prefixes for concept_class_columns
+      concept_class_id_1 <- paste0(tolower(vocabulary_id_1), "_concept_class_id")
+      concept_class_id_2 <- paste0(tolower(vocabulary_id_2), "_concept_class_id")
 
-                                        ## CREATE VARIABLES FOR SQL RENDER
-                                        #Create prefixes for concept_class_columns
-                                        concept_class_id_1 <- paste0(tolower(vocabulary_id_1), "_concept_class_id")
-                                        concept_class_id_2 <- paste0(tolower(vocabulary_id_2), "_concept_class_id")
+      # Add single quotes for vocabularies
+      vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
+      vocabulary_id_2 <- paste0("'", vocabulary_id_2, "'")
+    } else {
 
-                                        #Add single quotes for vocabularies
-                                        vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
-                                        vocabulary_id_2 <- paste0("'", vocabulary_id_2, "'")
-
-
-                        } else {
-
-                                        ## CREATE VARIABLES FOR SQL RENDER
-                                        concept_class_id_1 <- "concept_class_id_1"
-                                        concept_class_id_2 <- "concept_class_id_2"
-                                        vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
-                                        vocabulary_id_2 <- vocabulary_id_1
-
-
-                        }
-
-
-                                SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = vocab_schema,
-                                                  concept_class_id_1 = concept_class_id_1,
-                                                  concept_class_id_2 = concept_class_id_2,
-                                                  vocabulary_id_1 = vocabulary_id_1,
-                                                  vocabulary_id_2 = vocabulary_id_2)
-
-
+      ## CREATE VARIABLES FOR SQL RENDER
+      concept_class_id_1 <- "concept_class_id_1"
+      concept_class_id_2 <- "concept_class_id_2"
+      vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
+      vocabulary_id_2 <- vocabulary_id_1
     }
+
+
+    SqlRender::render(SqlRender::readSql(sourceFile = path),
+      schema = vocab_schema,
+      concept_class_id_1 = concept_class_id_1,
+      concept_class_id_2 = concept_class_id_2,
+      vocabulary_id_1 = vocabulary_id_1,
+      vocabulary_id_2 = vocabulary_id_2
+    )
+  }
 
 
 
@@ -63,19 +57,17 @@ renderConceptClassRelationships <-
 
 
 renderHemOncCompToReg <-
-    function(component_concept_ids,
-             vocab_schema = "omop_vocabulary") {
+  function(component_concept_ids,
+           vocab_schema = "omop_vocabulary") {
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql/hemOncComponentToRegimen.sql")
 
 
-                        base <- system.file(package = "chariot")
-                        path <- paste0(base, "/sql/hemOncComponentToRegimen.sql")
-
-
-                                SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = vocab_schema,
-                                                  component_concept_ids = component_concept_ids)
-
-    }
+    SqlRender::render(SqlRender::readSql(sourceFile = path),
+      schema = vocab_schema,
+      component_concept_ids = component_concept_ids
+    )
+  }
 
 
 
@@ -93,26 +85,24 @@ renderHemOncCompToReg <-
 
 
 renderHemOncRegToAntineoplastics <-
-    function(regimen_concept_ids,
-             vocab_schema = NULL) {
-
-                        if (is.null(vocab_schema)) {
-
-                                vocab_schema <- "public"
-
-                        }
-
-                        base <- system.file(package = "chariot")
-                        path <- paste0(base, "/sql/hemOncRegimenToHasAntineoplastics.sql")
-
-
-                        sql_statement <-
-                                SqlRender::render(SqlRender::readSql(sourceFile = path),
-                                                  schema = vocab_schema,
-                                                  regimen_concept_ids = regimen_concept_ids)
-
-                        return(sql_statement)
+  function(regimen_concept_ids,
+           vocab_schema = NULL) {
+    if (is.null(vocab_schema)) {
+      vocab_schema <- "public"
     }
+
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql/hemOncRegimenToHasAntineoplastics.sql")
+
+
+    sql_statement <-
+      SqlRender::render(SqlRender::readSql(sourceFile = path),
+        schema = vocab_schema,
+        regimen_concept_ids = regimen_concept_ids
+      )
+
+    return(sql_statement)
+  }
 
 
 
@@ -125,43 +115,46 @@ renderHemOncRegToAntineoplastics <-
 #' @export
 
 renderQueryAncestors <-
-        function(descendant_concept_ids,
-                 vocab_schema,
-                 min_levels_of_separation = NULL,
-                 max_levels_of_separation = NULL) {
+  function(descendant_concept_ids,
+           vocab_schema,
+           min_levels_of_separation = NULL,
+           max_levels_of_separation = NULL) {
+    sql_statement <-
+      stringr::str_remove_all(
+        pg13::build_query(
+          schema = vocab_schema,
+          tableName = "concept_ancestor",
+          whereInField = "descendant_concept_id",
+          whereInVector = descendant_concept_ids,
+          caseInsensitive = FALSE
+        ),
+        pattern = "[;]{1}$"
+      )
 
+    if (!is.null(min_levels_of_separation)) {
+      sql_statement <-
+        pg13::concatWhereConstructs(
+          sql_statement,
+          pg13::constructWhereIn(
+            field = "min_levels_of_separation",
+            vector = min_levels_of_separation
+          )
+        )
+    }
 
-                sql_statement <-
-                        stringr::str_remove_all(
-                                pg13::build_query(schema = vocab_schema,
-                                                 tableName = "concept_ancestor",
-                                                 whereInField = "descendant_concept_id",
-                                                 whereInVector = descendant_concept_ids,
-                                                 caseInsensitive = FALSE),
-                                pattern = "[;]{1}$")
+    if (!is.null(max_levels_of_separation)) {
+      sql_statement <-
+        pg13::concatWhereConstructs(
+          sql_statement,
+          pg13::constructWhereIn(
+            field = "max_levels_of_separation",
+            vector = max_levels_of_separation
+          )
+        )
+    }
 
-                if (!is.null(min_levels_of_separation)) {
-
-                        sql_statement <-
-                                pg13::concatWhereConstructs(sql_statement,
-                                                            pg13::constructWhereIn(field = "min_levels_of_separation",
-                                                                                   vector = min_levels_of_separation))
-
-                }
-
-                if (!is.null(max_levels_of_separation)) {
-
-                        sql_statement <-
-                                pg13::concatWhereConstructs(sql_statement,
-                                                            pg13::constructWhereIn(field = "max_levels_of_separation",
-                                                                                   vector = max_levels_of_separation))
-
-                }
-
-                pg13::terminateBuild(sql_statement = sql_statement)
-
-
-        }
+    pg13::terminateBuild(sql_statement = sql_statement)
+  }
 
 
 
@@ -170,43 +163,46 @@ renderQueryAncestors <-
 #' @export
 
 renderQueryDescendants <-
-        function(ancestor_concept_ids,
-                 vocab_schema,
-                 min_levels_of_separation = NULL,
-                 max_levels_of_separation = NULL) {
+  function(ancestor_concept_ids,
+           vocab_schema,
+           min_levels_of_separation = NULL,
+           max_levels_of_separation = NULL) {
+    sql_statement <-
+      stringr::str_remove_all(
+        pg13::build_query(
+          schema = vocab_schema,
+          tableName = "concept_ancestor",
+          whereInField = "ancestor_concept_id",
+          whereInVector = ancestor_concept_ids,
+          caseInsensitive = FALSE
+        ),
+        pattern = "[;]{1}$"
+      )
 
+    if (!is.null(min_levels_of_separation)) {
+      sql_statement <-
+        pg13::concatWhereConstructs(
+          sql_statement,
+          pg13::constructWhereIn(
+            field = "min_levels_of_separation",
+            vector = min_levels_of_separation
+          )
+        )
+    }
 
-                sql_statement <-
-                        stringr::str_remove_all(
-                                pg13::build_query(schema = vocab_schema,
-                                                 tableName = "concept_ancestor",
-                                                 whereInField = "ancestor_concept_id",
-                                                 whereInVector = ancestor_concept_ids,
-                                                 caseInsensitive = FALSE),
-                                pattern = "[;]{1}$")
+    if (!is.null(max_levels_of_separation)) {
+      sql_statement <-
+        pg13::concatWhereConstructs(
+          sql_statement,
+          pg13::constructWhereIn(
+            field = "max_levels_of_separation",
+            vector = max_levels_of_separation
+          )
+        )
+    }
 
-                if (!is.null(min_levels_of_separation)) {
-
-                        sql_statement <-
-                                pg13::concatWhereConstructs(sql_statement,
-                                                            pg13::constructWhereIn(field = "min_levels_of_separation",
-                                                                                   vector = min_levels_of_separation))
-
-                }
-
-                if (!is.null(max_levels_of_separation)) {
-
-                        sql_statement <-
-                                pg13::concatWhereConstructs(sql_statement,
-                                                            pg13::constructWhereIn(field = "max_levels_of_separation",
-                                                                                   vector = max_levels_of_separation))
-
-                }
-
-                pg13::terminateBuild(sql_statement = sql_statement)
-
-
-        }
+    pg13::terminateBuild(sql_statement = sql_statement)
+  }
 
 
 
@@ -217,37 +213,29 @@ renderQueryDescendants <-
 
 
 renderQueryPhraseExactSynonym <-
-        function(vocab_schema,
-                 phrase,
-                 caseInsensitive = TRUE) {
+  function(vocab_schema,
+           phrase,
+           caseInsensitive = TRUE) {
+    phrase <- paste0("'", phrase, "'")
 
 
-                phrase <- paste0("'", phrase, "'")
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql")
 
-
-                base <- system.file(package = "chariot")
-                path <- paste0(base, "/sql")
-
-                if (caseInsensitive) {
-
-
-                                path_to_sourceFile <-paste0(path, "/queryLowerPhraseExactSynonym.sql")
-                                SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                                  schema = vocab_schema,
-                                                  phrase = tolower(phrase))
-
-
-                } else {
-
-                        path_to_sourceFile <-paste0(path, "/queryPhraseExactSynonym.sql")
-                        SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                          schema = vocab_schema,
-                                          phrase = phrase)
-
-                }
-
-
-        }
+    if (caseInsensitive) {
+      path_to_sourceFile <- paste0(path, "/queryLowerPhraseExactSynonym.sql")
+      SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
+        schema = vocab_schema,
+        phrase = tolower(phrase)
+      )
+    } else {
+      path_to_sourceFile <- paste0(path, "/queryPhraseExactSynonym.sql")
+      SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
+        schema = vocab_schema,
+        phrase = phrase
+      )
+    }
+  }
 
 
 
@@ -258,36 +246,26 @@ renderQueryPhraseExactSynonym <-
 
 
 renderQueryPhraseLikeSynonym <-
-        function(vocab_schema,
-                 phrase,
-                 caseInsensitive = TRUE) {
+  function(vocab_schema,
+           phrase,
+           caseInsensitive = TRUE) {
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql")
 
-
-
-
-                base <- system.file(package = "chariot")
-                path <- paste0(base, "/sql")
-
-                if (caseInsensitive) {
-
-
-                                path_to_sourceFile <-paste0(path, "/queryLowerPhraseLikeSynonym.sql")
-                                SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                                  schema = vocab_schema,
-                                                  phrase = tolower(phrase))
-
-
-                } else {
-
-                        path_to_sourceFile <-paste0(path, "/queryPhraseLikeSynonym.sql")
-                        SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
-                                          schema = vocab_schema,
-                                          phrase = phrase)
-
-                }
-
-
-        }
+    if (caseInsensitive) {
+      path_to_sourceFile <- paste0(path, "/queryLowerPhraseLikeSynonym.sql")
+      SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
+        schema = vocab_schema,
+        phrase = tolower(phrase)
+      )
+    } else {
+      path_to_sourceFile <- paste0(path, "/queryPhraseLikeSynonym.sql")
+      SqlRender::render(SqlRender::readSql(sourceFile = path_to_sourceFile),
+        schema = vocab_schema,
+        phrase = phrase
+      )
+    }
+  }
 
 
 
@@ -299,26 +277,22 @@ renderQueryPhraseLikeSynonym <-
 #' @export
 
 renderSynonyms <-
-        function(concept_id,
-                 vocab_schema = NULL,
-                 language_concept_id = 4180186) {
+  function(concept_id,
+           vocab_schema = NULL,
+           language_concept_id = 4180186) {
+    if (is.null(vocab_schema)) {
+      vocab_schema <- "public"
+    }
 
-                if (is.null(vocab_schema)) {
+    base <- system.file(package = "chariot")
+    path <- paste0(base, "/sql")
 
-                        vocab_schema <- "public"
-
-                }
-
-                base <- system.file(package = "chariot")
-                path <- paste0(base, "/sql")
-
-                SqlRender::render(SqlRender::readSql(paste0(path, "/synonyms.sql")),
-                                  concept_id = concept_id,
-                                  schema = vocab_schema,
-                                  language_concept_id = language_concept_id)
-
-
-        }
+    SqlRender::render(SqlRender::readSql(paste0(path, "/synonyms.sql")),
+      concept_id = concept_id,
+      schema = vocab_schema,
+      language_concept_id = language_concept_id
+    )
+  }
 
 
 
@@ -328,13 +302,12 @@ renderSynonyms <-
 #' @export
 
 renderVocabularyTableDDL <-
-        function() {
+  function() {
+    path <- pg13::sourceFilePath(
+      instSubdir = "sql",
+      FileName = "vocabularyTableDDL.sql",
+      package = "chariot"
+    )
 
-                path <- pg13::sourceFilePath(instSubdir = "sql",
-                                             FileName = "vocabularyTableDDL.sql",
-                                             package = "chariot")
-
-                SqlRender::render(SqlRender::readSql(sourceFile = path))
-
-
-        }
+    SqlRender::render(SqlRender::readSql(sourceFile = path))
+  }

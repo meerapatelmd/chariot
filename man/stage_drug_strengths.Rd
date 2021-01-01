@@ -37,9 +37,9 @@ The staged_value and/or native_staged_value fields are returned as character cla
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+if (interactive()) {
+  # EXAMPLE1
+}
 }
 }
 \seealso{

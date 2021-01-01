@@ -11,9 +11,9 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -22,26 +22,26 @@
 #' @importFrom SqlRender render
 
 exact_phrase_search_ff <-
-        function(vocabulary_id,
-                 domain_id,
-                 concept_class_id,
-                 standard_concept,
-                 invalid_reason = "NULL",
-                 lowered_match = TRUE) {
+  function(vocabulary_id,
+           domain_id,
+           concept_class_id,
+           standard_concept,
+           invalid_reason = "NULL",
+           lowered_match = TRUE) {
+    where_clause <- make_where_clause(
+      vocabulary_id = vocabulary_id,
+      domain_id = domain_id,
+      concept_class_id = concept_class_id,
+      standard_concept = standard_concept,
+      invalid_reason = invalid_reason
+    )
 
-                where_clause <- make_where_clause(vocabulary_id = vocabulary_id,
-                                                  domain_id = domain_id,
-                                                  concept_class_id = concept_class_id,
-                                                  standard_concept = standard_concept,
-                                                  invalid_reason = invalid_reason)
 
-
-                if (!is.null(where_clause)) {
-
-                        if (lowered_match) {
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+    if (!is.null(where_clause)) {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -57,15 +57,12 @@ exact_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE LOWER('@phrase') = LOWER(cs.concept_synonym_name)
                                                 ",
-                                                where_clause = where_clause
-                                        )
-
-
-                        } else {
-
-                                sql_statement <-
-                                SqlRender::render(
-                                        "
+            where_clause = where_clause
+          )
+      } else {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -81,18 +78,14 @@ exact_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE '@phrase' = cs.concept_synonym_name
                                                 ",
-                                        where_clause = where_clause
-                                )
-
-                        }
-
-                } else {
-
-                        if (lowered_match) {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+            where_clause = where_clause
+          )
+      }
+    } else {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT DISTINCT
                                                         c.*,
                                                         cs.concept_synonym_name
@@ -101,15 +94,11 @@ exact_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE LOWER('@phrase') = LOWER(cs.concept_synonym_name)
                                                 "
-                                        )
-
-
-
-                        } else {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+          )
+      } else {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT DISTINCT
                                                         c.*,
                                                         cs.concept_synonym_name
@@ -118,43 +107,36 @@ exact_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE '@phrase' = cs.concept_synonym_name
                                                 "
-                                        )
+          )
+      }
+    }
 
 
-
-                        }
-                }
-
-
-                function(phrase,
-                         conn = NULL,
-                         vocabSchema,
-                         cache_only = FALSE,
-                         skip_cache = FALSE,
-                         override_cache = FALSE,
-                         render_sql = TRUE,
-                         verbose = TRUE,
-                         sleepTime = 1) {
-
-
-                        queryAthena(
-                                SqlRender::render(
-                                        sql_statement,
-                                        vocabSchema = vocabSchema,
-                                        phrase = phrase
-                                ),
-                                conn = conn,
-                                cache_only = cache_only,
-                                skip_cache = skip_cache,
-                                override_cache = override_cache,
-                                render_sql = render_sql,
-                                verbose = verbose,
-                                sleepTime = sleepTime
-                        )
-                }
-
-
-        }
+    function(phrase,
+             conn = NULL,
+             vocabSchema,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = TRUE,
+             verbose = TRUE,
+             sleepTime = 1) {
+      queryAthena(
+        SqlRender::render(
+          sql_statement,
+          vocabSchema = vocabSchema,
+          phrase = phrase
+        ),
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    }
+  }
 
 
 
@@ -171,9 +153,9 @@ exact_phrase_search_ff <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -183,26 +165,26 @@ exact_phrase_search_ff <-
 
 
 like_phrase_search_ff <-
-        function(vocabulary_id,
-                 domain_id,
-                 concept_class_id,
-                 standard_concept,
-                 invalid_reason = "NULL",
-                 lowered_match = TRUE) {
+  function(vocabulary_id,
+           domain_id,
+           concept_class_id,
+           standard_concept,
+           invalid_reason = "NULL",
+           lowered_match = TRUE) {
+    where_clause <- make_where_clause(
+      vocabulary_id = vocabulary_id,
+      domain_id = domain_id,
+      concept_class_id = concept_class_id,
+      standard_concept = standard_concept,
+      invalid_reason = invalid_reason
+    )
 
-                where_clause <- make_where_clause(vocabulary_id = vocabulary_id,
-                                                  domain_id = domain_id,
-                                                  concept_class_id = concept_class_id,
-                                                  standard_concept = standard_concept,
-                                                  invalid_reason = invalid_reason)
 
-
-                if (!is.null(where_clause)) {
-
-                        if (lowered_match) {
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+    if (!is.null(where_clause)) {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -219,16 +201,13 @@ like_phrase_search_ff <-
                                                 WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 ORDER BY length(cs.concept_synonym_name)
                                                 ",
-                                                where_clause = where_clause
-                                        )
+            where_clause = where_clause
+          )
+      } else {
+        sql_statement <-
 
-
-                        } else {
-
-                                sql_statement <-
-
-                                SqlRender::render(
-                                        "
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -245,18 +224,14 @@ like_phrase_search_ff <-
                                                 WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 ORDER BY length(cs.concept_synonym_name)
                                                 ",
-                                        where_clause = where_clause
-                                )
-
-                        }
-
-                } else {
-
-                        if (lowered_match) {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+            where_clause = where_clause
+          )
+      }
+    } else {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
@@ -265,15 +240,11 @@ like_phrase_search_ff <-
                                                 WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 ORDER BY length(cs.concept_synonym_name)
                                                 "
-                                        )
-
-
-
-                        } else {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+          )
+      } else {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
@@ -283,43 +254,36 @@ like_phrase_search_ff <-
                                                 WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 ORDER BY length(cs.concept_synonym_name)
                                                 "
-                                        )
+          )
+      }
+    }
 
 
-
-                        }
-                }
-
-
-                function(phrase,
-                         conn = NULL,
-                         vocabSchema,
-                         cache_only = FALSE,
-                         skip_cache = FALSE,
-                         override_cache = FALSE,
-                         render_sql = TRUE,
-                         verbose = TRUE,
-                         sleepTime = 1) {
-
-
-                        queryAthena(
-                                SqlRender::render(
-                                        sql_statement,
-                                        vocabSchema = vocabSchema,
-                                        phrase = phrase
-                                ),
-                                conn = conn,
-                                cache_only = cache_only,
-                                skip_cache = skip_cache,
-                                override_cache = override_cache,
-                                render_sql = render_sql,
-                                verbose = verbose,
-                                sleepTime = sleepTime
-                        )
-                }
-
-
-        }
+    function(phrase,
+             conn = NULL,
+             vocabSchema,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = TRUE,
+             verbose = TRUE,
+             sleepTime = 1) {
+      queryAthena(
+        SqlRender::render(
+          sql_statement,
+          vocabSchema = vocabSchema,
+          phrase = phrase
+        ),
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    }
+  }
 
 
 
@@ -335,9 +299,9 @@ like_phrase_search_ff <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -347,26 +311,26 @@ like_phrase_search_ff <-
 
 
 tokenized_phrase_search_ff <-
-        function(vocabulary_id,
-                 domain_id,
-                 concept_class_id,
-                 standard_concept,
-                 invalid_reason = "NULL",
-                 lowered_match = TRUE) {
+  function(vocabulary_id,
+           domain_id,
+           concept_class_id,
+           standard_concept,
+           invalid_reason = "NULL",
+           lowered_match = TRUE) {
+    where_clause <- make_where_clause(
+      vocabulary_id = vocabulary_id,
+      domain_id = domain_id,
+      concept_class_id = concept_class_id,
+      standard_concept = standard_concept,
+      invalid_reason = invalid_reason
+    )
 
-                where_clause <- make_where_clause(vocabulary_id = vocabulary_id,
-                                                  domain_id = domain_id,
-                                                  concept_class_id = concept_class_id,
-                                                  standard_concept = standard_concept,
-                                                  invalid_reason = invalid_reason)
 
-
-                if (!is.null(where_clause)) {
-
-                        if (lowered_match) {
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+    if (!is.null(where_clause)) {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -382,16 +346,13 @@ tokenized_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE @like_token_clause
                                                 ",
-                                                where_clause = where_clause
-                                        )
+            where_clause = where_clause
+          )
+      } else {
+        sql_statement <-
 
-
-                        } else {
-
-                                sql_statement <-
-
-                                SqlRender::render(
-                                        "
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -407,18 +368,14 @@ tokenized_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE @like_token_clause
                                                 ",
-                                        where_clause = where_clause
-                                )
-
-                        }
-
-                } else {
-
-                        if (lowered_match) {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+            where_clause = where_clause
+          )
+      }
+    } else {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
@@ -426,15 +383,11 @@ tokenized_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE @like_token_clause
                                                 "
-                                        )
-
-
-
-                        } else {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+          )
+      } else {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
@@ -443,66 +396,60 @@ tokenized_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE @like_token_clause
                                                 "
-                                        )
+          )
+      }
+    }
 
 
-
-                        }
-                }
-
-
-                function(phrase,
-                         split = " |[[:punct:]]",
-                         conn = NULL,
-                         vocabSchema,
-                         cache_only = FALSE,
-                         skip_cache = FALSE,
-                         override_cache = FALSE,
-                         render_sql = TRUE,
-                         verbose = TRUE,
-                         sleepTime = 1) {
+    function(phrase,
+             split = " |[[:punct:]]",
+             conn = NULL,
+             vocabSchema,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = TRUE,
+             verbose = TRUE,
+             sleepTime = 1) {
+      lowered_match <- lowered_match
 
 
-                        lowered_match <- lowered_match
+      tokens <-
+        strsplit(
+          x = phrase,
+          split = split
+        ) %>%
+        unlist() %>%
+        trimws(which = "both")
 
 
-                        tokens <-
-                                strsplit(x = phrase,
-                                         split = split) %>%
-                                        unlist() %>%
-                                        trimws(which = "both")
+      if (lowered_match) {
+        like_token_clause <-
+          paste0("LOWER(cs.concept_synonym_name) LIKE LOWER('%", tokens, "%')") %>%
+          paste(collapse = " AND ")
+      } else {
+        like_token_clause <-
+          paste0("cs.concept_synonym_name LIKE '%", tokens, "%'") %>%
+          paste(collapse = " AND ")
+      }
 
 
-                        if (lowered_match) {
-                                like_token_clause <-
-                                paste0("LOWER(cs.concept_synonym_name) LIKE LOWER('%", tokens, "%')") %>%
-                                                paste(collapse = " AND ")
-
-                        } else {
-                                like_token_clause <-
-                                               paste0("cs.concept_synonym_name LIKE '%", tokens, "%'") %>%
-                                                       paste(collapse = " AND ")
-                        }
-
-
-                        queryAthena(
-                                SqlRender::render(
-                                        sql_statement,
-                                        vocabSchema = vocabSchema,
-                                        like_token_clause = like_token_clause
-                                ),
-                                conn = conn,
-                                cache_only = cache_only,
-                                skip_cache = skip_cache,
-                                override_cache = override_cache,
-                                render_sql = render_sql,
-                                verbose = verbose,
-                                sleepTime = sleepTime
-                        )
-                }
-
-
-        }
+      queryAthena(
+        SqlRender::render(
+          sql_statement,
+          vocabSchema = vocabSchema,
+          like_token_clause = like_token_clause
+        ),
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    }
+  }
 
 
 
@@ -518,9 +465,9 @@ tokenized_phrase_search_ff <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
@@ -530,26 +477,26 @@ tokenized_phrase_search_ff <-
 
 
 ordered_phrase_search_ff <-
-        function(vocabulary_id,
-                 domain_id,
-                 concept_class_id,
-                 standard_concept,
-                 invalid_reason = "NULL",
-                 lowered_match = TRUE) {
+  function(vocabulary_id,
+           domain_id,
+           concept_class_id,
+           standard_concept,
+           invalid_reason = "NULL",
+           lowered_match = TRUE) {
+    where_clause <- make_where_clause(
+      vocabulary_id = vocabulary_id,
+      domain_id = domain_id,
+      concept_class_id = concept_class_id,
+      standard_concept = standard_concept,
+      invalid_reason = invalid_reason
+    )
 
-                where_clause <- make_where_clause(vocabulary_id = vocabulary_id,
-                                                  domain_id = domain_id,
-                                                  concept_class_id = concept_class_id,
-                                                  standard_concept = standard_concept,
-                                                  invalid_reason = invalid_reason)
 
-
-                if (!is.null(where_clause)) {
-
-                        if (lowered_match) {
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+    if (!is.null(where_clause)) {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -565,16 +512,13 @@ ordered_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 ",
-                                                where_clause = where_clause
-                                        )
+            where_clause = where_clause
+          )
+      } else {
+        sql_statement <-
 
-
-                        } else {
-
-                                sql_statement <-
-
-                                        SqlRender::render(
-                                                "
+          SqlRender::render(
+            "
                                                 WITH params AS (
                                                         SELECT DISTINCT concept_id
                                                         FROM @vocabSchema.concept
@@ -590,18 +534,14 @@ ordered_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 ",
-                                                where_clause = where_clause
-                                        )
-
-                        }
-
-                } else {
-
-                        if (lowered_match) {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+            where_clause = where_clause
+          )
+      }
+    } else {
+      if (lowered_match) {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT c.*,
                                                         cs.concept_synonym_name
                                                 FROM @vocabSchema.concept_synonym cs
@@ -609,15 +549,11 @@ ordered_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%@phrase%')
                                                 "
-                                        )
-
-
-
-                        } else {
-
-                                sql_statement <-
-                                        SqlRender::render(
-                                                "
+          )
+      } else {
+        sql_statement <-
+          SqlRender::render(
+            "
                                                 SELECT
                                                         c.*,
                                                         cs.concept_synonym_name
@@ -626,51 +562,43 @@ ordered_phrase_search_ff <-
                                                 ON c.concept_id = cs.concept_id
                                                 WHERE cs.concept_synonym_name LIKE '%@phrase%'
                                                 "
-                                        )
+          )
+      }
+    }
+
+
+    function(phrase,
+             wildcard = " {1,}|[[:punct:]]{1,}",
+             conn = NULL,
+             vocabSchema,
+             cache_only = FALSE,
+             skip_cache = FALSE,
+             override_cache = FALSE,
+             render_sql = TRUE,
+             verbose = TRUE,
+             sleepTime = 1) {
+      phrase <-
+        stringr::str_replace_all(
+          string = phrase,
+          pattern = wildcard,
+          replacement = "%"
+        )
 
 
 
-                        }
-                }
-
-
-                function(phrase,
-                         wildcard = " {1,}|[[:punct:]]{1,}",
-                         conn = NULL,
-                         vocabSchema,
-                         cache_only = FALSE,
-                         skip_cache = FALSE,
-                         override_cache = FALSE,
-                         render_sql = TRUE,
-                         verbose = TRUE,
-                         sleepTime = 1) {
-
-
-                        phrase <-
-                        stringr::str_replace_all(string = phrase,
-                                                 pattern = wildcard,
-                                                 replacement = "%")
-
-
-
-                        queryAthena(
-                                SqlRender::render(
-                                        sql_statement,
-                                        vocabSchema = vocabSchema,
-                                        phrase = phrase
-                                ),
-                                conn = conn,
-                                cache_only = cache_only,
-                                skip_cache = skip_cache,
-                                override_cache = override_cache,
-                                render_sql = render_sql,
-                                verbose = verbose,
-                                sleepTime = sleepTime
-                        )
-                }
-
-
-        }
-
-
-
+      queryAthena(
+        SqlRender::render(
+          sql_statement,
+          vocabSchema = vocabSchema,
+          phrase = phrase
+        ),
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
+    }
+  }

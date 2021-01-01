@@ -28,17 +28,17 @@ NULL
 
 
 prime_concepts <-
-    function(data,
-             concept_col) {
+  function(data,
+           concept_col) {
+    new_col_name <- paste0(dplyr::as_label(concept_col), " Primed")
 
-        new_col_name <- paste0(dplyr::as_label(concept_col), " Primed")
 
-
-        data %>%
-            dplyr::mutate_at(dplyr::vars({{ concept_col }}),
-                             ~ stringr::str_remove_all(., "[?]{1}$|[']"))
-
-    }
+    data %>%
+      dplyr::mutate_at(
+        dplyr::vars({{ concept_col }}),
+        ~ stringr::str_remove_all(., "[?]{1}$|[']")
+      )
+  }
 
 
 #' @title
@@ -56,26 +56,30 @@ prime_concepts <-
 
 
 process_words <-
-    function(data,
-             concept_col,
-             sep = " ",
-             word_nchar = 3) {
+  function(data,
+           concept_col,
+           sep = " ",
+           word_nchar = 3) {
+    new_col_name <- paste0(dplyr::as_label(concept_col), " Words")
 
-            new_col_name <- paste0(dplyr::as_label(concept_col), " Words")
 
-
-            dplyr::left_join(data,
-                             data %>%
-                                 dplyr::mutate({{ new_col_name }} := {{ concept_col }}) %>%
-                                 tidyr::separate_rows({{ new_col_name }}, sep = " ") %>%
-                                 dplyr::filter({{ concept_col }} != {{ new_col_name }}) %>%
-                                 dplyr::mutate_at(dplyr::vars({{ new_col_name }}),
-                                                  stringr::str_remove_all,
-                                                  "^[[:punct:]]{1,}|[[:punct:]]{1,}$") %>%
-                                 dplyr::filter_at(dplyr::vars({{ new_col_name }}),
-                                                  dplyr::all_vars(nchar(.) > word_nchar)))
-
-    }
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::mutate({{ new_col_name }} := {{ concept_col }}) %>%
+        tidyr::separate_rows({{ new_col_name }}, sep = " ") %>%
+        dplyr::filter({{ concept_col }} != {{ new_col_name }}) %>%
+        dplyr::mutate_at(
+          dplyr::vars({{ new_col_name }}),
+          stringr::str_remove_all,
+          "^[[:punct:]]{1,}|[[:punct:]]{1,}$"
+        ) %>%
+        dplyr::filter_at(
+          dplyr::vars({{ new_col_name }}),
+          dplyr::all_vars(nchar(.) > word_nchar)
+        )
+    )
+  }
 
 
 #' @title
@@ -95,27 +99,29 @@ process_words <-
 #' @importFrom stringr str_remove_all
 
 process_parentheses <-
-    function(data,
-             concept_col) {
+  function(data,
+           concept_col) {
+    col <- dplyr::enquo(concept_col)
 
-        col <- dplyr::enquo(concept_col)
+    new_col_name1 <- paste0(dplyr::as_label(col), " Front of Parentheses")
+    new_col_name2 <- paste0(dplyr::as_label(col), " Inside Parentheses")
+    new_col_name3 <- paste0(dplyr::as_label(col), " Behind Parentheses")
 
-        new_col_name1 <- paste0(dplyr::as_label(col), " Front of Parentheses")
-        new_col_name2 <- paste0(dplyr::as_label(col), " Inside Parentheses")
-        new_col_name3 <- paste0(dplyr::as_label(col), " Behind Parentheses")
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::mutate(Parentheses := !!col) %>%
-                             tidyr::extract(col = Parentheses,
-                                            into = c(new_col_name1, new_col_name2, new_col_name3),
-                                            regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
-                                            remove = FALSE) %>%
-                             dplyr::select(-Parentheses)
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::mutate(Parentheses := !!col) %>%
+        tidyr::extract(
+          col = Parentheses,
+          into = c(new_col_name1, new_col_name2, new_col_name3),
+          regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
+          remove = FALSE
         ) %>%
-            dplyr::mutate_all(trimws) %>%
-            normalize_nas()
-    }
+        dplyr::select(-Parentheses)
+    ) %>%
+      dplyr::mutate_all(trimws) %>%
+      normalize_nas()
+  }
 
 #' @title
 #' Process a Concept Column for the First Set of Parentheses
@@ -131,27 +137,29 @@ process_parentheses <-
 #' @importFrom stringr str_remove_all
 
 process_first_parentheses <-
-    function(data,
-             concept_col) {
+  function(data,
+           concept_col) {
+    col <- dplyr::enquo(concept_col)
 
-        col <- dplyr::enquo(concept_col)
+    new_col_name1 <- paste0(dplyr::as_label(col), " Front of 1st Parentheses")
+    new_col_name2 <- paste0(dplyr::as_label(col), " Inside 1st Parentheses")
+    new_col_name3 <- paste0(dplyr::as_label(col), " Behind 1st Parentheses")
 
-        new_col_name1 <- paste0(dplyr::as_label(col), " Front of 1st Parentheses")
-        new_col_name2 <- paste0(dplyr::as_label(col), " Inside 1st Parentheses")
-        new_col_name3 <- paste0(dplyr::as_label(col), " Behind 1st Parentheses")
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::mutate(Parentheses := !!col) %>%
-                             tidyr::extract(col = Parentheses,
-                                            into = c(new_col_name1, new_col_name2, new_col_name3),
-                                            regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
-                                            remove = FALSE) %>%
-                             dplyr::select(-Parentheses)
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::mutate(Parentheses := !!col) %>%
+        tidyr::extract(
+          col = Parentheses,
+          into = c(new_col_name1, new_col_name2, new_col_name3),
+          regex = "(^.*?)[(]{1}(.*?)[)]{1}(.*$)",
+          remove = FALSE
         ) %>%
-            dplyr::mutate_all(trimws) %>%
-            normalize_nas()
-    }
+        dplyr::select(-Parentheses)
+    ) %>%
+      dplyr::mutate_all(trimws) %>%
+      normalize_nas()
+  }
 
 
 #' @title
@@ -168,27 +176,29 @@ process_first_parentheses <-
 #' @importFrom stringr str_remove_all
 
 process_last_parentheses <-
-    function(data,
-             concept_col) {
+  function(data,
+           concept_col) {
+    col <- dplyr::enquo(concept_col)
 
-        col <- dplyr::enquo(concept_col)
+    new_col_name1 <- paste0(dplyr::as_label(col), " Front of nth Parentheses")
+    new_col_name2 <- paste0(dplyr::as_label(col), " Inside nth Parentheses")
+    new_col_name3 <- paste0(dplyr::as_label(col), " Behind nth Parentheses")
 
-        new_col_name1 <- paste0(dplyr::as_label(col), " Front of nth Parentheses")
-        new_col_name2 <- paste0(dplyr::as_label(col), " Inside nth Parentheses")
-        new_col_name3 <- paste0(dplyr::as_label(col), " Behind nth Parentheses")
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::mutate(Parentheses := !!col) %>%
-                             tidyr::extract(col = Parentheses,
-                                            into = c(new_col_name1, new_col_name2, new_col_name3),
-                                            regex = "(^.*)[(]{1}(.*?)[)]{1}(.*$)",
-                                            remove = FALSE) %>%
-                             dplyr::select(-Parentheses)
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::mutate(Parentheses := !!col) %>%
+        tidyr::extract(
+          col = Parentheses,
+          into = c(new_col_name1, new_col_name2, new_col_name3),
+          regex = "(^.*)[(]{1}(.*?)[)]{1}(.*$)",
+          remove = FALSE
         ) %>%
-            dplyr::mutate_all(trimws) %>%
-            normalize_nas()
-    }
+        dplyr::select(-Parentheses)
+    ) %>%
+      dplyr::mutate_all(trimws) %>%
+      normalize_nas()
+  }
 
 
 #' @title
@@ -204,21 +214,20 @@ process_last_parentheses <-
 #' @importFrom dplyr enquo as_label left_join count filter mutate select
 
 process_unique_words <-
-    function(data,
-             words_col) {
+  function(data,
+           words_col) {
+    words_col <- dplyr::enquo(words_col)
+    new_col_name <- paste0(dplyr::as_label(words_col), " Unique")
 
-        words_col <- dplyr::enquo(words_col)
-        new_col_name <- paste0(dplyr::as_label(words_col), " Unique")
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::count({{words_col}}) %>%
-                             dplyr::filter(n == 1) %>%
-                             dplyr::mutate({{new_col_name}} := {{words_col}}) %>%
-                             dplyr::select(-n)
-        )
-
-    }
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::count({{ words_col }}) %>%
+        dplyr::filter(n == 1) %>%
+        dplyr::mutate({{ new_col_name }} := {{ words_col }}) %>%
+        dplyr::select(-n)
+    )
+  }
 
 #' @title
 #' Identify the Longest Word in the Concept
@@ -232,33 +241,35 @@ process_unique_words <-
 #' @importFrom dplyr enquo as_label left_join group_by_at mutate filter select rename
 
 process_longest_words <-
-    function(data, concept_col, words_col) {
+  function(data, concept_col, words_col) {
 
-        # concept_col <- dplyr::enquo(concept_col)
-        # words_col <- dplyr::enquo(words_col)
-        # new_col_name <- paste0(dplyr::as_label(concept_col), " Longest Word")
-        #
-        # dplyr::left_join(data,
-        #                  data %>%
-        #                      dplyr::group_by_at(dplyr::vars({{concept_col}})) %>%
-        #                      dplyr::mutate(longest_word = max(nchar(!!words_col))) %>%
-        #                      dplyr::filter(nchar(!!words_col) == longest_word) %>%
-        #                      dplyr::select(-longest_word) %>%
-        #                      dplyr::rename({{new_col_name}} := !!words_col))
-        #
+    # concept_col <- dplyr::enquo(concept_col)
+    # words_col <- dplyr::enquo(words_col)
+    # new_col_name <- paste0(dplyr::as_label(concept_col), " Longest Word")
+    #
+    # dplyr::left_join(data,
+    #                  data %>%
+    #                      dplyr::group_by_at(dplyr::vars({{concept_col}})) %>%
+    #                      dplyr::mutate(longest_word = max(nchar(!!words_col))) %>%
+    #                      dplyr::filter(nchar(!!words_col) == longest_word) %>%
+    #                      dplyr::select(-longest_word) %>%
+    #                      dplyr::rename({{new_col_name}} := !!words_col))
+    #
 
-        concept_col <- dplyr::enquo(concept_col)
-        # words_col <- dplyr::enquo(words_col)
-        new_col_name <- paste0(dplyr::as_label(concept_col), " Longest Word")
+    concept_col <- dplyr::enquo(concept_col)
+    # words_col <- dplyr::enquo(words_col)
+    new_col_name <- paste0(dplyr::as_label(concept_col), " Longest Word")
 
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::group_by_at(dplyr::vars({{concept_col}})) %>%
-                             dplyr::mutate(longest_word = max(nchar({{words_col}}))) %>%
-                             dplyr::filter(nchar({{words_col}}) == longest_word) %>%
-                             dplyr::select(-longest_word) %>%
-                             dplyr::rename({{new_col_name}} := {{words_col}}))
-    }
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::group_by_at(dplyr::vars({{ concept_col }})) %>%
+        dplyr::mutate(longest_word = max(nchar({{ words_col }}))) %>%
+        dplyr::filter(nchar({{ words_col }}) == longest_word) %>%
+        dplyr::select(-longest_word) %>%
+        dplyr::rename({{ new_col_name }} := {{ words_col }})
+    )
+  }
 
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -269,9 +280,9 @@ process_longest_words <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{group_by_all}},\code{\link[dplyr]{arrange_all}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{group_by}}
@@ -280,21 +291,23 @@ process_longest_words <-
 #' @importFrom dplyr enquo as_label left_join group_by_at arrange_at mutate ungroup
 
 rank_word_length <-
-    function(data, concept_col, words_col) {
+  function(data, concept_col, words_col) {
+    new_col_prefix <- paste0(dplyr::as_label(words_col), " Length Rank")
 
-        new_col_prefix <- paste0(dplyr::as_label(words_col), " Length Rank")
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::group_by_at(dplyr::vars({{ concept_col }})) %>%
-                             dplyr::arrange_at(dplyr::vars({{ words_col }}), ~desc(nchar(.)), .by_group = TRUE) %>%
-                             dplyr::mutate(Rank := 1:n()) %>%
-                             dplyr::ungroup() %>%
-                             tidyr::pivot_wider(names_from = Rank,
-                                                names_prefix = new_col_prefix,
-                                                values_from = {{ words_col }})
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::group_by_at(dplyr::vars({{ concept_col }})) %>%
+        dplyr::arrange_at(dplyr::vars({{ words_col }}), ~ desc(nchar(.)), .by_group = TRUE) %>%
+        dplyr::mutate(Rank := 1:n()) %>%
+        dplyr::ungroup() %>%
+        tidyr::pivot_wider(
+          names_from = Rank,
+          names_prefix = new_col_prefix,
+          values_from = {{ words_col }}
         )
-    }
+    )
+  }
 
 
 #' @title FUNCTION_TITLE
@@ -306,9 +319,9 @@ rank_word_length <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{count}},\code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{group_by_all}},\code{\link[dplyr]{arrange_all}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{group_by}},\code{\link[dplyr]{select}}
@@ -317,27 +330,29 @@ rank_word_length <-
 #' @importFrom dplyr enquo as_label count left_join group_by_at arrange_at mutate ungroup select
 
 rank_word_frequency <-
-    function(data, concept_col, words_col) {
+  function(data, concept_col, words_col) {
+    concept_col <- dplyr::enquo(concept_col)
+    words_col <- dplyr::enquo(words_col)
 
-        concept_col <- dplyr::enquo(concept_col)
-        words_col <- dplyr::enquo(words_col)
+    new_col_prefix <- paste0(dplyr::as_label(words_col), " Frequency Rank")
 
-        new_col_prefix <- paste0(dplyr::as_label(words_col), " Frequency Rank")
+    frequency_df <-
+      data %>%
+      dplyr::count(!!words_col)
 
-        frequency_df <-
-            data %>%
-            dplyr::count(!!words_col)
-
-        dplyr::left_join(data,
-                         data %>%
-                             dplyr::left_join(frequency_df) %>%
-                             dplyr::group_by_at(dplyr::vars(!!concept_col)) %>%
-                             dplyr::arrange_at(dplyr::vars(n), .by_group = TRUE) %>%
-                             dplyr::mutate(Rank := 1:n()) %>%
-                             dplyr::ungroup() %>%
-                             dplyr::select(-n) %>%
-                             tidyr::pivot_wider(names_from = Rank,
-                                                names_prefix = new_col_prefix,
-                                                values_from = !!words_col)
+    dplyr::left_join(
+      data,
+      data %>%
+        dplyr::left_join(frequency_df) %>%
+        dplyr::group_by_at(dplyr::vars(!!concept_col)) %>%
+        dplyr::arrange_at(dplyr::vars(n), .by_group = TRUE) %>%
+        dplyr::mutate(Rank := 1:n()) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-n) %>%
+        tidyr::pivot_wider(
+          names_from = Rank,
+          names_prefix = new_col_prefix,
+          values_from = !!words_col
         )
-    }
+    )
+  }

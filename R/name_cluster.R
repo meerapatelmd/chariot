@@ -1,32 +1,29 @@
 #' @export
 
 name_cluster <-
-        function(concept_obj,
-                 vocab_schema = "omop_vocabulary",
-                 conn,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = TRUE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
+  function(concept_obj,
+           vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
 
-                # concept_id <- 1112807
+    # concept_id <- 1112807
 
-                if (class(concept_obj) == "concept") {
-
-                        concept_id <- concept@concept_id
-
-                } else {
-
-                        concept_id <- concept_obj
-                }
+    if (class(concept_obj) == "concept") {
+      concept_id <- concept@concept_id
+    } else {
+      concept_id <- concept_obj
+    }
 
 
-                sql_statement <-
-                SqlRender::render(
-                        "
+    sql_statement <-
+      SqlRender::render(
+        "
                         With synonym AS (
                                 SELECT DISTINCT
                                         'concept' AS source_type,
@@ -58,17 +55,20 @@ name_cluster <-
                         SELECT *
                         FROM maps_to
                         ",
-                        vocab_schema = vocab_schema,
-                        concept_id = concept_id)
+        vocab_schema = vocab_schema,
+        concept_id = concept_id
+      )
 
 
-                queryAthena(sql_statement = sql_statement,
-                            conn = conn,
-                            conn_fun = conn_fun,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-        }
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }

@@ -5,21 +5,16 @@
 #' @export
 
 is_cached <-
-    function(sql_statement) {
+  function(sql_statement) {
+    cachedData <-
+      lowLevelLoadCache(sql_statement)
 
-        cachedData <-
-            lowLevelLoadCache(sql_statement)
-
-        if (!is.null(cachedData)) {
-
-            TRUE
-
-        } else {
-
-            FALSE
-        }
-
+    if (!is.null(cachedData)) {
+      TRUE
+    } else {
+      FALSE
     }
+  }
 
 
 
@@ -31,14 +26,16 @@ is_cached <-
 #' @export
 
 load_cached_query <-
-    function(key) {
-                key <- list(key)
-                x <-
-                R.cache::loadCache(key=key,
-                                   dirs="athena",
-                                   onError="error")
-                return(x)
-    }
+  function(key) {
+    key <- list(key)
+    x <-
+      R.cache::loadCache(
+        key = key,
+        dirs = "athena",
+        onError = "error"
+      )
+    return(x)
+  }
 
 
 #' Cache the results of a query
@@ -50,11 +47,13 @@ load_cached_query <-
 #' @export
 
 cache_query <-
-        function(object, key) {
-                key = list(key)
-                x <-
-                        R.cache::saveCache(object=object,
-                                           key=key,
-                                           dirs="athena")
-                invisible(x)
-        }
+  function(object, key) {
+    key <- list(key)
+    x <-
+      R.cache::saveCache(
+        object = object,
+        key = key,
+        dirs = "athena"
+      )
+    invisible(x)
+  }

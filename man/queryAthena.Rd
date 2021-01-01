@@ -22,9 +22,9 @@ queryAthena(
   sql_statement,
   conn,
   conn_fun = "connectAthena()",
-  cache_only = FALSE,
   skip_cache = FALSE,
   override_cache = FALSE,
+  cache_only = FALSE,
   cache_resultset = TRUE,
   render_sql = TRUE,
   render_only = FALSE,
@@ -80,13 +80,6 @@ Other query functions:
 \code{\link{queryDescendants}()},
 \code{\link{queryRelationships}()},
 \code{\link{querySynonyms}()},
-\code{\link{queryVocabularyRelationships}()},
-\code{\link{searchPhraseExactSynonym}()},
-\code{\link{searchPhraseExact}()},
-\code{\link{searchPhraseLikeSynonym}()},
-\code{\link{searchPhraseLike}()},
-\code{\link{searchPhraseStringSynonym}()},
-\code{\link{searchPhraseString}()},
-\code{\link{searchPhrase}()}
+\code{\link{queryVocabularyRelationships}()}
 }
 \concept{query functions}

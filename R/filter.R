@@ -2,17 +2,18 @@
 #' @export
 
 filterClassConcepts <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                         filterStandardConceptType(.data = .data,
-                                                   has_prefix = has_prefix,
-                                                   has_suffix = has_suffix,
-                                                   values = "C",
-                                                   invert = invert)
-                 }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterStandardConceptType(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "C",
+      invert = invert
+    )
+  }
 
 
 
@@ -26,54 +27,58 @@ filterClassConcepts <-
 #' @importFrom dplyr filter_at
 
 filterConcept <-
-        function(data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 concept_col,
-                 values,
-                 invert = FALSE) {
+  function(data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           concept_col,
+           values,
+           invert = FALSE) {
+    columns <- paste0(
+      has_prefix,
+      c(
+        "concept_id",
+        "concept_name",
+        "domain_id",
+        "vocabulary_id",
+        "concept_class_id",
+        "standard_concept",
+        "concept_code",
+        "valid_start_date",
+        "valid_end_date",
+        "invalid_reason"
+      ),
+      has_suffix
+    ) %>%
+      as.list()
+
+    names(columns) <- c(
+      "concept_id",
+      "concept_name",
+      "domain_id",
+      "vocabulary_id",
+      "concept_class_id",
+      "standard_concept",
+      "concept_code",
+      "valid_start_date",
+      "valid_end_date",
+      "invalid_reason"
+    )
 
 
-                        columns <- paste0(has_prefix,
-                                          c(
-                                          "concept_id",
-                                          "concept_name",
-                                          "domain_id",
-                                          "vocabulary_id",
-                                          "concept_class_id",
-                                          "standard_concept",
-                                          "concept_code",
-                                          "valid_start_date",
-                                          "valid_end_date",
-                                          "invalid_reason"),
-                                          has_suffix) %>%
-                                                as.list()
-
-                        names(columns) <-  c("concept_id",
-                                             "concept_name",
-                                             "domain_id",
-                                             "vocabulary_id",
-                                             "concept_class_id",
-                                             "standard_concept",
-                                             "concept_code",
-                                             "valid_start_date",
-                                             "valid_end_date",
-                                             "invalid_reason")
-
-
-                        if (invert) {
-
-                                .data %>%
-                                        dplyr::filter_at(vars(all_of(unlist(columns)[concept_col])),
-                                                         all_vars(!(. %in% values)))
-
-                        } else {
-
-                                .data %>%
-                                        dplyr::filter_at(vars(all_of(unlist(columns)[concept_col])),
-                                                         all_vars(. %in% values))
-                        }
-        }
+    if (invert) {
+      .data %>%
+        dplyr::filter_at(
+          vars(all_of(unlist(columns)[concept_col])),
+          all_vars(!(. %in% values))
+        )
+    } else {
+      .data %>%
+        dplyr::filter_at(
+          vars(all_of(unlist(columns)[concept_col])),
+          all_vars(. %in% values)
+        )
+    }
+  }
 
 
 
@@ -88,34 +93,35 @@ filterConcept <-
 #' @importFrom dplyr filter_at
 
 filterConceptClass <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 values,
-                 invert = FALSE) {
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           values,
+           invert = FALSE) {
+    columns <- paste0(
+      has_prefix,
+      "concept_class_id",
+      has_suffix
+    ) %>%
+      as.list()
+
+    names(columns) <- "concept_class_id"
 
 
-                        columns <- paste0(has_prefix,
-                                          "concept_class_id",
-                                          has_suffix) %>%
-                                                as.list()
-
-                        names(columns) <- "concept_class_id"
-
-
-                        if (invert) {
-
-                                .data %>%
-                                        dplyr::filter_at(vars(all_of(columns$concept_class_id)),
-                                                         all_vars(!(. %in% values)))
-
-                        } else {
-
-                                .data %>%
-                                        dplyr::filter_at(vars(all_of(columns$concept_class_id)),
-                                                         all_vars(. %in% values))
-                        }
-        }
+    if (invert) {
+      .data %>%
+        dplyr::filter_at(
+          vars(all_of(columns$concept_class_id)),
+          all_vars(!(. %in% values))
+        )
+    } else {
+      .data %>%
+        dplyr::filter_at(
+          vars(all_of(columns$concept_class_id)),
+          all_vars(. %in% values)
+        )
+    }
+  }
 
 
 
@@ -125,22 +131,20 @@ filterConceptClass <-
 #' @export
 
 filterDomain <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 values,
-                 invert = FALSE) {
-
-
-                filterConcept(.data = .data,
-                               has_prefix = has_prefix,
-                               has_suffix = has_suffix,
-                               concept_col = "domain_id",
-                               values = values,
-                               invert = invert)
-
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           values,
+           invert = FALSE) {
+    filterConcept(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      concept_col = "domain_id",
+      values = values,
+      invert = invert
+    )
+  }
 
 
 
@@ -149,19 +153,18 @@ filterDomain <-
 #' @export
 
 filterHemOnc <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-
-                filterVocabulary(.data = .data,
-                                 has_prefix = has_prefix,
-                                 has_suffix = has_suffix,
-                                 values = "HemOnc",
-                                 invert = invert)
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "HemOnc",
+      invert = invert
+    )
+  }
 
 
 
@@ -170,18 +173,18 @@ filterHemOnc <-
 #' @export
 
 filterLOINC <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                        filterVocabulary(.data = .data,
-                                         has_prefix = has_prefix,
-                                         has_suffix = has_suffix,
-                                         values = "LOINC",
-                                         invert = invert)
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "LOINC",
+      invert = invert
+    )
+  }
 
 
 
@@ -190,18 +193,18 @@ filterLOINC <-
 #' @export
 
 filterNAACCR <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                filterVocabulary(.data = .data,
-                                 has_prefix = has_prefix,
-                                 has_suffix = has_suffix,
-                                 values = "NAACCR",
-                                 invert = invert)
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "NAACCR",
+      invert = invert
+    )
+  }
 
 
 
@@ -210,18 +213,18 @@ filterNAACCR <-
 #' @export
 
 filterNebraska <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                filterVocabulary(.data = .data,
-                                 has_prefix = has_prefix,
-                                 has_suffix = has_suffix,
-                                 values = "Nebraska Lexicon",
-                                 invert = invert)
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "Nebraska Lexicon",
+      invert = invert
+    )
+  }
 
 
 
@@ -230,30 +233,29 @@ filterNebraska <-
 #' @export
 
 filterRxNorm <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 includeExt = TRUE,
-                 invert = FALSE) {
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           includeExt = TRUE,
+           invert = FALSE) {
+    if (includeExt) {
+      filterVocabulary(
+        .data = .data,
+        has_prefix = has_prefix,
+        has_suffix = has_suffix,
+        values = c("RxNorm", "RxNorm Extension"),
+        invert = invert
+      )
+    }
 
-
-                if (includeExt) {
-
-                        filterVocabulary(.data = .data,
-                                         has_prefix = has_prefix,
-                                         has_suffix = has_suffix,
-                                         values = c("RxNorm", "RxNorm Extension"),
-                                         invert = invert)
-
-                }
-
-                        filterVocabulary(.data = .data,
-                                         has_prefix = has_prefix,
-                                         has_suffix = has_suffix,
-                                         values = c("RxNorm"),
-                                         invert = invert)
-
-        }
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = c("RxNorm"),
+      invert = invert
+    )
+  }
 
 
 
@@ -262,18 +264,18 @@ filterRxNorm <-
 #' @export
 
 filterSNOMED <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                filterVocabulary(.data = .data,
-                                 has_prefix = has_prefix,
-                                 has_suffix = has_suffix,
-                                 values = "SNOMED",
-                                 invert = invert)
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterVocabulary(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "SNOMED",
+      invert = invert
+    )
+  }
 
 
 
@@ -282,17 +284,18 @@ filterSNOMED <-
 #' @export
 
 filterStandardConcepts <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 invert = FALSE) {
-
-                         filterStandardConceptType(.data = .data,
-                                                   has_prefix = has_prefix,
-                                                   has_suffix = has_suffix,
-                                                   values = "S",
-                                                   invert = invert)
-                 }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           invert = FALSE) {
+    filterStandardConceptType(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      values = "S",
+      invert = invert
+    )
+  }
 
 
 
@@ -301,22 +304,20 @@ filterStandardConcepts <-
 #' @export
 
 filterStandardConceptType <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 values,
-                 invert = FALSE) {
-
-
-                filterConcept(.data = .data,
-                               has_prefix = has_prefix,
-                               has_suffix = has_suffix,
-                               concept_col = "standard_concept",
-                               values = values,
-                               invert = invert)
-
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           values,
+           invert = FALSE) {
+    filterConcept(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      concept_col = "standard_concept",
+      values = values,
+      invert = invert
+    )
+  }
 
 
 
@@ -337,34 +338,36 @@ filterStandardConceptType <-
 #' @importFrom dplyr filter_at select
 
 filterValid <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 rm_date_fields = TRUE) {
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           rm_date_fields = TRUE) {
+    .output <-
+      filterConcept(
+        .data = .data,
+        has_prefix = has_prefix,
+        has_suffix = has_suffix,
+        concept_col = "invalid_reason",
+        values = NA_character_
+      )
 
-                        .output <-
-                        filterConcept(.data = .data,
-                                       has_prefix = has_prefix,
-                                       has_suffix = has_suffix,
-                                       concept_col = "invalid_reason",
-                                       values = NA_character_)
 
+    if (rm_date_fields) {
+      columns <- paste0(
+        has_prefix,
+        c(
+          "valid_start_date",
+          "valid_end_date"
+        ),
+        has_suffix
+      )
 
-                        if (rm_date_fields) {
-
-                                columns <- paste0(has_prefix,
-                                                  c("valid_start_date",
-                                                    "valid_end_date"),
-                                                  has_suffix)
-
-                                .output %>%
-                                        dplyr::select(-any_of(columns))
-
-                        } else {
-                                .output
-                        }
-
-        }
+      .output %>%
+        dplyr::select(-any_of(columns))
+    } else {
+      .output
+    }
+  }
 
 
 
@@ -374,20 +377,17 @@ filterValid <-
 #' @export
 
 filterVocabulary <-
-        function(.data,
-                 has_prefix = NULL,
-                 has_suffix = NULL,
-                 values,
-                 invert = FALSE) {
-
-
-                        filterConcept(.data = .data,
-                                       has_prefix = has_prefix,
-                                       has_suffix = has_suffix,
-                                       concept_col = "vocabulary_id",
-                                       values = values,
-                                       invert = invert)
-
-
-
-        }
+  function(.data,
+           has_prefix = NULL,
+           has_suffix = NULL,
+           values,
+           invert = FALSE) {
+    filterConcept(
+      .data = .data,
+      has_prefix = has_prefix,
+      has_suffix = has_suffix,
+      concept_col = "vocabulary_id",
+      values = values,
+      invert = invert
+    )
+  }

@@ -22,46 +22,57 @@ NULL
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname lookup_vocabulary_relationships
+#' @rdname vocab_lookup_relationships
 #' @export
 #' @importFrom SqlRender render
 
 
-lookup_vocabulary_relationships <-
-        function(vocabulary_id,
-                 conn = NULL,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
+vocab_lookup_relationships <-
+  function(vocabulary_id,
+           conn,
+           conn_fun = "connectAthena()",
+           vocab_schema = "omop_vocabulary",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           render_only = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
 
-                queryAthena(sql_statement =
-                                    SqlRender::render(
-                                            "SELECT DISTINCT
-                                                        c.vocabulary_id AS vocabulary_id_1,
-                                                        c.concept_class_id AS concept_class_id_1,
-                                                        cr.relationship_id
-                                                        FROM public.concept c
-                                                        LEFT JOIN public.concept_relationship cr
-                                                        ON cr.concept_id_1 = c.concept_id
-                                                        LEFT JOIN public.concept c2
-                                                        ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
-                                                                AND c.invalid_reason IS NULL
-                                                                AND cr.invalid_reason IS NULL",
-                                            vocabulary_id = vocabulary_id),
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-        }
+    queryAthena(
+      sql_statement =
+        SqlRender::render(
+        "
+        SELECT DISTINCT
+        c.vocabulary_id AS vocabulary_id_1,
+        c.concept_class_id AS concept_class_id_1,
+        cr.relationship_id,
+        c2.vocabulary_id AS vocabulary_id_2,
+        c2.concept_class_id AS concept_class_id_2
+        FROM @vocab_schema.concept c
+        LEFT JOIN @vocab_schema.concept_relationship cr
+        ON cr.concept_id_1 = c.concept_id
+        LEFT JOIN @vocab_schema.concept c2
+        ON c2.concept_id = cr.concept_id_2
+        WHERE c.vocabulary_id IN ('@vocabulary_id')
+                AND c.invalid_reason IS NULL
+                AND cr.invalid_reason IS NULL",
+        vocabulary_id = vocabulary_id,
+        vocab_schema = vocab_schema
+        ),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      render_only = render_only,
+      sleepTime = sleepTime
+    )
+  }
 
 #' @title
 #' Query a Source Vocabulary's Relationships to Other Vocabularies
@@ -81,235 +92,56 @@ lookup_vocabulary_relationships <-
 #' @export
 #' @importFrom SqlRender render
 
-lookup_intervocabulary_relationship <-
-        function(vocabulary_id,
-                 conn,
-                 conn_fun = "connectAthena()",
-                 vocab_schema = "omop_vocabulary",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
-
-
-                queryAthena(sql_statement =
-                                    SqlRender::render(
-                                            "SELECT DISTINCT
-                                                        c.vocabulary_id AS vocabulary_id_1,
-                                                        c.concept_class_id AS concept_class_id_1,
-                                                        cr.relationship_id,
-                                                        c2.vocabulary_id AS vocabulary_id_2,
-                                                        c2.concept_class_id AS concept_class_id_2
-                                                        FROM @vocab_schema.concept c
-                                                        LEFT JOIN @vocab_schema.concept_relationship cr
-                                                        ON cr.concept_id_1 = c.concept_id
-                                                        LEFT JOIN @vocab_schema.concept c2
-                                                        ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
-                                                                AND c2.vocabulary_id NOT IN ('@vocabulary_id')
-                                                                AND c.invalid_reason IS NULL
-                                                                AND c2.invalid_reason IS NULL
-                                                                AND cr.invalid_reason IS NULL",
-                                            vocab_schema = vocab_schema,
-                                            vocabulary_id = vocabulary_id
-                                    ),
-                            conn = conn,
-                            conn_fun = conn_fun,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-        }
-
-
-
+vocab_lookup_inter_relationship <-
+  function(vocabulary_id,
+           conn,
+           conn_fun = "connectAthena()",
+           vocab_schema = "omop_vocabulary",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    queryAthena(
+      sql_statement =
+        SqlRender::render(
+          "
+          SELECT DISTINCT
+        c.vocabulary_id AS vocabulary_id_1,
+        c.concept_class_id AS concept_class_id_1,
+        cr.relationship_id,
+        c2.vocabulary_id AS vocabulary_id_2,
+        c2.concept_class_id AS concept_class_id_2
+        FROM @vocab_schema.concept c
+        LEFT JOIN @vocab_schema.concept_relationship cr
+        ON cr.concept_id_1 = c.concept_id
+        LEFT JOIN @vocab_schema.concept c2
+        ON c2.concept_id = cr.concept_id_2
+        WHERE c.vocabulary_id IN ('@vocabulary_id')
+                AND c2.vocabulary_id NOT IN ('@vocabulary_id')
+                AND c.invalid_reason IS NULL
+                AND c2.invalid_reason IS NULL
+                AND cr.invalid_reason IS NULL",
+          vocab_schema = vocab_schema,
+          vocabulary_id = vocabulary_id
+        ),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
 
 
 
 
-lookup_intersnomed_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "SNOMED",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
-
-
-
-
-lookup_interloinc_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "LOINC",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
-
-
-
-
-lookup_interhemonc_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "HemOnc",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
-
-
-lookup_interrxnorm_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "RxNorm",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
-
-
-
-lookup_interrxnormextension_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "RxNorm Extension",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
-
-lookup_interatc_relationships <-
-        function( conn,
-                  conn_fun = "connectAthena()",
-                  vocab_schema = "omop_vocabulary",
-                  cache_only = FALSE,
-                  skip_cache = FALSE,
-                  override_cache = FALSE,
-                  cache_resultset = TRUE,
-                  render_sql = FALSE,
-                  verbose = FALSE,
-                  sleepTime = 1) {
-
-
-                lookup_intervocabulary_relationship(
-                        vocabulary_id = "ATC",
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        vocab_schema = vocab_schema,
-                        cache_only = cache_only,
-                        skip_cache = skip_cache,
-                        override_cache = override_cache,
-                        cache_resultset = cache_resultset,
-                        render_sql = render_sql,
-                        verbose = verbose,
-                        sleepTime = sleepTime
-                )
-        }
 
 #' @title
 #' Query a Source Vocabulary's Relationships
@@ -324,135 +156,54 @@ lookup_interatc_relationships <-
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname lookup_intravocabulary_relationship
+#' @rdname vocab_lookup_intrarelationship
 #'
 #' @export
 #' @importFrom SqlRender render
 
-lookup_intravocabulary_relationship <-
-        function(vocabulary_id,
-                 conn = NULL,
-                 vocab_schema = "omop_vocabulary",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
-
-
-                queryAthena(sql_statement =
-                                    SqlRender::render(
-                                            "SELECT DISTINCT
-                                                        c.vocabulary_id AS vocabulary_id_1,
-                                                        c.concept_class_id AS concept_class_id_1,
-                                                        cr.relationship_id,
-                                                        c2.vocabulary_id AS vocabulary_id_2,
-                                                        c2.concept_class_id AS concept_class_id_2
-                                                        FROM @vocab_schema.concept c
-                                                        LEFT JOIN @vocab_schema.concept_relationship cr
-                                                        ON cr.concept_id_1 = c.concept_id
-                                                        LEFT JOIN @vocab_schema.concept c2
-                                                        ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN ('@vocabulary_id')
-                                                                AND c2.vocabulary IN ('@vocabulary_id')
-                                                                AND c.invalid_reason IS NULL
-                                                                AND c2.invalid_reason IS NULL
-                                                                AND cr.invalid_reason IS NULL",
-                                            vocab_schema = vocab_schema,
-                                            vocabulary_id = vocabulary_id
-                                    ),
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-        }
-
-
-
-
-
-
-
-#' @title
-#' Query for a Source Vocabulary's Relationships to Other Source Vocabularies
-#'
-#' @details
-#' Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table to a second target set of OMOP Source Vocabulary and its Concept Classes. For a resultset that does not filters on both ends of the relationship, see \code{\link{query_all_vocabulary_relationships}}.
-#'
-#' @inherit vocabulary_level_functions description
-#'
-#' @inheritParams queryAthena
-#' @param vocabulary_id_1         Vector of 1 or more `vocabulary_id`
-#' @param vocabulary_id_2         Vector of 1 or more target `vocabulary_id`. If NULL, the target vocabulary is set to itself. Default: NULL.
-#'
-#' @seealso
-#'  \code{\link[SqlRender]{render}}
-#'
-#' @rdname query_vocabulary_relationships
-#'
-#' @export
-#' @importFrom SqlRender render
-
-query_vocabulary_relationships <-
-        function(vocabulary_id_1,
-                 vocabulary_id_2 = NULL,
-                 conn = NULL,
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
-                 sleepTime = 1) {
-
-                vocabulary_id_1 <- paste0("'", vocabulary_id_1, "'")
-
-                if (is.null(vocabulary_id_2)) {
-
-                        vocabulary_id_2 <- vocabulary_id_1
-
-                } else {
-
-                        vocabulary_id_2 <- paste0("'", vocabulary_id_2, "'")
-
-                }
-
-                queryAthena(sql_statement =
-                                SqlRender::render(
-                                        "SELECT DISTINCT
-                                                        c.vocabulary_id AS vocabulary_id_1,
-                                                        c.concept_class_id AS concept_class_id_1,
-                                                        cr.relationship_id,
-                                                        c2.vocabulary_id AS vocabulary_id_2,
-                                                        c2.concept_class_id AS concept_class_id_2
-                                                        FROM public.concept c
-                                                        LEFT JOIN public.concept_relationship cr
-                                                        ON cr.concept_id_1 = c.concept_id
-                                                        LEFT JOIN public.concept c2
-                                                        ON c2.concept_id = cr.concept_id_2
-                                                        WHERE c.vocabulary_id IN (@vocabulary_id_1)
-                                                                AND c.invalid_reason IS NULL
-                                                                AND c2.vocabulary_id IN (@vocabulary_id_2)
-                                                                AND c2.invalid_reason IS NULL
-                                                                AND cr.invalid_reason IS NULL",
-                                                vocabulary_id_1 = vocabulary_id_1,
-                                                vocabulary_id_2 = vocabulary_id_2
-                                ),
-                            conn = conn,
-                            cache_only = cache_only,
-                            skip_cache = skip_cache,
-                            override_cache = override_cache,
-                            cache_resultset = cache_resultset,
-                            render_sql = render_sql,
-                            verbose = verbose,
-                            sleepTime = sleepTime)
-
-        }
-
+vocab_lookup_intrarelationship <-
+  function(vocabulary_id,
+           conn,
+           conn_fun = "connectAthena()",
+           vocab_schema = "omop_vocabulary",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_resultset = TRUE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+    queryAthena(
+      sql_statement =
+        SqlRender::render(
+          "
+          SELECT DISTINCT
+        c.vocabulary_id AS vocabulary_id_1,
+        c.concept_class_id AS concept_class_id_1,
+        cr.relationship_id,
+        c2.vocabulary_id AS vocabulary_id_2,
+        c2.concept_class_id AS concept_class_id_2
+        FROM @vocab_schema.concept c
+        LEFT JOIN @vocab_schema.concept_relationship cr
+        ON cr.concept_id_1 = c.concept_id
+        LEFT JOIN @vocab_schema.concept c2
+        ON c2.concept_id = cr.concept_id_2
+        WHERE c.vocabulary_id IN ('@vocabulary_id')
+                AND c2.vocabulary IN ('@vocabulary_id')
+                AND c.invalid_reason IS NULL
+                AND c2.invalid_reason IS NULL
+                AND cr.invalid_reason IS NULL",
+          vocab_schema = vocab_schema,
+          vocabulary_id = vocabulary_id
+        ),
+      conn = conn,
+      conn_fun = conn_fun,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      cache_resultset = cache_resultset,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
