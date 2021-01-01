@@ -204,7 +204,7 @@ join <-
                         schema = write_schema,
                         data = data,
                         drop_existing = TRUE,
-                        drop_on_exit = TRUE,
+                        drop_on_exit = FALSE,
                         verbose = verbose,
                         render_sql = render_sql)
 
@@ -234,6 +234,7 @@ join <-
       )
 
 
+    resultset <-
     pg13::query(
       conn = conn,
       sql_statement = sql_statement,
@@ -241,6 +242,14 @@ join <-
       render_sql = render_sql,
       render_only = render_only
     )
+
+
+    pg13::drop_table(conn = conn,
+                     schema = write_schema,
+                     table = staging_table,
+                     if_exists = TRUE)
+
+    resultset
 
   }
 
