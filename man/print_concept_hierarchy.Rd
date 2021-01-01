@@ -6,7 +6,14 @@
 \usage{
 print_concept_hierarchy(
   concept_obj,
-  level_of_separation_type = c("max", "min")
+  level_of_separation_type = c("max", "min"),
+  write_schema = "patelm9",
+  vocab_schema = "omop_vocabulary",
+  conn,
+  conn_fun = "connectAthena()",
+  verbose = TRUE,
+  render_sql = TRUE,
+  render_only = FALSE
 )
 }
 \arguments{
@@ -21,33 +28,42 @@ shown.
 library(chariot)
 library(tidyverse)
 
+conn <- connectAthena()
 # Drug Domain
 concept_obj <- get_concept(concept_id = 1308216)
 concept_obj
-print_concept_hierarchy(concept_obj = concept_obj)
-print_concept_hierarchy(concept_obj = concept_obj,
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj)
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj,
                         level_of_separation_type = "min")
 
 
 # Cancer Condition Domain
 concept_obj <- get_concept(concept_id = 4187868)
 concept_obj
-print_concept_hierarchy(concept_obj = concept_obj)
-print_concept_hierarchy(concept_obj = concept_obj,
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj)
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj,
                         level_of_separation_type = "min")
 
 # Chronic Disease Domain
 concept_obj <- get_concept(concept_id = 319835)
 concept_obj
-print_concept_hierarchy(concept_obj = concept_obj)
-print_concept_hierarchy(concept_obj = concept_obj,
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj)
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj,
                         level_of_separation_type = "min")
 
 # Measurement Domain
 concept_obj <- get_concept(concept_id = 4298431)
 concept_obj
-print_concept_hierarchy(concept_obj = concept_obj)
-print_concept_hierarchy(concept_obj = concept_obj,
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj)
+print_concept_hierarchy(conn = conn,
+                        concept_obj = concept_obj,
                         level_of_separation_type = "min")
 }
 \seealso{

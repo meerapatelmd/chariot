@@ -1,0 +1,64 @@
+navbar:
+  structure:
+    left:  [home, reference, news]
+    right: [github]
+
+reference:
+  - title: Connection
+    desc: >
+      Connect and Disconnect a Local "Athena" Postgres Database
+    contents:
+      - connectAthena
+      - dcAthena
+  - title: Filter
+    desc: >
+      Wrappers around dplyr's `filter` functions
+    contents:
+      - filter_at_all_strip
+      - filter_at_any_strip
+      - filter_strip
+  - title: Concept Object
+    desc: >
+       Concept Class objects
+    contents:
+      - get_concept
+  - title: Join
+    desc: >
+      Join a dataframe to a OMOP Vocabulary table
+    contents:
+      - join_for_ancestor_ids
+      - join_for_ancestors
+      - join_for_concept_synonym_name
+      - join_for_descendant_ids
+      - join_on_concept_code
+      - join_on_concept_id
+      - join_on_concept_name
+      - join_on_concept_synonym_name
+   - title: Concept Hierarchy
+     desc:  >
+       Visualize a concept hierarachy
+     contents:
+       - print_concept_hierarchy
+   - title: Concept Formatting
+     desc:  >
+       Visualize a concept hierarachy
+     contents:
+      - label_to_strip
+      - strip_to_label
+      - merge_label
+      - merge_strip
+      - unmerge_label
+      - unmerge_strip
+      - unbox_label
+      - unbox_strip
+    - title: Search
+      desc:  >
+       Search for a phrase in the OMOP Vocabulary
+      contents:
+      - search_code
+      - search_ends_with_phrase
+      - search_exact_phrase
+      - search_like_phrase
+      - search_split_phrase
+      - search_starts_with_phrase
+
