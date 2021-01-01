@@ -5,13 +5,12 @@
 #' @rdname connectAthena
 
 connectAthena <-
-    function(port = 5432) {
-
-
-        pg13::local_connect(dbname = "athena",
-                            port = port)
-
-    }
+  function(port = 5432) {
+    pg13::local_connect(
+      dbname = "athena",
+      port = port
+    )
+  }
 
 
 #' @title
@@ -20,25 +19,20 @@ connectAthena <-
 #' @rdname connectAthena_ff
 
 connectAthena_ff <-
-        function(user = NULL,
-                 password = NULL,
-                 port = 5432,
-                 server = "localhost/athena") {
-
-
-                function(verbose = TRUE) {
-
-
-                        connectAthena(user = user,
-                                      password = password,
-                                      port = port,
-                                      server = server,
-                                      verbose = verbose)
-
-
-                }
-
-        }
+  function(user = NULL,
+           password = NULL,
+           port = 5432,
+           server = "localhost/athena") {
+    function(verbose = TRUE) {
+      connectAthena(
+        user = user,
+        password = password,
+        port = port,
+        server = server,
+        verbose = verbose
+      )
+    }
+  }
 
 
 #' @title
@@ -48,12 +42,12 @@ connectAthena_ff <-
 #' @rdname dcAthena
 
 dcAthena <-
-        function(conn,
-                 remove = FALSE,
-                 verbose = TRUE) {
-
-                pg13::dc(conn = conn,
-                         remove = remove,
-                         verbose = verbose)
-        }
-
+  function(conn,
+           remove = FALSE,
+           verbose = TRUE) {
+    pg13::dc(
+      conn = conn,
+      remove = remove,
+      verbose = verbose
+    )
+  }
