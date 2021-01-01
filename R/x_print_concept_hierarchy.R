@@ -21,7 +21,22 @@
 #' @example inst/example/print_concept_hierarchy.R
 print_concept_hierarchy <-
         function(concept_obj,
-                 level_of_separation_type = c("max", "min")) {
+                 level_of_separation_type = c("max", "min"),
+                 write_schema = "patelm9",
+                 vocab_schema = "omop_vocabulary",
+                 conn,
+                 conn_fun = "connectAthena()",
+                 verbose = TRUE,
+                 render_sql = TRUE,
+                 render_only = FALSE) {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
                 level_of_separation_type <-
                         match.arg(arg = level_of_separation_type,
@@ -44,7 +59,13 @@ print_concept_hierarchy <-
 
                 ancestors <-
                         join_for_ancestors(data = data,
-                                           descendant_id_column = "concept_hierarchy_id") %>%
+                                           descendant_id_column = "concept_hierarchy_id",
+                                           write_schema = write_schema,
+                                           vocab_schema = vocab_schema,
+                                           conn = conn,
+                                           verbose = verbose,
+                                           render_sql = render_sql,
+                                           render_only = render_only) %>%
                         merge_strip(into = "ancestor",
                                     prefix = "ancestor_") %>%
                         rubix::split_by(col = min_levels_of_separation) %>%
@@ -60,7 +81,13 @@ print_concept_hierarchy <-
                 descendants <-
                         join_for_descendants(
                                 data = data,
-                                ancestor_id_column = "concept_hierarchy_id"
+                                ancestor_id_column = "concept_hierarchy_id",
+                                write_schema = write_schema,
+                                vocab_schema = vocab_schema,
+                                conn = conn,
+                                verbose = verbose,
+                                render_sql = render_sql,
+                                render_only = render_only
                         ) %>%
                         merge_strip(into = "descendant",
                                     prefix = "descendant_") %>%
