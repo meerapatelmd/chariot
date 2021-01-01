@@ -244,8 +244,8 @@
                                         FROM omop_vocabulary.concept
                                         ORDER BY RANDOM()
                                         LIMIT 20;"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:10]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-01 18:35:06]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                         SELECT
 #&gt;                                                 concept_id AS test_concept_id,
 #&gt;                                                 concept_name AS test_concept_name,
@@ -253,7 +253,7 @@
 #&gt;                                         FROM omop_vocabulary.concept
 #&gt;                                         ORDER BY RANDOM()
 #&gt;                                         LIMIT 20;
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'><span class='va'>test_data</span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'><span class='va'>test_data</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 3</span><span>
 #&gt;    test_concept_id test_concept_name                      test_concept_code     
 #&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 
@@ -284,22 +284,22 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:10]	Target column: test_concept_id
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182510;
-#&gt; [2021-01-01 18:25:10]	Sending...
-#&gt; [2021-01-01 18:25:10]	Sending...complete
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...complete</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182510' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182510...complete</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182510 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182510;
-#&gt; [2021-01-01 18:25:10]	Sending...
-#&gt; [2021-01-01 18:25:10]	Sending...complete
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:06]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:06]	Sending...
+#&gt; [2021-01-01 18:35:06]	Sending...complete
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183506' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183506 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:06]	Sending...
+#&gt; [2021-01-01 18:35:06]	Sending...complete
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1         36153682
 #&gt; 2           938293
 #&gt; 3         37053310
@@ -437,22 +437,22 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_code"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:10]	Target column: test_concept_code
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182510;
-#&gt; [2021-01-01 18:25:10]	Sending...
-#&gt; [2021-01-01 18:25:10]	Sending...complete
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...complete</span><span>
-#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182510' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:10]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182510...complete</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182510 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_code = b.concept_code WHERE b.invalid_reason IS NULL
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182510;
-#&gt; [2021-01-01 18:25:11]	Sending...
-#&gt; [2021-01-01 18:25:11]	Sending...complete
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182510...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:06]	Target column: test_concept_code
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:06]	Sending...
+#&gt; [2021-01-01 18:35:06]	Sending...complete
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183506' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183506 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_code = b.concept_code WHERE b.invalid_reason IS NULL
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:06]	Sending...
+#&gt; [2021-01-01 18:35:06]	Sending...complete
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1         36153682
 #&gt; 2           938293
 #&gt; 3           938293
@@ -618,22 +618,22 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:11]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182511...</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182511;
-#&gt; [2021-01-01 18:25:11]	Sending...
-#&gt; [2021-01-01 18:25:11]	Sending...complete
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182511...complete</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182511' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182511...</span><span>
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182511...complete</span><span>
-#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:11]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182511 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_name = b.concept_name WHERE b.invalid_reason IS NULL
-#&gt; [2021-01-01 18:25:11]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182511...</span><span>
-#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182511;
-#&gt; [2021-01-01 18:25:15]	Sending...
-#&gt; [2021-01-01 18:25:15]	Sending...complete
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182511...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:06]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:06]	Sending...
+#&gt; [2021-01-01 18:35:06]	Sending...complete
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183506' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183506...complete</span><span>
+#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:06]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183506 a LEFT JOIN omop_vocabulary.concept b ON a.test_concept_name = b.concept_name WHERE b.invalid_reason IS NULL
+#&gt; [2021-01-01 18:35:06]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...</span><span>
+#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183506;
+#&gt; [2021-01-01 18:35:09]	Sending...
+#&gt; [2021-01-01 18:35:09]	Sending...complete
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183506...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1           938293
 #&gt; 2          1532840
 #&gt; 3          2853303
@@ -1179,22 +1179,22 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:15]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182515...</span><span>
-#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182515;
-#&gt; [2021-01-01 18:25:15]	Sending...
-#&gt; [2021-01-01 18:25:15]	Sending...complete
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182515...complete</span><span>
-#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182515' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182515...</span><span>
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182515...complete</span><span>
-#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:15]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182515 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
-#&gt; [2021-01-01 18:25:15]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182515...</span><span>
-#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182515;
-#&gt; [2021-01-01 18:25:18]	Sending...
-#&gt; [2021-01-01 18:25:18]	Sending...complete
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182515...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:09]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183509...</span><span>
+#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183509;
+#&gt; [2021-01-01 18:35:09]	Sending...
+#&gt; [2021-01-01 18:35:09]	Sending...complete
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183509...complete</span><span>
+#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183509' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183509...</span><span>
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183509...complete</span><span>
+#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:09]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183509 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
+#&gt; [2021-01-01 18:35:09]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183509...</span><span>
+#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183509;
+#&gt; [2021-01-01 18:35:13]	Sending...
+#&gt; [2021-01-01 18:35:13]	Sending...complete
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183509...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
 #&gt; 1            938293
 #&gt; 2           1130266
 #&gt; 3           1532840
@@ -2037,22 +2037,22 @@
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>,
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:18]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182518...</span><span>
-#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182518;
-#&gt; [2021-01-01 18:25:18]	Sending...
-#&gt; [2021-01-01 18:25:18]	Sending...complete
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182518...complete</span><span>
-#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182518' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182518...</span><span>
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182518...complete</span><span>
-#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:18]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182518 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
-#&gt; [2021-01-01 18:25:18]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182518...</span><span>
-#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182518;
-#&gt; [2021-01-01 18:25:21]	Sending...
-#&gt; [2021-01-01 18:25:21]	Sending...complete
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182518...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:13]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183513...</span><span>
+#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183513;
+#&gt; [2021-01-01 18:35:13]	Sending...
+#&gt; [2021-01-01 18:35:13]	Sending...complete
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183513...complete</span><span>
+#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183513' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183513...</span><span>
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183513...complete</span><span>
+#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:13]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183513 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
+#&gt; [2021-01-01 18:35:13]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183513...</span><span>
+#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183513;
+#&gt; [2021-01-01 18:35:17]	Sending...
+#&gt; [2021-01-01 18:35:17]	Sending...complete
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183513...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
 #&gt; 1            938293
 #&gt; 2           1130266
 #&gt; 3           1532840
@@ -2896,22 +2896,22 @@
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>,
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:21]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182521...</span><span>
-#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182521;
-#&gt; [2021-01-01 18:25:21]	Sending...
-#&gt; [2021-01-01 18:25:21]	Sending...complete
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182521...complete</span><span>
-#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182521' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182521...</span><span>
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182521...complete</span><span>
-#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:21]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT DISTINCT a.*, b.* FROM patelm9.V20210101182521 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
-#&gt; [2021-01-01 18:25:21]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:24]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182521...</span><span>
-#&gt; [2021-01-01 18:25:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:24]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182521;
-#&gt; [2021-01-01 18:25:24]	Sending...
-#&gt; [2021-01-01 18:25:24]	Sending...complete
-#&gt; [2021-01-01 18:25:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182521...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:17]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183517...</span><span>
+#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183517;
+#&gt; [2021-01-01 18:35:17]	Sending...
+#&gt; [2021-01-01 18:35:17]	Sending...complete
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183517...complete</span><span>
+#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183517' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183517...</span><span>
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183517...complete</span><span>
+#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:17]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT DISTINCT a.*, b.* FROM patelm9.V20210101183517 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
+#&gt; [2021-01-01 18:35:17]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183517...</span><span>
+#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183517;
+#&gt; [2021-01-01 18:35:21]	Sending...
+#&gt; [2021-01-01 18:35:21]	Sending...complete
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183517...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
 #&gt; 1            938293
 #&gt; 2            938293
 #&gt; 3            938293
@@ -3756,22 +3756,22 @@
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>,
         select_data_columns <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:25]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:25]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182525...</span><span>
-#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182525;
-#&gt; [2021-01-01 18:25:25]	Sending...
-#&gt; [2021-01-01 18:25:25]	Sending...complete
-#&gt; [2021-01-01 18:25:25]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182525...complete</span><span>
-#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182525' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182525...</span><span>
-#&gt; [2021-01-01 18:25:25]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182525...complete</span><span>
-#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:25]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT DISTINCT a.test_concept_name, b.* FROM patelm9.V20210101182525 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
-#&gt; [2021-01-01 18:25:25]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182525...</span><span>
-#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182525;
-#&gt; [2021-01-01 18:25:28]	Sending...
-#&gt; [2021-01-01 18:25:28]	Sending...complete
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182525...complete</span><span></div><div class='output co'>#&gt;                                                                                                               test_concept_name
+</div><div class='output co'>#&gt; [2021-01-01 18:35:21]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183521...</span><span>
+#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183521;
+#&gt; [2021-01-01 18:35:21]	Sending...
+#&gt; [2021-01-01 18:35:21]	Sending...complete
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183521...complete</span><span>
+#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183521' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183521...</span><span>
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183521...complete</span><span>
+#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:21]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT DISTINCT a.test_concept_name, b.* FROM patelm9.V20210101183521 a INNER JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name
+#&gt; [2021-01-01 18:35:21]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183521...</span><span>
+#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183521;
+#&gt; [2021-01-01 18:35:24]	Sending...
+#&gt; [2021-01-01 18:35:24]	Sending...complete
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183521...complete</span><span></div><div class='output co'>#&gt;                                                                                                               test_concept_name
 #&gt; 1        3 ML insulin, isophane 70 UNT/ML / Regular Insulin, Human 30 UNT/ML Injectable Suspension [Humulin] by Mawdsley-Brooks
 #&gt; 2                                                                                 Acetylene | Serum or Plasma | Drug toxicology
 #&gt; 3                                                                                                                       CEFANAN
@@ -4508,22 +4508,22 @@
         where_not_in_concept_synonym_field <span class='op'>=</span> <span class='st'>"language_concept_id"</span>,
         where_not_in_concept_synonym_field_value <span class='op'>=</span> <span class='fl'>4180186</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:28]	Target column: test_concept_name
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182528...</span><span>
-#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182528;
-#&gt; [2021-01-01 18:25:28]	Sending...
-#&gt; [2021-01-01 18:25:28]	Sending...complete
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182528...complete</span><span>
-#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182528' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182528...</span><span>
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182528...complete</span><span>
-#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:28]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182528 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name WHERE b.language_concept_id NOT IN (4180186)
-#&gt; [2021-01-01 18:25:28]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> Returned data has 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182528...</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182528;
-#&gt; [2021-01-01 18:25:30]	Sending...
-#&gt; [2021-01-01 18:25:30]	Sending...complete
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182528...complete</span><span></div><div class='output co'>#&gt; [1] test_concept_id      test_concept_name    test_concept_code   
+</div><div class='output co'>#&gt; [2021-01-01 18:35:24]	Target column: test_concept_name
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183524...</span><span>
+#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183524;
+#&gt; [2021-01-01 18:35:24]	Sending...
+#&gt; [2021-01-01 18:35:24]	Sending...complete
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183524...complete</span><span>
+#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183524' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183524...</span><span>
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183524...complete</span><span>
+#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:24]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183524 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_name = b.concept_synonym_name WHERE b.language_concept_id NOT IN (4180186)
+#&gt; [2021-01-01 18:35:24]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #BB0000;'>x</span><span> Returned data has 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183524...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183524;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183524...complete</span><span></div><div class='output co'>#&gt; [1] test_concept_id      test_concept_name    test_concept_code   
 #&gt; [4] concept_id           concept_synonym_name language_concept_id 
 #&gt; &lt;0 rows&gt; (or 0-length row.names)</div><div class='input'>
 <span class='co'># `Join For` functions join on a predetermined vocabulary field for the addition</span>
@@ -4535,22 +4535,22 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         concept_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:30]	Target column: test_concept_id
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182530;
-#&gt; [2021-01-01 18:25:30]	Sending...
-#&gt; [2021-01-01 18:25:30]	Sending...complete
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...complete</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182530' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182530...complete</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.concept_id,b.concept_synonym_name FROM patelm9.V20210101182530 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_id = b.concept_id WHERE b.language_concept_id IN (4180186)
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182530;
-#&gt; [2021-01-01 18:25:30]	Sending...
-#&gt; [2021-01-01 18:25:30]	Sending...complete
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:26]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.concept_id,b.concept_synonym_name FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept_synonym b ON a.test_concept_id = b.concept_id WHERE b.language_concept_id IN (4180186)
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1         44431831
 #&gt; 2         36153682
 #&gt; 3           938293
@@ -4653,14 +4653,1039 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in join_for_descendant_ids(conn = conn, data = test_data, ancestor_id_column = "test_concept_id"): unused argument (ancestor_id_column = "test_concept_id")</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 18:35:26]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.ancestor_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+#&gt; 1         44431831
+#&gt; 2         36153682
+#&gt; 3           938293
+#&gt; 4           938293
+#&gt; 5           938293
+#&gt; 6           938293
+#&gt; 7           938293
+#&gt; 8           938293
+#&gt; 9           938293
+#&gt; 10          938293
+#&gt; 11          938293
+#&gt; 12          938293
+#&gt; 13          938293
+#&gt; 14          938293
+#&gt; 15          938293
+#&gt; 16          938293
+#&gt; 17          938293
+#&gt; 18          938293
+#&gt; 19          938293
+#&gt; 20          938293
+#&gt; 21          938293
+#&gt; 22          938293
+#&gt; 23          938293
+#&gt; 24          938293
+#&gt; 25          938293
+#&gt; 26          938293
+#&gt; 27          938293
+#&gt; 28          938293
+#&gt; 29          938293
+#&gt; 30          938293
+#&gt; 31          938293
+#&gt; 32          938293
+#&gt; 33          938293
+#&gt; 34          938293
+#&gt; 35          938293
+#&gt; 36          938293
+#&gt; 37          938293
+#&gt; 38        37053310
+#&gt; 39        37053310
+#&gt; 40         1532840
+#&gt; 41         1532840
+#&gt; 42         1532840
+#&gt; 43         1532840
+#&gt; 44         1532840
+#&gt; 45         1532840
+#&gt; 46         1532840
+#&gt; 47        35923652
+#&gt; 48        41989223
+#&gt; 49        42963253
+#&gt; 50        42963253
+#&gt; 51        36633636
+#&gt; 52        42048496
+#&gt; 53        21074774
+#&gt; 54        21074774
+#&gt; 55        21074774
+#&gt; 56        21074774
+#&gt; 57        21074774
+#&gt; 58        21074774
+#&gt; 59        21074774
+#&gt; 60        21074774
+#&gt; 61        21074774
+#&gt; 62        43194971
+#&gt; 63        43194971
+#&gt; 64        43194971
+#&gt; 65        43194971
+#&gt; 66        43194971
+#&gt; 67         1130266
+#&gt; 68        40716741
+#&gt; 69        21449919
+#&gt; 70        42948537
+#&gt; 71        42948537
+#&gt; 72        42897206
+#&gt; 73        21465174
+#&gt; 74        42904932
+#&gt; 75         2853303
+#&gt; 76         2853303
+#&gt; 77         2853303
+#&gt; 78         2853303
+#&gt; 79         2853303
+#&gt; 80         2853303
+#&gt; 81         2853303
+#&gt;                                                                                                              test_concept_name
+#&gt; 1                                                                                         Furosemide 40 MG Oral Tablet [Lasix]
+#&gt; 2                                                              HIGHER CONTROL MALE CLIMAX CONTROL LUBRICATING - benzocaine gel
+#&gt; 3                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 4                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 5                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 6                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 7                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 8                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 9                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 10                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 11                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 12                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 13                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 14                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 15                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 16                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 17                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 18                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 19                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 20                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 21                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 22                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 23                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 24                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 25                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 26                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 27                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 28                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 29                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 30                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 31                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 32                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 33                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 34                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 35                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 36                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 37                                                                                           sennosides, USP 12 MG Oral Tablet
+#&gt; 38                                                                               Acetylene | Serum or Plasma | Drug toxicology
+#&gt; 39                                                                               Acetylene | Serum or Plasma | Drug toxicology
+#&gt; 40     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 41     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 42     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 43     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 44     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 45     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 46     Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 47 Meets criteria for autopsy (a) staging:||Evidence from autopsy only (tumor was unsuspected or undiagnosed prior to autopsy)
+#&gt; 48                                                                                                                    Zillbach
+#&gt; 49                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 50                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 51                                                                                                    Metoprolol 50 Mg Tablets
+#&gt; 52                                                                                                                 Mullaghinch
+#&gt; 53                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 54                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 55                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 56                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 57                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 58                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 59                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 60                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 61                                                                                        Itraconazole 100 MG [Sporanox-Pulse]
+#&gt; 62                                                                          Pravastatin 20 MG Oral Tablet [PRAVASTATINE ALTER]
+#&gt; 63                                                                          Pravastatin 20 MG Oral Tablet [PRAVASTATINE ALTER]
+#&gt; 64                                                                          Pravastatin 20 MG Oral Tablet [PRAVASTATINE ALTER]
+#&gt; 65                                                                          Pravastatin 20 MG Oral Tablet [PRAVASTATINE ALTER]
+#&gt; 66                                                                          Pravastatin 20 MG Oral Tablet [PRAVASTATINE ALTER]
+#&gt; 67                                            Diphenhydramine 0.02 MG/MG Topical Gel [Benadryl Itch Stop Gel Maximum Strength]
+#&gt; 68      3 ML insulin, isophane 70 UNT/ML / Regular Insulin, Human 30 UNT/ML Injectable Suspension [Humulin] by Mawdsley-Brooks
+#&gt; 69                                        Polyurethane foam film dressing sterile with adhesive border 10cm x 13cm rectangular
+#&gt; 70                                                                                Dexamethasone 0.75 MG [SAMNAM DEXAMETHASONE]
+#&gt; 71                                                                                Dexamethasone 0.75 MG [SAMNAM DEXAMETHASONE]
+#&gt; 72  Dilation of Right Posterior Tibial Artery, Bifurcation, with Four or More Intraluminal Devices, Open Approach (Deprecated)
+#&gt; 73                         Polyurethane foam film dressing sterile without adhesive border 15cm x 20cm rectangular 10 dressing
+#&gt; 74                                                                                                                     CEFANAN
+#&gt; 75                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 76                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 77                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 78                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 79                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 80                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt; 81                                                 Radiation Therapy @ Ear, Nose, Mouth and Throat @ Other Radiation @ Pharynx
+#&gt;                       test_concept_code descendant_concept_id
+#&gt; 1                           68788636709                    NA
+#&gt; 2  5f5fd127-34c5-403a-aa95-c9874ae79492              36153682
+#&gt; 3                                243374                938293
+#&gt; 4                                243374              21102936
+#&gt; 5                                243374              44098475
+#&gt; 6                                243374              35149004
+#&gt; 7                                243374              21112773
+#&gt; 8                                243374              40933821
+#&gt; 9                                243374              36882034
+#&gt; 10                               243374              35134233
+#&gt; 11                               243374              40958834
+#&gt; 12                               243374              21102935
+#&gt; 13                               243374              21112774
+#&gt; 14                               243374              41246217
+#&gt; 15                               243374              35138061
+#&gt; 16                               243374              40840469
+#&gt; 17                               243374              35149425
+#&gt; 18                               243374              43263748
+#&gt; 19                               243374              41027369
+#&gt; 20                               243374              35147648
+#&gt; 21                               243374              35151097
+#&gt; 22                               243374              35134699
+#&gt; 23                               243374              35139543
+#&gt; 24                               243374              35138110
+#&gt; 25                               243374              21093030
+#&gt; 26                               243374              41152876
+#&gt; 27                               243374              35129562
+#&gt; 28                               243374              43290929
+#&gt; 29                               243374              35130338
+#&gt; 30                               243374              43290930
+#&gt; 31                               243374              44062341
+#&gt; 32                               243374              41070154
+#&gt; 33                               243374              41038857
+#&gt; 34                               243374              35137669
+#&gt; 35                               243374              43269230
+#&gt; 36                               243374              35149756
+#&gt; 37                               243374              35142830
+#&gt; 38                           LP387597-0               3000874
+#&gt; 39                           LP387597-0              37053310
+#&gt; 40                                0MRH4               1532840
+#&gt; 41                                0MRH4              43017375
+#&gt; 42                                0MRH4               1533674
+#&gt; 43                                0MRH4              43017374
+#&gt; 44                                0MRH4               1533738
+#&gt; 45                                0MRH4               1533120
+#&gt; 46                                0MRH4              43017376
+#&gt; 47           epiglottis_anterior@2820@8              35923652
+#&gt; 48                              3120613              41989223
+#&gt; 49                          OMOP4689738              42963253
+#&gt; 50                          OMOP4689738               2068971
+#&gt; 51                               301333                    NA
+#&gt; 52                              4617960              42048496
+#&gt; 53                           OMOP408362              21074774
+#&gt; 54                           OMOP408362              42657639
+#&gt; 55                           OMOP408362              42657640
+#&gt; 56                           OMOP408362              42657641
+#&gt; 57                           OMOP408362              21064841
+#&gt; 58                           OMOP408362              21133425
+#&gt; 59                           OMOP408362              21143357
+#&gt; 60                           OMOP408362              21074780
+#&gt; 61                           OMOP408362              42657638
+#&gt; 62                           OMOP492811              43194971
+#&gt; 63                           OMOP492811              43173082
+#&gt; 64                           OMOP492811              43162040
+#&gt; 65                           OMOP492811              43150900
+#&gt; 66                           OMOP492811              43183947
+#&gt; 67                               212535                    NA
+#&gt; 68                          OMOP4740497              40716741
+#&gt; 69                    11262811000001101                    NA
+#&gt; 70                          OMOP4675126              42948534
+#&gt; 71                          OMOP4675126              42948537
+#&gt; 72                              047R0G6              42897206
+#&gt; 73                     7700511000001106                    NA
+#&gt; 74                          OMOP4631854                    NA
+#&gt; 75                                 D9YC               2793711
+#&gt; 76                                 D9YC               2893129
+#&gt; 77                                 D9YC               2808353
+#&gt; 78                                 D9YC               2859165
+#&gt; 79                                 D9YC               2853303
+#&gt; 80                                 D9YC               2885617
+#&gt; 81                                 D9YC               2793710
+#&gt;    min_levels_of_separation max_levels_of_separation
+#&gt; 1                        NA                       NA
+#&gt; 2                         0                        0
+#&gt; 3                         0                        0
+#&gt; 4                         1                        1
+#&gt; 5                         0                        0
+#&gt; 6                         1                        1
+#&gt; 7                         1                        1
+#&gt; 8                         1                        1
+#&gt; 9                         1                        1
+#&gt; 10                        1                        1
+#&gt; 11                        1                        1
+#&gt; 12                        1                        1
+#&gt; 13                        1                        2
+#&gt; 14                        1                        1
+#&gt; 15                        1                        1
+#&gt; 16                        0                        0
+#&gt; 17                        1                        1
+#&gt; 18                        1                        1
+#&gt; 19                        1                        1
+#&gt; 20                        1                        1
+#&gt; 21                        0                        0
+#&gt; 22                        1                        1
+#&gt; 23                        1                        1
+#&gt; 24                        1                        1
+#&gt; 25                        0                        0
+#&gt; 26                        0                        0
+#&gt; 27                        1                        1
+#&gt; 28                        1                        1
+#&gt; 29                        1                        1
+#&gt; 30                        0                        0
+#&gt; 31                        1                        1
+#&gt; 32                        1                        2
+#&gt; 33                        1                        2
+#&gt; 34                        1                        1
+#&gt; 35                        1                        1
+#&gt; 36                        1                        1
+#&gt; 37                        0                        0
+#&gt; 38                        1                        1
+#&gt; 39                        0                        0
+#&gt; 40                        0                        0
+#&gt; 41                        2                        2
+#&gt; 42                        1                        1
+#&gt; 43                        2                        2
+#&gt; 44                        1                        1
+#&gt; 45                        1                        1
+#&gt; 46                        2                        2
+#&gt; 47                        0                        0
+#&gt; 48                        0                        0
+#&gt; 49                        0                        0
+#&gt; 50                        1                        1
+#&gt; 51                       NA                       NA
+#&gt; 52                        0                        0
+#&gt; 53                        0                        0
+#&gt; 54                        3                        3
+#&gt; 55                        3                        3
+#&gt; 56                        3                        3
+#&gt; 57                        1                        1
+#&gt; 58                        2                        2
+#&gt; 59                        2                        2
+#&gt; 60                        2                        3
+#&gt; 61                        3                        3
+#&gt; 62                        0                        0
+#&gt; 63                        1                        2
+#&gt; 64                        1                        1
+#&gt; 65                        1                        1
+#&gt; 66                        1                        2
+#&gt; 67                       NA                       NA
+#&gt; 68                        0                        0
+#&gt; 69                       NA                       NA
+#&gt; 70                        1                        1
+#&gt; 71                        0                        0
+#&gt; 72                        0                        0
+#&gt; 73                       NA                       NA
+#&gt; 74                       NA                       NA
+#&gt; 75                        3                        3
+#&gt; 76                        2                        2
+#&gt; 77                        1                        1
+#&gt; 78                        2                        2
+#&gt; 79                        0                        0
+#&gt; 80                        1                        1
+#&gt; 81                        3                        3</div><div class='input'>
 <span class='co'># Get the ancestor concept ids</span>
 <span class='fu'><a href='join_for_ancestor_ids.html'>join_for_ancestor_ids</a></span><span class='op'>(</span>
         conn <span class='op'>=</span> <span class='va'>conn</span>,
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in join_for_ancestor_ids(conn = conn, data = test_data, descendant_id_column = "test_concept_id"): unused argument (descendant_id_column = "test_concept_id")</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 18:35:26]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.descendant_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span></div><div class='output co'>#&gt;     test_concept_id
+#&gt; 1          44431831
+#&gt; 2          36153682
+#&gt; 3            938293
+#&gt; 4            938293
+#&gt; 5            938293
+#&gt; 6            938293
+#&gt; 7            938293
+#&gt; 8            938293
+#&gt; 9            938293
+#&gt; 10           938293
+#&gt; 11           938293
+#&gt; 12           938293
+#&gt; 13           938293
+#&gt; 14           938293
+#&gt; 15           938293
+#&gt; 16           938293
+#&gt; 17           938293
+#&gt; 18           938293
+#&gt; 19           938293
+#&gt; 20           938293
+#&gt; 21           938293
+#&gt; 22           938293
+#&gt; 23           938293
+#&gt; 24         37053310
+#&gt; 25         37053310
+#&gt; 26         37053310
+#&gt; 27          1532840
+#&gt; 28          1532840
+#&gt; 29          1532840
+#&gt; 30          1532840
+#&gt; 31          1532840
+#&gt; 32         35923652
+#&gt; 33         41989223
+#&gt; 34         41989223
+#&gt; 35         41989223
+#&gt; 36         41989223
+#&gt; 37         41989223
+#&gt; 38         41989223
+#&gt; 39         42963253
+#&gt; 40         42963253
+#&gt; 41         42963253
+#&gt; 42         42963253
+#&gt; 43         42963253
+#&gt; 44         42963253
+#&gt; 45         42963253
+#&gt; 46         42963253
+#&gt; 47         42963253
+#&gt; 48         42963253
+#&gt; 49         42963253
+#&gt; 50         42963253
+#&gt; 51         42963253
+#&gt; 52         42963253
+#&gt; 53         42963253
+#&gt; 54         42963253
+#&gt; 55         42963253
+#&gt; 56         42963253
+#&gt; 57         42963253
+#&gt; 58         42963253
+#&gt; 59         42963253
+#&gt; 60         42963253
+#&gt; 61         42963253
+#&gt; 62         42963253
+#&gt; 63         42963253
+#&gt; 64         42963253
+#&gt; 65         42963253
+#&gt; 66         42963253
+#&gt; 67         42963253
+#&gt; 68         42963253
+#&gt; 69         42963253
+#&gt; 70         42963253
+#&gt; 71         42963253
+#&gt; 72         42963253
+#&gt; 73         42963253
+#&gt; 74         42963253
+#&gt; 75         42963253
+#&gt; 76         42963253
+#&gt; 77         42963253
+#&gt; 78         42963253
+#&gt; 79         42963253
+#&gt; 80         42963253
+#&gt; 81         42963253
+#&gt; 82         42963253
+#&gt; 83         42963253
+#&gt; 84         42963253
+#&gt; 85         42963253
+#&gt; 86         42963253
+#&gt; 87         42963253
+#&gt; 88         42963253
+#&gt; 89         42963253
+#&gt; 90         42963253
+#&gt; 91         42963253
+#&gt; 92         42963253
+#&gt; 93         42963253
+#&gt; 94         42963253
+#&gt; 95         42963253
+#&gt; 96         42963253
+#&gt; 97         42963253
+#&gt; 98         42963253
+#&gt; 99         42963253
+#&gt; 100        42963253
+#&gt; 101        42963253
+#&gt; 102        42963253
+#&gt; 103        42963253
+#&gt; 104        42963253
+#&gt; 105        42963253
+#&gt; 106        42963253
+#&gt; 107        42963253
+#&gt; 108        42963253
+#&gt; 109        42963253
+#&gt; 110        42963253
+#&gt; 111        42963253
+#&gt; 112        42963253
+#&gt; 113        42963253
+#&gt; 114        42963253
+#&gt; 115        42963253
+#&gt; 116        42963253
+#&gt; 117        42963253
+#&gt; 118        42963253
+#&gt; 119        42963253
+#&gt; 120        42963253
+#&gt; 121        42963253
+#&gt; 122        42963253
+#&gt; 123        42963253
+#&gt; 124        42963253
+#&gt; 125        42963253
+#&gt; 126        42963253
+#&gt; 127        42963253
+#&gt; 128        42963253
+#&gt; 129        42963253
+#&gt; 130        42963253
+#&gt; 131        42963253
+#&gt; 132        42963253
+#&gt; 133        42963253
+#&gt; 134        42963253
+#&gt; 135        42963253
+#&gt; 136        42963253
+#&gt; 137        42963253
+#&gt; 138        42963253
+#&gt; 139        42963253
+#&gt; 140        42963253
+#&gt; 141        42963253
+#&gt; 142        42963253
+#&gt; 143        42963253
+#&gt; 144        42963253
+#&gt; 145        42963253
+#&gt; 146        42963253
+#&gt; 147        42963253
+#&gt; 148        42963253
+#&gt; 149        42963253
+#&gt; 150        42963253
+#&gt; 151        42963253
+#&gt; 152        42963253
+#&gt; 153        42963253
+#&gt; 154        42963253
+#&gt; 155        42963253
+#&gt; 156        42963253
+#&gt; 157        42963253
+#&gt; 158        42963253
+#&gt; 159        42963253
+#&gt; 160        42963253
+#&gt; 161        42963253
+#&gt; 162        42963253
+#&gt; 163        42963253
+#&gt; 164        42963253
+#&gt; 165        42963253
+#&gt; 166        42963253
+#&gt;                                                                                                               test_concept_name
+#&gt; 1                                                                                          Furosemide 40 MG Oral Tablet [Lasix]
+#&gt; 2                                                               HIGHER CONTROL MALE CLIMAX CONTROL LUBRICATING - benzocaine gel
+#&gt; 3                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 4                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 5                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 6                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 7                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 8                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 9                                                                                             sennosides, USP 12 MG Oral Tablet
+#&gt; 10                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 11                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 12                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 13                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 14                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 15                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 16                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 17                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 18                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 19                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 20                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 21                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 22                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 23                                                                                            sennosides, USP 12 MG Oral Tablet
+#&gt; 24                                                                                Acetylene | Serum or Plasma | Drug toxicology
+#&gt; 25                                                                                Acetylene | Serum or Plasma | Drug toxicology
+#&gt; 26                                                                                Acetylene | Serum or Plasma | Drug toxicology
+#&gt; 27      Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 28      Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 29      Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 30      Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 31      Medical and Surgical @ Bursae and Ligaments @ Replacement @ Abdomen Bursa and Ligament, Right @ Percutaneous Endoscopic
+#&gt; 32  Meets criteria for autopsy (a) staging:||Evidence from autopsy only (tumor was unsuspected or undiagnosed prior to autopsy)
+#&gt; 33                                                                                                                     Zillbach
+#&gt; 34                                                                                                                     Zillbach
+#&gt; 35                                                                                                                     Zillbach
+#&gt; 36                                                                                                                     Zillbach
+#&gt; 37                                                                                                                     Zillbach
+#&gt; 38                                                                                                                     Zillbach
+#&gt; 39                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 40                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 41                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 42                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 43                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 44                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 45                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 46                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 47                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 48                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 49                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 50                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 51                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 52                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 53                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 54                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 55                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 56                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 57                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 58                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 59                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 60                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 61                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 62                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 63                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 64                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 65                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 66                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 67                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 68                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 69                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 70                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 71                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 72                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 73                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 74                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 75                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 76                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 77                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 78                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 79                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 80                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 81                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 82                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 83                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 84                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 85                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 86                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 87                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 88                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 89                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 90                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 91                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 92                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 93                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 94                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 95                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 96                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 97                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 98                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 99                                                                                      lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 100                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 101                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 102                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 103                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 104                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 105                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 106                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 107                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 108                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 109                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 110                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 111                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 112                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 113                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 114                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 115                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 116                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 117                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 118                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 119                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 120                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 121                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 122                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 123                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 124                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 125                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 126                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 127                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 128                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 129                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 130                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 131                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 132                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 133                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 134                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 135                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 136                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 137                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 138                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 139                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 140                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 141                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 142                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 143                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 144                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 145                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 146                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 147                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 148                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 149                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 150                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 151                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 152                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 153                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 154                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 155                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 156                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 157                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 158                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 159                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 160                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 161                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 162                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 163                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 164                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 165                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt; 166                                                                                     lamotrigine 25 MG Oral Tablet [LAMIART]
+#&gt;                        test_concept_code ancestor_concept_id
+#&gt; 1                            68788636709                  NA
+#&gt; 2   5f5fd127-34c5-403a-aa95-c9874ae79492            36153682
+#&gt; 3                                 243374              938268
+#&gt; 4                                 243374              938293
+#&gt; 5                                 243374              938385
+#&gt; 6                                 243374            21600001
+#&gt; 7                                 243374            21600531
+#&gt; 8                                 243374            21600532
+#&gt; 9                                 243374            21600537
+#&gt; 10                                243374            21600543
+#&gt; 11                                243374            35807212
+#&gt; 12                                243374            35807213
+#&gt; 13                                243374            35807271
+#&gt; 14                                243374            35807354
+#&gt; 15                                243374            35807475
+#&gt; 16                                243374            35807495
+#&gt; 17                                243374            36103222
+#&gt; 18                                243374            36217214
+#&gt; 19                                243374            36217216
+#&gt; 20                                243374            36226406
+#&gt; 21                                243374            36226407
+#&gt; 22                                243374            36371056
+#&gt; 23                                243374            40081553
+#&gt; 24                            LP387597-0            36206173
+#&gt; 25                            LP387597-0            37053310
+#&gt; 26                            LP387597-0            37074284
+#&gt; 27                                 0MRH4             1532840
+#&gt; 28                                 0MRH4             1533446
+#&gt; 29                                 0MRH4             2801516
+#&gt; 30                                 0MRH4             2878534
+#&gt; 31                                 0MRH4            43017280
+#&gt; 32            epiglottis_anterior@2820@8            35923652
+#&gt; 33                               3120613            41960838
+#&gt; 34                               3120613            41970930
+#&gt; 35                               3120613            41970946
+#&gt; 36                               3120613            41972252
+#&gt; 37                               3120613            41981152
+#&gt; 38                               3120613            41989223
+#&gt; 39                           OMOP4689738              705103
+#&gt; 40                           OMOP4689738              705184
+#&gt; 41                           OMOP4689738              758027
+#&gt; 42                           OMOP4689738              795775
+#&gt; 43                           OMOP4689738              798945
+#&gt; 44                           OMOP4689738            19069199
+#&gt; 45                           OMOP4689738            21604180
+#&gt; 46                           OMOP4689738            21604389
+#&gt; 47                           OMOP4689738            21604390
+#&gt; 48                           OMOP4689738            21604428
+#&gt; 49                           OMOP4689738            21604431
+#&gt; 50                           OMOP4689738            35502817
+#&gt; 51                           OMOP4689738            35507918
+#&gt; 52                           OMOP4689738            35508468
+#&gt; 53                           OMOP4689738            36150806
+#&gt; 54                           OMOP4689738            36152803
+#&gt; 55                           OMOP4689738            36154790
+#&gt; 56                           OMOP4689738            36154807
+#&gt; 57                           OMOP4689738            36159023
+#&gt; 58                           OMOP4689738            36217214
+#&gt; 59                           OMOP4689738            36217216
+#&gt; 60                           OMOP4689738            36226093
+#&gt; 61                           OMOP4689738            36226094
+#&gt; 62                           OMOP4689738            36600158
+#&gt; 63                           OMOP4689738            36696076
+#&gt; 64                           OMOP4689738            36980596
+#&gt; 65                           OMOP4689738            37283949
+#&gt; 66                           OMOP4689738            37494202
+#&gt; 67                           OMOP4689738            37514800
+#&gt; 68                           OMOP4689738            40058138
+#&gt; 69                           OMOP4689738            42803699
+#&gt; 70                           OMOP4689738            42803779
+#&gt; 71                           OMOP4689738            42804234
+#&gt; 72                           OMOP4689738            42805169
+#&gt; 73                           OMOP4689738            42806086
+#&gt; 74                           OMOP4689738            42806136
+#&gt; 75                           OMOP4689738            42806348
+#&gt; 76                           OMOP4689738            42807100
+#&gt; 77                           OMOP4689738            42866143
+#&gt; 78                           OMOP4689738            42963253
+#&gt; 79                           OMOP4689738            42963257
+#&gt; 80                           OMOP4689738            42963281
+#&gt; 81                           OMOP4689738            44340258
+#&gt; 82                           OMOP4689738            44343738
+#&gt; 83                           OMOP4689738            44345736
+#&gt; 84                           OMOP4689738            44353280
+#&gt; 85                           OMOP4689738            44354765
+#&gt; 86                           OMOP4689738            44357777
+#&gt; 87                           OMOP4689738            44363091
+#&gt; 88                           OMOP4689738            45622066
+#&gt; 89                           OMOP4689738            45622106
+#&gt; 90                           OMOP4689738            45623416
+#&gt; 91                           OMOP4689738            45626764
+#&gt; 92                           OMOP4689738            45627450
+#&gt; 93                           OMOP4689738            45629995
+#&gt; 94                           OMOP4689738            45631683
+#&gt; 95                           OMOP4689738            45632734
+#&gt; 96                           OMOP4689738            45634000
+#&gt; 97                           OMOP4689738            45636557
+#&gt; 98                           OMOP4689738            45640414
+#&gt; 99                           OMOP4689738            45644230
+#&gt; 100                          OMOP4689738            45645430
+#&gt; 101                          OMOP4689738            45647735
+#&gt; 102                          OMOP4689738            45648452
+#&gt; 103                          OMOP4689738            45648545
+#&gt; 104                          OMOP4689738            45648774
+#&gt; 105                          OMOP4689738            45649933
+#&gt; 106                          OMOP4689738            45651142
+#&gt; 107                          OMOP4689738            45651798
+#&gt; 108                          OMOP4689738            45653368
+#&gt; 109                          OMOP4689738            45655369
+#&gt; 110                          OMOP4689738            45656829
+#&gt; 111                          OMOP4689738            45657622
+#&gt; 112                          OMOP4689738            45657741
+#&gt; 113                          OMOP4689738            45659074
+#&gt; 114                          OMOP4689738            45662699
+#&gt; 115                          OMOP4689738            45666585
+#&gt; 116                          OMOP4689738            45672160
+#&gt; 117                          OMOP4689738            45672576
+#&gt; 118                          OMOP4689738            45673423
+#&gt; 119                          OMOP4689738            45675263
+#&gt; 120                          OMOP4689738            45675556
+#&gt; 121                          OMOP4689738            45675772
+#&gt; 122                          OMOP4689738            45675886
+#&gt; 123                          OMOP4689738            45679198
+#&gt; 124                          OMOP4689738            45680088
+#&gt; 125                          OMOP4689738            45680487
+#&gt; 126                          OMOP4689738            45681743
+#&gt; 127                          OMOP4689738            45683688
+#&gt; 128                          OMOP4689738            45683994
+#&gt; 129                          OMOP4689738            45686093
+#&gt; 130                          OMOP4689738            45686098
+#&gt; 131                          OMOP4689738            45687333
+#&gt; 132                          OMOP4689738            45688009
+#&gt; 133                          OMOP4689738            45688338
+#&gt; 134                          OMOP4689738            45689380
+#&gt; 135                          OMOP4689738            45692031
+#&gt; 136                          OMOP4689738            45692972
+#&gt; 137                          OMOP4689738            45696731
+#&gt; 138                          OMOP4689738            45698908
+#&gt; 139                          OMOP4689738            45700970
+#&gt; 140                          OMOP4689738            45701277
+#&gt; 141                          OMOP4689738            45701632
+#&gt; 142                          OMOP4689738            45702564
+#&gt; 143                          OMOP4689738            45704019
+#&gt; 144                          OMOP4689738            45704916
+#&gt; 145                          OMOP4689738            45707446
+#&gt; 146                          OMOP4689738            45707859
+#&gt; 147                          OMOP4689738            45779031
+#&gt; 148                          OMOP4689738            45781742
+#&gt; 149                          OMOP4689738            45787319
+#&gt; 150                          OMOP4689738            45787628
+#&gt; 151                          OMOP4689738            45787971
+#&gt; 152                          OMOP4689738            45789846
+#&gt; 153                          OMOP4689738            45791503
+#&gt; 154                          OMOP4689738            45792026
+#&gt; 155                          OMOP4689738            45793845
+#&gt; 156                          OMOP4689738            45794367
+#&gt; 157                          OMOP4689738            45795229
+#&gt; 158                          OMOP4689738            45795234
+#&gt; 159                          OMOP4689738            45795554
+#&gt; 160                          OMOP4689738            45796599
+#&gt; 161                          OMOP4689738            45796678
+#&gt; 162                          OMOP4689738            45797810
+#&gt; 163                          OMOP4689738            45797870
+#&gt; 164                          OMOP4689738            45798828
+#&gt; 165                          OMOP4689738            45798923
+#&gt; 166                          OMOP4689738            45799893
+#&gt;     min_levels_of_separation max_levels_of_separation
+#&gt; 1                         NA                       NA
+#&gt; 2                          0                        0
+#&gt; 3                          2                        3
+#&gt; 4                          0                        0
+#&gt; 5                          1                        1
+#&gt; 6                          6                        7
+#&gt; 7                          5                        6
+#&gt; 8                          4                        5
+#&gt; 9                          3                        4
+#&gt; 10                         2                        3
+#&gt; 11                         3                        4
+#&gt; 12                         3                        4
+#&gt; 13                         5                        6
+#&gt; 14                         3                        4
+#&gt; 15                         4                        5
+#&gt; 16                         4                        5
+#&gt; 17                         2                        3
+#&gt; 18                         2                        3
+#&gt; 19                         2                        3
+#&gt; 20                         1                        2
+#&gt; 21                         1                        2
+#&gt; 22                         2                        3
+#&gt; 23                         1                        1
+#&gt; 24                         2                        2
+#&gt; 25                         0                        0
+#&gt; 26                         1                        1
+#&gt; 27                         0                        0
+#&gt; 28                         1                        1
+#&gt; 29                         4                        4
+#&gt; 30                         3                        3
+#&gt; 31                         2                        2
+#&gt; 32                         0                        0
+#&gt; 33                         3                        3
+#&gt; 34                         5                        5
+#&gt; 35                         4                        4
+#&gt; 36                         2                        2
+#&gt; 37                         1                        1
+#&gt; 38                         0                        0
+#&gt; 39                         2                        3
+#&gt; 40                         1                        1
+#&gt; 41                         1                        1
+#&gt; 42                         1                        1
+#&gt; 43                         1                        1
+#&gt; 44                         0                        0
+#&gt; 45                         6                        7
+#&gt; 46                         5                        6
+#&gt; 47                         4                        5
+#&gt; 48                         3                        4
+#&gt; 49                         2                        3
+#&gt; 50                         1                        1
+#&gt; 51                         1                        1
+#&gt; 52                         1                        1
+#&gt; 53                         1                        1
+#&gt; 54                         1                        1
+#&gt; 55                         1                        1
+#&gt; 56                         1                        1
+#&gt; 57                         1                        1
+#&gt; 58                         2                        3
+#&gt; 59                         2                        3
+#&gt; 60                         1                        2
+#&gt; 61                         1                        2
+#&gt; 62                         1                        1
+#&gt; 63                         1                        1
+#&gt; 64                         1                        1
+#&gt; 65                         1                        1
+#&gt; 66                         1                        1
+#&gt; 67                         1                        1
+#&gt; 68                         1                        1
+#&gt; 69                         1                        1
+#&gt; 70                         1                        1
+#&gt; 71                         1                        1
+#&gt; 72                         1                        1
+#&gt; 73                         1                        1
+#&gt; 74                         1                        1
+#&gt; 75                         1                        1
+#&gt; 76                         1                        1
+#&gt; 77                         1                        1
+#&gt; 78                         0                        0
+#&gt; 79                         1                        1
+#&gt; 80                         1                        1
+#&gt; 81                         1                        1
+#&gt; 82                         1                        1
+#&gt; 83                         1                        1
+#&gt; 84                         1                        1
+#&gt; 85                         1                        1
+#&gt; 86                         1                        1
+#&gt; 87                         1                        1
+#&gt; 88                         1                        1
+#&gt; 89                         1                        1
+#&gt; 90                         1                        1
+#&gt; 91                         1                        1
+#&gt; 92                         1                        1
+#&gt; 93                         1                        1
+#&gt; 94                         1                        1
+#&gt; 95                         1                        1
+#&gt; 96                         1                        1
+#&gt; 97                         1                        1
+#&gt; 98                         1                        1
+#&gt; 99                         1                        1
+#&gt; 100                        1                        1
+#&gt; 101                        1                        1
+#&gt; 102                        1                        1
+#&gt; 103                        1                        1
+#&gt; 104                        1                        1
+#&gt; 105                        1                        1
+#&gt; 106                        1                        1
+#&gt; 107                        1                        1
+#&gt; 108                        1                        1
+#&gt; 109                        1                        1
+#&gt; 110                        1                        1
+#&gt; 111                        1                        1
+#&gt; 112                        1                        1
+#&gt; 113                        1                        1
+#&gt; 114                        1                        1
+#&gt; 115                        1                        1
+#&gt; 116                        1                        1
+#&gt; 117                        1                        1
+#&gt; 118                        1                        1
+#&gt; 119                        1                        1
+#&gt; 120                        1                        1
+#&gt; 121                        1                        1
+#&gt; 122                        1                        1
+#&gt; 123                        1                        1
+#&gt; 124                        1                        1
+#&gt; 125                        1                        1
+#&gt; 126                        1                        1
+#&gt; 127                        1                        1
+#&gt; 128                        1                        1
+#&gt; 129                        1                        1
+#&gt; 130                        1                        1
+#&gt; 131                        1                        1
+#&gt; 132                        1                        1
+#&gt; 133                        1                        1
+#&gt; 134                        1                        1
+#&gt; 135                        1                        1
+#&gt; 136                        1                        1
+#&gt; 137                        1                        1
+#&gt; 138                        1                        1
+#&gt; 139                        1                        1
+#&gt; 140                        1                        1
+#&gt; 141                        1                        1
+#&gt; 142                        1                        1
+#&gt; 143                        1                        1
+#&gt; 144                        1                        1
+#&gt; 145                        1                        1
+#&gt; 146                        1                        1
+#&gt; 147                        1                        1
+#&gt; 148                        1                        1
+#&gt; 149                        1                        1
+#&gt; 150                        1                        1
+#&gt; 151                        1                        1
+#&gt; 152                        1                        1
+#&gt; 153                        1                        1
+#&gt; 154                        1                        1
+#&gt; 155                        1                        1
+#&gt; 156                        1                        1
+#&gt; 157                        1                        1
+#&gt; 158                        1                        1
+#&gt; 159                        1                        1
+#&gt; 160                        1                        1
+#&gt; 161                        1                        1
+#&gt; 162                        1                        1
+#&gt; 163                        1                        1
+#&gt; 164                        1                        1
+#&gt; 165                        1                        1
+#&gt; 166                        1                        1
+#&gt;  [ reached 'max' / getOption("max.print") -- omitted 328 rows ]</div><div class='input'>
 <span class='co'># To retrieve all the attributes for either the ancestor or descendants, use</span>
 <span class='co'># the following functions</span>
 <span class='fu'><a href='join_for_descendants.html'>join_for_descendants</a></span><span class='op'>(</span>
@@ -4668,38 +5693,38 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:30]	Target column: test_concept_id
-#&gt; [2021-01-01 18:25:30]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:30] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182530;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182530' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182530...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101182530 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.ancestor_concept_id
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182530;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182530...complete</span><span>
-#&gt; [2021-01-01 18:25:31]	Target column: descendant_concept_id
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182531' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'descendant_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182531 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:26]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.ancestor_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26]	Target column: descendant_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'descendant_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1         44431831
 #&gt; 2         36153682
 #&gt; 3           938293
@@ -5303,43 +6328,43 @@
 #&gt; 65                      &lt;NA&gt;
 #&gt; 66                      &lt;NA&gt;
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 15 rows ]</div><div class='input'>
-<span class='fu'><a href='join_for_descendants.html'>join_for_ancestors</a></span><span class='op'>(</span>
+<span class='fu'><a href='join_for_ancestors.html'>join_for_ancestors</a></span><span class='op'>(</span>
         conn <span class='op'>=</span> <span class='va'>conn</span>,
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:31]	Target column: test_concept_id
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182531' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101182531 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.descendant_concept_id
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31]	Target column: ancestor_concept_id
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101182531' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'ancestor_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101182531...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101182531 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...</span><span>
-#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:25:31]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101182531;
-#&gt; [2021-01-01 18:25:31]	Sending...
-#&gt; [2021-01-01 18:25:31]	Sending...complete
-#&gt; [2021-01-01 18:25:31]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101182531...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
+</div><div class='output co'>#&gt; [2021-01-01 18:35:26]	Target column: test_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_name' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'test_concept_code' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.test_concept_id = b.descendant_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26]	Target column: ancestor_concept_id
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Data 'data' has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Table name 'V20210101183526' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Field name 'ancestor_concept_id' is not a reserved word</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210101183526...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210101183526 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...</span><span>
+#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 18:35:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101183526;
+#&gt; [2021-01-01 18:35:26]	Sending...
+#&gt; [2021-01-01 18:35:26]	Sending...complete
+#&gt; [2021-01-01 18:35:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101183526...complete</span><span></div><div class='output co'>#&gt;    test_concept_id
 #&gt; 1         44431831
 #&gt; 2         36153682
 #&gt; 3           938293
@@ -5878,7 +6903,7 @@
 #&gt;  [ reached 'max' / getOption("max.print") -- omitted 428 rows ]</div><div class='input'>
 
 <span class='fu'><a href='dcAthena.html'>dcAthena</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 18:25:31]	Postgres connection to 'athena' closed</div></span></pre>
+</div><div class='output co'>#&gt; [2021-01-01 18:35:27]	Postgres connection to 'athena' closed</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
