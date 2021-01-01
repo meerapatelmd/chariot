@@ -211,8 +211,8 @@ join <-
 
 
     sql_statement <-
-      pg13::draft_join1(write_schema = write_schema,
-                  data = data,
+      pg13::draft_join1(schema = write_schema,
+                        table = staging_table,
                   column = column,
                   select_table_fields = select_data_columns,
                   select_join_on_fields = select_vocab_fields,
@@ -227,10 +227,7 @@ join <-
                   where_is_null_join_on_field = where_is_null_vocab_field,
                   where_is_not_null_join_on_field = where_is_not_null_vocab_field,
                   case_insensitive = case_insensitive,
-                  distinct = distinct,
-                  verbose = verbose,
-                  render_sql = render_sql,
-                  render_only = render_only
+                  distinct = distinct
       )
 
 
