@@ -242,74 +242,51 @@
                                         FROM omop_vocabulary.concept
                                         ORDER BY RANDOM()
                                         LIMIT 20;"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:14:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:26:22]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                         SELECT
 #&gt;                                                 concept_id AS test_concept_id,
 #&gt;                                                 concept_name AS test_concept_name,
 #&gt;                                                 concept_code AS test_concept_code
 #&gt;                                         FROM omop_vocabulary.concept
 #&gt;                                         ORDER BY RANDOM()
-#&gt;                                         LIMIT 20;
-#&gt; [2021-01-01 16:14:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'><span class='va'>test_data</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 3</span><span>
-#&gt;    test_concept_id test_concept_name                      test_concept_code     
-#&gt;              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 
-#&gt; </span><span style='color: #555555;'> 1</span><span>        44</span><span style='text-decoration: underline;'>431</span><span>831 Furosemide 40 MG Oral Tablet [Lasix]   68788636709           
-#&gt; </span><span style='color: #555555;'> 2</span><span>        36</span><span style='text-decoration: underline;'>153</span><span>682 HIGHER CONTROL MALE CLIMAX CONTROL LU… 5f5fd127-34c5-403a-aa…
-#&gt; </span><span style='color: #555555;'> 3</span><span>          </span><span style='text-decoration: underline;'>938</span><span>293 sennosides, USP 12 MG Oral Tablet      243374                
-#&gt; </span><span style='color: #555555;'> 4</span><span>        37</span><span style='text-decoration: underline;'>053</span><span>310 Acetylene | Serum or Plasma | Drug to… LP387597-0            
-#&gt; </span><span style='color: #555555;'> 5</span><span>         1</span><span style='text-decoration: underline;'>532</span><span>840 Medical and Surgical @ Bursae and Lig… 0MRH4                 
-#&gt; </span><span style='color: #555555;'> 6</span><span>        35</span><span style='text-decoration: underline;'>923</span><span>652 Meets criteria for autopsy (a) stagin… epiglottis_anterior@2…
-#&gt; </span><span style='color: #555555;'> 7</span><span>        41</span><span style='text-decoration: underline;'>989</span><span>223 Zillbach                               3120613               
-#&gt; </span><span style='color: #555555;'> 8</span><span>        42</span><span style='text-decoration: underline;'>963</span><span>253 lamotrigine 25 MG Oral Tablet [LAMIAR… OMOP4689738           
-#&gt; </span><span style='color: #555555;'> 9</span><span>        36</span><span style='text-decoration: underline;'>633</span><span>636 Metoprolol 50 Mg Tablets               301333                
-#&gt; </span><span style='color: #555555;'>10</span><span>        42</span><span style='text-decoration: underline;'>048</span><span>496 Mullaghinch                            4617960               
-#&gt; </span><span style='color: #555555;'>11</span><span>        21</span><span style='text-decoration: underline;'>074</span><span>774 Itraconazole 100 MG [Sporanox-Pulse]   OMOP408362            
-#&gt; </span><span style='color: #555555;'>12</span><span>        43</span><span style='text-decoration: underline;'>194</span><span>971 Pravastatin 20 MG Oral Tablet [PRAVAS… OMOP492811            
-#&gt; </span><span style='color: #555555;'>13</span><span>         1</span><span style='text-decoration: underline;'>130</span><span>266 Diphenhydramine 0.02 MG/MG Topical Ge… 212535                
-#&gt; </span><span style='color: #555555;'>14</span><span>        40</span><span style='text-decoration: underline;'>716</span><span>741 3 ML insulin, isophane 70 UNT/ML / Re… OMOP4740497           
-#&gt; </span><span style='color: #555555;'>15</span><span>        21</span><span style='text-decoration: underline;'>449</span><span>919 Polyurethane foam film dressing steri… 11262811000001101     
-#&gt; </span><span style='color: #555555;'>16</span><span>        42</span><span style='text-decoration: underline;'>948</span><span>537 Dexamethasone 0.75 MG [SAMNAM DEXAMET… OMOP4675126           
-#&gt; </span><span style='color: #555555;'>17</span><span>        42</span><span style='text-decoration: underline;'>897</span><span>206 Dilation of Right Posterior Tibial Ar… 047R0G6               
-#&gt; </span><span style='color: #555555;'>18</span><span>        21</span><span style='text-decoration: underline;'>465</span><span>174 Polyurethane foam film dressing steri… 7700511000001106      
-#&gt; </span><span style='color: #555555;'>19</span><span>        42</span><span style='text-decoration: underline;'>904</span><span>932 CEFANAN                                OMOP4631854           
-#&gt; </span><span style='color: #555555;'>20</span><span>         2</span><span style='text-decoration: underline;'>853</span><span>303 Radiation Therapy @ Ear, Nose, Mouth … D9YC                  </div><div class='input'>
+#&gt;                                         LIMIT 20;</div><div class='output co'>#&gt; <span class='error'>Error in lowLevelLoadCache(query = sql_statement): could not find function "lowLevelLoadCache"</span></div><div class='input'><span class='va'>test_data</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'test_data' not found</span></div><div class='input'>
 
 <span class='co'># `Join On` functions point to the true column that is being joined on</span>
 <span class='fu'><a href='join_on_concept_id.html'>join_on_concept_id</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='fu'><a href='join_on_concept_code.html'>join_on_concept_code</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_code"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_code
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_code
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='fu'>join_on_concept_name</span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># Join on the `concept_synonym_name` field in the Concept Synonym table</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># Reconfigure the kind of join</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>,
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># Return only distinct rows</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
@@ -317,8 +294,8 @@
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>,
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># Return only the `test_concept_code` column</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
@@ -327,8 +304,8 @@
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>,
         select_data_columns <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 
 <span class='co'># Filter can be applied to the vocabulary tables</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
@@ -337,8 +314,8 @@
         where_not_in_concept_synonym_field <span class='op'>=</span> <span class='st'>"language_concept_id"</span>,
         where_not_in_concept_synonym_field_value <span class='op'>=</span> <span class='fl'>4180186</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># `Join For` functions join on a predetermined vocabulary field for the addition</span>
 <span class='co'># of the specified column in the source data</span>
 
@@ -347,37 +324,37 @@
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         concept_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 
 <span class='co'># Get the descendant concept ids</span>
 <span class='fu'><a href='join_for_descendant_ids.html'>join_for_descendant_ids</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># Get the ancestor concept ids</span>
 <span class='fu'><a href='join_for_ancestor_ids.html'>join_for_ancestor_ids</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='co'># To retrieve all the attributes for either the ancestor or descendants, use</span>
 <span class='co'># the following functions</span>
 <span class='fu'><a href='join_for_descendants.html'>join_for_descendants</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
 <span class='fu'><a href='join_for_descendants.html'>join_for_ancestors</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:14:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div></span></pre>
+</div><div class='output co'>#&gt; [2021-01-01 16:26:22]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

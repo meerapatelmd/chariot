@@ -168,20 +168,20 @@
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='executeAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:13:42]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:13:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;</div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:25:48]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:25:48]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;</div><div class='output co'>#&gt; <span class='error'>Error in lowLevelLoadCache(query = sql_statement): could not find function "lowLevelLoadCache"</span></div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in merge_strip(data = test_data, into = "concept"): missing column names: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date, invalid_reason</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span>,
             <span class='va'>vocabulary_id</span>,
             <span class='va'>concept_class_id</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in merge_strip(data = test_data, into = "concept", vocabulary_id,     concept_class_id): missing column names: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date, invalid_reason</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='va'>test_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                         into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
                 <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>concept_id</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in merge_strip(data = test_data, into = "concept"): missing column names: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date, invalid_reason</span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='co'># Filter at a Strip Column</span>
 <span class='fu'><a href='filter_strip.html'>filter_strip</a></span><span class='op'>(</span><span class='va'>test_output</span>,
              strip_col <span class='op'>=</span> <span class='va'>concept</span>,
@@ -192,8 +192,8 @@
         <span class='fu'><a href='executeAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;"</span>,
                     cache_only <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
         <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:13:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:13:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;</div><div class='output co'>#&gt; <span class='error'>Error in merge_strip(., into = "concept"): missing column names: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, valid_start_date, valid_end_date, invalid_reason</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:25:48]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:25:48]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;</div><div class='output co'>#&gt; <span class='error'>Error in lowLevelLoadCache(query = sql_statement): could not find function "lowLevelLoadCache"</span></div><div class='input'>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_cols</a></span><span class='op'>(</span><span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -201,19 +201,19 @@
                          <span class='va'>test_data</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>rubix</span><span class='fu'>::</span><span class='fu'><a href='https://meerapatelmd.github.io/rubix/reference/randomize.html'>randomize</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
                                  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>concept_b <span class='op'>=</span> <span class='va'>concept</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: </span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in rubix::randomize(.): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'>filter_at_all_strip</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                 strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                <span class='st'>"concept_b"</span><span class='op'>)</span>,
                 all <span class='op'>=</span> <span class='cn'>TRUE</span>,
                 <span class='va'>vocabulary_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RxNorm"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: </span></div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div><div class='input'>
 <span class='fu'><a href='filter_at_any_strip.html'>filter_at_any_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
                     strip_cols <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"concept_a"</span>,
                                    <span class='st'>"concept_b"</span><span class='op'>)</span>,
                     all <span class='op'>=</span> <span class='cn'>TRUE</span>,
                     <span class='va'>vocabulary_id</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"RxNorm"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error: </span></div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'test_data' not found</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
