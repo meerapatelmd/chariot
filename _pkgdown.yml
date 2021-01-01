@@ -34,12 +34,12 @@ reference:
       - join_on_concept_id
       - join_on_concept_name
       - join_on_concept_synonym_name
-   - title: Concept Hierarchy
-     desc:  >
+  - title: Concept Hierarchy
+    desc:  >
        Visualize a concept hierarachy
-     contents:
-       - print_concept_hierarchy
-   - title: Concept Formatting
+    contents:
+      - print_concept_hierarchy
+  - title: Concept Formatting
      desc:  >
        Visualize a concept hierarachy
      contents:
