@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@
 <p><code>Concept</code> class objects keep the user informed of all the attributes of a concept during a session using the <code>chariot</code> package. For example, I can look up the RxNorm Ingredients belonging to the ATC 5th Concept Class <code>lisinopril</code> using the Concept Id <code>21601787</code> alone.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">resultset</span> <span class="op">&lt;-</span>
-<span class="fu">lookup_atc_class_ingredients</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
+<span class="fu"><a href="reference/lookup_atc_class_ingredients.html">lookup_atc_class_ingredients</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
                              vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span>,
                              atc_concept_obj <span class="op">=</span> <span class="fl">21601787</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -175,7 +175,7 @@
                                         concept_id <span class="op">=</span> <span class="fl">21601787</span>, 
                                         vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span><span class="op">)</span>
 <span class="va">resultset</span> <span class="op">&lt;-</span>
-<span class="fu">lookup_atc_class_ingredients</span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
+<span class="fu"><a href="reference/lookup_atc_class_ingredients.html">lookup_atc_class_ingredients</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span>, 
                              vocab_schema <span class="op">=</span> <span class="st">"omop_vocabulary"</span>,
                              atc_concept_obj <span class="op">=</span> <span class="va">lisinopril_class_concept</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">

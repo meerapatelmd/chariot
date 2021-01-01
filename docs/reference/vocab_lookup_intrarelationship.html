@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lookup a Concept Id — lookup_concept_id • chariot</title>
+<title>Query a Source Vocabulary's Relationships — vocab_lookup_intrarelationship • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Lookup a Concept Id — lookup_concept_id" />
-<meta property="og:description" content="Lookup a Concept Id" />
+<meta property="og:title" content="Query a Source Vocabulary's Relationships — vocab_lookup_intrarelationship" />
+<meta property="og:description" content="This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -119,28 +119,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lookup a Concept Id</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/lookup.R'><code>R/lookup.R</code></a></small>
-    <div class="hidden name"><code>lookup_concept_id.Rd</code></div>
+    <h1>Query a Source Vocabulary's Relationships</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/vocabulary_relationships.R'><code>R/vocabulary_relationships.R</code></a></small>
+    <div class="hidden name"><code>vocab_lookup_intrarelationship.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Lookup a Concept Id</p>
+    <p>This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lookup_concept_id</span><span class='op'>(</span>
-  <span class='va'>concept_id</span>,
-  <span class='va'>vocab_schema</span>,
-  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+    <pre class="usage"><span class='fu'>vocab_lookup_intrarelationship</span><span class='op'>(</span>
+  <span class='va'>vocabulary_id</span>,
+  <span class='va'>conn</span>,
+  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
   cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
   skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
   override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
   render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sleepTime <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Query for the Source Vocabulary's non-null relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset that filters for relationships to other vocabularies, see <code>query_intervocabulary_relationship</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
