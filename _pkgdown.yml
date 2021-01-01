@@ -40,9 +40,9 @@ reference:
     contents:
       - print_concept_hierarchy
   - title: Concept Formatting
-     desc:  >
+    desc:  >
        Visualize a concept hierarachy
-     contents:
+    contents:
       - label_to_strip
       - strip_to_label
       - merge_label
@@ -51,10 +51,10 @@ reference:
       - unmerge_strip
       - unbox_label
       - unbox_strip
-    - title: Search
-      desc:  >
+  - title: Search
+    desc:  >
         Search for a phrase in the OMOP Vocabulary
-      contents:
+    contents:
       - search_code
       - search_ends_with_phrase
       - search_exact_phrase
