@@ -61,3 +61,109 @@ joins on a vocabulary table field that is already specified, and that the join
 is to add a specific field to the data, this case being the
 `concept_synonym_name` field with a join on the `concept_id` field.
 }
+\examples{
+library(chariot)
+library(tidyverse)
+
+
+test_data <-
+        queryAthena(sql_statement =     "
+                                        SELECT
+                                                concept_id AS test_concept_id,
+                                                concept_name AS test_concept_name,
+                                                concept_code AS test_concept_code
+                                        FROM omop_vocabulary.concept
+                                        ORDER BY RANDOM()
+                                        LIMIT 20;")
+test_data
+
+
+# `Join On` functions point to the true column that is being joined on
+join_on_concept_id(
+        data = test_data,
+        column = "test_concept_id"
+        )
+
+join_on_concept_code(
+        data = test_data,
+        column = "test_concept_code"
+        )
+
+join_on_concept_name(
+        data = test_data,
+        column = "test_concept_name"
+)
+
+# Join on the `concept_synonym_name` field in the Concept Synonym table
+join_on_concept_synonym_name(
+        data = test_data,
+        column = "test_concept_name"
+)
+
+# Reconfigure the kind of join
+join_on_concept_synonym_name(
+        data = test_data,
+        column = "test_concept_name",
+        kind = "INNER"
+)
+
+# Return only distinct rows
+join_on_concept_synonym_name(
+        data = test_data,
+        column = "test_concept_name",
+        kind = "INNER",
+        distinct = TRUE
+)
+
+# Return only the `test_concept_code` column
+join_on_concept_synonym_name(
+        data = test_data,
+        column = "test_concept_name",
+        kind = "INNER",
+        distinct = TRUE,
+        select_data_columns = "test_concept_name"
+)
+
+
+# Filter can be applied to the vocabulary tables
+join_on_concept_synonym_name(
+        data = test_data,
+        column = "test_concept_name",
+        where_not_in_concept_synonym_field = "language_concept_id",
+        where_not_in_concept_synonym_field_value = 4180186
+)
+
+# `Join For` functions join on a predetermined vocabulary field for the addition
+# of the specified column in the source data
+
+# Get all the synonyms for a concept by concept_id
+join_for_concept_synonym_name(
+        data = test_data,
+        concept_id_column = "test_concept_id"
+        )
+
+
+# Get the descendant concept ids
+join_for_descendant_ids(
+        data = test_data,
+        ancestor_id_column = "test_concept_id"
+        )
+
+# Get the ancestor concept ids
+join_for_ancestor_ids(
+        data = test_data,
+        descendant_id_column = "test_concept_id"
+        )
+
+# To retrieve all the attributes for either the ancestor or descendants, use
+# the following functions
+join_for_descendants(
+        data = test_data,
+        ancestor_id_column = "test_concept_id"
+)
+
+join_for_ancestors(
+        data = test_data,
+        descendant_id_column = "test_concept_id"
+)
+}

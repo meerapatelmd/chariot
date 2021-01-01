@@ -18,14 +18,7 @@
 #' @param verbose PARAM_DESCRIPTION, Default: TRUE
 #' @param render_sql PARAM_DESCRIPTION, Default: TRUE
 #' @param render_only PARAM_DESCRIPTION, Default: FALSE
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
+#' @example inst/example/join.R
 #' @rdname join_on_concept_id
 #' @export
 join_on_concept_id <-
@@ -80,6 +73,7 @@ join_on_concept_id <-
 #' @inheritParams join_on_concept_id
 #' @rdname join_on_concept_code
 #' @export
+#' @example inst/example/join.R
 join_on_concept_code <-
         function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
                  data,
@@ -133,6 +127,7 @@ join_on_concept_code <-
 #' @inheritParams join_on_concept_id
 #' @rdname join_on_concept_name
 #' @export
+#' @example inst/example/join.R
 join_on_concept_name <-
         function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
                  data,
@@ -193,6 +188,7 @@ join_on_concept_name <-
 #' @param where_is_not_null_concept_synonym_field PARAM_DESCRIPTION
 #' @rdname join_on_concept_synonym_name
 #' @export
+#' @example inst/example/join.R
 join_on_concept_synonym_name <-
         function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
                  data,
@@ -219,7 +215,7 @@ join_on_concept_synonym_name <-
                 join(kind = kind,
                      data = data,
                      column = column,
-                     vocab_table = "concept",
+                     vocab_table = "concept_synonym",
                      vocab_field = "concept_synonym_name",
                      select_data_columns = select_data_columns,
                      select_vocab_fields = "*",
