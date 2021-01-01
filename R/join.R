@@ -3,129 +3,86 @@
 #' @description This function has better performance than the WHERE IN statement for larger searches. A table in the format of "v{unpunctuated timestamp}" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.
 #' @param data dataframe to join
 #' @param column string of the column name to join on. If NULL, the 1st column is used.
-#' @param vocab_column name of column to join dataframe on. Defaults to concept ID.
+#' @param vocab_table OMOP Vocabulary table to join to
+#' @param vocab_column Field in the `vocab_table` to join on.
+#' @param select_data_columns Vector of field names in the `data` to select for.
+#' @param select_vocab_fields Vector of field names in the `vocab_table` to select for.
+#' @param distinct Will the resultset contain only distinct rows?
+#' @param write_schema Schema in the database with write permissions to write the
+#' table containing `data` to. This table is dropped on exit.
+#' @param vocab_schema Schema containing the OMOP Vocabulary tables.
+#' @inheritParams pg13::join1
 #' @export
+#' @importFrom secretary typewrite
+#' @importFrom pg13 join1
+#' @importFrom tibble as_tibble
 
 join <-
-  function(data,
-           joinType,
+  function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
+           data,
            column = NULL,
+           vocab_table,
+           vocab_field,
+           select_data_columns = "*",
+           select_vocab_fields = "*",
+           distinct = FALSE,
            write_schema = "patelm9",
            vocab_schema = "omop_vocabulary",
-           vocab_table,
-           vocab_column,
-           where_vocab_col = NULL,
-           where_vocab_col_in = NULL,
-           verbose = TRUE,
+           where_in_vocab_field,
+           where_in_vocab_field_value,
+           where_not_in_vocab_field,
+           where_not_in_vocab_field_value,
+           where_is_null_vocab_field,
+           where_is_not_null_vocab_field,
+           case_insensitive = TRUE,
            conn,
            conn_fun = "connectAthena()",
+           verbose = TRUE,
            render_sql = TRUE,
-           sleepTime = 1) {
-    if (missing(conn)) {
-      cli::cli_rule(left = "Making Connection")
-
-      conn <- eval(expr = rlang::parse_expr(x = conn_fun))
-      on.exit(
-        expr = dcAthena(
-          conn = conn,
-          verbose = verbose
-        ),
-        add = TRUE,
-        after = TRUE
-      )
-    }
-
-    cli::cli_rule(left = "Writing data to table")
-    table_name <- paste0("v", format(Sys.time(), "%Y%m%d%H%M%S"))
-    secretary::typewrite("New table:", table_name)
+           render_only = FALSE) {
 
     if (is.null(column)) {
       column <- colnames(data)[1]
     }
     secretary::typewrite("Target column:", column)
 
-    pg13::writeTable(
-      conn = conn,
-      schema = write_schema,
-      tableName = table_name,
-      data = data,
-      drop_existing = TRUE,
-      verbose = verbose,
-      render_sql = render_sql
-    )
 
+    if (!missing(conn_fun)) {
 
-    if (!is.null(where_vocab_col)) {
-      where_vocab_col <- paste0(
-        vocab_schema, ".",
-        vocab_table, ".",
-        where_vocab_col
-      )
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(),
+              add = TRUE,
+              after = TRUE)
     }
 
-    sql_statement <-
-      pg13::buildJoinQuery(
-        schema = write_schema,
-        tableName = table_name,
-        column = column,
-        joinType = joinType,
-        caseInsensitive = FALSE,
-        joinOnSchema = vocab_schema,
-        joinOnTableName = vocab_table,
-        joinOnColumn = vocab_column,
-        whereInField = where_vocab_col,
-        whereInVector = where_vocab_col_in
-      )
 
+    tibble::as_tibble(
+    pg13::join1(conn = conn,
+                conn_fun = conn_fun,
+                write_schema = write_schema,
+                data = data,
+                column = column,
+                select_table_fields = select_data_columns,
+                select_join_on_fields = select_vocab_fields,
+                join_on_schema = vocab_schema,
+                join_on_table = vocab_table,
+                join_on_column = vocab_field,
+                kind = kind,
+                where_in_join_on_field = where_in_vocab_field,
+                where_in_join_on_vector = where_in_vocab_field_value,
+                where_not_in_join_on_field = where_not_in_vocab_field,
+                where_not_in_join_on_vector = where_not_in_vocab_field_value,
+                where_is_null_join_on_field = where_is_null_vocab_field,
+                where_is_not_null_join_on_field = where_is_not_null_vocab_field,
+                case_insensitive = case_insensitive,
+                distinct = distinct,
+                verbose = verbose,
+                render_sql = render_sql,
+                render_only = render_only
+                ))
 
-
-    resultset <- queryAthena(
-      sql_statement = sql_statement,
-      conn = conn,
-      skip_cache = TRUE,
-      render_sql = render_sql,
-      verbose = verbose,
-      sleepTime = sleepTime
-    )
-
-
-    dropJoinTables(
-      conn = conn,
-      schema = write_schema
-    )
-
-
-    resultset
   }
 
-
-
-
-
-
-
-
-#' Drop Join Tables
-#' @description Drops all tables in the format ("V{timestamp}")
-#' @import DatabaseConnector
-#' @export
-
-dropJoinTables <-
-  function(conn,
-           schema = NULL) {
-    joinTables <- lsJoinTables(
-      conn = conn,
-      schema = schema
-    )
-
-    for (joinTable in joinTables) {
-      pg13::dropTable(
-        conn = conn,
-        schema = schema,
-        tableName = joinTable
-      )
-    }
-  }
 
 
 
@@ -159,6 +116,167 @@ innerJoin <-
       conn = conn
     )
   }
+
+
+
+#' @title
+#' Join For Concept Synonyms
+#'
+#' @description
+#' `join_for_*` functions differ from `join_on_*` functions in that `join_for_*`
+#' joins on a vocabulary table field that is already specified, and that the join
+#' is to add a specific field to the data, this case being the
+#' `concept_synonym_name` field with a join on the `concept_id` field.
+#'
+#' @rdname join_for_concept_synonym_name
+#' @export
+
+join_for_concept_synonym_name <-
+  function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
+           data,
+           concept_id_column = NULL,
+           select_data_columns = "*",
+           select_concept_synonym_fields = c("concept_id", "concept_synonym_name"),
+           distinct = FALSE,
+           write_schema = "patelm9",
+           vocab_schema = "omop_vocabulary",
+           where_in_concept_synonym_field = "language_concept_id",
+           where_in_concept_synonym_field_value = 4180186,
+           where_not_in_concept_synonym_field,
+           where_not_in_concept_synonym_field_value,
+           where_is_null_concept_synonym_field,
+           where_is_not_null_concept_synonym_field,
+           case_insensitive = TRUE,
+           conn,
+           conn_fun = "connectAthena()",
+           verbose = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE
+  ) {
+
+
+    join(kind = kind,
+         data = data,
+         column = concept_id_column,
+         vocab_table = "concept_synonym",
+         vocab_field = "concept_id",
+         select_data_columns = select_data_columns,
+         select_vocab_fields = select_concept_synonym_fields,
+         distinct = distinct,
+         write_schema = write_schema,
+         vocab_schema = vocab_schema,
+         where_in_vocab_field = where_in_concept_synonym_field,
+         where_in_vocab_field_value = where_in_concept_synonym_field_value,
+         where_not_in_vocab_field = where_not_in_concept_synonym_field,
+         where_not_in_vocab_field_value = where_not_in_concept_synonym_field_value,
+         where_is_null_vocab_field = where_is_null_concept_synonym_field,
+         where_is_not_null_vocab_field = where_is_not_null_concept_synonym_field,
+         case_insensitive = case_insensitive,
+         conn = conn,
+         conn_fun = conn_fun,
+         verbose = verbose,
+         render_sql = render_sql,
+         render_only = render_only)
+  }
+
+
+
+
+join_for_descendant_ids <-
+  function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
+           data,
+           column = NULL,
+           select_data_columns = "*",
+           distinct = FALSE,
+           write_schema = "patelm9",
+           vocab_schema = "omop_vocabulary",
+           where_in_concept_ancestor_field,
+           where_in_concept_ancestor_field_value,
+           where_not_in_concept_ancestor_field,
+           where_not_in_concept_ancestor_field_value,
+           where_is_null_concept_ancestor_field,
+           where_is_not_null_concept_ancestor_field,
+           case_insensitive = TRUE,
+           conn,
+           conn_fun = "connectAthena()",
+           verbose = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE
+  ) {
+
+
+    join(kind = kind,
+         data = data,
+         column = column,
+         vocab_table = "concept_ancestor",
+         vocab_field = "ancestor_concept_id",
+         select_data_columns = select_data_columns,
+         select_vocab_fields = c("descendant_concept_id", "min_levels_of_separation", "max_levels_of_separation"),
+         distinct = distinct,
+         write_schema = write_schema,
+         vocab_schema = vocab_schema,
+         where_in_vocab_field = where_in_concept_ancestor_field,
+         where_in_vocab_field_value = where_in_concept_ancestor_field_value,
+         where_not_in_vocab_field = where_not_in_concept_ancestor_field,
+         where_not_in_vocab_field_value = where_not_in_concept_ancestor_field_value,
+         where_is_null_vocab_field = where_is_null_concept_ancestor_field,
+         where_is_not_null_vocab_field = where_is_not_null_concept_ancestor_field,
+         case_insensitive = case_insensitive,
+         conn = conn,
+         conn_fun = conn_fun,
+         verbose = verbose,
+         render_sql = render_sql,
+         render_only = render_only)
+  }
+
+
+join_for_ancestor_ids <-
+  function(kind = c("LEFT", "RIGHT", "INNER", "FULL"),
+           data,
+           column = NULL,
+           select_data_columns = "*",
+           distinct = FALSE,
+           write_schema = "patelm9",
+           vocab_schema = "omop_vocabulary",
+           where_in_concept_ancestor_field,
+           where_in_concept_ancestor_field_value,
+           where_not_in_concept_ancestor_field,
+           where_not_in_concept_ancestor_field_value,
+           where_is_null_concept_ancestor_field,
+           where_is_not_null_concept_ancestor_field,
+           case_insensitive = TRUE,
+           conn,
+           conn_fun = "connectAthena()",
+           verbose = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE
+  ) {
+
+
+    join(kind = kind,
+         data = data,
+         column = column,
+         vocab_table = "concept_ancestor",
+         vocab_field = "descendant_concept_id",
+         select_data_columns = select_data_columns,
+         select_vocab_fields = c("ancestor_concept_id", "min_levels_of_separation", "max_levels_of_separation"),
+         distinct = distinct,
+         write_schema = write_schema,
+         vocab_schema = vocab_schema,
+         where_in_vocab_field = where_in_concept_ancestor_field,
+         where_in_vocab_field_value = where_in_concept_ancestor_field_value,
+         where_not_in_vocab_field = where_not_in_concept_ancestor_field,
+         where_not_in_vocab_field_value = where_not_in_concept_ancestor_field_value,
+         where_is_null_vocab_field = where_is_null_concept_ancestor_field,
+         where_is_not_null_vocab_field = where_is_not_null_concept_ancestor_field,
+         case_insensitive = case_insensitive,
+         conn = conn,
+         conn_fun = conn_fun,
+         verbose = verbose,
+         render_sql = render_sql,
+         render_only = render_only)
+  }
+
 
 
 
