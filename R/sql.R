@@ -190,7 +190,7 @@ join <-
     secretary::typewrite("Target column:", column)
 
 
-    if (!missing(conn_fun)) {
+    if (missing(conn)) {
 
       conn <- eval(rlang::parse_expr(conn_fun))
       on.exit(expr = dcAthena(),

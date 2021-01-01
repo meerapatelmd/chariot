@@ -195,23 +195,23 @@ shown.</p>
 #&gt; Slot "invalid_reason":
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:01]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:01]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (1308216)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:42]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
+#&gt; [2021-01-01 16:32:01]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:01]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (1308216)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:42]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
 
 <span class='co'># Cancer Condition Domain</span>
 <span class='va'>concept_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_concept.html'>get_concept</a></span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>4187868</span><span class='op'>)</span>
@@ -250,23 +250,23 @@ shown.</p>
 #&gt; Slot "invalid_reason":
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (4187868)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:42]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (4187868)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:43]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
 <span class='co'># Chronic Disease Domain</span>
 <span class='va'>concept_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_concept.html'>get_concept</a></span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>319835</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Is Concept Id Valid Integer?</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id is a valid integer</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Concept Id in Concept Table</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `319835` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='input'><span class='va'>concept_obj</span>
@@ -304,23 +304,23 @@ shown.</p>
 #&gt; Slot "invalid_reason":
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (319835)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:43]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (319835)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:43]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'>
 <span class='co'># Measurement Domain</span>
 <span class='va'>concept_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_concept.html'>get_concept</a></span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>4298431</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Is Concept Id Valid Integer?</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id is a valid integer</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Concept Id in Concept Table</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `4298431` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='input'><span class='va'>concept_obj</span>
@@ -358,23 +358,23 @@ shown.</p>
 #&gt; Slot "invalid_reason":
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (4298431)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:43]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt;                                                         FROM omop_vocabulary.concept c
 #&gt;                                                         WHERE c.concept_id IN (4298431)
 #&gt;                                                       
-#&gt; [2021-01-01 16:26:43]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-01 16:26:43]	Target column: concept_hierarchy_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div></span></pre>
+#&gt; [2021-01-01 16:32:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-01 16:32:02]	Target column: concept_hierarchy_id
+#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: FATAL: sorry, too many clients already</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

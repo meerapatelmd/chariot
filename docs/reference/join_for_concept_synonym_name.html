@@ -204,8 +204,8 @@ is to add a specific field to the data, this case being the
                                         FROM omop_vocabulary.concept
                                         ORDER BY RANDOM()
                                         LIMIT 20;"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-01 16:26:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-01 16:31:26]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                         SELECT
 #&gt;                                                 concept_id AS test_concept_id,
 #&gt;                                                 concept_name AS test_concept_name,
@@ -220,35 +220,60 @@ is to add a specific field to the data, this case being the
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...</span><span>
+#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163126;
+#&gt; [2021-01-01 16:31:26]	Sending...
+#&gt; [2021-01-01 16:31:26]	Sending...complete
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Postgres connection was already closed</div><div class='input'>
 <span class='fu'><a href='join_on_concept_code.html'>join_on_concept_code</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_code"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_code
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Target column: test_concept_code
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...</span><span>
+#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163126;
+#&gt; [2021-01-01 16:31:26]	Sending...
+#&gt; [2021-01-01 16:31:26]	Sending...complete
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Postgres connection was already closed</div><div class='input'>
 <span class='fu'><a href='join_on_concept_name.html'>join_on_concept_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...</span><span>
+#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163126;
+#&gt; [2021-01-01 16:31:26]	Sending...
+#&gt; [2021-01-01 16:31:26]	Sending...complete
+#&gt; [2021-01-01 16:31:26]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163126...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># Join on the `concept_synonym_name` field in the Concept Synonym table</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:26]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># Reconfigure the kind of join</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         column <span class='op'>=</span> <span class='st'>"test_concept_name"</span>,
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># Return only distinct rows</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
@@ -256,8 +281,13 @@ is to add a specific field to the data, this case being the
         kind <span class='op'>=</span> <span class='st'>"INNER"</span>,
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># Return only the `test_concept_code` column</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
@@ -266,8 +296,13 @@ is to add a specific field to the data, this case being the
         distinct <span class='op'>=</span> <span class='cn'>TRUE</span>,
         select_data_columns <span class='op'>=</span> <span class='st'>"test_concept_name"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 
 <span class='co'># Filter can be applied to the vocabulary tables</span>
 <span class='fu'><a href='join_on_concept_synonym_name.html'>join_on_concept_synonym_name</a></span><span class='op'>(</span>
@@ -276,8 +311,13 @@ is to add a specific field to the data, this case being the
         where_not_in_concept_synonym_field <span class='op'>=</span> <span class='st'>"language_concept_id"</span>,
         where_not_in_concept_synonym_field_value <span class='op'>=</span> <span class='fl'>4180186</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_name
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_name
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># `Join For` functions join on a predetermined vocabulary field for the addition</span>
 <span class='co'># of the specified column in the source data</span>
 
@@ -286,37 +326,62 @@ is to add a specific field to the data, this case being the
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         concept_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 
 <span class='co'># Get the descendant concept ids</span>
 <span class='fu'><a href='join_for_descendant_ids.html'>join_for_descendant_ids</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># Get the ancestor concept ids</span>
 <span class='fu'><a href='join_for_ancestor_ids.html'>join_for_ancestor_ids</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
         <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='co'># To retrieve all the attributes for either the ancestor or descendants, use</span>
 <span class='co'># the following functions</span>
 <span class='fu'><a href='join_for_descendants.html'>join_for_descendants</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         ancestor_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div><div class='input'>
 <span class='fu'><a href='join_for_descendants.html'>join_for_ancestors</a></span><span class='op'>(</span>
         data <span class='op'>=</span> <span class='va'>test_data</span>,
         descendant_id_column <span class='op'>=</span> <span class='st'>"test_concept_id"</span>
 <span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-01 16:26:15]	Target column: test_concept_id
-#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in rJava::.jcall(jdbcDriver, "Ljava/sql/Connection;", "connect",     as.character(url), p): org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.</span></div></span></pre>
+</div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Target column: test_concept_id
+#&gt; Connecting using PostgreSQL driver
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...</span><span>
+#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	</span><span style='color: #00BB00;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210101163127;
+#&gt; [2021-01-01 16:31:27]	Sending...
+#&gt; [2021-01-01 16:31:27]	Sending...complete
+#&gt; [2021-01-01 16:31:27]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210101163127...complete</span><span></div><div class='output co'>#&gt; <span class='error'>Error in nrow(data): object 'test_data' not found</span></div><div class='output co'>#&gt; [2021-01-01 16:31:27]	Postgres connection was already closed</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
