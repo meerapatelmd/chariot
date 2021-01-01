@@ -19,7 +19,8 @@ is_cached <-
 
 
 #' Load cached results of a query
-#' @description This function uses the R.cache::loadCache function with the destination directory set to Package name "Athena".
+#' @description This function uses the R.cache::loadCache function with the
+#' destination directory set to Package name "Athena".
 #' @return Cached query resultset
 #' @importFrom R.cache loadCache
 #' @param key equivalent to the SQL query string.
@@ -39,7 +40,8 @@ load_cached_query <-
 
 
 #' Cache the results of a query
-#' @description This function uses the R.cache::saveCache function with the destination directory by Package name "Athena".
+#' @description This function uses the R.cache::saveCache function with the
+#' destination directory by Package name "Athena".
 #' @return Invisibly returns the path to the cache file
 #' @importFrom R.cache saveCache
 #' @param object object to cache

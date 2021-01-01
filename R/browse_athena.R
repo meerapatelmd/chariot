@@ -2,7 +2,8 @@
 #' Convenience Functions
 #'
 #' @description
-#' Convenience functions that simply tasks by allowing them to be executed from the R console such as opening the OMOP Concept page.
+#' Convenience functions that simply tasks by allowing them to be executed from
+#' the R console such as opening the OMOP Concept page.
 #'
 #' @name convenience_functions
 #' @keywords internal
@@ -15,5 +16,6 @@ NULL
 
 browse_athena <-
   function(concept_id) {
-    browseURL(url = paste0("http://athena.ohdsi.org/search-terms/terms/", concept_id))
+    browseURL(url = paste0("http://athena.ohdsi.org/search-terms/terms/",
+                           concept_id))
   }

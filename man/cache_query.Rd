@@ -15,5 +15,6 @@ cache_query(object, key)
 Invisibly returns the path to the cache file
 }
 \description{
-This function uses the R.cache::saveCache function with the destination directory by Package name "Athena".
+This function uses the R.cache::saveCache function with the
+destination directory by Package name "Athena".
 }

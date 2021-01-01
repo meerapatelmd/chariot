@@ -4,6 +4,7 @@
 \alias{convenience_functions}
 \title{Convenience Functions}
 \description{
-Convenience functions that simply tasks by allowing them to be executed from the R console such as opening the OMOP Concept page.
+Convenience functions that simply tasks by allowing them to be executed from
+the R console such as opening the OMOP Concept page.
 }
 \keyword{internal}

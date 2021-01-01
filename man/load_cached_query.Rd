@@ -13,5 +13,6 @@ load_cached_query(key)
 Cached query resultset
 }
 \description{
-This function uses the R.cache::loadCache function with the destination directory set to Package name "Athena".
+This function uses the R.cache::loadCache function with the
+destination directory set to Package name "Athena".
 }
