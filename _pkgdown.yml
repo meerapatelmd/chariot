@@ -53,7 +53,7 @@ reference:
       - unbox_strip
     - title: Search
       desc:  >
-       Search for a phrase in the OMOP Vocabulary
+        Search for a phrase in the OMOP Vocabulary
       contents:
       - search_code
       - search_ends_with_phrase
