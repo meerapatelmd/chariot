@@ -1,6 +1,8 @@
+#' @title
 #' Connect Local Athena
 #' @importFrom pg13 local_connect
 #' @export
+#' @rdname connectAthena
 
 connectAthena <-
     function(port = 5432) {
@@ -12,8 +14,10 @@ connectAthena <-
     }
 
 
+#' @title
 #' Connect Local Athena Function Factory
 #' @export
+#' @rdname connectAthena_ff
 
 connectAthena_ff <-
         function(user = NULL,
@@ -37,9 +41,11 @@ connectAthena_ff <-
         }
 
 
+#' @title
 #' Disconnect Local Athena
 #' @importFrom pg13 dc
 #' @export
+#' @rdname dcAthena
 
 dcAthena <-
         function(conn,
@@ -51,16 +57,3 @@ dcAthena <-
                          verbose = verbose)
         }
 
-
-#' Get Connection Database Name
-#' @description
-#' This is to make sure that the cache path directory has the same name as the database to prevent collisions between multiple OMOP Vocabulary sources used simulataneously.
-#' @export
-
-
-
-get_conn_db <-
-        function(conn) {
-
-                conn@jConnection$getCatalog()
-        }

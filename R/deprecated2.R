@@ -2425,7 +2425,18 @@ executeAthena <-
         }
 
 
+#' Get Connection Database Name
+#' @description
+#' This is to make sure that the cache path directory has the same name as the database to prevent collisions between multiple OMOP Vocabulary sources used simulataneously.
+#' @export
 
+get_conn_db <-
+        function(conn) {
+
+                .Deprecated(package = "pg13")
+
+                conn@jConnection$getCatalog()
+        }
 
 
 
