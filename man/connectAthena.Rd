@@ -4,13 +4,7 @@
 \alias{connectAthena}
 \title{Connect Local Athena}
 \usage{
-connectAthena(
-  user = NULL,
-  password = NULL,
-  port = 5432,
-  server = "localhost/athena",
-  verbose = TRUE
-)
+connectAthena(port = 5432)
 }
 \description{
 Connect Local Athena

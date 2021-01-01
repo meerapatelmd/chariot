@@ -43,7 +43,7 @@ Query Ancestors
 \code{\link[SqlRender]{render}}
 
 Other query functions: 
-\code{\link{queryAthena}()},
+\code{\link{executeAthena}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

@@ -43,8 +43,8 @@ FUNCTION_DESCRIPTION
 \code{\link[pg13]{build_query}}
 
 Other query functions: 
+\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
-\code{\link{queryAthena}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},
 \code{\link{queryDescendants}()},

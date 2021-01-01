@@ -51,8 +51,8 @@ FUNCTION_DESCRIPTION
 \code{\link[pg13]{buildQueryString}}
 
 Other query functions: 
+\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
-\code{\link{queryAthena}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

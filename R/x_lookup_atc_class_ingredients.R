@@ -1,11 +1,21 @@
-
-
-
+#' @example inst/example/lookup_atc_class_ingredients.R
+#' @title
+#' Lookup the RxNorm Ingredients of an ATC Class
+#' @description
+#' List all the RxNorm Ingredients that belong to an ATC Class.
+#' @inheritParams args
+#' @seealso
+#'  \code{\link[cli]{cli_h1}},\code{\link[cli]{cli_alert}}
+#'  \code{\link[SqlRender]{render}}
+#' @rdname lookup_atc_class_ingredients
 #' @export
+#' @importFrom cli cli_h1 cli_alert_success
+#' @importFrom SqlRender render
 
 lookup_atc_class_ingredients <-
         function(conn,
-                 vocab_schema,
+                 conn_fun = "connectAthena()",
+                 vocab_schema = "omop_vocabulary",
                  atc_concept_obj,
                  cache_only = FALSE,
                  skip_cache = FALSE,
@@ -15,6 +25,8 @@ lookup_atc_class_ingredients <-
                  sleepTime = 1) {
 
                 if (!(class(atc_concept_obj) %in% "concept")) {
+
+                        cli::cli_h1("Retrieve Concept Object")
 
                         atc_concept_obj<-
                                 get_concept(concept_id = atc_concept_obj,
@@ -28,17 +40,24 @@ lookup_atc_class_ingredients <-
                                             sleepTime = sleepTime)
                 }
 
+                cli::cli_h1("QA Concept Object")
 
                 if (class(atc_concept_obj) %in% "concept") {
 
                         if (!(atc_concept_obj@vocabulary_id %in% "ATC")) {
 
                                 stop("`atc_concept_obj` is not an ATC concept")
+                        } else {
+
+                                cli::cli_alert_success("Concept belongs to ATC Vocabulary")
                         }
 
                         if (!(atc_concept_obj@standard_concept %in% "C")) {
 
                                 stop("`atc_concept_obj` is not a Class concept")
+                        } else {
+
+                                cli::cli_alert_success("Concept is an OMOP vocabulary class")
                         }
 
                         atc_concept_id <- atc_concept_obj@concept_id
@@ -49,6 +68,7 @@ lookup_atc_class_ingredients <-
                         stop("`atc_concept_obj` is not a 'concept' class object")
                 }
 
+                cli::cli_h1("Render & Query")
                 sql_statement <-
                 SqlRender::render("SELECT c.*
                                 FROM @vocab_schema.concept_ancestor ca

@@ -7,11 +7,13 @@
 #' @importFrom SqlRender render
 #' @export
 #' @rdname get_concept
+#' @example inst/example/lookup_atc_class_ingredients.R
 
 get_concept <-
         function(concept_id,
-                 vocab_schema,
+                 vocab_schema = "omop_vocabulary",
                  conn,
+                 conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
@@ -34,9 +36,11 @@ get_concept <-
                 #                  whereInVector = concept_ids,
                 #                  caseInsensitive = FALSE)
 
+                cli::cli_h1("Lookup Concept Id {concept_id}")
                 df <- lookup_concept_id(concept_id = concept_id,
                                         vocab_schema = vocab_schema,
                                         conn = conn,
+                                        conn_fun = conn_fun,
                                         cache_only = cache_only,
                                         skip_cache = skip_cache,
                                         override_cache = override_cache,
@@ -44,7 +48,7 @@ get_concept <-
                                         verbose = verbose,
                                         sleepTime = sleepTime)
 
-
+                cli::cli_h1("Lookup Synonyms")
                 df2 <- lookup_synonyms(concept_id = concept_id,
                                        vocab_schema = vocab_schema,
                                        conn = conn,
@@ -55,7 +59,7 @@ get_concept <-
                                        verbose = verbose,
                                        sleepTime = sleepTime)
 
-
+                cli::cli_h1("Check Validity of ConcEpt Id {concept_id}")
                 check_concept_id(concept_id = df$concept_id)
 
                 new(Class = "concept",
@@ -75,22 +79,23 @@ get_concept <-
 
 #' @title
 #' Lookup a Concept Id
-#' @export
+#' @noRd
 #' @rdname lookup_concept_id
 
 
 lookup_concept_id <-
         function(concept_id,
-                 vocab_schema,
-                 conn = NULL,
+                 vocab_schema = "omop_vocabulary",
+                 conn,
+                 conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
+                 render_sql = TRUE,
+                 verbose = TRUE,
                  sleepTime = 1) {
 
-                sql <-
+                sql_statement <-
                         SqlRender::render("SELECT *
                                                         FROM @vocab_schema.concept c
                                                         WHERE c.concept_id IN (@concept_id)
@@ -98,32 +103,35 @@ lookup_concept_id <-
                                           vocab_schema = vocab_schema,
                                           concept_id = concept_id)
 
-                        queryAthena(sql_statement = sql,
-                                    conn = conn,
-                                    cache_only = cache_only,
-                                    skip_cache = skip_cache,
-                                    override_cache = override_cache,
-                                    render_sql = render_sql,
-                                    verbose = verbose,
-                                    sleepTime = sleepTime)
+                queryAthena(sql_statement = sql_statement,
+                            conn = conn,
+                            conn_fun = conn_fun,
+                            cache_only = cache_only,
+                            skip_cache = skip_cache,
+                            override_cache = override_cache,
+                            cache_resultset = cache_resultset,
+                            render_sql = render_sql,
+                            verbose = verbose,
+                            sleepTime = sleepTime)
         }
 
 
 #' @title
 #' Lookup Synonyms
-#' @export
+#' @noRd
 #' @rdname lookup_synonyms
 
 
 lookup_synonyms <-
         function(concept_id,
-                 vocab_schema,
-                 conn = NULL,
+                 vocab_schema = "omop_vocabulary",
+                 conn,
+                 conn_fun = "connectAthena()",
                  cache_only = FALSE,
                  skip_cache = FALSE,
                  override_cache = FALSE,
-                 render_sql = FALSE,
-                 verbose = FALSE,
+                 render_sql = TRUE,
+                 verbose = TRUE,
                  sleepTime = 1) {
 
                 sql <-
@@ -145,6 +153,7 @@ lookup_synonyms <-
 
                 queryAthena(sql_statement = sql,
                             conn = conn,
+                            conn_fun = conn_fun,
                             cache_only = cache_only,
                             skip_cache = skip_cache,
                             override_cache = override_cache,

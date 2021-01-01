@@ -9,7 +9,8 @@ sendAthena(
   conn_fun = "connectAthena()",
   sql_statement,
   verbose = TRUE,
-  render_sql = TRUE
+  render_sql = TRUE,
+  render_only = FALSE
 )
 }
 \arguments{

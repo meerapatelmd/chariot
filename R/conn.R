@@ -1,19 +1,13 @@
 #' Connect Local Athena
-#' @importFrom pg13 connect
+#' @importFrom pg13 local_connect
 #' @export
 
 connectAthena <-
-    function(user = NULL,
-             password = NULL,
-             port = 5432,
-             server = "localhost/athena",
-             verbose = TRUE) {
+    function(port = 5432) {
 
-           pg13::connect(user = user,
-                         password = password,
-                         port = port,
-                         server = server,
-                         verbose = verbose)
+
+        pg13::local_connect(dbname = "athena",
+                            port = port)
 
     }
 
