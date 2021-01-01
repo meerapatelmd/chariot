@@ -70,9 +70,11 @@ FUNCTION_DESCRIPTION
 library(chariot)
 library(tidyverse)
 
-
+conn <- connectAthena()
 test_data <-
-        queryAthena(sql_statement =     "
+        queryAthena(
+                conn = conn,
+                 sql_statement =     "
                                         SELECT
                                                 concept_id AS test_concept_id,
                                                 concept_name AS test_concept_name,
@@ -85,28 +87,33 @@ test_data
 
 # `Join On` functions point to the true column that is being joined on
 join_on_concept_id(
+        conn = conn,
         data = test_data,
         column = "test_concept_id"
         )
 
 join_on_concept_code(
+        conn = conn,
         data = test_data,
         column = "test_concept_code"
         )
 
 join_on_concept_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name"
 )
 
 # Join on the `concept_synonym_name` field in the Concept Synonym table
 join_on_concept_synonym_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name"
 )
 
 # Reconfigure the kind of join
 join_on_concept_synonym_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name",
         kind = "INNER"
@@ -114,6 +121,7 @@ join_on_concept_synonym_name(
 
 # Return only distinct rows
 join_on_concept_synonym_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name",
         kind = "INNER",
@@ -122,6 +130,7 @@ join_on_concept_synonym_name(
 
 # Return only the `test_concept_code` column
 join_on_concept_synonym_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name",
         kind = "INNER",
@@ -132,6 +141,7 @@ join_on_concept_synonym_name(
 
 # Filter can be applied to the vocabulary tables
 join_on_concept_synonym_name(
+        conn = conn,
         data = test_data,
         column = "test_concept_name",
         where_not_in_concept_synonym_field = "language_concept_id",
@@ -143,6 +153,7 @@ join_on_concept_synonym_name(
 
 # Get all the synonyms for a concept by concept_id
 join_for_concept_synonym_name(
+        conn = conn,
         data = test_data,
         concept_id_column = "test_concept_id"
         )
@@ -150,12 +161,14 @@ join_for_concept_synonym_name(
 
 # Get the descendant concept ids
 join_for_descendant_ids(
+        conn = conn,
         data = test_data,
         ancestor_id_column = "test_concept_id"
         )
 
 # Get the ancestor concept ids
 join_for_ancestor_ids(
+        conn = conn,
         data = test_data,
         descendant_id_column = "test_concept_id"
         )
@@ -163,12 +176,17 @@ join_for_ancestor_ids(
 # To retrieve all the attributes for either the ancestor or descendants, use
 # the following functions
 join_for_descendants(
+        conn = conn,
         data = test_data,
         ancestor_id_column = "test_concept_id"
 )
 
 join_for_ancestors(
+        conn = conn,
         data = test_data,
         descendant_id_column = "test_concept_id"
 )
+
+
+dcAthena(conn = conn)
 }

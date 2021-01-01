@@ -157,7 +157,7 @@ queryAthena <-
 #' @inheritParams pg13::join1
 #' @export
 #' @importFrom secretary typewrite
-#' @importFrom pg13 join1
+#' @importFrom pg13 write_staging_table draft_join1 query
 #' @importFrom tibble as_tibble
 
 join <-
@@ -199,10 +199,19 @@ join <-
     }
 
 
-    tibble::as_tibble(
-      pg13::join1(conn = conn,
-                 # conn_fun = conn_fun,
-                  write_schema = write_schema,
+    staging_table <- pg13::write_staging_table(
+                        conn = conn,
+                        schema = write_schema,
+                        data = data,
+                        drop_existing = TRUE,
+                        drop_on_exit = TRUE,
+                        verbose = verbose,
+                        render_sql = render_sql)
+
+
+
+    sql_statement <-
+      pg13::draft_join1(write_schema = write_schema,
                   data = data,
                   column = column,
                   select_table_fields = select_data_columns,
@@ -222,7 +231,16 @@ join <-
                   verbose = verbose,
                   render_sql = render_sql,
                   render_only = render_only
-      ))
+      )
+
+
+    pg13::query(
+      conn = conn,
+      sql_statement = sql_statement,
+      verbose = verbose,
+      render_sql = render_sql,
+      render_only = render_only
+    )
 
   }
 
