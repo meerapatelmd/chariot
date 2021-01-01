@@ -1,3 +1,21 @@
+#' @title
+#' Search Exact Matches to a Phrase
+#' @description
+#' Search for an exact phrase in the Concept Synonym table.
+#' @param phrase String to search.
+#' @param case_insensitive Should the search ignore case?, Default: TRUE
+#' @param vocab_schema OMOP Vocabulary schema, Default: 'omop_vocabulary'
+#' @inheritParams queryAthena
+#' @return
+#' Tibble of all the matching Concept Table fields and an added `concept_synonyms`
+#'  field of a pipe-separated aggregate of all the synonyms, including
+#'  `concept_name`, in the Concept Synonym table.
+#' @example inst/example/search_phrase.R
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname search_exact_phrase
+#' @export
+#' @importFrom SqlRender render
 search_exact_phrase <-
         function(phrase,
                  case_insensitive = TRUE,
@@ -82,6 +100,17 @@ search_exact_phrase <-
 
 
 
+#' @title
+#' Search Concepts that Contain a Phrase
+#' @description
+#' Search for concepts that contain a phrase in the Concept Synonym table.
+#' @inherit search_exact_phrase example
+#' @inheritParams search_exact_phrase
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname search_like_phrase
+#' @export
+#' @importFrom SqlRender render
 search_like_phrase <-
         function(phrase,
                  case_insensitive = TRUE,
@@ -165,6 +194,17 @@ search_like_phrase <-
         }
 
 
+#' @title
+#' Search Concepts that Start With a Phrase
+#' @description
+#' Search for concepts that start with a phrase in the Concept Synonym table.
+#' @inherit search_exact_phrase example
+#' @inheritParams search_exact_phrase
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname search_starts_with_phrase
+#' @export
+#' @importFrom SqlRender render
 search_starts_with_phrase <-
         function(phrase,
                  case_insensitive = TRUE,
@@ -249,6 +289,17 @@ search_starts_with_phrase <-
 
 
 
+#' @title
+#' Search Concepts that End With a Phrase
+#' @description
+#' Search for concepts that end with a phrase in the Concept Synonym table.
+#' @inherit search_exact_phrase example
+#' @inheritParams search_exact_phrase
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname search_ends_with_phrase
+#' @export
+#' @importFrom SqlRender render
 search_ends_with_phrase <-
         function(phrase,
                  case_insensitive = TRUE,
@@ -333,6 +384,19 @@ search_ends_with_phrase <-
 
 
 
+#' @title
+#' Search Concepts that Contain all Parts of a Phrase
+#' @description
+#' Search for concepts that contain all the fragments of a phrase created by the
+#' `split` argument in the Concept Synonym table.
+#' @inheritParams strsplit
+#' @inherit search_exact_phrase example
+#' @inheritParams search_exact_phrase
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname search_split_phrase
+#' @export
+#' @importFrom SqlRender render
 search_split_phrase <-
         function(phrase,
                  split = " |[[:punct:]]",
