@@ -28,7 +28,12 @@ print_concept_hierarchy <-
                                   choices = c("max", "min"),
                                   several.ok = FALSE)
 
-                concept_id <- concept_obj@concept_id
+                if (class(concept_obj) == "concept") {
+                  concept_id <- concept_obj@concept_id
+                } else {
+                   concept_id <- concept_obj
+                }
+
                 target_concept <- get_strip(concept_id)
                 target_concept <- secretary::enbold(sprintf("*%s", target_concept))
 
