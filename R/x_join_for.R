@@ -142,7 +142,7 @@ join_for_descendant_ids <-
 #' \code{\link{join_on_concept_id}} for the ancestor concept ids to get all
 #' the ancestor attributes along with the ancestor ids.
 #'
-#' @rdname join_for_ancestors
+#' @rdname join_for_descendants
 #' @export
 #' @example inst/example/join.R
 #' @importFrom dplyr select distinct rename_all left_join
