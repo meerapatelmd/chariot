@@ -47,7 +47,7 @@ queryAthena <-
 
       resultset <- pg13::query(
         conn = conn,
-        conn_fun = conn_fun,
+       # conn_fun = conn_fun,
         sql_statement = sql_statement,
         verbose = verbose,
         render_sql = render_sql,
@@ -64,7 +64,7 @@ queryAthena <-
 
         resultset <- pg13::query(
           conn = conn,
-          conn_fun = conn_fun,
+         # conn_fun = conn_fun,
           sql_statement = sql_statement,
           verbose = verbose,
           render_sql = render_sql,
@@ -113,7 +113,7 @@ queryAthena <-
       Sys.sleep(time = sleepTime)
       resultset <- pg13::query(
         conn = conn,
-        conn_fun = conn_fun,
+       # conn_fun = conn_fun,
         sql_statement = sql_statement,
         verbose = verbose,
         render_sql = render_sql,
@@ -201,7 +201,7 @@ join <-
 
     tibble::as_tibble(
       pg13::join1(conn = conn,
-                  conn_fun = conn_fun,
+                 # conn_fun = conn_fun,
                   write_schema = write_schema,
                   data = data,
                   column = column,
@@ -257,19 +257,19 @@ sendAthena <-
            render_only = FALSE) {
 
 
-    # if (missing(conn)) {
-    #
-    #         conn <- eval(expr = rlang::parse_expr(x = conn_fun))
-    #         on.exit(expr = dcAthena(conn = conn,
-    #                                 verbose = verbose),
-    #                 add = TRUE,
-    #                 after = TRUE)
-    #
-    # }
+    if (missing(conn)) {
+
+            conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+            on.exit(expr = dcAthena(conn = conn,
+                                    verbose = verbose),
+                    add = TRUE,
+                    after = TRUE)
+
+    }
 
     pg13::send(
       conn = conn,
-      conn_fun = conn_fun,
+     # conn_fun = conn_fun,
       sql_statement = sql_statement,
       verbose = verbose,
       render_sql = render_sql,
