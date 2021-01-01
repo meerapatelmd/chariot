@@ -2,7 +2,8 @@
 #' Lookup a Concept Id
 #'
 #' @return
-#' Concept Class object
+#' Concept Class object if the `concept_id` argument is found in the Concept table.
+#' If it is not found, nothing is returned.
 #'
 #' @importFrom SqlRender render
 #' @export
@@ -21,22 +22,10 @@ get_concept <-
            verbose = FALSE,
            sleepTime = 1) {
 
-    # conn <- chariot::connectAthena()
-    # concept_ids <- 1112807
-    # cache_only <- FALSE
-    # skip_cache <- FALSE
-    # override_cache <- FALSE
-    # render_sql <- FALSE
-    # verbose <- FALSE
-    # sleepTime <- 1
-    # sql <-
-    # pg13::buildQuery(schema = schema,
-    #                  tableName = "concept",
-    #                  whereInField = "concept_id",
-    #                  whereInVector = concept_ids,
-    #                  caseInsensitive = FALSE)
+    cli::cli_h1("Is Concept Id Valid Integer?")
+    check_concept_id(concept_id = concept_id)
 
-    cli::cli_h1("Lookup Concept Id {concept_id}")
+    cli::cli_h1("Lookup Concept Id in Concept Table")
     df <- lookup_concept_id(
       concept_id = concept_id,
       vocab_schema = vocab_schema,
@@ -50,21 +39,23 @@ get_concept <-
       sleepTime = sleepTime
     )
 
-    cli::cli_h1("Lookup Synonyms")
-    df2 <- lookup_synonyms(
-      concept_id = concept_id,
-      vocab_schema = vocab_schema,
-      conn = conn,
-      cache_only = cache_only,
-      skip_cache = skip_cache,
-      override_cache = override_cache,
-      render_sql = render_sql,
-      verbose = verbose,
-      sleepTime = sleepTime
-    )
-
-    cli::cli_h1("Check Validity of ConcEpt Id {concept_id}")
-    check_concept_id(concept_id = df$concept_id)
+    if (nrow(df) == 0) {
+      cli::cli_alert_danger("Concept Id `{concept_id}` not found in Concept Table")
+      invisible(NULL)
+    } else {
+      cli::cli_alert_success("Concept Id `{concept_id}` found in Concept Table")
+      cli::cli_h1("Lookup Synonyms")
+      df2 <- lookup_synonyms(
+        concept_id = concept_id,
+        vocab_schema = vocab_schema,
+        conn = conn,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
 
     new(
       Class = "concept",
@@ -80,6 +71,8 @@ get_concept <-
       valid_end_date = df$valid_end_date,
       invalid_reason = df$invalid_reason
     )
+
+    }
   }
 
 #' @title
