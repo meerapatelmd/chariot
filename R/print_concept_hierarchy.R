@@ -1,18 +1,41 @@
-
-
-
-
-
-
+#' @title
+#' Print a Concepts Hierarchy to the Console
+#' @description
+#' If a level of the hierarchy has more than 10 concepts, the first 10 are
+#' printed with an ellipses is included to indicate only the first 10 rows are
+#' shown.
+#' @param concept_obj  Concept class object or a concept id.
+#' @seealso
+#'  \code{\link[secretary]{character(0)}}
+#'  \code{\link[tibble]{tibble}}
+#'  \code{\link[rubix]{split_by}}
+#'  \code{\link[purrr]{map}}
+#'  \code{\link[dplyr]{arrange}}
+#' @rdname print_concept_hierarchy
+#' @export
+#' @importFrom secretary enbold
+#' @importFrom tibble tibble
+#' @importFrom rubix split_by
+#' @importFrom purrr map
+#' @importFrom dplyr arrange
+#' @example inst/example/print_concept_hierarchy.R
 print_concept_hierarchy <-
-        function(concept_obj) {
+        function(concept_obj,
+                 level_of_separation_type = c("max", "min")) {
+
+                level_of_separation_type <-
+                        match.arg(arg = level_of_separation_type,
+                                  choices = c("max", "min"),
+                                  several.ok = FALSE)
 
                 concept_id <- concept_obj@concept_id
-
                 target_concept <- get_strip(concept_id)
                 target_concept <- secretary::enbold(sprintf("*%s", target_concept))
 
                 data <- tibble::tibble(concept_hierarchy_id = concept_id)
+
+
+                if (level_of_separation_type %in% "min") {
 
                 ancestors <-
                         join_for_ancestors(data = data,
@@ -25,9 +48,6 @@ print_concept_hierarchy <-
                                            select(ancestor) %>%
                                            unlist() %>%
                                            unname())
-
-                # Removed level 0 because can have >900 concepts at this level
-                ancestors$`0` <- NULL
 
                 ancestors[[length(ancestors)+1]] <- target_concept
 
@@ -45,6 +65,42 @@ print_concept_hierarchy <-
                                            select(descendant) %>%
                                            unlist() %>%
                                            unname())
+
+                } else {
+
+                        ancestors <-
+                                join_for_ancestors(data = data,
+                                                   descendant_id_column = "concept_hierarchy_id") %>%
+                                merge_strip(into = "ancestor",
+                                            prefix = "ancestor_") %>%
+                                rubix::split_by(col = max_levels_of_separation) %>%
+                                rev() %>%
+                                purrr::map(function(x) x %>%
+                                                   select(ancestor) %>%
+                                                   unlist() %>%
+                                                   unname())
+
+                        ancestors[[length(ancestors)+1]] <- target_concept
+
+
+                        descendants <-
+                                join_for_descendants(
+                                        data = data,
+                                        ancestor_id_column = "concept_hierarchy_id"
+                                ) %>%
+                                merge_strip(into = "descendant",
+                                            prefix = "descendant_") %>%
+                                dplyr::arrange(max_levels_of_separation) %>%
+                                rubix::split_by(col = max_levels_of_separation) %>%
+                                purrr::map(function(x) x %>%
+                                                   select(descendant) %>%
+                                                   unlist() %>%
+                                                   unname())
+
+                }
+
+                # Removed level 0 because can have >900 concepts at this level
+                ancestors$`0` <- NULL
 
                 # Removed level 0 because can have >900 concepts at this level
                 descendants$`0` <- NULL
@@ -67,6 +123,7 @@ print_concept_hierarchy <-
                                 cat(sprintf("%s%s\n", paste(rep("\t", i+j), collapse = ""), c(descendants[[j]][1:10], "...")))
                         }
                 }
+
 
 
 
