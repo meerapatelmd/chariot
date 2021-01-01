@@ -27,122 +27,118 @@
 #' @importFrom tibble as_tibble
 
 queryAthena <-
-        function(sql_statement,
-                 conn,
-                 conn_fun = "connectAthena()",
-                 cache_only = FALSE,
-                 skip_cache = FALSE,
-                 override_cache = FALSE,
-                 cache_resultset = TRUE,
-                 render_sql = TRUE,
-                 render_only = FALSE,
-                 verbose = TRUE,
-                 sleepTime = 1) {
+  function(sql_statement,
+           conn,
+           conn_fun = "connectAthena()",
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_only = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE,
+           verbose = TRUE,
+           sleepTime = 1) {
 
 
-                # if (missing(conn)) {
-                #
-                #         conn <- eval(expr = rlang::parse_expr(x = conn_fun))
-                #         on.exit(expr = dcAthena(conn = conn,
-                #                                 verbose = verbose),
-                #                 add = TRUE,
-                #                 after = TRUE)
-                #
-                # }
+    if (skip_cache) {
+      if (verbose) {
+        secretary::typewrite(secretary::magentaTxt("Skipping cache..."))
+      }
 
-                if (skip_cache) {
+      resultset <- pg13::query(
+        conn = conn,
+        conn_fun = conn_fun,
+        sql_statement = sql_statement,
+        verbose = verbose,
+        render_sql = render_sql,
+        render_only = render_only)
 
-                        if (verbose) {
-                                secretary::typewrite(secretary::magentaTxt("Skipping cache..."))
-                        }
+        return(tibble::as_tibble(resultset))
 
-                        resultset <-  pg13::query(conn = conn,
-                                                  conn_fun = conn_fun,
-                                                  sql_statement = sql_statement,
-                                                  verbose = verbose,
-                                                  render_sql = render_sql,
-                                                  render_only = render_only)
+    }
 
-
-                } else {
-
-                        if (override_cache) {
-
-                                if (verbose) {
-                                        secretary::typewrite(secretary::magentaTxt("Overriding cache... Querying Athena..."))
-                                }
-
-                                resultset <-  pg13::query(conn = conn,
-                                                          conn_fun = conn_fun,
-                                                          sql_statement = sql_statement,
-                                                          verbose = verbose,
-                                                          render_sql = render_sql,
-                                                          render_only = render_only)
-
-
-                                if (verbose) {
-                                        secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
-                                }
-
-                                lowLevelCache(data = resultset,
-                                              query = sql_statement)
-
-
-                        } else {
-
-                                if (verbose) {
-                                        secretary::typewrite(secretary::magentaTxt("Loading Cache..."))
-                                        secretary::typewrite(secretary::magentaTxt("Cached SQL:"), sql_statement)
-                                }
-
-
-                                resultset <- lowLevelLoadCache(query = sql_statement)
-
-                                if (!cache_only) {
-
-                                        if (is.null(resultset)) {
-
-
-                                                if (verbose) {
-                                                        secretary::typewrite(secretary::magentaTxt("No cached resultset found... querying Athena..."))
-                                                }
-
-                                                Sys.sleep(time = sleepTime)
-                                                resultset <-  pg13::query(conn = conn,
-                                                                          conn_fun = conn_fun,
-                                                                          sql_statement = sql_statement,
-                                                                          verbose = verbose,
-                                                                          render_sql = render_sql,
-                                                                          render_only = render_only)
-
-
-                                                if (verbose) {
-                                                        secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
-                                                }
-
-                                                lowLevelCache(data = resultset,
-                                                              query = sql_statement)
-
-                                        }
-
-
-                                } else {
-
-                                        if (verbose) {
-
-                                                secretary::typewrite(secretary::magentaTxt("Cached resultset found..."))
-
-                                        }
-                                }
-
-                        }
-                }
-
-
-                tibble::as_tibble(resultset)
-
+    if (override_cache) {
+        if (verbose) {
+          secretary::typewrite(secretary::magentaTxt("Overriding cache... Querying Athena..."))
         }
 
+        resultset <- pg13::query(
+          conn = conn,
+          conn_fun = conn_fun,
+          sql_statement = sql_statement,
+          verbose = verbose,
+          render_sql = render_sql,
+          render_only = render_only
+        )
+
+
+        if (verbose) {
+          secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
+        }
+
+        lowLevelCache(
+          data = resultset,
+          query = sql_statement
+        )
+
+        return(tibble::as_tibble(resultset))
+      }
+
+
+    if (cache_only) {
+
+      if (verbose) {
+        secretary::typewrite(secretary::magentaTxt("Loading Cache..."))
+        secretary::typewrite(secretary::magentaTxt("Cached SQL:"), sql_statement)
+      }
+
+
+      resultset <- lowLevelLoadCache(query = sql_statement)
+      return(tibble::as_tibble(resultset))
+
+    }
+
+    if (verbose) {
+      secretary::typewrite(secretary::magentaTxt("Loading Cache..."))
+      secretary::typewrite(secretary::magentaTxt("Cached SQL:"), sql_statement)
+    }
+
+
+    resultset <- lowLevelLoadCache(query = sql_statement)
+    if (is.null(resultset)) {
+        if (verbose) {
+          secretary::typewrite(secretary::magentaTxt("No cached resultset found... querying Athena..."))
+        }
+
+      Sys.sleep(time = sleepTime)
+      resultset <- pg13::query(
+        conn = conn,
+        conn_fun = conn_fun,
+        sql_statement = sql_statement,
+        verbose = verbose,
+        render_sql = render_sql,
+        render_only = render_only
+      )
+
+
+      if (verbose) {
+        secretary::typewrite(secretary::magentaTxt("Caching resultset..."))
+      }
+
+      lowLevelCache(
+        data = resultset,
+        query = sql_statement
+      )
+
+      return(tibble::as_tibble(resultset))
+    } else {
+      if (verbose) {
+        secretary::typewrite(secretary::magentaTxt("Cached resultset found..."))
+      }
+
+      return(tibble::as_tibble(resultset))
+    }
+  }
 
 
 
@@ -158,9 +154,9 @@ queryAthena <-
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#' if (interactive()) {
+#'   # EXAMPLE1
+#' }
 #' }
 #' @seealso
 #'  \code{\link[pg13]{send}}
@@ -170,37 +166,30 @@ queryAthena <-
 
 
 sendAthena <-
-        function(conn,
-                 conn_fun = "connectAthena()",
-                 sql_statement,
-                 verbose = TRUE,
-                 render_sql = TRUE,
-                 render_only = FALSE) {
+  function(conn,
+           conn_fun = "connectAthena()",
+           sql_statement,
+           verbose = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE) {
 
 
-                # if (missing(conn)) {
-                #
-                #         conn <- eval(expr = rlang::parse_expr(x = conn_fun))
-                #         on.exit(expr = dcAthena(conn = conn,
-                #                                 verbose = verbose),
-                #                 add = TRUE,
-                #                 after = TRUE)
-                #
-                # }
+    # if (missing(conn)) {
+    #
+    #         conn <- eval(expr = rlang::parse_expr(x = conn_fun))
+    #         on.exit(expr = dcAthena(conn = conn,
+    #                                 verbose = verbose),
+    #                 add = TRUE,
+    #                 after = TRUE)
+    #
+    # }
 
-                pg13::send(
-                        conn = conn,
-                        conn_fun = conn_fun,
-                        sql_statement = sql_statement,
-                        verbose = verbose,
-                        render_sql = render_sql,
-                        render_only = render_only
-                )
-
-        }
-
-
-
-
-
-
+    pg13::send(
+      conn = conn,
+      conn_fun = conn_fun,
+      sql_statement = sql_statement,
+      verbose = verbose,
+      render_sql = render_sql,
+      render_only = render_only
+    )
+  }
