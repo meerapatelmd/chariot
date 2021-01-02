@@ -23,7 +23,7 @@ get_strip <-
     if (missing(conn)) {
 
       conn <- eval(rlang::parse_expr(conn_fun))
-      on.exit(expr = dcAthena(),
+      on.exit(expr = dcAthena(conn = conn),
               add = TRUE,
               after = TRUE)
     }
