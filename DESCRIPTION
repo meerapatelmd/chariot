@@ -23,19 +23,23 @@ Imports:
     SqlRender,
     cave,
     centipede,
+    cli,
     collapsibleTree,
     colorspace,
     dplyr,
+    htmlwidgets,
     magrittr,
     pg13,
     purrr,
     rlang,
     rubix,
+    rvest,
     secretary,
     stampede,
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    xml2
 Suggests: 
     knitr,
     rmarkdown
