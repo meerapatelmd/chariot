@@ -12,6 +12,7 @@ concept <- setClass(
     concept_id = "numeric",
     concept_name = "character",
     concept_synonym_names = "character",
+    maps_to_concept_names = "character",
     domain_id = "character",
     vocabulary_id = "character",
     concept_class_id = "character",
@@ -24,6 +25,8 @@ concept <- setClass(
   prototype(
     concept_id = NA_integer_,
     concept_name = NA_character_,
+    concept_synonym_names = NA_character_,
+    maps_to_concept_names = NA_character_,
     domain_id = NA_character_,
     vocabulary_id = NA_character_,
     concept_class_id = NA_character_,

@@ -39,6 +39,8 @@ lookup_cid_upper_limit_ancestors <-
            verbose = FALSE,
            render_sql = FALSE,
            sleepTime = 1) {
+
+    .Deprecated("print_concept_ancestry")
     sql_statement <-
       SqlRender::render(
         "WITH all_ancestors AS (
@@ -120,6 +122,8 @@ lookup_cid_parent <-
            verbose = FALSE,
            render_sql = FALSE,
            sleepTime = 1) {
+
+    .Deprecated("print_concept_ancestry")
     sql_statement <-
       SqlRender::render(
         "
@@ -202,6 +206,8 @@ lookup_cid_top_ancestors <-
            verbose = FALSE,
            render_sql = FALSE,
            sleepTime = 1) {
+
+    .Deprecated("print_concept_ancestry")
     sql_statement <-
       SqlRender::render(
         "WITH all_ancestors AS (

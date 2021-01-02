@@ -55,13 +55,29 @@ get_concept <-
         render_sql = render_sql,
         verbose = verbose,
         sleepTime = sleepTime
-      )
+        )
+
+
+        cli::cli_h1("Lookup 'Maps to' Concept Names")
+        df3 <-
+          lookup_maps_to(
+            concept_id = concept_id,
+            vocab_schema = vocab_schema,
+            conn = conn,
+            cache_only = cache_only,
+            skip_cache = skip_cache,
+            override_cache = override_cache,
+            render_sql = render_sql,
+            verbose = verbose,
+            sleepTime = sleepTime
+          )
 
     new(
       Class = "concept",
       concept_id = df$concept_id,
       concept_name = df$concept_name,
       concept_synonym_names = paste(df2$concept_synonym_name, collapse = "|"),
+      maps_to_concept_names = paste(df3$concept_name, collapse = "|"),
       domain_id = df$domain_id,
       vocabulary_id = df$vocabulary_id,
       concept_class_id = df$concept_class_id,
@@ -167,4 +183,52 @@ lookup_synonyms <-
       verbose = verbose,
       sleepTime = sleepTime
     )
+  }
+
+#' @title
+#' Lookup Maps To
+#' @noRd
+#' @rdname lookup_maps_to
+
+lookup_maps_to <-
+  function(concept_id,
+           vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+
+    sql_statement <-
+      SqlRender::render(
+        "SELECT DISTINCT
+                                        c2.concept_name
+                                FROM @vocab_schema.concept c
+                                INNER JOIN @vocab_schema.concept_relationship cr
+                                ON cr.concept_id_1 = c.concept_id
+                                LEFT JOIN @vocab_schema.concept c2
+                                ON c2.concept_id = cr.concept_id_2
+                                WHERE c.concept_id = @concept_id
+                                        AND cr.invalid_reason IS NULL
+                                        AND cr.relationship_id = 'Maps to'
+                        ;
+                        ",
+        vocab_schema = vocab_schema,
+        concept_id = concept_id
+      )
+
+      queryAthena(
+        sql_statement = sql_statement,
+        conn = conn,
+        conn_fun = conn_fun,
+        cache_only = cache_only,
+        skip_cache = skip_cache,
+        override_cache = override_cache,
+        render_sql = render_sql,
+        verbose = verbose,
+        sleepTime = sleepTime
+      )
   }
