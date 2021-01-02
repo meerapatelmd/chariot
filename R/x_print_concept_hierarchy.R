@@ -1,5 +1,5 @@
 #' @title
-#' Print a Concepts Hierarchy to the Console
+#' Print a Concept's Hierarchy to the Console
 #' @description
 #' If a level of the hierarchy has more than 10 concepts, the first 10 are
 #' printed with an ellipses is included to indicate only the first 10 rows are
@@ -59,8 +59,7 @@ print_concept_hierarchy <-
                                             skip_cache = skip_cache,
                                             override_cache = override_cache,
                                             render_sql = render_sql,
-                                            verbose = verbose,
-                                            sleepTime = sleepTime)
+                                            verbose = verbose)
 
                 target_concept <- secretary::enbold(sprintf("*%s", target_concept))
 
@@ -178,7 +177,7 @@ print_concept_hierarchy <-
                         }
                 }
 
-
-
-
         }
+
+
+

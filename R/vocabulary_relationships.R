@@ -40,6 +40,14 @@ vocab_lookup_relationships <-
            verbose = FALSE,
            sleepTime = 1) {
 
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
+
     queryAthena(
       sql_statement =
         SqlRender::render(
@@ -62,11 +70,9 @@ vocab_lookup_relationships <-
         vocab_schema = vocab_schema
         ),
       conn = conn,
-      conn_fun = conn_fun,
       cache_only = cache_only,
       skip_cache = skip_cache,
       override_cache = override_cache,
-      cache_resultset = cache_resultset,
       render_sql = render_sql,
       verbose = verbose,
       render_only = render_only,
