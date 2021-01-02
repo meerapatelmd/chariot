@@ -85,8 +85,8 @@ dc(conn = conn)
  \code{\link[dplyr]{select_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{mutate-joins}}
 
 Other query functions: 
-\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
+\code{\link{queryAthena}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

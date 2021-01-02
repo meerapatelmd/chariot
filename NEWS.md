@@ -1,3 +1,10 @@
+# chariot 1.0.0 (2021-01-02)  
+* remove all deprecated functions, including `pivot`, `plot`, `render`, 
+`set_parameters`  
+* remove `single_concept_ancestry` functions in favor of 
+`print_concept_ancestry()` 
+
+
 # chariot 0.3.0 (2020-12-28)  
 * add `maps_to_concept_names` slot to `concept` S4 class object for 
 `get_name_cluster` function 
