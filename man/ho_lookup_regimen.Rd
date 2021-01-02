@@ -26,3 +26,8 @@ ho_lookup_regimen(
 \description{
 Look up a HemOnc Regimen that Corresponds to the set of HemOnc Components provided by Id. This function takes a set list of HemOnc Components and finds all the HemOnc Regimens that contain these Components in the CONCEPT_RELATIONSHIP table. The resultset is then filtered for the HemOnc Regimens that have the same exact number of Components as the length of the `component_concept_ids` parameter.
 }
+\seealso{
+\code{\link[SqlRender]{render}}
+ \code{\link[dplyr]{select}},\code{\link[dplyr]{mutate-joins}}
+ \code{\link[purrr]{reduce}}
+}

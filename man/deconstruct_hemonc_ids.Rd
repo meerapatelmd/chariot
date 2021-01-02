@@ -12,3 +12,6 @@ deconstruct_hemonc_ids(hemonc_concept_ids, schema = NULL)
 \description{
 This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
 }
+\seealso{
+\code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
+}

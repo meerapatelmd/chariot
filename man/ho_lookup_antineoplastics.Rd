@@ -20,3 +20,7 @@ ho_lookup_antineoplastics(
 \description{
 Query a HemOnc Regimen's 'Has antineoplastic' Relationship
 }
+\seealso{
+\code{\link[cli]{cli_rule}},\code{\link[cli]{cat_line}}
+ \code{\link[SqlRender]{render}}
+}

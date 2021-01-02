@@ -28,3 +28,11 @@ a tibble with all blanks, "NA", and <NA> normalized to NA, with unmerged columns
 \description{
 This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `<NA>`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `<NA>` with a non-`<NA>` value in the strip_col instance inputed. Errors will be thrown if the data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.
 }
+\seealso{
+\code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{select}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{all_vars}}
+ \code{\link[tidyr]{extract}}
+ \code{\link[tibble]{as_tibble}}
+ \code{\link[rubix]{normalize_all_to_na}}
+ \code{\link[stringr]{str_remove}},\code{\link[stringr]{str_replace}}
+ \code{\link[base]{trimws}}
+}

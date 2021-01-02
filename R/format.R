@@ -367,11 +367,17 @@ merge_label <-
 #' @param ... columns other than concept_id that will be removed in tidyr unite but should be preserved in addition to be merged.
 #' @param suffix if the omop concept element column names are different from the standard by a suffix, include it so it can point to the correct set of columns
 #' @param prefix if the omop concept element column names are prefixed, include it so it can point to the correct set of columns
-#' @import dplyr
-#' @import tidyr
-#' @importFrom tibble as_tibble
-#' @export
+#' @seealso
+#'  \code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{select}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{all_vars}},\code{\link[dplyr]{bind}}
+#'  \code{\link[tidyr]{unite}}
+#'  \code{\link[tibble]{as_tibble}}
+#'  \code{\link[rubix]{normalize_all_to_na}}
 #' @rdname merge_strip
+#' @export
+#' @importFrom dplyr enquo enquos mutate_at vars all_of select filter_at all_vars bind_cols
+#' @importFrom tidyr unite
+#' @importFrom tibble as_tibble
+#' @importFrom rubix normalize_all_to_na
 
 merge_strip <-
   function(data,
@@ -588,13 +594,21 @@ strip_to_label <-
 #' @param strip_col column that contains the merged concept strip
 #' @param remove remove argument passed to the tidyr extract function. If TRUE, removes strip_col in output.
 #' @param r_trimws Due to some of the carriage returns in aggregate transformations and other edits in Excel, r_trimws is an argument that if TRUE, trims right whitespace of the freshly unmerged columns for any trailing carriage returns.
+#' @seealso
+#'  \code{\link[dplyr]{tidyeval-compat}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{select}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{all_vars}}
+#'  \code{\link[tidyr]{extract}}
+#'  \code{\link[tibble]{as_tibble}}
+#'  \code{\link[rubix]{normalize_all_to_na}}
+#'  \code{\link[stringr]{str_remove}},\code{\link[stringr]{str_replace}}
+#'  \code{\link[base]{trimws}}
+#' @rdname unmerge_strip
+#' @export
+#' @importFrom dplyr enquo mutate_at vars all_of select everything filter_at all_vars
 #' @importFrom tidyr extract
-#' @import dplyr
-#' @importFrom stringr str_remove_all
 #' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
-#' @export
-#' @rdname unmerge_strip
+#' @importFrom stringr str_remove_all str_replace_all
+#' @importFrom base trimws
 
 unmerge_strip <-
   function(data,
