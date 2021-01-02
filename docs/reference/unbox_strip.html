@@ -150,10 +150,10 @@
 <span class='fu'><a href='get_strip.html'>get_strip</a></span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>1112807</span>,
          vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-02 14:16:47]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 14:16:47]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1112807)
-#&gt; [2021-01-02 14:16:47]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-02 14:16:48]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; [1] "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</div><div class='input'>
+#&gt; [2021-01-02 14:26:28]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:26:28]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1112807)
+#&gt; [2021-01-02 14:26:28]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-02 14:26:28]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; [1] "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</div><div class='input'>
 <span class='va'>test_strip</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>concept <span class='op'>=</span> <span class='st'>"[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</span><span class='op'>)</span>
 <span class='fu'><a href='unmerge_strip.html'>unmerge_strip</a></span><span class='op'>(</span><span class='va'>test_strip</span>,
               strip_col <span class='op'>=</span> <span class='va'>concept</span><span class='op'>)</span>

@@ -26,14 +26,8 @@ reference:
     desc: >
       Join a dataframe to a OMOP Vocabulary table
     contents:
-      - join_for_ancestor_ids
-      - join_for_ancestors
-      - join_for_concept_synonym_name
-      - join_for_descendant_ids
-      - join_on_concept_code
-      - join_on_concept_id
-      - join_on_concept_name
-      - join_on_concept_synonym_name
+      - starts_with('join_for_')
+      - starts_with('join_on_')
   - title: Concept Hierarchy
     desc:  >
        Visualize a concept hierarachy
@@ -61,4 +55,15 @@ reference:
       - search_like_phrase
       - search_split_phrase
       - search_starts_with_phrase
+  - title: List Metadata
+    contents:
+      - starts_with('list_')
+      - starts_with('get_')
+  - title: Lookup Vocabulary
+    contents:
+      - starts_with('lookup_')
+  - title: HemOnc Queries
+    contents:
+      - starts_with('ho_')
+
 
