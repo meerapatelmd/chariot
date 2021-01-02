@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -155,31 +155,42 @@
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
+      <td><p>Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.</p></td>
     </tr>
     <tr>
       <th>cache_only</th>
-      <td><p>Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.</p></td>
+      <td><p>Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.</p></td>
     </tr>
     <tr>
       <th>skip_cache</th>
-      <td><p>Skip the caching altogether and directly query the database.</p></td>
+      <td><p>Skip the caching altogether and directly
+query the database.</p></td>
     </tr>
     <tr>
       <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.</p></td>
+      <td><p>If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+      <td><p>If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>render_sql</th>
-      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+      <td><p>If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>sleepTime</th>
-      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+      <td><p>Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.</p></td>
     </tr>
     </table>
 
@@ -191,11 +202,11 @@
     <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
  <span class='fu'>search_code</span><span class='op'>(</span>code_pattern <span class='op'>=</span> <span class='st'>"^C40"</span><span class='op'>)</span>
  <span class='op'>}</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:09]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:09]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
+</div><div class='output co'>#&gt; [2021-01-02 14:16:32]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:32]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT *
 #&gt; FROM omop_vocabulary.concept
 #&gt; WHERE LOWER(concept_code) LIKE '%%c40%'
-#&gt; [2021-01-02 11:01:09]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 177 x 10</span><span>
+#&gt; [2021-01-02 14:16:32]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 177 x 10</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>705</span><span>913 prucalopride Drug      MeSH          Suppl Concept   

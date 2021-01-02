@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Query the Athena Postgres Database — executeAthena • chariot</title>
+<title>Query the Athena Postgres Database — queryAthena • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="Query the Athena Postgres Database — executeAthena" />
-<meta property="og:description" content="By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
-By default, this function queries a local database named &quot;Athena&quot;. If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena." />
+<meta property="og:title" content="Query the Athena Postgres Database — queryAthena" />
+<meta property="og:description" content="By default, this function queries a local database named &quot;Athena&quot;. If a
+connection object is passed into the function, the database of the connection
+object is queried instead. A caching feature is included." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -81,7 +82,7 @@ By default, this function queries a local database named &quot;Athena&quot;. If 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -121,29 +122,17 @@ By default, this function queries a local database named &quot;Athena&quot;. If 
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Query the Athena Postgres Database</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a>, <a href='https://github.com/meerapatelmd/chariot/blob/master/R/x_sql.R'><code>R/x_sql.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/x_sql.R'><code>R/x_sql.R</code></a></small>
     <div class="hidden name"><code>queryAthena.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.</p>
-<p>By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.</p>
+    <p>By default, this function queries a local database named "Athena". If a
+connection object is passed into the function, the database of the connection
+object is queried instead. A caching feature is included.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>executeAthena</span><span class='op'>(</span>
-  <span class='va'>sql_statement</span>,
-  <span class='va'>conn</span>,
-  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
-  cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span>
-
-<span class='fu'>queryAthena</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>queryAthena</span><span class='op'>(</span>
   <span class='va'>sql_statement</span>,
   <span class='va'>conn</span>,
   conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
@@ -166,54 +155,66 @@ By default, this function queries a local database named &quot;Athena&quot;. If 
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
-    </tr>
-    <tr>
-      <th>cache_only</th>
-      <td><p>Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.</p></td>
+      <td><p>Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.</p></td>
     </tr>
     <tr>
       <th>skip_cache</th>
-      <td><p>Skip the caching altogether and directly query the database.</p></td>
+      <td><p>Skip the caching altogether and directly
+query the database.</p></td>
     </tr>
     <tr>
       <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.</p></td>
+      <td><p>If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>cache_only</th>
+      <td><p>Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.</p></td>
     </tr>
     <tr>
       <th>cache_resultset</th>
-      <td><p>(deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.</p></td>
+      <td><p>(deprecated) If TRUE, the resultset from the
+query will first be loaded from the cache. The query will be executed if a
+cached resultset is not retrieved for this particular query, after which the
+resultset will be cached. If FALSE, Athena or conn will be directly queried
+without any caching operations.</p></td>
     </tr>
     <tr>
       <th>render_sql</th>
-      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+      <td><p>If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+      <td><p>If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>sleepTime</th>
-      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+      <td><p>Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble</p>
-<p>a [tibble][tibble::tibble-package]</p>
+    <p>a [tibble][tibble::tibble-package]</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite_bold.html'>typewrite_bold</a></code>,<code><a href='https://meerapatelmd.github.io/secretary/reference/typewrite.html'>typewrite</a></code>
- <code><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></code>,<code><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></code>
- <code><a href='https://meerapatelmd.github.io/pg13/reference/query.html'>query</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/loadCachedQuery.html'>loadCachedQuery</a></code>
- <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p>
-<p><code><a href='https://rlang.r-lib.org/reference/parse_expr.html'>parse_expr</a></code>
- <code><a href='https://meerapatelmd.github.io/pg13/reference/is_conn_open.html'>is_conn_open</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/query.html'>query</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/loadCachedQuery.html'>loadCachedQuery</a></code>
- <code><a href='https://rdrr.io/r/base/c.html'>c("typewrite", "typewrite")</a></code>,<code><a href='https://rdrr.io/r/base/character.html'>character(0)</a></code>
+    <div class='dont-index'><p><code><a href='https://rlang.r-lib.org/reference/parse_expr.html'>parse_expr</a></code>
+ <code><a href='https://meerapatelmd.github.io/pg13/reference/is_conn_open.html'>is_conn_open</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/query.html'>query</a></code>,
+ <code><a href='https://meerapatelmd.github.io/pg13/reference/cacheQuery.html'>cacheQuery</a></code>,<code><a href='https://meerapatelmd.github.io/pg13/reference/loadCachedQuery.html'>loadCachedQuery</a></code>
+ <code><a href='https://rdrr.io/r/base/c.html'>c("typewrite", "typewrite")</a></code>,
  <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code></p>
 <p>Other query functions: 
 <code><a href='queryAncestors.html'>queryAncestors</a>()</code>,
+<code><a href='queryCDM.html'>queryCDM</a>()</code>,
 <code><a href='queryCode.html'>queryCode</a>()</code>,
 <code><a href='queryConceptClassRelationships.html'>queryConceptClassRelationships</a>()</code>,
 <code><a href='queryConceptId.html'>queryConceptId</a>()</code>,

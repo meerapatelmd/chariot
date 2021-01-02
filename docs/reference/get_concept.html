@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -153,56 +153,13 @@ If it is not found, nothing is returned.</p>
 
 <span class='fu'><a href='lookup_atc_class_ingredients.html'>lookup_atc_class_ingredients</a></span><span class='op'>(</span>atc_concept_obj <span class='op'>=</span> <span class='fl'>21601787</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Retrieve Concept Object</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Is Concept Id Valid Integer?</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id is a valid integer</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Concept Id in Concept Table</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-02 10:56:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Open connection</span></div><div class='output co'>#&gt; [2021-01-02 10:56:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> JDBC connection</span></div><div class='output co'>#&gt; [2021-01-02 10:56:27] 	</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Returned data has more than 0 rows</span></div><div class='output co'>#&gt; [2021-01-02 10:56:27]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `21601787` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>QA Concept Object</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept belongs to ATC Vocabulary</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept is an OMOP vocabulary class</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Render &amp; Query</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 10</span><span>
-#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id
-#&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span>    1</span><span style='text-decoration: underline;'>308</span><span>216 lisinopril   Drug      RxNorm        Ingredient      
-#&gt; </span><span style='color: #555555;'># … with 5 more variables: standard_concept </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_code </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   valid_start_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, valid_end_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+#&gt; [2021-01-02 14:11:57]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `21601787` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup 'Maps to' Concept Names</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='error'>Error in check_conn_status(conn = conn): argument "conn" is missing, with no default</span></div><div class='input'>
 <span class='va'>lisinopril_class</span> <span class='op'>&lt;-</span> <span class='fu'>get_concept</span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>21601787</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Is Concept Id Valid Integer?</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id is a valid integer</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Concept Id in Concept Table</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-02 10:56:27]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `21601787` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='input'><span class='va'>lisinopril_class</span>
-</div><div class='output co'>#&gt; An object of class "concept"
-#&gt; Slot "concept_id":
-#&gt; [1] 21601787
-#&gt; 
-#&gt; Slot "concept_name":
-#&gt; [1] "lisinopril; oral"
-#&gt; 
-#&gt; Slot "concept_synonym_names":
-#&gt; [1] "lisinopril"
-#&gt; 
-#&gt; Slot "domain_id":
-#&gt; [1] "Drug"
-#&gt; 
-#&gt; Slot "vocabulary_id":
-#&gt; [1] "ATC"
-#&gt; 
-#&gt; Slot "concept_class_id":
-#&gt; [1] "ATC 5th"
-#&gt; 
-#&gt; Slot "standard_concept":
-#&gt; [1] "C"
-#&gt; 
-#&gt; Slot "concept_code":
-#&gt; [1] "C09AA03"
-#&gt; 
-#&gt; Slot "valid_start_date":
-#&gt; [1] "1970-01-01"
-#&gt; 
-#&gt; Slot "valid_end_date":
-#&gt; [1] "2099-12-31"
-#&gt; 
-#&gt; Slot "invalid_reason":
-#&gt; [1] NA
-#&gt; </div><div class='input'>
+#&gt; [2021-01-02 14:11:58]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `21601787` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup 'Maps to' Concept Names</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='error'>Error in lookup_maps_to(concept_id = concept_id, vocab_schema = vocab_schema,     conn = conn, cache_only = cache_only, skip_cache = skip_cache,     override_cache = override_cache, render_sql = render_sql,     verbose = verbose, sleepTime = sleepTime): argument "conn" is missing, with no default</span></div><div class='input'><span class='va'>lisinopril_class</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'lisinopril_class' not found</span></div><div class='input'>
 <span class='fu'><a href='lookup_atc_class_ingredients.html'>lookup_atc_class_ingredients</a></span><span class='op'>(</span>atc_concept_obj <span class='op'>=</span> <span class='va'>lisinopril_class</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>QA Concept Object</span><span> </span><span style='color: #00BBBB;'>───────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept belongs to ATC Vocabulary</span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept is an OMOP vocabulary class</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Render &amp; Query</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 10</span><span>
-#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id
-#&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #555555;'>1</span><span>    1</span><span style='text-decoration: underline;'>308</span><span>216 lisinopril   Drug      RxNorm        Ingredient      
-#&gt; </span><span style='color: #555555;'># … with 5 more variables: standard_concept </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_code </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
-#&gt; </span><span style='color: #555555;'>#   valid_start_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, valid_end_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in class(atc_concept_obj) %in% "concept": object 'lisinopril_class' not found</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

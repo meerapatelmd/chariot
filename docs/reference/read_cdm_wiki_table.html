@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LEFT JOIN the Concept Parent Table — leftJoinFoChildren • chariot</title>
+<title>Read GitHub Wiki — read_cdm_wiki_table • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="LEFT JOIN the Concept Parent Table — leftJoinFoChildren" />
-<meta property="og:description" content="LEFT JOIN the Concept Parent Table" />
+<meta property="og:title" content="Read GitHub Wiki — read_cdm_wiki_table" />
+<meta property="og:description" content="Read the tables from OHDI's GitHub Wiki at
+https://ohdsi.github.io/CommonDataModel/cdm60.html to annotate
+resultsets." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -119,24 +121,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>LEFT JOIN the Concept Parent Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>leftJoinFoChildren.Rd</code></div>
+    <h1>Read GitHub Wiki</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/metadata.R'><code>R/metadata.R</code></a></small>
+    <div class="hidden name"><code>read_cdm_wiki_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>LEFT JOIN the Concept Parent Table</p>
+    <p>Read the tables from OHDI's GitHub Wiki at
+<a href='https://ohdsi.github.io/CommonDataModel/cdm60.html'>https://ohdsi.github.io/CommonDataModel/cdm60.html</a> to annotate
+resultsets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinFoChildren</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  <span class='va'>vocab_schema</span>,
-  parent_id_column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  conn <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_cdm_wiki_table</span><span class='op'>(</span>expiration_days <span class='op'>=</span> <span class='fl'>180</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>expiration_days</th>
+      <td><p>If the cached file was created longer than this time
+period in days, the GitHub wiki is re-read and cached. Default: 180</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/R.cache/man/findCache.html'>findCache</a></code>
+ <code><a href='http://xml2.r-lib.org/reference/read_xml.html'>read_xml</a></code>
+ <code><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></code>,<code><a href='https://rvest.tidyverse.org/reference/html_table.html'>html_table</a></code>,<code><a href='https://rvest.tidyverse.org/reference/html_text.html'>html_text</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -146,35 +146,50 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>conn</th>
-      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
+      <td><p>Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.</p></td>
     </tr>
     <tr>
       <th>cache_only</th>
-      <td><p>Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.</p></td>
+      <td><p>Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.</p></td>
     </tr>
     <tr>
       <th>skip_cache</th>
-      <td><p>Skip the caching altogether and directly query the database.</p></td>
+      <td><p>Skip the caching altogether and directly
+query the database.</p></td>
     </tr>
     <tr>
       <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.</p></td>
+      <td><p>If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.</p></td>
     </tr>
     <tr>
       <th>cache_resultset</th>
-      <td><p>(deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.</p></td>
+      <td><p>(deprecated) If TRUE, the resultset from the
+query will first be loaded from the cache. The query will be executed if a
+cached resultset is not retrieved for this particular query, after which the
+resultset will be cached. If FALSE, Athena or conn will be directly queried
+without any caching operations.</p></td>
     </tr>
     <tr>
       <th>render_sql</th>
-      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+      <td><p>If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+      <td><p>If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>sleepTime</th>
-      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+      <td><p>Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.</p></td>
     </tr>
     <tr>
       <th>schema</th>

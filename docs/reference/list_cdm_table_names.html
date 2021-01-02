@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Join a data frame with the Concept Synonym Table — leftJoinSynonymId • chariot</title>
+<title>List the Common Data Model Tables — list_cdm_table_names • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Join a data frame with the Concept Synonym Table — leftJoinSynonymId" />
-<meta property="og:description" content="This function has better performance than the WHERE IN statement for larger searches. A table in the format of &quot;vunpunctuated timestamp&quot; is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default." />
+<meta property="og:title" content="List the Common Data Model Tables — list_cdm_table_names" />
+<meta property="og:description" content="List the names of the Common Data Model tables without the Vocabulary tables." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -119,68 +119,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Join a data frame with the Concept Synonym Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>leftJoinSynonymId.Rd</code></div>
+    <h1>List the Common Data Model Tables</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/metadata.R'><code>R/metadata.R</code></a></small>
+    <div class="hidden name"><code>list_cdm_table_names.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function has better performance than the WHERE IN statement for larger searches. A table in the format of "vunpunctuated timestamp" is written to the local Athena. A join is performed with a concept table. The table is subsequently dropped. If a dataframe column is not provided as a the column to join the concept table on, the 1st column will be used by default.</p>
+    <p>List the names of the Common Data Model tables without the Vocabulary tables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinSynonymId</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>vocab_schema</span>,
-  verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>list_cdm_table_names</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>A data frame</p></td>
-    </tr>
-    <tr>
-      <th>column</th>
-      <td><p>Data frame column that the join will be performed on. If NULL, defaults to the column in position 1 of the data frame.</p></td>
-    </tr>
-    <tr>
-      <th>vocab_schema</th>
-      <td><p>Schema of the OMOP Vocabulary Tables</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>If TRUE, prints whether the cache is being loaded or being actively queried in the Postgres database, Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>PARAM_DESCRIPTION, Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>render_sql</th>
-      <td><p>If TRUE, will print the SQL to the console before executing. Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>sleepTime</th>
-      <td><p>Argument in seconds passed to the `Sys.sleep()` function at the end of query, Default: 1</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Additional arguments passed to the `queryAthena()` function.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A data frame</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

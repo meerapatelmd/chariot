@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -161,35 +161,50 @@
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.</p></td>
+      <td><p>Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.</p></td>
     </tr>
     <tr>
       <th>cache_only</th>
-      <td><p>Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.</p></td>
+      <td><p>Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.</p></td>
     </tr>
     <tr>
       <th>skip_cache</th>
-      <td><p>Skip the caching altogether and directly query the database.</p></td>
+      <td><p>Skip the caching altogether and directly
+query the database.</p></td>
     </tr>
     <tr>
       <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.</p></td>
+      <td><p>If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.</p></td>
     </tr>
     <tr>
       <th>cache_resultset</th>
-      <td><p>(deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.</p></td>
+      <td><p>(deprecated) If TRUE, the resultset from the
+query will first be loaded from the cache. The query will be executed if a
+cached resultset is not retrieved for this particular query, after which the
+resultset will be cached. If FALSE, Athena or conn will be directly queried
+without any caching operations.</p></td>
     </tr>
     <tr>
       <th>render_sql</th>
-      <td><p>If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE</p></td>
+      <td><p>If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>If TRUE, prints loading and querying operations messages to the console. Default: FALSE</p></td>
+      <td><p>If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE</p></td>
     </tr>
     <tr>
       <th>sleepTime</th>
-      <td><p>Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.</p></td>
+      <td><p>Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.</p></td>
     </tr>
     </table>
 
@@ -205,8 +220,8 @@
 <span class='co'># "Myocardial Infarction" insensitive to case.</span>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -223,7 +238,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>034</span><span>841 Myocardial … Observat… LOINC         LOINC Component 
@@ -243,8 +258,8 @@
 <span class='co'># Repeat with case sensitivity</span>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -261,7 +276,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 11</span><span>
 #&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span>    4</span><span style='text-decoration: underline;'>347</span><span>016 Myocardial … Drug      NDFRT         Ind / CI        
@@ -274,8 +289,8 @@
 
 <span class='co'># Search concepts that contain the phrase "Myocardial Infarction"</span>
 <span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -292,7 +307,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 877 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 877 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding
@@ -309,8 +324,8 @@
 #&gt; </span><span style='color: #555555;'>#   concept_code </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, valid_start_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, valid_end_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_synonyms </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                    case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -327,7 +342,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 61 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 61 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial … Observat… LOINC         LOINC Component 
@@ -345,8 +360,8 @@
 #&gt; </span><span style='color: #555555;'>#   invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_synonyms </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Search concepts that start with or end with the phrase "Myocardial Infarction"</span>
 <span class='fu'>search_starts_with_phrase</span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -363,7 +378,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 49 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 49 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial … Observat… LOINC         LOINC Component 
@@ -379,8 +394,8 @@
 #&gt; </span><span style='color: #555555;'># … with 39 more rows, and 6 more variables: standard_concept </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   concept_code </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, valid_start_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, valid_end_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_synonyms </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='search_ends_with_phrase.html'>search_ends_with_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -397,7 +412,7 @@
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 328 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 328 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding
@@ -417,8 +432,8 @@
 <span class='co'># 'LIKE' clause</span>
 <span class='fu'><a href='search_split_phrase.html'>search_split_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                     split <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                                                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                                                         INNER JOIN omop_vocabulary.concept c
@@ -436,7 +451,7 @@
 #&gt;                                                                 c.valid_start_date,
 #&gt;                                                                 c.valid_end_date,
 #&gt;                                                                 c.invalid_reason;
-#&gt; [2021-01-02 11:01:20]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 880 x 11</span><span>
+#&gt; [2021-01-02 14:16:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 880 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding

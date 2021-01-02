@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Left Join a data frame to the Concept Ancestor Table — leftJoinForDescendants • chariot</title>
+<title>Get the CDM Data Dictionary — get_cdm_data_dictionary • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Left Join a data frame to the Concept Ancestor Table — leftJoinForDescendants" />
-<meta property="og:description" content="FUNCTION_DESCRIPTION" />
+<meta property="og:title" content="Get the CDM Data Dictionary — get_cdm_data_dictionary" />
+<meta property="og:description" content="Get the CDM Data Dictionary" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -119,65 +119,22 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Left Join a data frame to the Concept Ancestor Table</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
-    <div class="hidden name"><code>leftJoinForDescendants.Rd</code></div>
+    <h1>Get the CDM Data Dictionary</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/metadata.R'><code>R/metadata.R</code></a></small>
+    <div class="hidden name"><code>get_cdm_data_dictionary.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>FUNCTION_DESCRIPTION</p>
+    <p>Get the CDM Data Dictionary</p>
     </div>
 
-    <pre class="usage"><span class='fu'>leftJoinForDescendants</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  write_schema <span class='op'>=</span> <span class='st'>"patelm9"</span>,
-  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
-  ancestor_id_column <span class='op'>=</span> <span class='cn'>NULL</span>,
-  whereLevelIn <span class='op'>=</span> <span class='cn'>NULL</span>,
-  whereLevelType <span class='op'>=</span> <span class='cn'>NULL</span>,
-  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>conn</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  sleepTime <span class='op'>=</span> <span class='fl'>1</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_cdm_data_dictionary</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>PARAM_DESCRIPTION</p></td>
-    </tr>
-    <tr>
-      <th>vocab_schema</th>
-      <td><p>Default: 'public'</p></td>
-    </tr>
-    <tr>
-      <th>ancestor_id_column</th>
-      <td><p>Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>whereLevelIn</th>
-      <td><p>Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>whereLevelType</th>
-      <td><p>Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>Default: NULL</p></td>
-    </tr>
-    <tr>
-      <th>render_sql</th>
-      <td><p>Default: TRUE</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>mutate-joins</a></code>
- <code><a href='https://meerapatelmd.github.io/rubix/reference/rename_all_with_prefix.html'>rename_all_with_prefix</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind</a></code>
+ <code><a href='https://meerapatelmd.github.io/rubix/reference/format_colnames.html'>format_colnames</a></code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
