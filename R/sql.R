@@ -198,21 +198,24 @@ join <-
               after = TRUE)
     }
 
-
-    staging_table <- pg13::write_staging_table(
-                        conn = conn,
-                        schema = write_schema,
-                        data = data,
-                        drop_existing = TRUE,
-                        drop_on_exit = FALSE,
-                        verbose = verbose,
-                        render_sql = render_sql)
+    table_name <- sprintf(
+                      "V%s",
+                      stringr::str_remove_all(as.character(Sys.time()),
+                                                         pattern = "[^0-9]"))
+    pg13::write_table(conn = conn,
+                      schema = write_schema,
+                      table_name = table_name,
+                      data = data,
+                      drop_existing = TRUE,
+                      verbose = verbose,
+                      render_sql = render_sql,
+                      render_only = render_only)
 
 
 
     sql_statement <-
       pg13::draft_join1(schema = write_schema,
-                        table = staging_table,
+                        table = table_name,
                   column = column,
                   select_table_fields = select_data_columns,
                   select_join_on_fields = select_vocab_fields,
@@ -243,7 +246,7 @@ join <-
 
     pg13::drop_table(conn = conn,
                      schema = write_schema,
-                     table = staging_table,
+                     table = table_name,
                      if_exists = TRUE)
 
     resultset

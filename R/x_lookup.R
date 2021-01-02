@@ -93,10 +93,7 @@ lookup_concept_id <-
            verbose = TRUE,
            sleepTime = 1) {
     sql_statement <-
-      SqlRender::render("SELECT *
-                                                        FROM @vocab_schema.concept c
-                                                        WHERE c.concept_id IN (@concept_id)
-                                                      ",
+      SqlRender::render("SELECT * FROM @vocab_schema.concept c WHERE c.concept_id IN (@concept_id)",
         vocab_schema = vocab_schema,
         concept_id = concept_id
       )
