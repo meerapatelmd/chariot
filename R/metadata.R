@@ -1,5 +1,20 @@
-#' @noRd
-
+#' @title
+#' Read GitHub Wiki
+#' @description
+#' Read the tables from OHDI's GitHub Wiki at
+#' \url{https://ohdsi.github.io/CommonDataModel/cdm60.html} to annotate
+#' resultsets.
+#' @param expiration_days If the cached file was created longer than this time
+#' period in days, the GitHub wiki is re-read and cached. Default: 180
+#' @seealso
+#'  \code{\link[R.cache]{findCache}}
+#'  \code{\link[xml2]{read_xml}}
+#'  \code{\link[rvest]{html_nodes}},\code{\link[rvest]{html_table}},\code{\link[rvest]{html_text}}
+#' @rdname read_cdm_wiki_table
+#' @export
+#' @importFrom R.cache findCache
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_nodes html_table html_text
 read_cdm_wiki_table <-
   function(expiration_days = 180) {
 
@@ -56,18 +71,37 @@ read_cdm_wiki_table <-
 
 
 
+#' @title
+#' List the Common Data Model Tables
+#' @description
+#' List the names of the Common Data Model tables without the Vocabulary tables.
+#' @rdname list_cdm_table_names
+#' @export
 list_cdm_table_names <-
   function() {
     c("PERSON", "OBSERVATION_PERIOD", "VISIT_OCCURRENCE", "VISIT_DETAIL", "CONDITION_OCCURRENCE", "DRUG_EXPOSURE", "PROCEDURE_OCCURRENCE", "DEVICE_EXPOSURE", "MEASUREMENT", "OBSERVATION", "NOTE", "NOTE_NLP", "SPECIMEN", "FACT_RELATIONSHIP", "SURVEY_CONDUCT", "LOCATION", "LOCATION_HISTORY", "CARE_SITE", "PROVIDER", "PAYER_PLAN_PERIOD", "COST", "DRUG_ERA", "DOSE_ERA", "CONDITION_ERA", "METADATA", "CDM_SOURCE")
   }
 
 
+#' @title
+#' List the Vocabulary Tables
+#' @rdname list_vocab_table_names
+#' @export
 list_vocab_table_names <-
   function() {
     c("CONCEPT", "VOCABULARY", "DOMAIN", "CONCEPT_CLASS", "CONCEPT_RELATIONSHIP", "RELATIONSHIP", "CONCEPT_SYNONYM", "CONCEPT_ANCESTOR", "SOURCE_TO_CONCEPT_MAP", "DRUG_STRENGTH")
   }
 
 
+#' @title
+#' Get the CDM Data Dictionary
+#' @seealso
+#'  \code{\link[dplyr]{bind}}
+#'  \code{\link[rubix]{format_colnames}}
+#' @rdname get_cdm_data_dictionary
+#' @export
+#' @importFrom dplyr bind_rows
+#' @importFrom rubix format_colnames
 get_cdm_data_dictionary <-
   function() {
       omop_cdm_wiki <- read_cdm_wiki_table()
@@ -77,6 +111,17 @@ get_cdm_data_dictionary <-
         rubix::format_colnames()
   }
 
+#' @title
+#' Get the Concept Id Field Names for Each Table
+#' @seealso
+#'  \code{\link[rubix]{filter_at_grepl}},\code{\link[rubix]{split_deselect}}
+#'  \code{\link[dplyr]{select}}
+#'  \code{\link[purrr]{map}}
+#' @rdname get_concept_id_fields
+#' @export
+#' @importFrom rubix filter_at_grepl split_deselect
+#' @importFrom dplyr select
+#' @importFrom purrr map
 get_concept_id_fields <-
   function() {
     cdm_metadata <- get_cdm_data_dictionary()
@@ -89,6 +134,15 @@ get_concept_id_fields <-
       purrr::map(unname)
   }
 
+#' @title
+#' Get the Vocabulary Data Dictionary
+#' @seealso
+#'  \code{\link[dplyr]{bind}}
+#'  \code{\link[rubix]{format_colnames}}
+#' @rdname get_vocab_data_dictionary
+#' @export
+#' @importFrom dplyr bind_rows
+#' @importFrom rubix format_colnames
 get_vocab_data_dictionary <-
   function() {
     omop_cdm_wiki <- read_cdm_wiki_table()
