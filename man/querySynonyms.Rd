@@ -48,8 +48,8 @@ FUNCTION_DESCRIPTION
 \code{\link[dplyr]{select}}
 
 Other query functions: 
+\code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
-\code{\link{queryAthena}()},
 \code{\link{queryCDM}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},

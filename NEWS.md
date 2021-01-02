@@ -1,3 +1,13 @@
+# chariot 0.3.0 (2020-12-28)  
+* add `maps_to_concept_names` slot to `concept` S4 class object for 
+`get_name_cluster` function 
+* add `join_on_` and `join_for_*` functions  
+* add `queryCDM` function to query a CDM table with automatic iterative joins 
+with the Concept Table
+* deprecate collapsibleTree plotting functions in favor of 
+[amphora R package](https://meerapatelmd.github.io/amphora)    
+
+
 # chariot 0.2.0 (2020-11-28)
 * optimize hemonc functions
 * streamline collapsibleTree plotting functions  
