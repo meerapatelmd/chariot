@@ -13,18 +13,25 @@ Filter At Any Strip
 library(tidyverse)
 library(chariot)
 
+conn <- connectAthena()
 test_data <-
         queryAthena("SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;",
-                    cache_only = TRUE)
+                    conn = conn)
 
+# Merge
 merge_strip(data = test_data,
             into = "concept")
 
+# Merge while sparing some original columns such as vocabulary_id and
+# concept_class_id
 merge_strip(data = test_data,
             into = "concept",
             vocabulary_id,
             concept_class_id)
 
+
+
+# Test filtering of strip columns
 test_output <- merge_strip(data = test_data,
                         into = "concept") \%>\%
                 dplyr::select(-concept_id)
@@ -32,31 +39,26 @@ test_output <- merge_strip(data = test_data,
 # Filter at a Strip Column
 filter_strip(test_output,
              strip_col = concept,
-             vocabulary_id \%in\% c("RxNorm"))
+             vocabulary_id \%in\% c("SNOMED"))
 
 # Filter at more than 1 Strip Column
 test_data <-
-        queryAthena("SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 10;",
-                    cache_only = TRUE) \%>\%
-        merge_strip(into = "concept")
-
-test_data <-
-        dplyr::bind_cols(test_data \%>\%
+        dplyr::bind_cols(test_output \%>\%
                                  rubix::randomize() \%>\%
                                  dplyr::select(concept_a = concept),
-                         test_data \%>\%
+                         test_output \%>\%
                                  rubix::randomize() \%>\%
                                  dplyr::select(concept_b = concept))
 
 filter_at_all_strip(data = test_data,
                 strip_cols = c("concept_a",
                                "concept_b"),
-                all = TRUE,
                 vocabulary_id \%in\% c("RxNorm"))
 
 filter_at_any_strip(data = test_data,
                     strip_cols = c("concept_a",
                                    "concept_b"),
-                    all = TRUE,
                     vocabulary_id \%in\% c("RxNorm"))
+
+dcAthena(conn = conn)
 }
