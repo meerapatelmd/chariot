@@ -608,7 +608,6 @@ strip_to_label <-
 #' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
 #' @importFrom stringr str_remove_all str_replace_all
-#' @importFrom base trimws
 
 unmerge_strip <-
   function(data,
