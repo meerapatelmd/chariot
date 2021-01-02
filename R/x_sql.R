@@ -1,23 +1,41 @@
 #' @title Query the Athena Postgres Database
 #' @description
-#' By default, this function queries a local database named "Athena". If a connection object is passed into the function, the database of the connection object is queried instead. The caching feature is only available when using the built-in connection to Athena.
+#' By default, this function queries a local database named "Athena". If a
+#' connection object is passed into the function, the database of the connection
+#' object is queried instead. A caching feature is included.
 #'
 #' @param sql_statement         SQL query
-#' @param cache_only            Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.
-#' @param skip_cache            Skip the caching altogether and directly query the database.
-#' @param override_cache        If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.
-#' @param conn                  Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.
-#' @param render_sql            If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE
-#' @param verbose               If TRUE, prints loading and querying operations messages to the console. Default: FALSE
-#' @param sleepTime             Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.
-#' @param cache_resultset       (deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.
+#' @param cache_only            Loads from the cache and does not query the
+#' database. A NULL object is returned if a resultset was not cached.
+#' @param skip_cache            Skip the caching altogether and directly
+#' query the database.
+#' @param override_cache        If TRUE, the cache will not be loaded and will
+#' be overwritten by a new query. For override_cache to take effect,
+#' skip_cache should be FALSE.
+#' @param conn                  Connection object. If provided, diverts queries
+#' to the connection instead of the local Athena instance without caching
+#' features.
+#' @param render_sql            If TRUE, the SQL will be printed back in the
+#' console prior to execution. Default: FALSE
+#' @param verbose               If TRUE, prints loading and querying operations
+#' messages to the console. Default: FALSE
+#' @param sleepTime             Argument for `Sys.sleep()` in between queries to
+#' allow for halting function execution, especially in cases where other chariot
+#' functions are executing multiple queries in succession and require
+#' cancellation.
+#' @param cache_resultset       (deprecated) If TRUE, the resultset from the
+#' query will first be loaded from the cache. The query will be executed if a
+#' cached resultset is not retrieved for this particular query, after which the
+#' resultset will be cached. If FALSE, Athena or conn will be directly queried
+#' without any caching operations.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #'
 #' @seealso
 #'  \code{\link[rlang]{parse_expr}}
-#'  \code{\link[pg13]{is_conn_open}},\code{\link[pg13]{query}},\code{\link[pg13]{cacheQuery}},\code{\link[pg13]{loadCachedQuery}}
-#'  \code{\link[secretary]{c("typewrite", "typewrite")}},\code{\link[secretary]{character(0)}}
+#'  \code{\link[pg13]{is_conn_open}},\code{\link[pg13]{query}},
+#'  \code{\link[pg13]{cacheQuery}},\code{\link[pg13]{loadCachedQuery}}
+#'  \code{\link[secretary]{c("typewrite", "typewrite")}},
 #'  \code{\link[tibble]{as_tibble}}
 #' @rdname queryAthena
 #' @export
@@ -140,6 +158,106 @@ queryAthena <-
     }
   }
 
+
+#' @title
+#' Query the Common Data Model with Annotations
+#' @description
+#' Query a Common Data Model table with automatic joins with any Concept Id to
+#' the Concept table with the appropriate prefix.
+#'
+#' @inheritParams queryAthena
+#' @param write_schema Schema to write the staged data to for a join to Concept
+#' table.
+#' @param vocab_schema Schema where to Concept table can be found.
+#'
+#' @return a [tibble][tibble::tibble-package]
+#'
+#' @family query functions
+#' @seealso
+#'  \code{\link[rlang]{parse_expr}}
+#'  \code{\link[stringr]{str_remove}}
+#'  \code{\link[dplyr]{select_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{mutate-joins}}
+#' @rdname queryCDM
+#' @export
+#' @importFrom rlang parse_expr
+#' @importFrom stringr str_remove_all
+#' @importFrom dplyr select_at vars all_of rename_all left_join
+#' @example inst/example/queryCDM.R
+
+
+queryCDM <-
+  function(sql_statement,
+           write_schema = "patelm9",
+           vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_only = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE,
+           verbose = TRUE,
+           sleepTime = 1) {
+
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
+
+    resultset <-
+      queryAthena(sql_statement = sql_statement,
+                  conn = conn,
+                  skip_cache = skip_cache,
+                  override_cache = override_cache,
+                  cache_only = cache_only,
+                  cache_resultset = cache_resultset,
+                  render_sql = render_sql,
+                  render_only = render_only,
+                  verbose = verbose,
+                  sleepTime = sleepTime)
+
+    concept_id_fields <-
+      grep(pattern = "concept_id$",
+           x = colnames(resultset),
+           value = TRUE)
+
+
+    if (length(concept_id_fields) > 0) {
+
+      for (i in seq_along(concept_id_fields)) {
+        concept_id_field <- concept_id_fields[i]
+        field_prefix <- stringr::str_remove_all(string = concept_id_field,
+                                                pattern = "_concept_id")
+
+        output <-
+        join_on_concept_id(data = resultset,
+                           column = concept_id_field,
+                           write_schema = write_schema,
+                           vocab_schema = vocab_schema,
+                           conn = conn,
+                           verbose = verbose,
+                           render_sql = render_sql,
+                           render_only = render_only) %>%
+          dplyr::select_at(dplyr::vars(!dplyr::all_of(colnames(resultset)))) %>%
+          dplyr::rename_all(~ paste0(field_prefix, "_", .))
+
+        resultset <-
+          resultset %>%
+          dplyr::left_join(output)
+      }
+
+    }
+
+
+    resultset
+
+
+  }
 
 #' @title
 #' Join a R dataframe to Athena's concept table
