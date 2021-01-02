@@ -5,7 +5,18 @@
 \title{=
 Get Concept Strip}
 \usage{
-get_strip(concept_id, vocab_schema = "omop_vocabulary", conn)
+get_strip(
+  concept_id,
+  vocab_schema = "omop_vocabulary",
+  conn,
+  conn_fun = "connectAthena()",
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = TRUE,
+  verbose = TRUE,
+  sleepTime = 1
+)
 }
 \description{
 =

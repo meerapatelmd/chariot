@@ -11,6 +11,9 @@ print_concept_hierarchy(
   vocab_schema = "omop_vocabulary",
   conn,
   conn_fun = "connectAthena()",
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
   verbose = TRUE,
   render_sql = TRUE,
   render_only = FALSE
@@ -30,7 +33,8 @@ library(tidyverse)
 
 conn <- connectAthena()
 # Drug Domain
-concept_obj <- get_concept(concept_id = 1308216)
+concept_obj <- get_concept(conn = conn,
+                           concept_id = 1308216)
 concept_obj
 print_concept_hierarchy(conn = conn,
                         concept_obj = concept_obj)
@@ -40,7 +44,8 @@ print_concept_hierarchy(conn = conn,
 
 
 # Cancer Condition Domain
-concept_obj <- get_concept(concept_id = 4187868)
+concept_obj <- get_concept(conn = conn,
+                           concept_id = 4187868)
 concept_obj
 print_concept_hierarchy(conn = conn,
                         concept_obj = concept_obj)
@@ -49,7 +54,8 @@ print_concept_hierarchy(conn = conn,
                         level_of_separation_type = "min")
 
 # Chronic Disease Domain
-concept_obj <- get_concept(concept_id = 319835)
+concept_obj <- get_concept(conn = conn,
+                           concept_id = 319835)
 concept_obj
 print_concept_hierarchy(conn = conn,
                         concept_obj = concept_obj)
@@ -58,7 +64,7 @@ print_concept_hierarchy(conn = conn,
                         level_of_separation_type = "min")
 
 # Measurement Domain
-concept_obj <- get_concept(concept_id = 4298431)
+concept_obj <- get_concept(conn = conn, concept_id = 4298431)
 concept_obj
 print_concept_hierarchy(conn = conn,
                         concept_obj = concept_obj)

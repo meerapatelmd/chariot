@@ -10,11 +10,34 @@
 get_strip <-
   function(concept_id,
            vocab_schema = "omop_vocabulary",
-           conn) {
+           conn,
+           conn_fun = "connectAthena()",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = TRUE,
+           verbose = TRUE,
+           sleepTime = 1) {
+
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(),
+              add = TRUE,
+              after = TRUE)
+    }
+
     lookup_concept_id(
       concept_id = concept_id,
       vocab_schema = vocab_schema,
-      conn = conn
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
     ) %>%
       merge_strip(into = "Concept") %>%
       dplyr::select("Concept") %>%
@@ -140,7 +163,7 @@ filter_at_all_strip <-
 #' @importFrom dplyr select rename_at bind_cols filter_at filter distinct bind_rows
 #' @importFrom tidyr separate_rows
 #' @importFrom tibble rowid_to_column
-#' @importFrom rubix normalize_all_to_na
+#' @importFrom rubix nƒƒormalize_all_to_na
 #' @example inst/example/format_filter_strip.R
 
 filter_at_any_strip <-

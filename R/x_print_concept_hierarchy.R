@@ -26,6 +26,9 @@ print_concept_hierarchy <-
                  vocab_schema = "omop_vocabulary",
                  conn,
                  conn_fun = "connectAthena()",
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
                  verbose = TRUE,
                  render_sql = TRUE,
                  render_only = FALSE) {
@@ -33,7 +36,7 @@ print_concept_hierarchy <-
                 if (missing(conn)) {
 
                         conn <- eval(rlang::parse_expr(conn_fun))
-                        on.exit(expr = dcAthena(),
+                        on.exit(expr = dcAthena(conn = conn),
                                 add = TRUE,
                                 after = TRUE)
                 }
@@ -49,12 +52,19 @@ print_concept_hierarchy <-
                    concept_id <- concept_obj
                 }
 
-                target_concept <- get_strip(concept_id)
+                target_concept <- get_strip(concept_id = concept_id,
+                                            vocab_schema = vocab_schema,
+                                            conn = conn,
+                                            cache_only = cache_only,
+                                            skip_cache = skip_cache,
+                                            override_cache = override_cache,
+                                            render_sql = render_sql,
+                                            verbose = verbose,
+                                            sleepTime = sleepTime)
+
                 target_concept <- secretary::enbold(sprintf("*%s", target_concept))
 
                 data <- tibble::tibble(concept_hierarchy_id = concept_id)
-
-
                 if (level_of_separation_type %in% "min") {
 
                 ancestors <-
@@ -102,7 +112,13 @@ print_concept_hierarchy <-
 
                         ancestors <-
                                 join_for_ancestors(data = data,
-                                                   descendant_id_column = "concept_hierarchy_id") %>%
+                                                   descendant_id_column = "concept_hierarchy_id",
+                                                   write_schema = write_schema,
+                                                   vocab_schema = vocab_schema,
+                                                   conn = conn,
+                                                   verbose = verbose,
+                                                   render_sql = render_sql,
+                                                   render_only = render_only) %>%
                                 merge_strip(into = "ancestor",
                                             prefix = "ancestor_") %>%
                                 rubix::split_by(col = max_levels_of_separation) %>%
@@ -118,11 +134,17 @@ print_concept_hierarchy <-
                         descendants <-
                                 join_for_descendants(
                                         data = data,
-                                        ancestor_id_column = "concept_hierarchy_id"
+                                        ancestor_id_column = "concept_hierarchy_id",
+                                        write_schema = write_schema,
+                                        vocab_schema = vocab_schema,
+                                        conn = conn,
+                                        verbose = verbose,
+                                        render_sql = render_sql,
+                                        render_only = render_only
                                 ) %>%
                                 merge_strip(into = "descendant",
                                             prefix = "descendant_") %>%
-                                dplyr::arrange(max_levels_of_separation) %>%
+                                dplyr::arrange(min_levels_of_separation) %>%
                                 rubix::split_by(col = max_levels_of_separation) %>%
                                 purrr::map(function(x) x %>%
                                                    select(descendant) %>%

@@ -92,6 +92,15 @@ lookup_concept_id <-
            render_sql = TRUE,
            verbose = TRUE,
            sleepTime = 1) {
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(),
+              add = TRUE,
+              after = TRUE)
+    }
+
     sql_statement <-
       SqlRender::render("SELECT * FROM @vocab_schema.concept c WHERE c.concept_id IN (@concept_id)",
         vocab_schema = vocab_schema,
@@ -101,7 +110,6 @@ lookup_concept_id <-
     queryAthena(
       sql_statement = sql_statement,
       conn = conn,
-      conn_fun = conn_fun,
       cache_only = cache_only,
       skip_cache = skip_cache,
       override_cache = override_cache,
