@@ -28,21 +28,36 @@ search_split_phrase(
 
 \item{vocab_schema}{OMOP Vocabulary schema, Default: 'omop_vocabulary'}
 
-\item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
+\item{conn}{Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.}
 
-\item{cache_only}{Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.}
+\item{cache_only}{Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.}
 
-\item{skip_cache}{Skip the caching altogether and directly query the database.}
+\item{skip_cache}{Skip the caching altogether and directly
+query the database.}
 
-\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.}
+\item{override_cache}{If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.}
 
-\item{cache_resultset}{(deprecated) If TRUE, the resultset from the query will first be loaded from the cache. The query will be executed if a cached resultset is not retrieved for this particular query, after which the resultset will be cached. If FALSE, Athena or conn will be directly queried without any caching operations.}
+\item{cache_resultset}{(deprecated) If TRUE, the resultset from the
+query will first be loaded from the cache. The query will be executed if a
+cached resultset is not retrieved for this particular query, after which the
+resultset will be cached. If FALSE, Athena or conn will be directly queried
+without any caching operations.}
 
-\item{render_sql}{If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE}
+\item{render_sql}{If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE}
 
-\item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
+\item{verbose}{If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE}
 
-\item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
+\item{sleepTime}{Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.}
 }
 \description{
 Search for concepts that contain all the fragments of a phrase created by the

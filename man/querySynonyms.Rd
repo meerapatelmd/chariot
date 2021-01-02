@@ -50,6 +50,7 @@ FUNCTION_DESCRIPTION
 Other query functions: 
 \code{\link{executeAthena}()},
 \code{\link{queryAncestors}()},
+\code{\link{queryCDM}()},
 \code{\link{queryCode}()},
 \code{\link{queryConceptClassRelationships}()},
 \code{\link{queryConceptId}()},

@@ -20,23 +20,34 @@ ho_grep_regimens(
 )
 }
 \arguments{
-\item{conn}{Connection object. If provided, diverts queries to the connection instead of the local Athena instance without caching features.}
+\item{conn}{Connection object. If provided, diverts queries
+to the connection instead of the local Athena instance without caching
+features.}
 
 \item{check_validity}{If TRUE, a query is run to comfirm that there is a HemOnc Component that has an exact string match to each of the components provided.}
 
 \item{component_count}{If NULL or the component_count is larger than the maximum number of components possible for all Regimens with a positive string match to the `component` parameter, the unfiltered result of the initial query for `components` is returned.}
 
-\item{cache_only}{Loads from the cache and does not query the database. A NULL object is returned if a resultset was not cached.}
+\item{cache_only}{Loads from the cache and does not query the
+database. A NULL object is returned if a resultset was not cached.}
 
-\item{skip_cache}{Skip the caching altogether and directly query the database.}
+\item{skip_cache}{Skip the caching altogether and directly
+query the database.}
 
-\item{override_cache}{If TRUE, the cache will not be loaded and will be overwritten by a new query. For override_cache to take effect, skip_cache should be FALSE.}
+\item{override_cache}{If TRUE, the cache will not be loaded and will
+be overwritten by a new query. For override_cache to take effect,
+skip_cache should be FALSE.}
 
-\item{render_sql}{If TRUE, the SQL will be printed back in the console prior to execution. Default: FALSE}
+\item{render_sql}{If TRUE, the SQL will be printed back in the
+console prior to execution. Default: FALSE}
 
-\item{verbose}{If TRUE, prints loading and querying operations messages to the console. Default: FALSE}
+\item{verbose}{If TRUE, prints loading and querying operations
+messages to the console. Default: FALSE}
 
-\item{sleepTime}{Argument for `Sys.sleep()` in between queries to allow for halting function execution, especially in cases where other chariot functions are executing multiple queries in succession and require cancellation.}
+\item{sleepTime}{Argument for `Sys.sleep()` in between queries to
+allow for halting function execution, especially in cases where other chariot
+functions are executing multiple queries in succession and require
+cancellation.}
 
 \item{component}{Character vector of length 1 or greater of components that comprise the regimen.}
 }
