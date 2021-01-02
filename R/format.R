@@ -161,9 +161,6 @@ filter_at_all_strip <-
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select rename_at bind_cols filter_at filter distinct bind_rows
-#' @importFrom tidyr separate_rows
-#' @importFrom tibble rowid_to_column
-#' @importFrom rubix nƒƒormalize_all_to_na
 #' @example inst/example/format_filter_strip.R
 
 filter_at_any_strip <-
