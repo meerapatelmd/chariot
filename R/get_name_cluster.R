@@ -1,5 +1,16 @@
+#' @title
+#' Get a Name Cluster
+#'
+#' @description
+#' A `Name Cluster` is a character vector of all the unique labels associated
+#' with a concept, including labels derived from `Maps to` relationships from
+#' the Concept Relationship table.
+#'
+#' @param concept_obj May be an integer or a `concept` class object.
+#'
 #' @export
 #' @rdname get_name_cluster
+#' @example inst/example/get_name_cluster.R
 
 get_name_cluster <-
   function(concept_obj,
@@ -33,12 +44,15 @@ get_name_cluster <-
     }
 
 
-    c(concept_obj@concept_name,
-      concept_obj@concept_synonym_names,
-      concept_obj@maps_to_concept_names) %>%
-      paste(collapse = "|") %>%
-      strsplit(split = "[|]{1}") %>%
+    output <-
+    c(concept_name = concept_obj@concept_name,
+      concept_synonym_name = concept_obj@concept_synonym_names,
+      maps_to_concept_name = concept_obj@maps_to_concept_names) %>%
+      purrr::map(strsplit, split = "[|]{1}") %>%
+      purrr::map(unlist) %>%
       unlist()
+
+    output[!(output %in% c(""))]
 
 
   }
