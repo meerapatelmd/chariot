@@ -9,7 +9,20 @@
 #'
 #' With the calculations staged in the Drug Strengths Staged table, it can be
 #' joined with the Drug Exposures table to calculate ingredient administrations
-#' for research on cumulative doses over time and other research use cases. .
+#' for research on cumulative doses over time and other research use cases. It is
+#' important to note that some extended release formulations of common medications such as
+#' Tylenol have a a Drug Strength with a denominator of 24 hours, and calculations
+#' would require accommodation for the additional time dimension added in this table.
+#'
+#' @details
+#' The `value`` field is returned as character
+#' class expression for evaluation to limit rounding error in downstream
+#' calculations for non-whole number drug strengths. For example, the
+#' `value` for a drug with a numerator of 1 and denominator of 3 would
+#' have a staged_value of "1/3" rather than 0.3333. These values can be parsed
+#' into their numeric values by calling a function that parses and evaluates
+#' the expression such as the rlang's `parse_expr` function followed by a call
+#' to the base eval function.
 #'
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
