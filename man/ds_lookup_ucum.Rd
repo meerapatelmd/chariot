@@ -20,6 +20,7 @@ or time, are excluded from the final calculation.
 
 Other drug strength functions: 
 \code{\link{ds_process_drug_table}()},
+\code{\link{ds_process_map_table}()},
 \code{\link{ds_process}()},
 \code{\link{ds_stage_unit_fraction}()},
 \code{\link{ds_stage_value_fraction}()},

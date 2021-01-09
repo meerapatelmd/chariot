@@ -87,7 +87,7 @@ ds_process <-
 #' A `ds_drug` table in `write_schema`. If it already exists, it will be rewritten.
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname ds_process_map_table
+#' @rdname ds_process_drug_table
 #' @export
 #' @importFrom SqlRender render
 #' @family drug strength functions

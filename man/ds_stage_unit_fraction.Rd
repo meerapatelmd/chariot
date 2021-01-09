@@ -22,6 +22,7 @@ Stage the Fractional Representation of Units
 Other drug strength functions: 
 \code{\link{ds_lookup_ucum}()},
 \code{\link{ds_process_drug_table}()},
+\code{\link{ds_process_map_table}()},
 \code{\link{ds_process}()},
 \code{\link{ds_stage_value_fraction}()},
 \code{\link{ds_stage}()}
