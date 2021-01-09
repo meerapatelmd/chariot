@@ -1,114 +1,15 @@
 #' @title
-#' List UCUM Unit Concepts
+#' Lookup the Units for Drug Strength Processing
 #' @description
-#' List all UCUM Unit Concepts from the Concept Table. To list UCUM Units specifically
-#' related to the measurement of Time, see \code{\link{list_time_unit_concepts}}.
-#' The resultset is never cached.
-#' @param conn PARAM_DESCRIPTION, Default: NULL
-#' @param vocabSchema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
+#' To normalize the drug exposure calculations in the Drug Strength tables,
+#' all units related to rate, commonly seen in extended release formulations,
+#' or time, are excluded from the final calculation.
+
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname lookup_ucum
+#' @rdname ds_lookup_ucum
 #' @export
 #' @importFrom SqlRender render
-
-
-lookup_ucum <-
-  function(conn,
-           conn_fun,
-           vocabSchema = "omop_vocabulary") {
-    queryAthena(SqlRender::render(
-      "
-                                        SELECT *
-                                        FROM @vocabSchema.concept
-                                        WHERE domain_id = 'Unit'
-                                                AND vocabulary_id = 'UCUM'
-                                                AND concept_class_id = 'Unit'
-                                                AND invalid_reason IS NULL
-                                        ;
-                                        ",
-      vocabSchema = vocabSchema
-    ),
-    conn = conn,
-    cache_only = FALSE,
-    skip_cache = TRUE,
-    override_cache = FALSE,
-    render_sql = FALSE,
-    verbose = FALSE,
-    sleepTime = 1
-    )
-  }
-
-#' @title
-#' List UCUM Concepts Related to Time
-#'
-#' @description
-#' List all UCUM Unit Concepts from the Concept Table that are related to
-#' measurement of Time based on a broad regex match to the phrases "hour",
-#' "minute", "second", "day", "month", "week", and "year". To list all UCUM
-#' Units, see \code{\link{list_unit_concepts}}. This resultset is never cached.
-#'
-#' @param conn PARAM_DESCRIPTION, Default: NULL
-#' @param vocabSchema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
-#' @seealso
-#'  \code{\link[SqlRender]{render}}
-#' @rdname lookup_ucum_time
-#' @export
-#' @importFrom SqlRender render
-
-
-lookup_ucum_time <-
-  function(conn,
-           conn_fun,
-           vocabSchema = "omop_vocabulary") {
-
-
-    queryAthena(SqlRender::render(
-      "
-                                        SELECT *
-                                        FROM @vocabSchema.concept
-                                        WHERE domain_id = 'Unit'
-                                                AND vocabulary_id = 'UCUM'
-                                                AND concept_class_id = 'Unit'
-                                                AND invalid_reason IS NULL
-                                                AND (LOWER(concept_name) LIKE '%hour%'
-                                                        OR LOWER(concept_name) LIKE '%minute%'
-                                                        OR LOWER(concept_name) LIKE '%second%'
-                                                        OR LOWER(concept_name) LIKE '%day%'
-                                                        OR LOWER(concept_name) LIKE '%week%'
-                                                        OR LOWER(concept_name) LIKE '%month%'
-                                                        OR LOWER(concept_name) LIKE '%year%')
-                                        ;
-                                        ",
-      vocabSchema = vocabSchema
-    ),
-    conn = conn,
-    cache_only = FALSE,
-    skip_cache = TRUE,
-    override_cache = FALSE,
-    render_sql = FALSE,
-    verbose = FALSE,
-    sleepTime = 1
-    )
-  }
-
-
 
 
 ds_lookup_ucum <-
@@ -154,6 +55,113 @@ ds_lookup_ucum <-
         }
 
 #' @title
+#' Process the Drug Strength Table
+#' @description
+#' The Drug Strength table is filtered for only valid entries and the 'box_size',
+#' 'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are selected
+#' against. Concurrently the unit concept ids for the `numerator`, `denominator`, and
+#' `amount` in the table are mapped to their names. The resulting Drug Strength
+#' Processed table is stored in the given schema.
+#'
+#' After processing, the values found in the Drug Strength and Drug Strength
+#' Processed tables can be staged for calculations. See `\code{\link{ds_stage}}.
+#'
+#' @return
+#' Drug Strength Processed table
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname ds_process
+#' @export
+#' @importFrom SqlRender render
+
+ds_process <-
+        function(conn,
+                 conn_fun = "connectAthena()",
+                 vocabSchema = "omop_vocabulary",
+                 writeSchema = "patelm9",
+                 verbose = TRUE,
+                 render_sql = TRUE,
+                 render_only = FALSE) {
+
+                ds_process_drug_table(conn = conn,
+                                    vocabSchema = vocabSchema,
+                                    writeSchema = writeSchema,
+                                    verbose = verbose,
+                                    render_sql = render_sql,
+                                    render_only = render_only)
+
+
+                ds_process_map_table(conn = conn,
+                                   vocabSchema = vocabSchema,
+                                   writeSchema = writeSchema,
+                                   verbose = verbose,
+                                   render_sql = render_sql,
+                                   render_only = render_only)
+
+
+                sql_statement <-
+                SqlRender::render(
+                "
+                DROP TABLE IF EXISTS @writeSchema.drug_strength_processed;
+                CREATE TABLE @writeSchema.drug_strength_processed AS (
+                        select
+                        	ds.*,
+                        	map.amount_unit_concept_name,
+                        	map.numerator_unit_concept_name,
+                        	map.denominator_unit_concept_name
+                        from @writeSchema.ds_drug ds
+                        left join @writeSchema.ds_unit_map map
+                        ON map.drug_concept_id = ds.drug_concept_id;
+                ",
+                writeSchema = writeSchema)
+
+                sendAthena(conn = conn,
+                           sql_statement = sql_statement,
+                           verbose = verbose,
+                           render_sql = render_sql,
+                           render_only = render_only)
+        }
+
+
+ds_process_drug_table <-
+        function(conn,
+                conn_fun = "connectAthena()",
+                vocabSchema = "omop_vocabulary",
+                writeSchema = "patelm9",
+                verbose = TRUE,
+                render_sql = TRUE,
+                render_only = FALSE) {
+
+                sql_statement <-
+                        SqlRender::render(
+                                "
+                                DROP TABLE IF EXISTS @writeSchema.ds_drug;
+                                CREATE TABLE @writeSchema.ds_drug AS (
+                                        SELECT
+                                                drug_concept_id,
+                                                ingredient_concept_id,
+                                                amount_value,
+                                                amount_unit_concept_id,
+                                                numerator_value,
+                                                numerator_unit_concept_id,
+                                                denominator_value,
+                                                denominator_unit_concept_id
+                                        FROM @vocabSchema.drug_strength
+                                        WHERE invalid_reason IS NULL
+                                )
+                                ",
+                                vocabSchema = vocabSchema,
+                                writeSchema = writeSchema
+                        )
+
+                sendAthena(conn = conn,
+                           sql_statement = sql_statement,
+                           verbose = verbose,
+                           render_sql = render_sql,
+                           render_only = render_only)
+        }
+
+#' @title
 #' List OMOP Unit Concepts in the Drug Strength Table
 #' @description
 #' Unpivot all of the Drug Strength table unit concept id fields (amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id) to a unit_concept_id_type field and return the Concept Table entry for each unit concept id.
@@ -164,71 +172,24 @@ ds_lookup_ucum <-
 #' The resultset is not cached
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname ds_map_units
+#' @rdname ds_process_map_table
 #' @export
 #' @importFrom SqlRender render
 
-ds_map_units <-
-  function(conn = NULL,
-           vocabSchema = "omop_vocabulary") {
-    queryAthena(SqlRender::render(
-      " WITH all_unit_concept_ids AS (
-                                        SELECT
-                                                unnest(array['amount_unit_concept_id', 'numerator_unit_concept_id', 'denominator_unit_concept_id']) AS unit_concept_id_type,
-                                               unnest(array[amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id]) AS unit_concept_id
-                                        FROM @vocabSchema.drug_strength
-                        ),
-                        all_unit_concept_ids2 AS (
-                                        SELECT DISTINCT *
-                                        FROM all_unit_concept_ids
-                                        WHERE unit_concept_id IS NOT NULL
-                                        ORDER BY unit_concept_id_type
-                        )
-
-                        SELECT
-                                u.unit_concept_id_type,
-                                c.concept_id AS unit_concept_id,
-                                c.concept_name AS unit_concept_name,
-                                c.domain_id AS unit_domain_id,
-                                c.vocabulary_id AS unit_vocabulary_id,
-                                c.concept_class_id AS unit_concept_class_id,
-                                c.standard_concept AS unit_standard_concept,
-                                c.concept_code AS unit_concept_code,
-                                c.valid_start_date AS unit_valid_start_date,
-                                c.valid_end_date AS unit_valid_end_date,
-                                c.invalid_reason AS unit_invalid_reason
-                        FROM all_unit_concept_ids2 u
-                        LEFT JOIN @vocabSchema.concept c
-                        ON c.concept_id = u.unit_concept_id
-                                        ;
-                                        ",
-      vocabSchema = vocabSchema
-    ),
-    conn = conn,
-    cache_only = FALSE,
-    skip_cache = TRUE,
-    override_cache = FALSE,
-    render_sql = FALSE,
-    verbose = FALSE,
-    sleepTime = 1
-    )
-  }
-
-
-
-
-
-
-ds_map_units <-
+ds_process_map_table <-
         function(conn,
+                 conn_fun = "connectAthena()",
                  vocabSchema = "omop_vocabulary",
-                 writeSchema = "patelm9") {
+                 writeSchema = "patelm9",
+                 verbose = TRUE,
+                 render_sql = TRUE,
+                 render_only = FALSE) {
 
                 sendAthena(
                         conn = conn,
                         sql_statement =
                         SqlRender::render("
-                         DROP TABLE IF EXISTS @writeSchema.@units_table;
+                        DROP TABLE IF EXISTS @writeSchema.@units_table;
                         DROP TABLE IF EXISTS @writeSchema.@units_table_staged;
                         CREATE TABLE  @writeSchema.@units_table_staged (
                                 drug_concept_id INTEGER,
@@ -268,9 +229,12 @@ ds_map_units <-
 
                         ",
                                                           writeSchema = writeSchema,
-                                                          units_table = "drug_strength_unit_map",
+                                                          units_table = "ds_unit_map",
                                                           vocabSchema = vocabSchema
-                                        )
+                                        ),
+                        verbose = verbose,
+                        render_sql = render_sql,
+                        render_only = render_only
                                 )
         }
 
