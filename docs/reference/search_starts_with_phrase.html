@@ -98,6 +98,21 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/mapping-to-hemonc.html">Mapping to HemOnc</a>
+    </li>
+    <li>
+      <a href="../articles/string-manipulation.html">String Manipulation</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -221,8 +236,8 @@ cancellation.</p></td>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:51]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:51]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -239,8 +254,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 11</span><span>
+#&gt; [2021-01-09 18:28:51]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:51]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 10 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>034</span><span>841 Myocardial … Observat… LOINC         LOINC Component 
@@ -261,8 +276,8 @@ cancellation.</p></td>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:51]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:51]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -279,8 +294,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 11</span><span>
+#&gt; [2021-01-09 18:28:51]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:51]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 11</span><span>
 #&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'>1</span><span>    4</span><span style='text-decoration: underline;'>347</span><span>016 Myocardial … Drug      NDFRT         Ind / CI        
@@ -294,8 +309,8 @@ cancellation.</p></td>
 <span class='co'># Search concepts that contain the phrase "Myocardial Infarction"</span>
 <span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -312,8 +327,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 877 x 11</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:52]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 877 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding
@@ -331,8 +346,8 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #555555;'>#   invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_synonyms </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                    case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -349,8 +364,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 61 x 11</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:52]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 61 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial … Observat… LOINC         LOINC Component 
@@ -369,8 +384,8 @@ cancellation.</p></td>
 <span class='co'># Search concepts that start with or end with the phrase "Myocardial Infarction"</span>
 <span class='fu'>search_starts_with_phrase</span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -387,8 +402,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 49 x 11</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:52]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 49 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial … Observat… LOINC         LOINC Component 
@@ -405,8 +420,8 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #555555;'>#   concept_code </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, valid_start_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>, valid_end_date </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span style='color: #555555;'>,</span><span>
 #&gt; </span><span style='color: #555555;'>#   invalid_reason </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_synonyms </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='search_ends_with_phrase.html'>search_ends_with_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -423,8 +438,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 328 x 11</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:52]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 328 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding
@@ -445,8 +460,8 @@ cancellation.</p></td>
 <span class='fu'><a href='search_split_phrase.html'>search_split_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                     split <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                                                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                                                         INNER JOIN omop_vocabulary.concept c
@@ -464,8 +479,8 @@ cancellation.</p></td>
 #&gt;                                                                 c.valid_start_date,
 #&gt;                                                                 c.valid_end_date,
 #&gt;                                                                 c.invalid_reason;
-#&gt; [2021-01-09 16:16:38]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-01-09 16:16:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 880 x 11</span><span>
+#&gt; [2021-01-09 18:28:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-01-09 18:28:52]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 880 x 11</span><span>
 #&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #555555;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myoca… Condition SNOMED        Clinical Finding

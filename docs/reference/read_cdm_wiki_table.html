@@ -49,7 +49,8 @@
 <meta property="og:title" content="Read GitHub Wiki — read_cdm_wiki_table" />
 <meta property="og:description" content="Read the tables from OHDI's GitHub Wiki at
 https://ohdsi.github.io/CommonDataModel/cdm60.html to annotate
-resultsets." />
+resultsets. This function is run on package load to cache the tables if they
+are older than the expiration days." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -100,6 +101,21 @@ resultsets." />
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/mapping-to-hemonc.html">Mapping to HemOnc</a>
+    </li>
+    <li>
+      <a href="../articles/string-manipulation.html">String Manipulation</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -129,7 +145,8 @@ resultsets." />
     <div class="ref-description">
     <p>Read the tables from OHDI's GitHub Wiki at
 <a href='https://ohdsi.github.io/CommonDataModel/cdm60.html'>https://ohdsi.github.io/CommonDataModel/cdm60.html</a> to annotate
-resultsets.</p>
+resultsets. This function is run on package load to cache the tables if they
+are older than the expiration days.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_cdm_wiki_table</span><span class='op'>(</span>expiration_days <span class='op'>=</span> <span class='fl'>180</span><span class='op'>)</span></pre>
