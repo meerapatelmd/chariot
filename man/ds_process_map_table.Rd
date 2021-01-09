@@ -44,4 +44,20 @@ a table.
 \code{\link[SqlRender]{render}}
 
 \code{\link[SqlRender]{render}}
+
+Other drug strength functions: 
+\code{\link{ds_lookup_ucum}()},
+\code{\link{ds_process}()},
+\code{\link{ds_stage_unit_fraction}()},
+\code{\link{ds_stage_value_fraction}()},
+\code{\link{ds_stage}()}
+
+Other drug strength functions: 
+\code{\link{ds_lookup_ucum}()},
+\code{\link{ds_process}()},
+\code{\link{ds_stage_unit_fraction}()},
+\code{\link{ds_stage_value_fraction}()},
+\code{\link{ds_stage}()}
 }
+\concept{drug strength functions}
+\concept{drug strength processing functions}

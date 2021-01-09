@@ -29,6 +29,8 @@
 #' @rdname ds_stage
 #' @export
 #' @importFrom SqlRender render
+#' @family drug strength functions
+#' @family drug strength setup functions
 ds_stage <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -95,6 +97,8 @@ ds_stage <-
 #' @rdname ds_stage_unit_fraction
 #' @export
 #' @importFrom SqlRender render
+#' @family drug strength functions
+#' @family drug strength staging functions
 ds_stage_unit_fraction <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -175,6 +179,8 @@ ds_stage_unit_fraction <-
 #' @rdname ds_stage_value_fraction
 #' @export
 #' @importFrom SqlRender render
+#' @family drug strength functions
+#' @family drug strength staging functions
 ds_stage_value_fraction <-
         function(conn,
                  conn_fun = "connectAthena()",

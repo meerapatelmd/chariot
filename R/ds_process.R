@@ -17,7 +17,8 @@
 #' @rdname ds_process
 #' @export
 #' @importFrom SqlRender render
-
+#' @family drug strength functions
+#' @family drug strength setup functions
 ds_process <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -89,7 +90,8 @@ ds_process <-
 #' @rdname ds_process_map_table
 #' @export
 #' @importFrom SqlRender render
-
+#' @family drug strength functions
+#' @family drug strength processing functions
 ds_process_drug_table <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -150,7 +152,8 @@ ds_process_drug_table <-
 #' @rdname ds_process_map_table
 #' @export
 #' @importFrom SqlRender render
-
+#' @family drug strength functions
+#' @family drug strength processing functions
 ds_process_map_table <-
         function(conn,
                  conn_fun = "connectAthena()",

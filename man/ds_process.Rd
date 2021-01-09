@@ -29,4 +29,16 @@ Processed tables can be staged for calculations. See `\code{\link{ds_stage}}.
 }
 \seealso{
 \code{\link[SqlRender]{render}}
+
+Other drug strength functions: 
+\code{\link{ds_lookup_ucum}()},
+\code{\link{ds_process_drug_table}()},
+\code{\link{ds_stage_unit_fraction}()},
+\code{\link{ds_stage_value_fraction}()},
+\code{\link{ds_stage}()}
+
+Other drug strength setup functions: 
+\code{\link{ds_stage}()}
 }
+\concept{drug strength functions}
+\concept{drug strength setup functions}

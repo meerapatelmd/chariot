@@ -18,4 +18,16 @@ Stage the Fractional Representation of Value
 }
 \seealso{
 \code{\link[SqlRender]{render}}
+
+Other drug strength functions: 
+\code{\link{ds_lookup_ucum}()},
+\code{\link{ds_process_drug_table}()},
+\code{\link{ds_process}()},
+\code{\link{ds_stage_unit_fraction}()},
+\code{\link{ds_stage}()}
+
+Other drug strength staging functions: 
+\code{\link{ds_stage_unit_fraction}()}
 }
+\concept{drug strength functions}
+\concept{drug strength staging functions}

@@ -17,4 +17,12 @@ or time, are excluded from the final calculation.
 }
 \seealso{
 \code{\link[SqlRender]{render}}
+
+Other drug strength functions: 
+\code{\link{ds_process_drug_table}()},
+\code{\link{ds_process}()},
+\code{\link{ds_stage_unit_fraction}()},
+\code{\link{ds_stage_value_fraction}()},
+\code{\link{ds_stage}()}
 }
+\concept{drug strength functions}

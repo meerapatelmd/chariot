@@ -10,6 +10,7 @@
 #' @rdname ds_lookup_ucum
 #' @export
 #' @importFrom SqlRender render
+#' @family drug strength functions
 
 
 ds_lookup_ucum <-
