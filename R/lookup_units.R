@@ -14,8 +14,17 @@
 
 lookup_ucum <-
         function(conn,
-                 conn_fun,
+                 conn_fun = "connectAthena()",
                  vocab_schema = "omop_vocabulary") {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
+
                 queryAthena(SqlRender::render(
                         "
                                         SELECT *
@@ -58,8 +67,16 @@ lookup_ucum <-
 
 lookup_ucum_time <-
         function(conn,
-                 conn_fun,
+                 conn_fun = "connectAthena()",
                  vocab_schema = "omop_vocabulary") {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
 
                 queryAthena(SqlRender::render(

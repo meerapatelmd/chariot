@@ -14,7 +14,16 @@
 
 ds_lookup_ucum <-
         function(conn,
+                 conn_fun = "connectAthena()",
                  vocab_schema = "omop_vocabulary") {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
         queryAthena(
                 SqlRender::render(

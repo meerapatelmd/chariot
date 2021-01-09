@@ -4,7 +4,11 @@
 \alias{lookup_ucum}
 \title{Lookup UCUM Unit Concepts}
 \usage{
-lookup_ucum(conn, conn_fun, vocab_schema = "omop_vocabulary")
+lookup_ucum(
+  conn,
+  conn_fun = "connectAthena()",
+  vocab_schema = "omop_vocabulary"
+)
 }
 \description{
 List all UCUM Unit Concepts from the Concept Table. To list UCUM Units specifically
