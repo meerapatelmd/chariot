@@ -2,7 +2,7 @@
 title: "Mapping to HemOnc"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using HemOnc}
+  %\VignetteIndexEntry{Mapping to HemOnc}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
