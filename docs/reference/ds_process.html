@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • chariot</title>
+<title>Process the Drug Strength Table — ds_process • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,14 @@
 
 
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Process the Drug Strength Table — ds_process" />
+<meta property="og:description" content="The Drug Strength table is filtered for only valid entries and the 'box_size',
+'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are selected
+against. Concurrently the unit concept ids for the `numerator`, `denominator`, and
+`amount` in the table are mapped to their names. The resulting Drug Strength
+Processed table is stored in the given schema.
+After processing, the values found in the Drug Strength and Drug Strength
+Processed tables can be staged for calculations. See `ds_stage." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -66,7 +73,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -118,25 +125,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Process the Drug Strength Table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/ds_process.R'><code>R/ds_process.R</code></a></small>
+    <div class="hidden name"><code>ds_process.Rd</code></div>
     </div>
 
-    <div id="chariot-1-0-0" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#chariot-1-0-0" class="anchor"></a>chariot 1.0.0</h1>
-<ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-</ul>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>The Drug Strength table is filtered for only valid entries and the 'box_size',
+'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are selected
+against. Concurrently the unit concept ids for the `numerator`, `denominator`, and
+`amount` in the table are mapped to their names. The resulting Drug Strength
+Processed table is stored in the given schema.</p>
+<p>After processing, the values found in the Drug Strength and Drug Strength
+Processed tables can be staged for calculations. See `<code><a href='ds_stage.html'>ds_stage</a></code>.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>ds_process</span><span class='op'>(</span>
+  <span class='va'>conn</span>,
+  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
+  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
+  write_schema <span class='op'>=</span> <span class='st'>"patelm9"</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  render_only <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
+
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Drug Strength Processed table</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p>
+<p>Other drug strength functions: 
+<code><a href='ds_lookup_ucum.html'>ds_lookup_ucum</a>()</code>,
+<code><a href='ds_process_drug_table.html'>ds_process_drug_table</a>()</code>,
+<code><a href='ds_stage_unit_fraction.html'>ds_stage_unit_fraction</a>()</code>,
+<code><a href='ds_stage_value_fraction.html'>ds_stage_value_fraction</a>()</code>,
+<code><a href='ds_stage.html'>ds_stage</a>()</code></p>
+<p>Other drug strength setup functions: 
+<code><a href='ds_stage.html'>ds_stage</a>()</code></p></div>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 

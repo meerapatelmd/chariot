@@ -157,37 +157,6 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-filter" class="hasAnchor"><a href="#section-filter" class="anchor"></a>Filter</h2>
-          <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="filter_at_all_strip.html">filter_at_all_strip()</a></code> </p>
-        </td>
-        <td><p>Filter Multiple Concept Strip Columns</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filter_at_any_strip.html">filter_at_any_strip()</a></code> </p>
-        </td>
-        <td><p>Filter At Any Strip</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filter_strip.html">filter_strip()</a></code> </p>
-        </td>
-        <td><p>Filter Columns with Merged Concept Strips</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
           <h2 id="section-concept-object" class="hasAnchor"><a href="#section-concept-object" class="anchor"></a>Concept Object</h2>
           <p class="section-desc"><p>Concept Class objects</p></p>
         </th>
@@ -294,7 +263,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-concept-formatting" class="hasAnchor"><a href="#section-concept-formatting" class="anchor"></a>Concept Formatting</h2>
-          <p class="section-desc"><p>Visualize a concept hierarachy</p></p>
+          <p class="section-desc"><p>Format concepts and their attributes</p></p>
         </th>
       </tr>
       
@@ -427,12 +396,6 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="list_drug_strength_units.html">list_drug_strength_units()</a></code> </p>
-        </td>
-        <td><p>List OMOP Unit Concepts in the Drug Strength Table</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="list_fields.html">list_fields()</a></code> </p>
         </td>
         <td><p>List Table Fields</p></td>
@@ -442,12 +405,6 @@
           <p><code><a href="list_hierarchical_relationships.html">list_hierarchical_relationships()</a></code> </p>
         </td>
         <td><p>FUNCTION_TITLE</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="list_time_unit_concepts.html">list_unit_concepts()</a></code> <code><a href="list_time_unit_concepts.html">list_time_unit_concepts()</a></code> </p>
-        </td>
-        <td><p>List UCUM Unit Concepts</p></td>
       </tr><tr>
         
         <td>
@@ -531,6 +488,18 @@ Get Concept Strip</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="lookup_ucum.html">lookup_ucum()</a></code> </p>
+        </td>
+        <td><p>Lookup UCUM Unit Concepts</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lookup_ucum_time.html">lookup_ucum_time()</a></code> </p>
+        </td>
+        <td><p>List UCUM Concepts Related to Time</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="lookup_upper_limit_ancestors.html">lookup_upper_limit_ancestors()</a></code> </p>
         </td>
         <td><p>Lookup the Ancestors at the Upper Limit of the Max Level of Separation</p></td>
@@ -565,6 +534,104 @@ Get Concept Strip</p></td>
           <p><code><a href="ho_lookup_regimen.html">ho_lookup_regimen()</a></code> </p>
         </td>
         <td><p>Look up a HemOnc Regimen</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-drug-strength-calculations" class="hasAnchor"><a href="#section-drug-strength-calculations" class="anchor"></a>Drug Strength Calculations</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="ds_join_on_drug.html">ds_join_on_drug()</a></code> </p>
+        </td>
+        <td><p>Get the Staged Drug Strengths by Drug</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_join_on_ingredient.html">ds_join_on_ingredient()</a></code> </p>
+        </td>
+        <td><p>Get the Staged Drug Strengths by Ingredient</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_lookup_ucum.html">ds_lookup_ucum()</a></code> </p>
+        </td>
+        <td><p>Lookup the Units for Drug Strength Processing</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_process.html">ds_process()</a></code> </p>
+        </td>
+        <td><p>Process the Drug Strength Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_process_map_table.html">ds_process_drug_table()</a></code> <code><a href="ds_process_map_table.html">ds_process_map_table()</a></code> </p>
+        </td>
+        <td><p>Process the Records in Drug Strength</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_stage.html">ds_stage()</a></code> </p>
+        </td>
+        <td><p>Stage Drug Strengths</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_stage_unit_fraction.html">ds_stage_unit_fraction()</a></code> </p>
+        </td>
+        <td><p>Stage the Fractional Representation of Units</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_stage_value_fraction.html">ds_stage_value_fraction()</a></code> </p>
+        </td>
+        <td><p>Stage the Fractional Representation of Value</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ds_staged_table_exists.html">ds_staged_table_exists()</a></code> </p>
+        </td>
+        <td><p>Does the Drug Strength Staged table exist?</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-filter" class="hasAnchor"><a href="#section-filter" class="anchor"></a>Filter</h2>
+          <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="filter_at_all_strip.html">filter_at_all_strip()</a></code> </p>
+        </td>
+        <td><p>Filter Multiple Concept Strip Columns</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_at_any_strip.html">filter_at_any_strip()</a></code> </p>
+        </td>
+        <td><p>Filter At Any Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_strip.html">filter_strip()</a></code> </p>
+        </td>
+        <td><p>Filter Columns with Merged Concept Strips</p></td>
       </tr>
     </tbody>
     </table>
