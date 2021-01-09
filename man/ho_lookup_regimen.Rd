@@ -7,7 +7,7 @@
 ho_lookup_regimen(
   component_concept_ids,
   schema = NULL,
-  vocab_schema,
+  vocab_schema = "omop_vocabulary",
   writeSchema,
   conn = NULL,
   cache_only = FALSE,

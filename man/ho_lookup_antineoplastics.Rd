@@ -6,7 +6,7 @@
 \usage{
 ho_lookup_antineoplastics(
   regimen_concept_ids,
-  vocab_schema = NULL,
+  vocab_schema = "omop_vocabulary",
   check_validity = TRUE,
   conn,
   cache_only = FALSE,

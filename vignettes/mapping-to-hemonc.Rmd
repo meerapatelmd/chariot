@@ -1,0 +1,130 @@
+---
+title: "Mapping to HemOnc"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using HemOnc}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chariot)
+```
+
+```{r}
+conn <- connectAthena()
+```
+
+Mapping Regimens to the HemOnc Ontology as represented in the OMOP Vocabularies 
+can be approached several different ways. The `grepl` approach uses pattern 
+matching in lieu of the ontological relationships to find the appropriate HemOnc 
+counterpart to the input. 
+
+
+```{r}
+ex1 <- ho_grep_regimens("Trastuzumab",
+                 conn = conn)
+```
+
+In this example, all Trastuzumab monotherapy regimens in HemOnc are searched for. 
+The monotherapy is assumed by the length of the input (`1`), and the function 
+first searches for "trastuzumab" and runs an additional search for the pattern
+"monotherapy" based on the value of `1`. 
+
+```{r}
+ex1
+```
+
+If the search was intended to be for all regimens containing trastuzumab with a
+known number of additional components, a `component_count` value can be provided. 
+For example, if I want to know all the HemOnc regimens that contain 2 components, 
+with 1 being trastuzumab: 
+
+```{r}
+ex2 <- 
+  ho_grep_regimens("Trastuzumab",
+                   conn = conn, 
+                   component_count = 2)
+```
+
+The pattern matched is "Trastuzumab" with any HemOnc Regimens containing the 
+pattern "and" for 2 components. 
+
+```{r}
+ex2
+```
+
+For searches for component counts greater than 2, the pattern matched is the 
+number of commas. HemOnc Regimens composed of greater than 2 components are 
+named by a comma-separated string.  
+
+```{r}
+ex3 <- 
+  ho_grep_regimens("Trastuzumab",
+                   conn = conn, 
+                   component_count = 3)
+```
+
+For trastuzumab regimens containing 3 components, 2 commas are searched for. 
+
+```{r}
+ex3
+```
+
+To get all the possible combinations in regimens containing the component, 
+`component_count` can be set to infinity. 
+
+```{r}
+ex4 <- 
+  ho_grep_regimens("Trastuzumab",
+                   conn = conn, 
+                   component_count = Inf)
+```
+
+For all HemOnc functions, guardrails are put in place to prevent searches for 
+components that may have been misspelled or subject to a typo. Here, I have 
+mistyped trastuzumab. 
+
+```{r,error=TRUE}
+ho_grep_regimens("tastuzumab",
+                 conn = conn)
+```
+
+You can also look up the Components that belong to a Regimen in HemOnc.  
+```{r}
+ex5 <- ho_lookup_antineoplastics(regimen_concept_ids = 35804201,
+                          conn = conn)
+```
+
+```{r}
+ex5
+```
+
+
+The inverse can also be done, where a Regimen comprised by a set of Component 
+Concept Ids is derived. 
+
+```{r}
+ex6 <-
+ho_lookup_regimen(component_concept_ids = c(35803229,35803361),
+                  conn = conn)
+```
+
+```{r}
+ex6
+```
+
+
+
+
+```{r}
+dcAthena(conn = conn)
+```
+

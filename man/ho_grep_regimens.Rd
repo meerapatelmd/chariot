@@ -5,9 +5,9 @@
 \title{Extract HemOnc Regimens by Component String Match}
 \usage{
 ho_grep_regimens(
+  ...,
   conn,
-  conn_fun,
-  components,
+  conn_fun = "connectAthena()",
   check_validity = TRUE,
   component_count = NULL,
   vocab_schema = "omop_vocabulary",
@@ -20,13 +20,21 @@ ho_grep_regimens(
 )
 }
 \arguments{
+\item{...}{Characters of length 1 or greater of components that comprise the
+regimen.}
+
 \item{conn}{Connection object. If provided, diverts queries
 to the connection instead of the local Athena instance without caching
 features.}
 
-\item{check_validity}{If TRUE, a query is run to comfirm that there is a HemOnc Component that has an exact string match to each of the components provided.}
+\item{check_validity}{If TRUE, a query is run to comfirm that there is a
+HemOnc Component that has an exact string match to each of the components
+provided.}
 
-\item{component_count}{If NULL or the component_count is larger than the maximum number of components possible for all Regimens with a positive string match to the `component` parameter, the unfiltered result of the initial query for `components` is returned.}
+\item{component_count}{If NULL or the component_count is larger than the m
+aximum number of components possible for all Regimens with a positive string
+match to the `component` parameter, the unfiltered result of the initial
+query for `components` is returned.}
 
 \item{cache_only}{Loads from the cache and does not query the
 database. A NULL object is returned if a resultset was not cached.}
@@ -48,16 +56,17 @@ messages to the console. Default: FALSE}
 allow for halting function execution, especially in cases where other chariot
 functions are executing multiple queries in succession and require
 cancellation.}
-
-\item{component}{Character vector of length 1 or greater of components that comprise the regimen.}
 }
 \description{
-This function uses the grepl function on the HemOnc Concept Names and naming patterns to return HemOnc Regimens based on a single Component and total number of Components in the source regimen.
+This function uses the grepl function on the HemOnc Concept Names and naming
+patterns to return HemOnc Regimens based on a single Component and total
+number of Components in the source regimen.
 }
 \seealso{
 \code{\link[cli]{cli_rule}},\code{\link[cli]{cat_line}}
  \code{\link[SqlRender]{render}}
  \code{\link[purrr]{reduce}}
- \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{filter}}
+ \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{mutate}},
+ \code{\link[dplyr]{filter}}
  \code{\link[rubix]{arrange_by_nchar}},\code{\link[rubix]{filter_at_grepl}}
 }

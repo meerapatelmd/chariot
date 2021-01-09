@@ -2,19 +2,28 @@
 #' Extract HemOnc Regimens by Component String Match
 #'
 #' @description
-#' This function uses the grepl function on the HemOnc Concept Names and naming patterns to return HemOnc Regimens based on a single Component and total number of Components in the source regimen.
+#' This function uses the grepl function on the HemOnc Concept Names and naming
+#' patterns to return HemOnc Regimens based on a single Component and total
+#' number of Components in the source regimen.
 #'
 #' @inheritParams queryAthena
-#' @param component Character vector of length 1 or greater of components that comprise the regimen.
-#' @param check_validity If TRUE, a query is run to comfirm that there is a HemOnc Component that has an exact string match to each of the components provided.
-#' @param component_count If NULL or the component_count is larger than the maximum number of components possible for all Regimens with a positive string match to the `component` parameter, the unfiltered result of the initial query for `components` is returned.
+#' @param ... Characters of length 1 or greater of components that comprise the
+#' regimen.
+#' @param check_validity If TRUE, a query is run to comfirm that there is a
+#' HemOnc Component that has an exact string match to each of the components
+#' provided.
+#' @param component_count If NULL or the component_count is larger than the m
+#' aximum number of components possible for all Regimens with a positive string
+#' match to the `component` parameter, the unfiltered result of the initial
+#' query for `components` is returned.
 #' @seealso
 #'  \code{\link[cli]{cli_rule}},\code{\link[cli]{cat_line}}
 #'  \code{\link[SqlRender]{render}}
 #'  \code{\link[purrr]{reduce}}
-#'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{filter}}
+#'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{mutate}},
+#'  \code{\link[dplyr]{filter}}
 #'  \code{\link[rubix]{arrange_by_nchar}},\code{\link[rubix]{filter_at_grepl}}
-#' @rdname grep_hemonc_regimens
+#' @rdname ho_grep_regimens
 #' @export
 #' @importFrom cli cli_rule cat_line
 #' @importFrom SqlRender render
@@ -23,9 +32,9 @@
 #' @importFrom rubix arrange_by_nchar filter_at_grepl
 
 ho_grep_regimens <-
-  function(conn,
-           conn_fun,
-           components,
+  function(...,
+           conn,
+           conn_fun = "connectAthena()",
            check_validity = TRUE,
            component_count = NULL,
            vocab_schema = "omop_vocabulary",
@@ -36,10 +45,26 @@ ho_grep_regimens <-
            verbose = TRUE,
            sleepTime = 1) {
 
-    # component <- "trastuzumab"
-    # component_count <- NULL
-    # omop <- FALSE
-    # vocab_schema <- "omop_vocabulary"
+    n_comma <-
+      function(string) {
+        nchar(
+        stringr::str_remove_all(string = string,
+                                pattern = "[^,]")
+        )
+      }
+    #
+    if (missing(...)) {
+      stop("components required")
+    }
+
+
+    components <- rlang::list2(...)
+    components <- unlist(components)
+
+
+    if (is.null(component_count)) {
+      component_count <- length(components)
+    }
 
     if (check_validity) {
       if (verbose) {
@@ -166,10 +191,7 @@ ho_grep_regimens <-
       )
 
 
-    if (is.null(component_count)) {
-      output %>%
-        rubix::arrange_by_nchar(col = concept_name)
-    } else if (component_count == 1) {
+   if (component_count == 1) {
       output %>%
         rubix::filter_at_grepl(concept_name,
           grepl_phrase = " monotherapy",
@@ -219,7 +241,7 @@ ho_grep_regimens <-
 
 ho_lookup_antineoplastics <-
   function(regimen_concept_ids,
-           vocab_schema = NULL,
+           vocab_schema = "omop_vocabulary",
            check_validity = TRUE,
            conn,
            cache_only = FALSE,
@@ -284,7 +306,8 @@ ho_lookup_antineoplastics <-
                                 AND c.concept_class_id = 'Component'
                                 AND c.vocabulary_id = 'HemOnc';
                         ",
-        regimen_concept_ids = regimen_concept_ids
+        regimen_concept_ids = regimen_concept_ids,
+        schema = vocab_schema
       )
 
     queryAthena(
@@ -369,7 +392,7 @@ deconstruct_hemonc_ids <-
 ho_lookup_regimen <-
   function(component_concept_ids,
            schema = NULL,
-           vocab_schema,
+           vocab_schema = "omop_vocabulary",
            writeSchema,
            conn = NULL,
            cache_only = FALSE,
@@ -458,8 +481,25 @@ ho_lookup_regimen <-
         )
     }
 
+    regimen_concept_ids <-
     output %>%
       purrr::reduce(dplyr::inner_join, by = "regimen_concept_id") %>%
-      unlist()
+      unlist() %>%
+      unname()
+
+    regimens <-
+    ho_lookup_antineoplastics(regimen_concept_ids = regimen_concept_ids,
+                              vocab_schema = vocab_schema,
+                              conn = conn)
+
+    regimens2 <-
+    join_on_concept_id(data = regimens,
+                       column = "regimen_concept_id")
+
+    regimens2 %>%
+      select(regimen_concept_id,
+             regimen_concept_name = concept_name,
+             has_antineoplastic_concept_id,
+             has_antineoplastic_concept_name)
   }
 
