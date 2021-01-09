@@ -10,13 +10,6 @@ reference:
     contents:
       - connectAthena
       - dcAthena
-  - title: Filter
-    desc: >
-      Wrappers around dplyr's `filter` functions
-    contents:
-      - filter_at_all_strip
-      - filter_at_any_strip
-      - filter_strip
   - title: Concept Object
     desc: >
        Concept Class objects
@@ -35,7 +28,7 @@ reference:
       - print_concept_hierarchy
   - title: Concept Formatting
     desc:  >
-       Visualize a concept hierarachy
+       Format concepts and their attributes
     contents:
       - label_to_strip
       - strip_to_label
@@ -65,5 +58,14 @@ reference:
   - title: HemOnc Queries
     contents:
       - starts_with('ho_')
-
+  - title: Drug Strength Calculations
+    contents:
+      - starts_with('ds_')
+  - title: Filter
+    desc: >
+      Wrappers around dplyr's `filter` functions
+    contents:
+      - filter_at_all_strip
+      - filter_at_any_strip
+      - filter_strip
 
