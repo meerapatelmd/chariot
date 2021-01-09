@@ -55,7 +55,8 @@ ds_process <-
                         	map.denominator_unit_concept_name
                         from @write_schema.ds_drug ds
                         left join @write_schema.ds_unit_map map
-                        ON map.drug_concept_id = ds.drug_concept_id;
+                        ON map.drug_concept_id = ds.drug_concept_id
+                );
                 ",
                                 write_schema = write_schema)
 
@@ -143,55 +144,128 @@ ds_process_map_table <-
                  render_sql = TRUE,
                  render_only = FALSE) {
 
-                sendAthena(
-                        conn = conn,
-                        sql_statement =
-                                SqlRender::render("
-                        DROP TABLE IF EXISTS @write_schema.@units_table;
-                        DROP TABLE IF EXISTS @write_schema.@units_table_staged;
-                        CREATE TABLE  @write_schema.@units_table_staged (
-                                drug_concept_id INTEGER,
-                                unit_concept_id_type VARCHAR(255),
-                                unit_concept_name VARCHAR(255)
-                        );
+                unit_cols <- c("amount_unit_concept_id",
+                               "numerator_unit_concept_id",
+                               "denominator_unit_concept_id")
 
-                        WITH target_concept_units AS (
-                                                SELECT
-                                                        drug_concept_id,
-                                                        unnest(array['amount_unit_concept_id', 'numerator_unit_concept_id', 'denominator_unit_concept_id']) AS unit_concept_id_type,
-                                                       unnest(array[amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id]) AS unit_concept_id
-                                                FROM @vocab_schema.drug_strength
-                                        ),
-                                        target_concept_units2 AS (
-                                                SELECT
-                                                        u.*,
-                                                        c.concept_name AS unit_concept_name
-                                                FROM target_concept_units u
-                                                LEFT JOIN @vocab_schema.concept c
-                                                ON c.concept_id = u.unit_concept_id
-                                        )
+                for (i in seq_along(unit_cols)) {
 
-                                        INSERT INTO @write_schema.@units_table_staged
-                                        SELECT drug_concept_id,
-                                                unit_concept_id_type,
-                                                unit_concept_name
-                                        FROM target_concept_units2
-                                        WHERE unit_concept_id IS NOT NULL;
+                        unit_col <- unit_cols[i]
+                        unit_type <- stringr::str_remove_all(unit_col,
+                                                             pattern = "_concept_id")
 
-                                        CREATE TABLE @write_schema.@units_table AS (
-                                        SELECT DISTINCT *
-        FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_name FROM @write_schema.@units_table_staged') AS final_result(drug_concept_id INTEGER, amount_unit_concept_name VARCHAR, numerator_unit_concept_name VARCHAR, denominator_unit_concept_name VARCHAR)
+                        sql_statement <-
+                        SqlRender::render(
+                                "
+                                DROP TABLE IF EXISTS @write_schema.@unit_col;
+                                CREATE TABLE  @write_schema.@unit_col AS (
+                                SELECT
+                                        ds.drug_concept_id,
+                                        ds.ingredient_concept_id,
+                                        ds.@unit_col,
+                                        c.concept_name AS @unit_type_concept_name
+                                FROM @vocab_schema.drug_strength ds
+                                LEFT JOIN @vocab_schema.concept c
+                                ON ds.@unit_col = c.concept_id
+                                );",
+                                unit_col = unit_col,
+                                unit_type = unit_type,
+                                vocab_schema = vocab_schema,
+                                write_schema = write_schema
+                        )
+
+                        sendAthena(conn = conn,
+                                   sql_statement = sql_statement,
+                                   verbose = verbose,
+                                   render_sql = render_sql,
+                                   render_only = render_only)
+                }
+
+
+                sql_statement <-
+                        sendAthena(
+                                conn = conn,
+                                sql_statement =
+                                        SqlRender::render(
+                                        "
+                                        DROP TABLE IF EXISTS @write_schema.ds_unit_map;
+                                        CREATE TABLE @write_schema.ds_unit_map AS (
+                                        SELECT ds.*, a.amount_unit_concept_name, n.numerator_unit_concept_name, d.denominator_unit_concept_name
+                                        FROM @vocab_schema.drug_strength ds
+                                        LEFT JOIN @write_schema.amount_unit_concept_id a
+                                        ON a.drug_concept_id = ds.drug_concept_id
+                                                AND a.ingredient_concept_id = ds.ingredient_concept_id
+                                        LEFT JOIN @write_schema.numerator_unit_concept_id n
+                                        ON n.drug_concept_id = ds.drug_concept_id
+                                                AND n.ingredient_concept_id = ds.ingredient_concept_id
+                                        LEFT JOIN @write_schema.denominator_unit_concept_id d
+                                        ON d.drug_concept_id = ds.drug_concept_id
+                                                AND d.ingredient_concept_id = ds.ingredient_concept_id
                                         );
+                                        DROP TABLE IF EXISTS @write_schema.amount_unit_concept_id;
+                                         DROP TABLE IF EXISTS @write_schema.numerator_unit_concept_id;
+                                         DROP TABLE IF EXISTS @write_schema.denominator_unit_concept_id;
+                                        ",
+                                        vocab_schema = vocab_schema,
+                                        write_schema = write_schema
+                                        )
+                        )
 
-                                        DROP TABLE @write_schema.@units_table_staged;
+                sendAthena(conn = conn,
+                           sql_statement = sql_statement,
+                           verbose = verbose,
+                           render_sql = render_sql,
+                           render_only = render_only)
 
-                        ",
-                                                  write_schema = write_schema,
-                                                  units_table = "ds_unit_map",
-                                                  vocab_schema = vocab_schema
-                                ),
-                        verbose = verbose,
-                        render_sql = render_sql,
-                        render_only = render_only
-                )
+        #         sendAthena(
+        #                 conn = conn,
+        #                 sql_statement =
+        #                         SqlRender::render("
+        #                 DROP TABLE IF EXISTS @write_schema.@units_table;
+        #                 DROP TABLE IF EXISTS @write_schema.@units_table_staged;
+        #                 CREATE TABLE  @write_schema.@units_table_staged (
+        #                         drug_concept_id INTEGER,
+        #                         unit_concept_id_type VARCHAR(255),
+        #                         unit_concept_name VARCHAR(255)
+        #                 );
+        #
+        #                 WITH target_concept_units AS (
+        #                                         SELECT
+        #                                                 drug_concept_id,
+        #                                                 unnest(array['amount_unit_concept_id', 'numerator_unit_concept_id', 'denominator_unit_concept_id']) AS unit_concept_id_type,
+        #                                                unnest(array[amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id]) AS unit_concept_id
+        #                                         FROM @vocab_schema.drug_strength
+        #                                 ),
+        #                                 target_concept_units2 AS (
+        #                                         SELECT
+        #                                                 u.*,
+        #                                                 c.concept_name AS unit_concept_name
+        #                                         FROM target_concept_units u
+        #                                         LEFT JOIN @vocab_schema.concept c
+        #                                         ON c.concept_id = u.unit_concept_id
+        #                                 )
+        #
+        #                                 INSERT INTO @write_schema.@units_table_staged
+        #                                 SELECT drug_concept_id,
+        #                                         unit_concept_id_type,
+        #                                         unit_concept_name
+        #                                 FROM target_concept_units2
+        #                                 WHERE unit_concept_id IS NOT NULL;
+        #
+        #                                 CREATE TABLE @write_schema.@units_table AS (
+        #                                 SELECT DISTINCT *
+        # FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_name FROM @write_schema.@units_table_staged') AS final_result(drug_concept_id INTEGER, amount_unit_concept_name VARCHAR, numerator_unit_concept_name VARCHAR, denominator_unit_concept_name VARCHAR)
+        #                                 );
+        #
+        #                                 DROP TABLE @write_schema.@units_table_staged;
+        #
+        #                 ",
+        #                                           write_schema = write_schema,
+        #                                           units_table = "ds_unit_map",
+        #                                           vocab_schema = vocab_schema
+        #                         ),
+        #                 verbose = verbose,
+        #                 render_sql = render_sql,
+        #                 render_only = render_only
+        #         )
         }

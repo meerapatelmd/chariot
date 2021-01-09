@@ -1,6 +1,57 @@
 
 
 
+ds_stage <-
+        function(conn,
+                 conn_fun = "connectAthena()",
+                 write_schema = "patelm9",
+                 verbose = TRUE,
+                 render_sql = TRUE,
+                 render_only = FALSE) {
+
+
+                ds_stage_unit_fraction(
+                        conn = conn,
+                        write_schema = write_schema,
+                        verbose = verbose,
+                        render_sql = render_sql,
+                        render_only = render_only
+                )
+
+                ds_stage_value_fraction(
+                        conn = conn,
+                        conn_fun = conn_fun,
+                        write_schema = write_schema,
+                        verbose = verbose,
+                        render_sql = render_sql,
+                        render_only = render_only
+                )
+
+                sql_statement <-
+                        SqlRender::render(
+                                "
+                DROP TABLE IF EXISTS @write_schema.drug_strength_staged;
+                CREATE TABLE @write_schema.drug_strength_staged AS (
+                        select
+                        	u.drug_concept_id,
+                        	u.ingredient_concept_id,
+                        	v.value,
+                        	u.unit
+                        from @write_schema.ds_value_fraction v
+                        join @write_schema.ds_unit_fraction u
+                        ON u.drug_concept_id = v.drug_concept_id
+                                AND u.ingredient_concept_id = v.ingredient_concept_id
+                );
+                ",
+                                write_schema = write_schema)
+
+                sendAthena(conn = conn,
+                           sql_statement = sql_statement,
+                           verbose = verbose,
+                           render_sql = render_sql,
+                           render_only = render_only)
+        }
+
 ds_stage_unit_fraction <-
         function(conn,
                  conn_fun = "connectAthena()",
