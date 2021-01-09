@@ -1,7 +1,9 @@
 #' @title
 #' List UCUM Unit Concepts
 #' @description
-#' List all UCUM Unit Concepts from the Concept Table. To list UCUM Units related to the measurement of Time, see \code{\link{list_time_unit_concepts}}. The resultset is never cached.
+#' List all UCUM Unit Concepts from the Concept Table. To list UCUM Units specifically
+#' related to the measurement of Time, see \code{\link{list_time_unit_concepts}}.
+#' The resultset is never cached.
 #' @param conn PARAM_DESCRIPTION, Default: NULL
 #' @param vocabSchema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
 #' @return OUTPUT_DESCRIPTION
@@ -14,19 +16,18 @@
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_time_unit_concepts
+#' @rdname lookup_ucum
 #' @export
 #' @importFrom SqlRender render
 
 
-list_unit_concepts <-
-  function(conn = NULL,
+lookup_ucum <-
+  function(conn,
+           conn_fun,
            vocabSchema = "omop_vocabulary") {
     queryAthena(SqlRender::render(
       "
-                                        SELECT
-                                                concept_id,
-                                                concept_name
+                                        SELECT *
                                         FROM @vocabSchema.concept
                                         WHERE domain_id = 'Unit'
                                                 AND vocabulary_id = 'UCUM'
@@ -48,8 +49,13 @@ list_unit_concepts <-
 
 #' @title
 #' List UCUM Concepts Related to Time
+#'
 #' @description
-#' List all UCUM Unit Concepts from the Concept Table that are related to measurement of Time based on a broad regex match to the phrases "hour", "minute", "second", "day", "month", "week", and "year". To list all UCUM Units, see \code{\link{list_unit_concepts}}. This resultset is never cached.
+#' List all UCUM Unit Concepts from the Concept Table that are related to
+#' measurement of Time based on a broad regex match to the phrases "hour",
+#' "minute", "second", "day", "month", "week", and "year". To list all UCUM
+#' Units, see \code{\link{list_unit_concepts}}. This resultset is never cached.
+#'
 #' @param conn PARAM_DESCRIPTION, Default: NULL
 #' @param vocabSchema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
 #' @return OUTPUT_DESCRIPTION
@@ -62,19 +68,20 @@ list_unit_concepts <-
 #' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_time_unit_concepts
+#' @rdname lookup_ucum_time
 #' @export
 #' @importFrom SqlRender render
 
 
-list_time_unit_concepts <-
-  function(conn = NULL,
+lookup_ucum_time <-
+  function(conn,
+           conn_fun,
            vocabSchema = "omop_vocabulary") {
+
+
     queryAthena(SqlRender::render(
       "
-                                        SELECT
-                                                concept_id,
-                                                concept_name
+                                        SELECT *
                                         FROM @vocabSchema.concept
                                         WHERE domain_id = 'Unit'
                                                 AND vocabulary_id = 'UCUM'
@@ -101,6 +108,51 @@ list_time_unit_concepts <-
     )
   }
 
+
+
+
+ds_lookup_ucum <-
+        function(conn,
+                 vocabSchema = "omop_vocabulary") {
+
+        queryAthena(
+                SqlRender::render(
+                        "
+                        SELECT *
+                        FROM @vocabSchema.concept
+                        WHERE
+                                domain_id = 'Unit'
+                                        AND vocabulary_id = 'UCUM'
+                                        AND concept_class_id = 'Unit'
+                                        AND invalid_reason IS NULL
+                                        AND concept_id NOT IN (
+                                                SELECT concept_id
+                                                FROM @vocabSchema.concept
+                                                WHERE domain_id = 'Unit'
+                                                        AND vocabulary_id = 'UCUM'
+                                                        AND concept_class_id = 'Unit'
+                                                        AND invalid_reason IS NULL
+                                                        AND (LOWER(concept_name) LIKE '%hour%'
+                                                                OR LOWER(concept_name) LIKE '%minute%'
+                                                                OR LOWER(concept_name) LIKE '%second%'
+                                                                OR LOWER(concept_name) LIKE '%day%'
+                                                                OR LOWER(concept_name) LIKE '%week%'
+                                                                OR LOWER(concept_name) LIKE '%month%'
+                                                                OR LOWER(concept_name) LIKE '%year%')
+                                                );
+                        ",
+                vocabSchema = vocabSchema),
+                conn = conn,
+                cache_only = FALSE,
+                skip_cache = TRUE,
+                override_cache = FALSE,
+                render_sql = FALSE,
+                verbose = FALSE,
+                sleepTime = 1
+        )
+
+        }
+
 #' @title
 #' List OMOP Unit Concepts in the Drug Strength Table
 #' @description
@@ -110,19 +162,13 @@ list_time_unit_concepts <-
 #' @return OUTPUT_DESCRIPTION
 #' @details
 #' The resultset is not cached
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_drug_strength_units
+#' @rdname ds_map_units
 #' @export
 #' @importFrom SqlRender render
 
-list_drug_strength_units <-
+ds_map_units <-
   function(conn = NULL,
            vocabSchema = "omop_vocabulary") {
     queryAthena(SqlRender::render(
@@ -169,10 +215,84 @@ list_drug_strength_units <-
   }
 
 
+
+
+
+
+ds_map_units <-
+        function(conn,
+                 vocabSchema = "omop_vocabulary",
+                 writeSchema = "patelm9") {
+
+                sendAthena(
+                        conn = conn,
+                        sql_statement =
+                        SqlRender::render("
+                         DROP TABLE IF EXISTS @writeSchema.@units_table;
+                        DROP TABLE IF EXISTS @writeSchema.@units_table_staged;
+                        CREATE TABLE  @writeSchema.@units_table_staged (
+                                drug_concept_id INTEGER,
+                                unit_concept_id_type VARCHAR(255),
+                                unit_concept_name VARCHAR(255)
+                        );
+
+                        WITH target_concept_units AS (
+                                                SELECT
+                                                        drug_concept_id,
+                                                        unnest(array['amount_unit_concept_id', 'numerator_unit_concept_id', 'denominator_unit_concept_id']) AS unit_concept_id_type,
+                                                       unnest(array[amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id]) AS unit_concept_id
+                                                FROM @vocabSchema.drug_strength
+                                        ),
+                                        target_concept_units2 AS (
+                                                SELECT
+                                                        u.*,
+                                                        c.concept_name AS unit_concept_name
+                                                FROM target_concept_units u
+                                                LEFT JOIN @vocabSchema.concept c
+                                                ON c.concept_id = u.unit_concept_id
+                                        )
+
+                                        INSERT INTO @writeSchema.@units_table_staged
+                                        SELECT drug_concept_id,
+                                                unit_concept_id_type,
+                                                unit_concept_name
+                                        FROM target_concept_units2
+                                        WHERE unit_concept_id IS NOT NULL;
+
+                                        CREATE TABLE @writeSchema.@units_table AS (
+                                        SELECT DISTINCT *
+        FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_name FROM @writeSchema.@units_table_staged') AS final_result(drug_concept_id INTEGER, amount_unit_concept_name VARCHAR, numerator_unit_concept_name VARCHAR, denominator_unit_concept_name VARCHAR)
+                                        );
+
+                                        DROP TABLE @writeSchema.@units_table_staged;
+
+                        ",
+                                                          writeSchema = writeSchema,
+                                                          units_table = "drug_strength_unit_map",
+                                                          vocabSchema = vocabSchema
+                                        )
+                                )
+        }
+
+
+
 #' @title
 #' Stage Drug Strength Expressions for Evaluation
 #' @description
-#' The Drug Strength Table is joined to the provided drug_concept_ids and the amount_value or fraction of numerator to denominator values are returned in a "staged_value" field along with the concept names of the units in a seprate "staged_unit" field. Only valid Drug Strength Table entries are included in the returned dataframe and the 'box_size', 'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are excluded in the output. Since some extended release formulations of common medications such as Tylenol have a a Drug Strength with a denominator of 24 hours, the `include_rates` parameter denotes whether those rate-based calculations should be included in the staged value. If FALSE, all the denominator and subsequent staged values are calculated in their native form and prefixed with 'native_' and then the final staged and denominator values are reconstituted with denominator units related to time measurements normalized to 1.
+#' The Drug Strength Table is joined to the provided drug_concept_ids and the
+#' amount_value or fraction of numerator to denominator values are returned in
+#' a "staged_value" field along with the concept names of the units in a
+#' separate "staged_unit" field. Only valid Drug Strength Table entries are
+#' included in the returned dataframe and the 'box_size', 'invalid_reason',
+#' 'valid_start_date', and 'valid_end_date' fields are excluded in the output.
+#' Since some extended release formulations of common medications such as
+#' Tylenol have a a Drug Strength with a denominator of 24 hours, the
+#' `include_rates` parameter denotes whether those rate-based calculations
+#' should be included in the staged value. If FALSE, all the denominator and
+#' subsequent staged values are calculated in their native form and prefixed
+#' with 'native_' and then the final staged and denominator values are
+#' reconstituted with denominator units related to time measurements normalized
+#' to 1.
 #' @param .data PARAM_DESCRIPTION
 #' @param drug_concept_id_column PARAM_DESCRIPTION
 #' @param include_rates PARAM_DESCRIPTION, Default: FALSE
@@ -181,7 +301,14 @@ list_drug_strength_units <-
 #' @param writeSchema PARAM_DESCRIPTION
 #' @return OUTPUT_DESCRIPTION
 #' @details
-#' The staged_value and/or native_staged_value fields are returned as character class expressions to evaluate to limit rounding error in downstream calculations for non-whole number drug strengths. For example, the staged_value for a drug with a numerator of 1 and denominator of 3 would have a staged_value of "1/3" rather than 0.3333. These values can be parsed into their numeric values by calling a function that parses and evaluates the expression such as the rlang's parse_expr function followed by a call to the base eval function.
+#' The staged_value and/or native_staged_value fields are returned as character
+#' class expressions to evaluate to limit rounding error in downstream
+#' calculations for non-whole number drug strengths. For example, the
+#' staged_value for a drug with a numerator of 1 and denominator of 3 would
+#' have a staged_value of "1/3" rather than 0.3333. These values can be parsed
+#' into their numeric values by calling a function that parses and evaluates
+#' the expression such as the rlang's parse_expr function followed by a call
+#' to the base eval function.
 #' @examples
 #' \dontrun{
 #' if (interactive()) {
@@ -191,14 +318,18 @@ list_drug_strength_units <-
 #' @seealso
 #'  \code{\link[pg13]{dropTable}},\code{\link[pg13]{writeTable}}
 #'  \code{\link[SqlRender]{render}}
-#'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{distinct}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{na_if}},\code{\link[dplyr]{coalesce}},\code{\link[dplyr]{select}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{rename}}
+#'  \code{\link[dplyr]{mutate-joins}},\code{\link[dplyr]{distinct}},
+#'  \code{\link[dplyr]{mutate}},\code{\link[dplyr]{na_if}},
+#'  \code{\link[dplyr]{coalesce}},\code{\link[dplyr]{select}},
+#'  \code{\link[dplyr]{reexports}},\code{\link[dplyr]{rename}}
 #'  \code{\link[tidyr]{unite}}
 #'  \code{\link[tibble]{tribble}}
 #' @rdname stage_drug_strengths
 #' @export
 #' @importFrom pg13 dropTable writeTable
 #' @importFrom SqlRender render
-#' @importFrom dplyr left_join distinct mutate na_if coalesce select all_of rename
+#' @importFrom dplyr left_join distinct mutate na_if coalesce
+#' select all_of rename
 #' @importFrom tidyr unite
 #' @importFrom tibble tribble
 
@@ -207,7 +338,7 @@ stage_drug_strengths <-
   function(.data,
            drug_concept_id_column,
            include_rates = FALSE,
-           conn = NULL,
+           conn,
            vocabSchema = "omop_vocabulary",
            writeSchema) {
 
@@ -219,79 +350,27 @@ stage_drug_strengths <-
     # vocabSchema = "omop_vocabulary"
     # conn <- chariot::connectAthena()
 
-    # Write table to writeSchema for join
-    if (is.null(conn)) {
-      write_conn <- connectAthena()
-    } else {
-      write_conn <- conn
-    }
-
-    temp_table <- make_temp_table_name()
-    units_temp_table <- paste0(temp_table, "_units")
-
-    pg13::dropTable(
-      conn = write_conn,
-      schema = writeSchema,
-      tableName = temp_table
-    )
-
-    pg13::writeTable(
-      conn = write_conn,
-      schema = writeSchema,
-      tableName = temp_table,
-      .data
-    )
-
-
-    # # drug_strength with hours denominators
-    # rate_concepts <-
-    #         queryAthena(SqlRender::render(
-    #                         "
-    #                         SELECT DISTINCT c.*
-    #                         FROM @vocabSchema.drug_strength ds
-    #                         LEFT JOIN @vocabSchema.concept c
-    #                         ON c.concept_id = ds.drug_concept_id
-    #                         WHERE ds.denominator_unit_concept_id = 8505
-    #                         ;
-    #                         ", vocabSchema = vocabSchema),
-    #                     conn = conn,
-    #                     cache_only = FALSE,
-    #                     skip_cache = TRUE,
-    #                     override_cache = FALSE,
-    #                     render_sql = FALSE,
-    #                     verbose = FALSE,
-    #                     sleepTime = 1)
-
 
 
 
     sendAthena(
       conn = conn,
       SqlRender::render("
-
-                        DROP TABLE IF EXISTS @writeSchema.@units_table;
-                        CREATE TABLE  @writeSchema.@units_table (
+                        DROP TABLE IF EXISTS @writeSchema.@units_table_staged;
+                        CREATE TABLE  @writeSchema.@units_table_staged (
                                 drug_concept_id INTEGER,
                                 unit_concept_id_type VARCHAR(255),
                                 unit_concept_id INTEGER,
                                 unit_concept_name VARCHAR(255)
                         );
 
-                        WITH target_concepts AS (
-                                                SELECT DISTINCT
-                                                      a.*,
-                                                      b.*
-                                                FROM @writeSchema.@temp_table a
-                                                LEFT JOIN @vocabSchema.drug_strength b
-                                                ON a.@drug_concept_id_column = b.drug_concept_id
-                                                WHERE b.invalid_reason IS NULL
-                                        ),
+
                                         target_concept_units AS (
                                                 SELECT
                                                         drug_concept_id,
                                                         unnest(array['amount_unit_concept_id', 'numerator_unit_concept_id', 'denominator_unit_concept_id']) AS unit_concept_id_type,
                                                        unnest(array[amount_unit_concept_id, numerator_unit_concept_id, denominator_unit_concept_id]) AS unit_concept_id
-                                                FROM target_concepts
+                                                FROM @vocabSchema.drug_strength
                                         ),
                                         target_concept_units2 AS (
                                                 SELECT
@@ -302,15 +381,19 @@ stage_drug_strengths <-
                                                 ON c.concept_id = u.unit_concept_id
                                         )
 
-                                        INSERT INTO @writeSchema.@units_table
+                                        INSERT INTO @writeSchema.@units_table_staged
                                         SELECT *
                                         FROM target_concept_units2
-                                        WHERE unit_concept_id IS NOT NULL
-                                        ;",
+                                        WHERE unit_concept_id IS NOT NULL;
+
+                                        CREATE TABLE @writeSchema.@units_table AS (
+                                        SELECT DISTINCT *
+        FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_id FROM @writeSchema.@units_table') AS final_result(drug_concept_id INTEGER, amount_unit_concept_id INTEGER, numerator_unit_concept_id INTEGER, denominator_unit_concept_id INTEGER)
+                                        );
+
+                        ",
         writeSchema = writeSchema,
-        temp_table = temp_table,
-        units_table = units_temp_table,
-        drug_concept_id_column = drug_concept_id_column,
+        units_table = "drug_strength_units",
         vocabSchema = vocabSchema
       )
     )
@@ -319,7 +402,7 @@ stage_drug_strengths <-
     target_unit_ids <-
       queryAthena(SqlRender::render(
         "SELECT DISTINCT *
-                                        FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_id FROM @writeSchema.@units_table') AS final_result(drug_concept_id INTEGER, amount_unit_concept_id INTEGER, numerator_unit_concept_id INTEGER, denominator_unit_concept_id INTEGER);",
+        FROM crosstab('SELECT drug_concept_id, unit_concept_id_type, unit_concept_id FROM @writeSchema.@units_table') AS final_result(drug_concept_id INTEGER, amount_unit_concept_id INTEGER, numerator_unit_concept_id INTEGER, denominator_unit_concept_id INTEGER);",
         writeSchema = writeSchema,
         units_table = units_temp_table
       ),
