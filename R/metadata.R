@@ -3,7 +3,8 @@
 #' @description
 #' Read the tables from OHDI's GitHub Wiki at
 #' \url{https://ohdsi.github.io/CommonDataModel/cdm60.html} to annotate
-#' resultsets.
+#' resultsets. This function is run on package load to cache the tables if they
+#' are older than the expiration days.
 #' @param expiration_days If the cached file was created longer than this time
 #' period in days, the GitHub wiki is re-read and cached. Default: 180
 #' @seealso
@@ -43,8 +44,9 @@ read_cdm_wiki_table <-
         return(data)
 
     } else {
-      lowLevelLoadCache(query = "read_cdm_wiki_table")
+       data <- lowLevelLoadCache(query = "read_cdm_wiki_table")
 
+       data
 
 
     }

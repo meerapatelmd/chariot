@@ -13,7 +13,8 @@ period in days, the GitHub wiki is re-read and cached. Default: 180}
 \description{
 Read the tables from OHDI's GitHub Wiki at
 \url{https://ohdsi.github.io/CommonDataModel/cdm60.html} to annotate
-resultsets.
+resultsets. This function is run on package load to cache the tables if they
+are older than the expiration days.
 }
 \seealso{
 \code{\link[R.cache]{findCache}}
