@@ -60,6 +60,8 @@ process_words <-
            concept_col,
            sep = " ",
            word_nchar = 3) {
+
+    concept_col <- dplyr::enquo(concept_col)
     new_col_name <- paste0(dplyr::as_label(concept_col), " Words")
 
 
@@ -257,17 +259,21 @@ process_longest_words <-
     #
 
     concept_col <- dplyr::enquo(concept_col)
+    words_col <- dplyr::enquo(words_col)
     # words_col <- dplyr::enquo(words_col)
     new_col_name <- paste0(dplyr::as_label(concept_col), " Longest Word")
 
     dplyr::left_join(
       data,
       data %>%
+        dplyr::mutate(nchar_words := nchar(!!words_col)) %>%
         dplyr::group_by_at(dplyr::vars({{ concept_col }})) %>%
-        dplyr::mutate(longest_word = max(nchar({{ words_col }}))) %>%
-        dplyr::filter(nchar({{ words_col }}) == longest_word) %>%
+        dplyr::mutate(longest_word = max(nchar_words)) %>%
+        dplyr::filter(nchar_words == longest_word) %>%
+        dplyr::ungroup() %>%
         dplyr::select(-longest_word) %>%
-        dplyr::rename({{ new_col_name }} := {{ words_col }})
+        dplyr::rename({{ new_col_name }} := {{ words_col }}) %>%
+        dplyr::select(-nchar_words)
     )
   }
 
