@@ -7,3 +7,5 @@ inst/doc
 Meta
 cancer_classifications.R
 cancer_classifications.Rmd
+errorReportSql.txt
+*.log
