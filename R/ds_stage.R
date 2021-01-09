@@ -1,6 +1,21 @@
-
-
-
+#' @title
+#' Stage Drug Strengths
+#'
+#' @description
+#' Create the Drug Strengths Staged table from the Drug Strengths Processed table.
+#' Here, the fractional representations of each the value and the units are
+#' created if applicable. The final fields `value` and `unit` represent expressions
+#' as varchar that can be evaluated as numeric.
+#'
+#' With the calculations staged in the Drug Strengths Staged table, it can be
+#' joined with the Drug Exposures table to calculate ingredient administrations
+#' for research on cumulative doses over time and other research use cases. .
+#'
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname ds_stage
+#' @export
+#' @importFrom SqlRender render
 ds_stage <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -52,6 +67,13 @@ ds_stage <-
                            render_only = render_only)
         }
 
+#' @title
+#' Stage the Fractional Representation of Units
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname ds_stage_unit_fraction
+#' @export
+#' @importFrom SqlRender render
 ds_stage_unit_fraction <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -117,6 +139,13 @@ ds_stage_unit_fraction <-
         }
 
 
+#' @title
+#' Stage the Fractional Representation of Value
+#' @seealso
+#'  \code{\link[SqlRender]{render}}
+#' @rdname ds_stage_value_fraction
+#' @export
+#' @importFrom SqlRender render
 ds_stage_value_fraction <-
         function(conn,
                  conn_fun = "connectAthena()",
