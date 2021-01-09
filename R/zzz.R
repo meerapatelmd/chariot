@@ -2,9 +2,6 @@
         function(libname,
                  pkgname) {
 
-                packageStartupMessage(
-                        "Reading GitHub Wiki..."
-                )
                 x <-
                 tryCatch(
                         read_cdm_wiki_table(),
@@ -12,7 +9,7 @@
                 )
 
                 packageStartupMessage(
-                        "Reading GitHub Wiki...complete"
+                        "Read GitHub Wiki <https://ohdsi.github.io/CommonDataModel/cdm60.html>"
                 )
 
 
