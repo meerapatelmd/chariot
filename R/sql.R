@@ -57,6 +57,14 @@ queryAthena <-
            verbose = TRUE,
            sleepTime = 1) {
 
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
+
 
     if (skip_cache) {
       if (verbose) {
@@ -221,9 +229,65 @@ queryCDM <-
                   verbose = verbose,
                   sleepTime = sleepTime)
 
+    resultset2 <-
+    map_concept_id(data = resultset,
+                   write_schema = write_schema,
+                   vocab_schema = vocab_schema,
+                   conn = conn,
+                   skip_cache = skip_cache,
+                   override_cache = override_cache,
+                   cache_only = cache_only,
+                   cache_resultset = cache_resultset,
+                   render_sql = render_sql,
+                   render_only = render_only,
+                   verbose = verbose,
+                   sleepTime = sleepTime)
+
+    resultset2
+
+  }
+
+
+
+#' @title
+#' Map All The Concepts in a Dataframe
+#' @seealso
+#'  \code{\link[rlang]{parse_expr}}
+#'  \code{\link[stringr]{str_remove}}
+#'  \code{\link[dplyr]{select_all}},\code{\link[dplyr]{vars}},\code{\link[dplyr]{reexports}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{all_vars}},\code{\link[dplyr]{mutate-joins}}
+#' @rdname map_concept_id
+#' @export
+#' @importFrom rlang parse_expr
+#' @importFrom stringr str_remove_all
+#' @importFrom dplyr select_at vars all_of rename_all filter_all all_vars left_join
+
+
+map_concept_id <-
+  function(data,
+           write_schema = "patelm9",
+           vocab_schema = "omop_vocabulary",
+           conn,
+           conn_fun = "connectAthena()",
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           cache_only = FALSE,
+           cache_resultset = TRUE,
+           render_sql = TRUE,
+           render_only = FALSE,
+           verbose = TRUE,
+           sleepTime = 1) {
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
+
     concept_id_fields <-
       grep(pattern = "concept_id$",
-           x = colnames(resultset),
+           x = colnames(data),
            value = TRUE)
 
 
@@ -235,28 +299,34 @@ queryCDM <-
                                                 pattern = "_concept_id")
 
         output <-
-        join_on_concept_id(data = resultset,
-                           column = concept_id_field,
-                           write_schema = write_schema,
-                           vocab_schema = vocab_schema,
-                           conn = conn,
-                           verbose = verbose,
-                           render_sql = render_sql,
-                           render_only = render_only) %>%
-          dplyr::select_at(dplyr::vars(!dplyr::all_of(colnames(resultset)))) %>%
+          join_on_concept_id(data = data,
+                             column = concept_id_field,
+                             write_schema = write_schema,
+                             vocab_schema = vocab_schema,
+                             conn = conn,
+                             verbose = verbose,
+                             render_sql = render_sql,
+                             render_only = render_only) %>%
+          dplyr::select_at(dplyr::vars(!dplyr::all_of(colnames(data)))) %>%
           dplyr::rename_all(~ paste0(field_prefix, "_", .))
 
-        resultset <-
-          resultset %>%
+        qa <-
+          output %>%
+          dplyr::filter_all(dplyr::all_vars(is.na(.)))
+
+        if (nrow(qa) > 0) {
+          warning(sprintf("%s `%s`` did not map to the Concept table", nrow(qa), concept_id_field))
+        }
+
+       data <-
+          data %>%
           dplyr::left_join(output)
       }
 
     }
 
 
-    resultset
-
-
+    data
   }
 
 #' @title
