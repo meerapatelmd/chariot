@@ -91,7 +91,7 @@ ds_stage_unit_fraction <-
                 	FROM @write_schema.drug_strength_processed dsp
                 )
                 INSERT INTO @write_schema.ds_unit_fraction
-                SELECT
+                SELECT DISTINCT
                 	fu.drug_concept_id,
                 	fu.ingredient_concept_id,
                 	fu.amount_value,
@@ -157,7 +157,7 @@ ds_stage_value_fraction <-
                 )
 
                 INSERT INTO @write_schema.ds_value_fraction
-                SELECT
+                SELECT DISTINCT
                 	fu.drug_concept_id,
                 	fu.ingredient_concept_id,
                 	fu.amount_value,

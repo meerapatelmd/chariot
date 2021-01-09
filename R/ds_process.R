@@ -183,14 +183,11 @@ ds_process_map_table <-
 
 
                 sql_statement <-
-                        sendAthena(
-                                conn = conn,
-                                sql_statement =
                                         SqlRender::render(
                                         "
                                         DROP TABLE IF EXISTS @write_schema.ds_unit_map;
                                         CREATE TABLE @write_schema.ds_unit_map AS (
-                                        SELECT ds.*, a.amount_unit_concept_name, n.numerator_unit_concept_name, d.denominator_unit_concept_name
+                                        SELECT DISTINCT ds.drug_concept_id, ds.ingredient_concept_id, a.amount_unit_concept_name, n.numerator_unit_concept_name, d.denominator_unit_concept_name
                                         FROM @vocab_schema.drug_strength ds
                                         LEFT JOIN @write_schema.amount_unit_concept_id a
                                         ON a.drug_concept_id = ds.drug_concept_id
@@ -203,13 +200,12 @@ ds_process_map_table <-
                                                 AND d.ingredient_concept_id = ds.ingredient_concept_id
                                         );
                                         DROP TABLE IF EXISTS @write_schema.amount_unit_concept_id;
-                                         DROP TABLE IF EXISTS @write_schema.numerator_unit_concept_id;
-                                         DROP TABLE IF EXISTS @write_schema.denominator_unit_concept_id;
+                                        DROP TABLE IF EXISTS @write_schema.numerator_unit_concept_id;
+                                        DROP TABLE IF EXISTS @write_schema.denominator_unit_concept_id;
                                         ",
                                         vocab_schema = vocab_schema,
                                         write_schema = write_schema
                                         )
-                        )
 
                 sendAthena(conn = conn,
                            sql_statement = sql_statement,
