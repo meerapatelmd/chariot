@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Process the Records in Drug Strength — ds_process_drug_table • chariot</title>
+<title>Process the Unit Concept Ids in the Drug Strength Table — ds_process_map_table • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,8 @@
 
 
 
-<meta property="og:title" content="Process the Records in Drug Strength — ds_process_drug_table" />
-<meta property="og:description" content="The Drug Strength table is filtered for only valid entries and the 'box_size',
-'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are selected
-against.
-Map `amount_unit_concept_id`, `numerator_unit_concept_id`,
+<meta property="og:title" content="Process the Unit Concept Ids in the Drug Strength Table — ds_process_map_table" />
+<meta property="og:description" content="Map `amount_unit_concept_id`, `numerator_unit_concept_id`,
 `denominator_unit_concept_id`` their respective concept names and store in
 a table." />
 <meta property="og:image" content="/logo.png" />
@@ -124,31 +121,18 @@ a table." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Process the Records in Drug Strength</h1>
+    <h1>Process the Unit Concept Ids in the Drug Strength Table</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/ds_process.R'><code>R/ds_process.R</code></a></small>
     <div class="hidden name"><code>ds_process_map_table.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The Drug Strength table is filtered for only valid entries and the 'box_size',
-'invalid_reason', 'valid_start_date', and 'valid_end_date' fields are selected
-against.</p>
-<p>Map `amount_unit_concept_id`, `numerator_unit_concept_id`,
+    <p>Map `amount_unit_concept_id`, `numerator_unit_concept_id`,
 `denominator_unit_concept_id`` their respective concept names and store in
 a table.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ds_process_drug_table</span><span class='op'>(</span>
-  <span class='va'>conn</span>,
-  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
-  vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
-  write_schema <span class='op'>=</span> <span class='st'>"patelm9"</span>,
-  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  render_only <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-
-<span class='fu'>ds_process_map_table</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>ds_process_map_table</span><span class='op'>(</span>
   <span class='va'>conn</span>,
   conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
   vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
@@ -161,25 +145,20 @@ a table.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A `ds_drug` table in `write_schema`. If it already exists, it will be rewritten.</p>
-<p>A `ds_unit_map` table in `write_schema`. If it already exists, it will be
+    <p>A `ds_unit_map` table in `write_schema`. If it already exists, it will be
 rewritten.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p>
-<p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p>
 <p>Other drug strength functions: 
 <code><a href='ds_lookup_ucum.html'>ds_lookup_ucum</a>()</code>,
+<code><a href='ds_process_drug_table.html'>ds_process_drug_table</a>()</code>,
 <code><a href='ds_process.html'>ds_process</a>()</code>,
 <code><a href='ds_stage_unit_fraction.html'>ds_stage_unit_fraction</a>()</code>,
 <code><a href='ds_stage_value_fraction.html'>ds_stage_value_fraction</a>()</code>,
 <code><a href='ds_stage.html'>ds_stage</a>()</code></p>
-<p>Other drug strength functions: 
-<code><a href='ds_lookup_ucum.html'>ds_lookup_ucum</a>()</code>,
-<code><a href='ds_process.html'>ds_process</a>()</code>,
-<code><a href='ds_stage_unit_fraction.html'>ds_stage_unit_fraction</a>()</code>,
-<code><a href='ds_stage_value_fraction.html'>ds_stage_value_fraction</a>()</code>,
-<code><a href='ds_stage.html'>ds_stage</a>()</code></p></div>
+<p>Other drug strength processing functions: 
+<code><a href='ds_process_drug_table.html'>ds_process_drug_table</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
