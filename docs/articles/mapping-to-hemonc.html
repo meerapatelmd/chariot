@@ -53,9 +53,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Articles
@@ -70,6 +67,9 @@
       <a href="../articles/string-manipulation.html">String Manipulation</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -113,8 +113,8 @@
 <code class="sourceCode R"><span class="va">ex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ho_grep_regimens.html">ho_grep_regimens</a></span><span class="op">(</span><span class="st">"Trastuzumab"</span>,
                  conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached SQL: </span>
 <span class="co">#&gt;                         WITH components AS (</span>
 <span class="co">#&gt;                                 SELECT DISTINCT</span>
 <span class="co">#&gt;                                         c.concept_id,</span>
@@ -134,11 +134,11 @@
 <span class="co">#&gt;                         ON c.concept_id = comp.concept_id</span>
 <span class="co">#&gt;                         WHERE LOWER(comp.concept_name) LIKE '%trastuzumab%'</span>
 <span class="co">#&gt;                         </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached resultset found...</span>
 <span class="co">#&gt; ✓ Trastuzumab</span>
 <span class="co">#&gt; ── Query ───────────────────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached SQL: </span>
 <span class="co">#&gt;                                 WITH regimens AS (</span>
 <span class="co">#&gt;                                         SELECT DISTINCT</span>
 <span class="co">#&gt;                                                 c.concept_id,</span>
@@ -158,7 +158,7 @@
 <span class="co">#&gt;                                 ON c.concept_id = r.concept_id</span>
 <span class="co">#&gt;                                 WHERE LOWER(r.concept_name) LIKE LOWER('%Trastuzumab%')</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span></code></pre></div>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached resultset found...</span></code></pre></div>
 <p>In this example, all Trastuzumab monotherapy regimens in HemOnc are searched for. The monotherapy is assumed by the length of the input (<code>1</code>), and the function first searches for “trastuzumab” and runs an additional search for the pattern “monotherapy” based on the value of <code>1</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ex1</span>
@@ -178,8 +178,8 @@
                    conn <span class="op">=</span> <span class="va">conn</span>, 
                    component_count <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached SQL: </span>
 <span class="co">#&gt;                         WITH components AS (</span>
 <span class="co">#&gt;                                 SELECT DISTINCT</span>
 <span class="co">#&gt;                                         c.concept_id,</span>
@@ -199,11 +199,11 @@
 <span class="co">#&gt;                         ON c.concept_id = comp.concept_id</span>
 <span class="co">#&gt;                         WHERE LOWER(comp.concept_name) LIKE '%trastuzumab%'</span>
 <span class="co">#&gt;                         </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached resultset found...</span>
 <span class="co">#&gt; ✓ Trastuzumab</span>
 <span class="co">#&gt; ── Query ───────────────────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached SQL: </span>
 <span class="co">#&gt;                                 WITH regimens AS (</span>
 <span class="co">#&gt;                                         SELECT DISTINCT</span>
 <span class="co">#&gt;                                                 c.concept_id,</span>
@@ -223,7 +223,7 @@
 <span class="co">#&gt;                                 ON c.concept_id = r.concept_id</span>
 <span class="co">#&gt;                                 WHERE LOWER(r.concept_name) LIKE LOWER('%Trastuzumab%')</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span></code></pre></div>
+<span class="co">#&gt; [2021-01-09 18:35:31]    Cached resultset found...</span></code></pre></div>
 <p>The pattern matched is “Trastuzumab” with any HemOnc Regimens containing the pattern “and” for 2 components.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ex2</span>
@@ -253,8 +253,8 @@
                    conn <span class="op">=</span> <span class="va">conn</span>, 
                    component_count <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: </span>
 <span class="co">#&gt;                         WITH components AS (</span>
 <span class="co">#&gt;                                 SELECT DISTINCT</span>
 <span class="co">#&gt;                                         c.concept_id,</span>
@@ -274,11 +274,11 @@
 <span class="co">#&gt;                         ON c.concept_id = comp.concept_id</span>
 <span class="co">#&gt;                         WHERE LOWER(comp.concept_name) LIKE '%trastuzumab%'</span>
 <span class="co">#&gt;                         </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
 <span class="co">#&gt; ✓ Trastuzumab</span>
 <span class="co">#&gt; ── Query ───────────────────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: </span>
 <span class="co">#&gt;                                 WITH regimens AS (</span>
 <span class="co">#&gt;                                         SELECT DISTINCT</span>
 <span class="co">#&gt;                                                 c.concept_id,</span>
@@ -298,7 +298,7 @@
 <span class="co">#&gt;                                 ON c.concept_id = r.concept_id</span>
 <span class="co">#&gt;                                 WHERE LOWER(r.concept_name) LIKE LOWER('%Trastuzumab%')</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:09]    Cached resultset found...</span></code></pre></div>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span></code></pre></div>
 <p>For trastuzumab regimens containing 3 components, 2 commas are searched for.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ex3</span>
@@ -319,8 +319,8 @@
                    conn <span class="op">=</span> <span class="va">conn</span>, 
                    component_count <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: </span>
 <span class="co">#&gt;                         WITH components AS (</span>
 <span class="co">#&gt;                                 SELECT DISTINCT</span>
 <span class="co">#&gt;                                         c.concept_id,</span>
@@ -340,11 +340,11 @@
 <span class="co">#&gt;                         ON c.concept_id = comp.concept_id</span>
 <span class="co">#&gt;                         WHERE LOWER(comp.concept_name) LIKE '%trastuzumab%'</span>
 <span class="co">#&gt;                         </span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
 <span class="co">#&gt; ✓ Trastuzumab</span>
 <span class="co">#&gt; ── Query ───────────────────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: </span>
 <span class="co">#&gt;                                 WITH regimens AS (</span>
 <span class="co">#&gt;                                         SELECT DISTINCT</span>
 <span class="co">#&gt;                                                 c.concept_id,</span>
@@ -364,7 +364,7 @@
 <span class="co">#&gt;                                 ON c.concept_id = r.concept_id</span>
 <span class="co">#&gt;                                 WHERE LOWER(r.concept_name) LIKE LOWER('%Trastuzumab%')</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
 <span class="co">#&gt; Warning in ho_grep_regimens("Trastuzumab", conn = conn, component_count = Inf):</span>
 <span class="co">#&gt; "component_count" max is: 3 returning unfiltered output</span></code></pre></div>
 <p>For all HemOnc functions, guardrails are put in place to prevent searches for components that may have been misspelled or subject to a typo. Here, I have mistyped trastuzumab.</p>
@@ -372,8 +372,8 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/ho_grep_regimens.html">ho_grep_regimens</a></span><span class="op">(</span><span class="st">"tastuzumab"</span>,
                  conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: </span>
 <span class="co">#&gt;                         WITH components AS (</span>
 <span class="co">#&gt;                                 SELECT DISTINCT</span>
 <span class="co">#&gt;                                         c.concept_id,</span>
@@ -393,7 +393,7 @@
 <span class="co">#&gt;                         ON c.concept_id = comp.concept_id</span>
 <span class="co">#&gt;                         WHERE LOWER(comp.concept_name) LIKE '%tastuzumab%'</span>
 <span class="co">#&gt;                         </span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
 <span class="co">#&gt; x tastuzumab</span>
 <span class="co">#&gt; Error in ho_grep_regimens("tastuzumab", conn = conn): 'tastuzumab' is not a valid HemOnc Component</span></code></pre></div>
 <p>You can also look up the Components that belong to a Regimen in HemOnc.</p>
@@ -413,16 +413,16 @@
 <span class="fu"><a href="../reference/ho_lookup_regimen.html">ho_lookup_regimen</a></span><span class="op">(</span>component_concept_ids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">35803229</span>,<span class="fl">35803361</span><span class="op">)</span>,
                   conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803229,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -451,9 +451,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -482,49 +482,49 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Target column: regimen_concept_id</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Target column: regimen_concept_id</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Dropping patelm9.V20210109182910...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Dropping patelm9.V20210109183532...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    SQL: DROP TABLE IF EXISTS patelm9.V20210109182910;</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Sending...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Dropping patelm9.V20210109182910...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    SQL: DROP TABLE IF EXISTS patelm9.V20210109183532;</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Sending...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Dropping patelm9.V20210109183532...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ Data 'data' has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
-<span class="co">#&gt; ✓ Table name 'V20210109182910' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
+<span class="co">#&gt; ✓ Table name 'V20210109183532' is not a reserved word</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ Field name 'regimen_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_name' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Writing patelm9.V20210109182910...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Writing patelm9.V20210109182910...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Writing patelm9.V20210109183532...</span>
+<span class="co">#&gt; [2021-01-09 18:35:32]    Writing patelm9.V20210109183532...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    SQL: SELECT a.*, b.* FROM patelm9.V20210109182910 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Querying...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    SQL: SELECT a.*, b.* FROM patelm9.V20210109183532 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Querying...</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Dropping patelm9.V20210109182910...</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Dropping patelm9.V20210109183532...</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    </span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    SQL: DROP TABLE IF EXISTS patelm9.V20210109182910;</span>
-<span class="co">#&gt; [2021-01-09 18:29:10]    Sending...</span>
-<span class="co">#&gt; [2021-01-09 18:29:11]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:11]    Dropping patelm9.V20210109182910...complete</span>
-<span class="co">#&gt; [2021-01-09 18:29:11]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-09 18:35:33]    SQL: DROP TABLE IF EXISTS patelm9.V20210109183532;</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Sending...</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Dropping patelm9.V20210109183532...complete</span>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Postgres connection to 'athena' closed</span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ex6</span>
 <span class="co">#&gt;   regimen_concept_id regimen_concept_name has_antineoplastic_concept_id</span>
@@ -539,7 +539,7 @@
 <span class="co">#&gt; 4                     Trastuzumab</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/dcAthena.html">dcAthena</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
-<span class="co">#&gt; [2021-01-09 18:29:11]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-09 18:35:33]    Postgres connection to 'athena' closed</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

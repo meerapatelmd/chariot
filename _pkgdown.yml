@@ -1,6 +1,6 @@
 navbar:
   structure:
-    left:  [home, reference, news]
+    left:  [home, reference, articles, news]
     right: [github]
 
 reference:
