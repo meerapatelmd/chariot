@@ -83,7 +83,7 @@ Get Concept Strip" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -160,9 +160,9 @@ Get Concept Strip</p>
 <span class='fu'>get_strip</span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>1112807</span>,
          vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
          conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-09 15:08:08]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 15:08:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1112807)
-#&gt; [2021-01-09 15:08:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; [1] "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-09 15:18:45]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 15:18:45]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1112807)
+#&gt; [2021-01-09 15:18:45]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='output co'>#&gt; [1] "[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</div><div class='input'>
 <span class='co'># Unmerge the Strip to get each attribute back</span>
 <span class='va'>test_strip</span> <span class='op'>&lt;-</span>
         <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
@@ -180,9 +180,9 @@ Get Concept Strip</p>
 <span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-09 15:08:08]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-09 15:08:08]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2021-01-09 15:08:08]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'><span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span><span class='va'>test_data</span>,
+</div><div class='output co'>#&gt; [2021-01-09 15:18:45]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-09 15:18:45]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2021-01-09 15:18:45]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'><span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span><span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 2</span><span>
 #&gt;    concept_id concept                                                           
@@ -209,7 +209,7 @@ Get Concept Strip</p>
 #&gt; </span><span style='color: #555555;'>20</span><span>   45</span><span style='text-decoration: underline;'>000</span><span>704 [V] [N] 45000704 dorzolamide 20 MG/ML / timolol 5 MG/ML Ophthalmi…</div><div class='input'>
 
 <span class='fu'><a href='dcAthena.html'>dcAthena</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-09 15:08:08]	Postgres connection to 'athena' closed</div></span></pre>
+</div><div class='output co'>#&gt; [2021-01-09 15:18:45]	Postgres connection to 'athena' closed</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

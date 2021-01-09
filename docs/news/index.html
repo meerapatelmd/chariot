@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">chariot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -122,11 +122,68 @@
       <small>Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="chariot-1-0-0" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.0">
-<a href="#chariot-1-0-0" class="anchor"></a>chariot 1.0.0</h1>
+    <div id="chariot-1-1-0-2021-01-09" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#chariot-1-1-0-2021-01-09" class="anchor"></a>chariot 1.1.0 (2021-01-09)</h1>
 <ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>add Drug Strength Staging (<code>ds_*</code>) functions to prep and join data for drug exposure calculations</li>
+</ul>
+</div>
+    <div id="chariot-1-0-0-2021-01-02" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#chariot-1-0-0-2021-01-02" class="anchor"></a>chariot 1.0.0 (2021-01-02)</h1>
+<ul>
+<li>remove all deprecated functions, including <code>pivot</code>, <code>plot</code>, <code>render</code>, <code>set_parameters</code><br>
+</li>
+<li>remove <code>single_concept_ancestry</code> functions in favor of <code>print_concept_ancestry()</code>
+</li>
+</ul>
+</div>
+    <div id="chariot-0-3-0-2020-12-28" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#chariot-0-3-0-2020-12-28" class="anchor"></a>chariot 0.3.0 (2020-12-28)</h1>
+<ul>
+<li>add <code>maps_to_concept_names</code> slot to <code>concept</code> S4 class object for <code>get_name_cluster</code> function</li>
+<li>add <code>join_on_</code> and <code>join_for_*</code> functions<br>
+</li>
+<li>add <code>queryCDM</code> function to query a CDM table with automatic iterative joins with the Concept Table</li>
+<li>deprecate collapsibleTree plotting functions in favor of <a href="https://meerapatelmd.github.io/amphora">amphora R package</a>
+</li>
+</ul>
+</div>
+    <div id="chariot-0-2-0-2020-11-28" class="section level1">
+<h1 class="page-header" data-toc-text="0.2.0">
+<a href="#chariot-0-2-0-2020-11-28" class="anchor"></a>chariot 0.2.0 (2020-11-28)</h1>
+<ul>
+<li>optimize hemonc functions</li>
+<li>streamline collapsibleTree plotting functions</li>
+</ul>
+</div>
+    <div id="chariot-1-2-0-2020-08-04" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.0">
+<a href="#chariot-1-2-0-2020-08-04" class="anchor"></a>chariot 1.2.0 (2020-08-04)</h1>
+<ul>
+<li>optimize filter functions</li>
+<li>streamline concept.tree() into umbrella and bottleneck style plots</li>
+<li>add Sys.sleep feature to querying</li>
+<li>add documentation for leftJoin functions</li>
+</ul>
+</div>
+    <div id="chariot-1-1-1" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#chariot-1-1-1" class="anchor"></a>chariot 1.1.1</h1>
+<ul>
+<li>updated all left join functions with pg13 package dependencies</li>
+<li>optimized merge functions</li>
+<li>add first version of concept.tree() function that renders a collapsibleTree</li>
+</ul>
+</div>
+    <div id="chariot-0-1-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1">
+<a href="#chariot-0-1-1" class="anchor"></a>chariot 0.1.1</h1>
+<ul>
+<li>makeLabel function to return <na> instead of “NA NA” for missing concept_id and concept_name combinations</na>
+</li>
 </ul>
 </div>
   </div>
