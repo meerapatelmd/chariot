@@ -4,7 +4,7 @@
 \alias{lookup_ucum_time}
 \title{List UCUM Concepts Related to Time}
 \usage{
-lookup_ucum_time(conn, conn_fun, vocabSchema = "omop_vocabulary")
+lookup_ucum_time(conn, conn_fun, vocab_schema = "omop_vocabulary")
 }
 \description{
 List all UCUM Unit Concepts from the Concept Table that are related to

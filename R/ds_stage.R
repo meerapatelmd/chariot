@@ -37,6 +37,14 @@ ds_stage <-
                  render_sql = TRUE,
                  render_only = FALSE) {
 
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
+
 
                 ds_stage_unit_fraction(
                         conn = conn,
@@ -94,6 +102,14 @@ ds_stage_unit_fraction <-
                  verbose = TRUE,
                  render_sql = TRUE,
                  render_only = FALSE) {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
                 sql_statement <-
                 SqlRender::render(
@@ -166,6 +182,14 @@ ds_stage_value_fraction <-
                  verbose = TRUE,
                  render_sql = TRUE,
                  render_only = FALSE) {
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
                 sql_statement <-
                         SqlRender::render(

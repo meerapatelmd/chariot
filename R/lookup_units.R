@@ -15,18 +15,18 @@
 lookup_ucum <-
         function(conn,
                  conn_fun,
-                 vocabSchema = "omop_vocabulary") {
+                 vocab_schema = "omop_vocabulary") {
                 queryAthena(SqlRender::render(
                         "
                                         SELECT *
-                                        FROM @vocabSchema.concept
+                                        FROM @vocab_schema.concept
                                         WHERE domain_id = 'Unit'
                                                 AND vocabulary_id = 'UCUM'
                                                 AND concept_class_id = 'Unit'
                                                 AND invalid_reason IS NULL
                                         ;
                                         ",
-                        vocabSchema = vocabSchema
+                        vocab_schema = vocab_schema
                 ),
                 conn = conn,
                 cache_only = FALSE,
@@ -59,13 +59,13 @@ lookup_ucum <-
 lookup_ucum_time <-
         function(conn,
                  conn_fun,
-                 vocabSchema = "omop_vocabulary") {
+                 vocab_schema = "omop_vocabulary") {
 
 
                 queryAthena(SqlRender::render(
                         "
                                         SELECT *
-                                        FROM @vocabSchema.concept
+                                        FROM @vocab_schema.concept
                                         WHERE domain_id = 'Unit'
                                                 AND vocabulary_id = 'UCUM'
                                                 AND concept_class_id = 'Unit'
@@ -79,7 +79,7 @@ lookup_ucum_time <-
                                                         OR LOWER(concept_name) LIKE '%year%')
                                         ;
                                         ",
-                        vocabSchema = vocabSchema
+                        vocab_schema = vocab_schema
                 ),
                 conn = conn,
                 cache_only = FALSE,

@@ -4,7 +4,7 @@
 \alias{ds_lookup_ucum}
 \title{Lookup the Units for Drug Strength Processing}
 \usage{
-ds_lookup_ucum(conn, vocabSchema = "omop_vocabulary")
+ds_lookup_ucum(conn, vocab_schema = "omop_vocabulary")
 }
 \description{
 To normalize the drug exposure calculations in the Drug Strength tables,

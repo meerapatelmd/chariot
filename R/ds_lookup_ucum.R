@@ -14,13 +14,13 @@
 
 ds_lookup_ucum <-
         function(conn,
-                 vocabSchema = "omop_vocabulary") {
+                 vocab_schema = "omop_vocabulary") {
 
         queryAthena(
                 SqlRender::render(
                         "
                         SELECT *
-                        FROM @vocabSchema.concept
+                        FROM @vocab_schema.concept
                         WHERE
                                 domain_id = 'Unit'
                                         AND vocabulary_id = 'UCUM'
@@ -28,7 +28,7 @@ ds_lookup_ucum <-
                                         AND invalid_reason IS NULL
                                         AND concept_id NOT IN (
                                                 SELECT concept_id
-                                                FROM @vocabSchema.concept
+                                                FROM @vocab_schema.concept
                                                 WHERE domain_id = 'Unit'
                                                         AND vocabulary_id = 'UCUM'
                                                         AND concept_class_id = 'Unit'
@@ -42,7 +42,7 @@ ds_lookup_ucum <-
                                                                 OR LOWER(concept_name) LIKE '%year%')
                                                 );
                         ",
-                vocabSchema = vocabSchema),
+                vocab_schema = vocab_schema),
                 conn = conn,
                 cache_only = FALSE,
                 skip_cache = TRUE,
