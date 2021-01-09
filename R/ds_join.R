@@ -1,3 +1,19 @@
+#' @title
+#' Does the Drug Strength Staged table exist?
+#'
+#' @description
+#' Checks for the existence of the Drug Strength Staged table, which is a
+#' prerequisite for any `ds_join_*` functions. If it does not exist, it can be
+#' written using \code{\link{ds_process}} followed by \code{\link{ds_stage}}.
+#'
+#' @param ds_schema Schema for the Drug Strength Staged table, Default: 'patelm9'
+#' @seealso
+#'  \code{\link[rlang]{parse_expr}}
+#'  \code{\link[pg13]{ls_tables}}
+#' @rdname ds_staged_table_exists
+#' @export
+#' @importFrom rlang parse_expr
+#' @importFrom pg13 ls_tables
 ds_staged_table_exists <-
         function(conn,
                  conn_fun = "connectAthena()",
@@ -22,7 +38,15 @@ ds_staged_table_exists <-
 
 
 
-ds_join_on_drug_concept_id <-
+#' @title
+#' Get the Staged Drug Strengths by Drug
+#' @description
+#' Join the staged calculations in the Drug Strength Staged table by
+#' `drug_concept_id`.
+#' @inheritParams ds_staged_table_exists
+#' @rdname ds_join_on_drug
+#' @export
+ds_join_on_drug <-
         function(data,
                  drug_concept_id_col = "drug_concept_id",
                  conn,
@@ -54,7 +78,15 @@ ds_join_on_drug_concept_id <-
 
 
 
-ds_join_on_ingredient_concept_id <-
+#' @title
+#' Get the Staged Drug Strengths by Ingredient
+#' @description
+#' Join the staged calculations in the Drug Strength Staged table by
+#' `ingredient_concept_id`.
+#' @inheritParams ds_staged_table_exists
+#' @rdname ds_join_on_ingredient
+#' @export
+ds_join_on_ingredient <-
         function(data,
                  ingredient_concept_id_col = "drug_concept_id",
                  conn,
