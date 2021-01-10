@@ -181,7 +181,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-concept-object" class="hasAnchor"><a href="#section-concept-object" class="anchor"></a>Concept Object</h2>
+          <h2 id="section-concept-class-object" class="hasAnchor"><a href="#section-concept-class-object" class="anchor"></a>Concept Class Object</h2>
           <p class="section-desc"><p>Operations related to Concept Class objects</p></p>
         </th>
       </tr>
@@ -244,7 +244,7 @@
         <td>
           <p><code><a href="join_for_descendants.html">join_for_descendants()</a></code> </p>
         </td>
-        <td><p>Join For Ancestors</p></td>
+        <td><p>Join For Descendants</p></td>
       </tr><tr>
         
         <td>
@@ -293,7 +293,7 @@
         <td>
           <p><code><a href="print_concept_siblings.html">print_concept_siblings()</a></code> </p>
         </td>
-        <td><p>Print a Concept's Parents and Siblings</p></td>
+        <td><p>Print a Concept's Parents and Siblings to the Console</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -451,8 +451,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-get-metadata" class="hasAnchor"><a href="#section-get-metadata" class="anchor"></a>Get Metadata</h2>
-          <p class="section-desc"><p>Get real-time CDM Metadata</p></p>
+          <h2 id="section-get" class="hasAnchor"><a href="#section-get" class="anchor"></a>Get</h2>
+          <p class="section-desc"><p>Get real-time CDM Data and Metadata</p></p>
         </th>
       </tr>
       
@@ -542,8 +542,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-lookup" class="hasAnchor"><a href="#section-lookup" class="anchor"></a>Lookup</h2>
-          <p class="section-desc"><p>Lookup details in the OMOP Vocabulary</p></p>
+          <h2 id="section-lookup-concept" class="hasAnchor"><a href="#section-lookup-concept" class="anchor"></a>Lookup Concept</h2>
+          <p class="section-desc"><p>Lookup concept details in the OMOP Vocabulary</p></p>
         </th>
       </tr>
       
@@ -593,6 +593,37 @@
           <p><code><a href="lookup_upper_limit_ancestors.html">lookup_upper_limit_ancestors()</a></code> </p>
         </td>
         <td><p>Lookup the Ancestors at the Upper Limit of the Max Level of Separation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-lookup-vocabulary" class="hasAnchor"><a href="#section-lookup-vocabulary" class="anchor"></a>Lookup Vocabulary</h2>
+          <p class="section-desc"><p>Lookup vocabulary-level details in the OMOP Vocabulary</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="vocab_lookup_interrelation.html">vocab_lookup_interrelation()</a></code> </p>
+        </td>
+        <td><p>Query a Source Vocabulary's Relationships to Other Vocabularies</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vocab_lookup_intrarelation.html">vocab_lookup_intrarelation()</a></code> </p>
+        </td>
+        <td><p>Query a Source Vocabulary's Relationships</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vocab_lookup_relationships.html">vocab_lookup_relationships()</a></code> </p>
+        </td>
+        <td><p>Lookup a Source Vocabulary's Relationships</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -707,7 +738,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-filter" class="hasAnchor"><a href="#section-filter" class="anchor"></a>Filter</h2>
+          <h2 id="section-filter-strip" class="hasAnchor"><a href="#section-filter-strip" class="anchor"></a>Filter Strip</h2>
           <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions to filter <code>strip</code> style columns</p></p>
         </th>
       </tr>
@@ -734,6 +765,55 @@
           <p><code><a href="filter_strip.html">filter_strip()</a></code> </p>
         </td>
         <td><p>Filter Columns with Merged Concept Strips</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-string-manipulation" class="hasAnchor"><a href="#section-string-manipulation" class="anchor"></a>String Manipulation</h2>
+          <p class="section-desc"><p>Manipulate character strings for mapping use cases</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="process_first_parentheses.html">process_first_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for the First Set of Parentheses</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_last_parentheses.html">process_last_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for the Last Set of Parentheses</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_longest_words.html">process_longest_words()</a></code> </p>
+        </td>
+        <td><p>Identify the Longest Word in the Concept</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_parentheses.html">process_parentheses()</a></code> </p>
+        </td>
+        <td><p>Process a Concept Column for Parenthetical Phrases</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_unique_words.html">process_unique_words()</a></code> </p>
+        </td>
+        <td><p>Identify Words Unique to the Concept in the Concept Set</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="process_words.html">process_words()</a></code> </p>
+        </td>
+        <td><p>Process the Words Column from the Concept Column</p></td>
       </tr>
     </tbody>
     </table>
