@@ -1,6 +1,10 @@
-#' Normalize To HemOnc Components
-#' @description This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
-#' @param hemonc_concept_ids HemOnc Vocabulary Concept Ids of either Regimen or Component concept classes.
+#' @title
+#' Reduce All HemOnc Concepts to Component
+#' @description
+#' This function takes a mix of HemOnc Regimen and HemOnc Component Concepts and
+#' returns back all the unique HemOnc Components associated with the combination.
+#' @param ... HemOnc Concept Class objects or Concept Ids of
+#' either Regimen or Component concept classes.
 #' @seealso
 #'  \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
 #' @rdname ho_reduce_to_components
@@ -11,7 +15,24 @@
 ho_reduce_to_components <-
         function(...,
                  check_validity = TRUE,
-                 schema = "omop_vocabulary") {
+                 vocab_schema = "omop_vocabulary",
+                 conn,
+                 conn_fun = "connectAthena()",
+                 cache_only = FALSE,
+                 skip_cache = FALSE,
+                 override_cache = FALSE,
+                 render_sql = TRUE,
+                 verbose = TRUE,
+                 sleepTime = 1) {
+
+
+                if (missing(conn)) {
+
+                        conn <- eval(rlang::parse_expr(conn_fun))
+                        on.exit(expr = dcAthena(conn = conn),
+                                add = TRUE,
+                                after = TRUE)
+                }
 
                 hemonc_concept_objs <- unlist(rlang::list2(...))
                 hemonc_concept_ids <- vector()
@@ -82,7 +103,7 @@ ho_reduce_to_components <-
                 if (nrow(input_regimens) > 0) {
                         component_concept_ids_a <-
                                 ho_lookup_antineoplastics(input_regimens$concept_id,
-                                                          vocab_schema = schema,
+                                                          vocab_schema = vocab_schema,
                                                           check_validity = FALSE) %>%
                                 dplyr::select(has_antineoplastic_concept_id) %>%
                                 unlist()
@@ -97,8 +118,9 @@ ho_reduce_to_components <-
                         component_concept_ids_b <- vector()
                 }
 
-                components <- c(component_concept_ids_a,
+                component_ids <- c(component_concept_ids_a,
                                component_concept_ids_b)
 
-                components
+                join_on_concept_id(data = tibble::tibble(component_id = component_ids)) %>%
+                        dplyr::select(-component_id)
         }

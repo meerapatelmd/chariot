@@ -361,7 +361,8 @@ ho_lookup_regimen <-
   function(...,
            schema = NULL,
            vocab_schema = "omop_vocabulary",
-           conn = NULL,
+           conn,
+           conn_fun = "connectAthena()",
            cache_only = FALSE,
            skip_cache = FALSE,
            override_cache = FALSE,
@@ -369,6 +370,13 @@ ho_lookup_regimen <-
            verbose = FALSE,
            sleepTime = 1) {
 
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
 
     # component_concept_ids <- c(35803211, 35803383)
    component_concept_objs <- unlist(rlang::list2(...))
@@ -386,6 +394,7 @@ ho_lookup_regimen <-
             component_concept_obj)
       }
     }
+
 
     # QA that all component concept ids are Components
     qa <-
@@ -469,6 +478,7 @@ ho_lookup_regimen <-
       unlist() %>%
       unname()
 
+    if (length(regimen_concept_ids) > 0) {
     regimens <-
     ho_lookup_antineoplastics(regimen_concept_ids = regimen_concept_ids,
                               vocab_schema = vocab_schema,
@@ -479,9 +489,17 @@ ho_lookup_regimen <-
                        column = "regimen_concept_id")
 
     regimens2 %>%
-      select(regimen_concept_id,
+      dplyr::select(regimen_concept_id,
              regimen_concept_name = concept_name,
              has_antineoplastic_concept_id,
-             has_antineoplastic_concept_name)
+             has_antineoplastic_concept_name) %>%
+      dplyr::distinct()
+
+    } else {
+      tibble::tribble(~regimen_concept_id,
+                      ~regimen_concept_name,
+                      ~has_antineoplastic_concept_id,
+                      ~has_antineoplastic_concept_name)
+    }
   }
 

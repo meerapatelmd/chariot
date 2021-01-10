@@ -2,15 +2,29 @@
 % Please edit documentation in R/ho_harmonize.R
 \name{ho_reduce_to_components}
 \alias{ho_reduce_to_components}
-\title{Normalize To HemOnc Components}
+\title{Reduce All HemOnc Concepts to Component}
 \usage{
-ho_reduce_to_components(..., check_validity = TRUE, schema = "omop_vocabulary")
+ho_reduce_to_components(
+  ...,
+  check_validity = TRUE,
+  vocab_schema = "omop_vocabulary",
+  conn,
+  conn_fun = "connectAthena()",
+  cache_only = FALSE,
+  skip_cache = FALSE,
+  override_cache = FALSE,
+  render_sql = TRUE,
+  verbose = TRUE,
+  sleepTime = 1
+)
 }
 \arguments{
-\item{hemonc_concept_ids}{HemOnc Vocabulary Concept Ids of either Regimen or Component concept classes.}
+\item{...}{HemOnc Concept Class objects or Concept Ids of
+either Regimen or Component concept classes.}
 }
 \description{
-This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
+This function takes a mix of HemOnc Regimen and HemOnc Component Concepts and
+returns back all the unique HemOnc Components associated with the combination.
 }
 \seealso{
 \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
