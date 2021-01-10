@@ -47,7 +47,11 @@
 
 
 <meta property="og:title" content="Unbox Strip — unbox_strip" />
-<meta property="og:description" content="First separates rows by the `row_sep` argument, followed by unmerging the strip" />
+<meta property="og:description" content="Unboxing refers to the process of both unmerging a column, either a label or a strip,
+while also separating rowwise by the `sep` argument. It is meant to isolate
+the Concept attributes from a merge column while also taking in account that
+rowwise aggregates may have also occurred, and without separating these values out,
+some concepts in the source data may be misparsed." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -149,7 +153,11 @@
     </div>
 
     <div class="ref-description">
-    <p>First separates rows by the `row_sep` argument, followed by unmerging the strip</p>
+    <p>Unboxing refers to the process of both unmerging a column, either a label or a strip,
+while also separating rowwise by the `sep` argument. It is meant to isolate
+the Concept attributes from a merge column while also taking in account that
+rowwise aggregates may have also occurred, and without separating these values out,
+some concepts in the source data may be misparsed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>unbox_strip</span><span class='op'>(</span>
@@ -165,7 +173,20 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://tidyr.tidyverse.org/reference/separate_rows.html'>separate_rows</a></code></p>
+<p>Other concept format functions: 
+<code><a href='filter_at_all_strip.html'>filter_at_all_strip</a>()</code>,
+<code><a href='filter_at_any_strip.html'>filter_at_any_strip</a>()</code>,
+<code><a href='filter_strip.html'>filter_strip</a>()</code>,
+<code><a href='get_strip.html'>get_strip</a>()</code>,
+<code><a href='label_to_strip.html'>label_to_strip</a>()</code>,
+<code><a href='merge_label.html'>merge_label</a>()</code>,
+<code><a href='merge_strip.html'>merge_strip</a>()</code>,
+<code><a href='unbox_label.html'>unbox_label</a>()</code>,
+<code><a href='unmerge_label.html'>unmerge_label</a>()</code>,
+<code><a href='unmerge_strip.html'>unmerge_strip</a>()</code></p>
+<p>Other unboxing functions: 
+<code><a href='unbox_label.html'>unbox_label</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
@@ -173,7 +194,7 @@
 
 <span class='fu'><a href='get_strip.html'>get_strip</a></span><span class='op'>(</span>concept_id <span class='op'>=</span> <span class='fl'>1112807</span>,
          vocab_schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in lookup_concept_id(concept_id = concept_id, vocab_schema = vocab_schema,     conn = conn, cache_only = cache_only, skip_cache = skip_cache,     override_cache = override_cache, render_sql = render_sql,     verbose = verbose, sleepTime = sleepTime): could not find function "lookup_concept_id"</span></div><div class='output co'>#&gt; [2021-01-10 14:58:35]	Postgres connection to 'athena' closed</div><div class='input'>
+</div><div class='output co'>#&gt; Connecting using PostgreSQL driver</div><div class='output co'>#&gt; <span class='error'>Error in lookup_concept_id(concept_id = concept_id, vocab_schema = vocab_schema,     conn = conn, cache_only = cache_only, skip_cache = skip_cache,     override_cache = override_cache, render_sql = render_sql,     verbose = verbose, sleepTime = sleepTime): could not find function "lookup_concept_id"</span></div><div class='output co'>#&gt; [2021-01-10 16:06:15]	Postgres connection to 'athena' closed</div><div class='input'>
 <span class='va'>test_strip</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>concept <span class='op'>=</span> <span class='st'>"[V] [S] 1112807 aspirin [RxNorm 1191] [Drug] [Ingredient]"</span><span class='op'>)</span>
 <span class='fu'><a href='unmerge_strip.html'>unmerge_strip</a></span><span class='op'>(</span><span class='va'>test_strip</span>,
               strip_col <span class='op'>=</span> <span class='va'>concept</span><span class='op'>)</span>

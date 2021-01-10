@@ -182,7 +182,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-concept-object" class="hasAnchor"><a href="#section-concept-object" class="anchor"></a>Concept Object</h2>
-          <p class="section-desc"><p>Concept Class objects</p></p>
+          <p class="section-desc"><p>Operations related to Concept Class objects</p></p>
         </th>
       </tr>
       
@@ -196,6 +196,12 @@
           <p><code><a href="get_concept.html">get_concept()</a></code> </p>
         </td>
         <td><p>Lookup a Concept Id</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_name_cluster.html">get_name_cluster()</a></code> </p>
+        </td>
+        <td><p>Get a Name Cluster</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -244,25 +250,25 @@
         <td>
           <p><code><a href="join_on_concept_code.html">join_on_concept_code()</a></code> </p>
         </td>
-        <td><p>FUNCTION_TITLE</p></td>
+        <td><p>Join On Concept Code</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="join_on_concept_id.html">join_on_concept_id()</a></code> </p>
         </td>
-        <td><p>FUNCTION_TITLE</p></td>
+        <td><p>Join On Concept Id</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="join_on_concept_name.html">join_on_concept_name()</a></code> </p>
         </td>
-        <td><p>FUNCTION_TITLE</p></td>
+        <td><p>Join On Concept Name</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="join_on_concept_synonym_name.html">join_on_concept_synonym_name()</a></code> </p>
         </td>
-        <td><p>FUNCTION_TITLE</p></td>
+        <td><p>Join On Concept Synonym Name</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -282,6 +288,12 @@
           <p><code><a href="print_concept_hierarchy.html">print_concept_hierarchy()</a></code> </p>
         </td>
         <td><p>Print a Concept's Hierarchy to the Console</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print_concept_siblings.html">print_concept_siblings()</a></code> </p>
+        </td>
+        <td><p>Print a Concept's Parents and Siblings</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -300,13 +312,13 @@
         <td>
           <p><code><a href="label_to_strip.html">label_to_strip()</a></code> </p>
         </td>
-        <td><p>Concert a Label Column to a Merge Column</p></td>
+        <td><p>Convert a Label to a Strip</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="strip_to_label.html">strip_to_label()</a></code> </p>
         </td>
-        <td><p>Convert a Merge Strip to a Label</p></td>
+        <td><p>Convert a Strip to a Label</p></td>
       </tr><tr>
         
         <td>
@@ -318,25 +330,25 @@
         <td>
           <p><code><a href="merge_strip.html">merge_strip()</a></code> </p>
         </td>
-        <td><p>Merge OMOP Concepts into a Strip</p></td>
+        <td><p>Merge Concept Attributes into a Strip</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="unmerge_label.html">unmerge_label()</a></code> </p>
         </td>
-        <td><p>Parse a Concept Label</p></td>
+        <td><p>Unmerge a Label</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="unmerge_strip.html">unmerge_strip()</a></code> </p>
         </td>
-        <td><p>Unmerge OMOP Concept Strip</p></td>
+        <td><p>Unmerge a Strip</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="unbox_label.html">unbox_label()</a></code> </p>
         </td>
-        <td><p>Unbox Strip</p></td>
+        <td><p>Unbox Label</p></td>
       </tr><tr>
         
         <td>
@@ -397,7 +409,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-list-metadata" class="hasAnchor"><a href="#section-list-metadata" class="anchor"></a>List Metadata</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>List pre-built vectors on the CDM Metadata</p></p>
         </th>
       </tr>
       
@@ -420,21 +432,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="list_defines_ancestry.html">list_defines_ancestry()</a></code> </p>
-        </td>
-        <td><p>FUNCTION_TITLE</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="list_fields.html">list_fields()</a></code> </p>
         </td>
         <td><p>List Table Fields</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="list_hierarchical_relationships.html">list_hierarchical_relationships()</a></code> </p>
-        </td>
-        <td><p>FUNCTION_TITLE</p></td>
       </tr><tr>
         
         <td>
@@ -447,12 +447,25 @@
           <p><code><a href="list_vocab_table_names.html">list_vocab_table_names()</a></code> </p>
         </td>
         <td><p>List the Vocabulary Tables</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-get-metadata" class="hasAnchor"><a href="#section-get-metadata" class="anchor"></a>Get Metadata</h2>
+          <p class="section-desc"><p>Get real-time CDM Metadata</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
-          <p><code><a href="list_vocabulary_ids.html">list_vocabulary_ids()</a></code> </p>
+          <p><code><a href="get_ancestor_relationships.html">get_ancestor_relationships()</a></code> </p>
         </td>
-        <td><p>FUNCTION_TITLE</p></td>
+        <td><p>Get Ancestry Relationships</p></td>
       </tr><tr>
         
         <td>
@@ -474,6 +487,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="get_hierarchical_relationships.html">get_hierarchical_relationships()</a></code> </p>
+        </td>
+        <td><p>List Hierarchical Relationships</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_name_cluster.html">get_name_cluster()</a></code> </p>
         </td>
         <td><p>Get a Name Cluster</p></td>
@@ -482,8 +501,7 @@
         <td>
           <p><code><a href="get_strip.html">get_strip()</a></code> </p>
         </td>
-        <td><p>=
-Get Concept Strip</p></td>
+        <td><p>Get Concept Strip</p></td>
       </tr><tr>
         
         <td>
@@ -499,7 +517,13 @@ Get Concept Strip</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_test_drug_concepts.html">get_test_drug_concepts()</a></code> <code><a href="get_test_drug_concepts.html">get_test_drug_classes()</a></code> </p>
+          <p><code><a href="get_test_drug_classes.html">get_test_drug_classes()</a></code> </p>
+        </td>
+        <td><p>Get Test Drug Classes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_test_drug_concepts.html">get_test_drug_concepts()</a></code> </p>
         </td>
         <td><p>Get Test Drug Concepts</p></td>
       </tr><tr>
@@ -508,12 +532,18 @@ Get Concept Strip</p></td>
           <p><code><a href="get_vocab_data_dictionary.html">get_vocab_data_dictionary()</a></code> </p>
         </td>
         <td><p>Get the Vocabulary Data Dictionary</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_vocabulary_ids.html">get_vocabulary_ids()</a></code> </p>
+        </td>
+        <td><p>Get Vocabulary Ids</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-lookup-vocabulary" class="hasAnchor"><a href="#section-lookup-vocabulary" class="anchor"></a>Lookup Vocabulary</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-lookup" class="hasAnchor"><a href="#section-lookup" class="anchor"></a>Lookup</h2>
+          <p class="section-desc"><p>Lookup details in the OMOP Vocabulary</p></p>
         </th>
       </tr>
       
@@ -567,8 +597,8 @@ Get Concept Strip</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-hemonc-queries" class="hasAnchor"><a href="#section-hemonc-queries" class="anchor"></a>HemOnc Queries</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-hemonc" class="hasAnchor"><a href="#section-hemonc" class="anchor"></a>HemOnc</h2>
+          <p class="section-desc"><p>Lookup HemOnc Concepts by leveraging the HemOnc ontology</p></p>
         </th>
       </tr>
       
@@ -605,7 +635,7 @@ Get Concept Strip</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-drug-strength-calculations" class="hasAnchor"><a href="#section-drug-strength-calculations" class="anchor"></a>Drug Strength Calculations</h2>
-          <p class="section-desc"></p>
+          <p class="section-desc"><p>Process the Drug Strength table to stage exposure calculations</p></p>
         </th>
       </tr>
       
@@ -678,7 +708,7 @@ Get Concept Strip</p></td>
       <tr>
         <th colspan="2">
           <h2 id="section-filter" class="hasAnchor"><a href="#section-filter" class="anchor"></a>Filter</h2>
-          <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions</p></p>
+          <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions to filter <code>strip</code> style columns</p></p>
         </th>
       </tr>
       

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Unmerge OMOP Concept Strip — unmerge_strip • chariot</title>
+<title>Unmerge a Strip — unmerge_strip • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Unmerge OMOP Concept Strip — unmerge_strip" />
+<meta property="og:title" content="Unmerge a Strip — unmerge_strip" />
 <meta property="og:description" content="This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and &quot;NA&quot; values normalized to `&amp;lt;NA&amp;gt;`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `&amp;lt;NA&amp;gt;` with a non-`&amp;lt;NA&amp;gt;` value in the strip_col instance inputed. Errors will be thrown if the data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process." />
 <meta property="og:image" content="/logo.png" />
 
@@ -143,7 +143,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Unmerge OMOP Concept Strip</h1>
+    <h1>Unmerge a Strip</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/format.R'><code>R/format.R</code></a></small>
     <div class="hidden name"><code>unmerge_strip.Rd</code></div>
     </div>
@@ -192,7 +192,18 @@
  <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code>
  <code><a href='https://meerapatelmd.github.io/rubix/reference/normalize_all_to_na.html'>normalize_all_to_na</a></code>
  <code><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove</a></code>,<code><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace</a></code>
- <code><a href='https://rdrr.io/r/base/trimws.html'>trimws</a></code></p></div>
+ <code><a href='https://rdrr.io/r/base/trimws.html'>trimws</a></code></p>
+<p>Other concept format functions: 
+<code><a href='filter_at_all_strip.html'>filter_at_all_strip</a>()</code>,
+<code><a href='filter_at_any_strip.html'>filter_at_any_strip</a>()</code>,
+<code><a href='filter_strip.html'>filter_strip</a>()</code>,
+<code><a href='get_strip.html'>get_strip</a>()</code>,
+<code><a href='label_to_strip.html'>label_to_strip</a>()</code>,
+<code><a href='merge_label.html'>merge_label</a>()</code>,
+<code><a href='merge_strip.html'>merge_strip</a>()</code>,
+<code><a href='unbox_label.html'>unbox_label</a>()</code>,
+<code><a href='unbox_strip.html'>unbox_strip</a>()</code>,
+<code><a href='unmerge_label.html'>unmerge_label</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

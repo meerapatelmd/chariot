@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Merge OMOP Concepts into a Strip — merge_strip • chariot</title>
+<title>Merge Concept Attributes into a Strip — merge_strip • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Merge OMOP Concepts into a Strip — merge_strip" />
+<meta property="og:title" content="Merge Concept Attributes into a Strip — merge_strip" />
 <meta property="og:description" content="All the OMOP Vocabulary Concept Table fields other than the date fields are &quot;merged&quot;into a single string, called a &quot;Strip&quot;. If the Strip output is `&amp;lt;NA&amp;gt;` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment." />
 <meta property="og:image" content="/logo.png" />
 
@@ -143,7 +143,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Merge OMOP Concepts into a Strip</h1>
+    <h1>Merge Concept Attributes into a Strip</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/format.R'><code>R/format.R</code></a></small>
     <div class="hidden name"><code>merge_strip.Rd</code></div>
     </div>
@@ -187,7 +187,18 @@
     <div class='dont-index'><p><code><a href='https://dplyr.tidyverse.org/reference/tidyeval-compat.html'>tidyeval-compat</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate_all.html'>mutate_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/vars.html'>vars</a></code>,<code>reexports</code>,<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/filter_all.html'>filter_all</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/all_vars.html'>all_vars</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind</a></code>
  <code><a href='https://tidyr.tidyverse.org/reference/unite.html'>unite</a></code>
  <code><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></code>
- <code><a href='https://meerapatelmd.github.io/rubix/reference/normalize_all_to_na.html'>normalize_all_to_na</a></code></p></div>
+ <code><a href='https://meerapatelmd.github.io/rubix/reference/normalize_all_to_na.html'>normalize_all_to_na</a></code></p>
+<p>Other concept format functions: 
+<code><a href='filter_at_all_strip.html'>filter_at_all_strip</a>()</code>,
+<code><a href='filter_at_any_strip.html'>filter_at_any_strip</a>()</code>,
+<code><a href='filter_strip.html'>filter_strip</a>()</code>,
+<code><a href='get_strip.html'>get_strip</a>()</code>,
+<code><a href='label_to_strip.html'>label_to_strip</a>()</code>,
+<code><a href='merge_label.html'>merge_label</a>()</code>,
+<code><a href='unbox_label.html'>unbox_label</a>()</code>,
+<code><a href='unbox_strip.html'>unbox_strip</a>()</code>,
+<code><a href='unmerge_label.html'>unmerge_label</a>()</code>,
+<code><a href='unmerge_strip.html'>unmerge_strip</a>()</code></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
