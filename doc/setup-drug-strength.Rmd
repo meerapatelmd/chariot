@@ -1,0 +1,49 @@
+---
+title: "Setup Drug Strength"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setup Drug Strength}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chariot)
+```
+
+There are multiple transformations involved in using the Drug Strength 
+table. Firstly, the conceptual representation of drug strength is spread across 
+`amount`, `numerator`, and/or a `denominator`. Additionally, for each of the 3, 
+there is a value and a unit, where the unit is represented as a concept id. 
+
+The Drug Strength table is prepared in advance as the Drug Strength Staged table, 
+where the `value` and `unit` are mapped and represented in their final form. 
+For the staged `value`, the form takes on that of a varchar (string) with a mathematical 
+expression of the fraction that can be evaluated later on.  
+
+To stage the Drug Strength table, it is first processed. All the invalid entries 
+in the Drug Strength table are filtered out and the related fields, `invalid_reason`, 
+`valid_start_date`, and `valid_end_date` are removed. Since it has little relevance 
+to the use cases seen in this package, `box_size` is also removed.  
+
+The unit concept ids are also mapped to their concept names.
+
+```{r,eval=FALSE}
+ds_process()
+```
+
+The result of this function call is a Drug Strength Processed table. This is 
+the table that is used to stage the `value` and `unit` fields and it is prerequisite 
+for the next staging step. 
+
+```{r,eval=FALSE}
+ds_stage()
+```
+
