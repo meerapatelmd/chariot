@@ -5,7 +5,7 @@
 \title{Query a HemOnc Regimen's 'Has antineoplastic' Relationship}
 \usage{
 ho_lookup_antineoplastics(
-  regimen_concept_ids,
+  ...,
   vocab_schema = "omop_vocabulary",
   check_validity = TRUE,
   conn,

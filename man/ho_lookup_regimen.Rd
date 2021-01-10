@@ -5,10 +5,9 @@
 \title{Look up a HemOnc Regimen}
 \usage{
 ho_lookup_regimen(
-  component_concept_ids,
+  ...,
   schema = NULL,
   vocab_schema = "omop_vocabulary",
-  writeSchema,
   conn = NULL,
   cache_only = FALSE,
   skip_cache = FALSE,
@@ -19,9 +18,9 @@ ho_lookup_regimen(
 )
 }
 \arguments{
-\item{component_concept_ids}{integer vector of length 1 or greater of all the Component Concept Ids belonging to any regimen to map to a HemOnc Regimen.}
-
 \item{...}{Additional arguments passed to the query_athena function.}
+
+\item{component_concept_ids}{integer vector of length 1 or greater of all the Component Concept Ids belonging to any regimen to map to a HemOnc Regimen.}
 }
 \description{
 Look up a HemOnc Regimen that Corresponds to the set of HemOnc Components provided by Id. This function takes a set list of HemOnc Components and finds all the HemOnc Regimens that contain these Components in the CONCEPT_RELATIONSHIP table. The resultset is then filtered for the HemOnc Regimens that have the same exact number of Components as the length of the `component_concept_ids` parameter.

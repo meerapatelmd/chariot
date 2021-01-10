@@ -240,7 +240,7 @@ ho_grep_regimens <-
 #' @importFrom SqlRender render
 
 ho_lookup_antineoplastics <-
-  function(regimen_concept_ids,
+  function(...,
            vocab_schema = "omop_vocabulary",
            check_validity = TRUE,
            conn,
@@ -253,6 +253,23 @@ ho_lookup_antineoplastics <-
     if (check_validity) {
       if (verbose) {
         cli::cli_rule(left = "Checking Validity")
+      }
+
+
+      regimen_concept_objs <- unlist(rlang::list2(...))
+
+      regimen_concept_ids <- vector()
+      for (i in seq_along(regimen_concept_objs)) {
+        regimen_concept_obj <- regimen_concept_objs[[i]]
+        if (class(regimen_concept_obj) == "concept") {
+          regimen_concept_ids <-
+            c(regimen_concept_ids,
+              regimen_concept_obj@concept_id)
+        } else {
+          regimen_concept_ids <-
+            c(regimen_concept_ids,
+              regimen_concept_obj)
+        }
       }
 
       sql_statement <-
@@ -390,10 +407,9 @@ deconstruct_hemonc_ids <-
 #' @importFrom purrr reduce
 
 ho_lookup_regimen <-
-  function(component_concept_ids,
+  function(...,
            schema = NULL,
            vocab_schema = "omop_vocabulary",
-           writeSchema,
            conn = NULL,
            cache_only = FALSE,
            skip_cache = FALSE,
@@ -404,6 +420,21 @@ ho_lookup_regimen <-
 
 
     # component_concept_ids <- c(35803211, 35803383)
+   component_concept_objs <- unlist(rlang::list2(...))
+
+    component_concept_ids <- vector()
+    for (i in seq_along(component_concept_objs)) {
+      component_concept_obj <- component_concept_objs[[i]]
+      if (class(component_concept_obj) == "concept") {
+        component_concept_ids <-
+          c(component_concept_ids,
+            component_concept_obj@concept_id)
+      } else {
+        component_concept_ids <-
+          c(component_concept_ids,
+            component_concept_obj)
+      }
+    }
 
     # QA that all component concept ids are Components
     qa <-
