@@ -250,26 +250,26 @@ ho_lookup_antineoplastics <-
            render_sql = FALSE,
            verbose = FALSE,
            sleepTime = 1) {
+
+    regimen_concept_objs <- unlist(rlang::list2(...))
+
+    regimen_concept_ids <- vector()
+    for (i in seq_along(regimen_concept_objs)) {
+      regimen_concept_obj <- regimen_concept_objs[[i]]
+      if (class(regimen_concept_obj) == "concept") {
+        regimen_concept_ids <-
+          c(regimen_concept_ids,
+            regimen_concept_obj@concept_id)
+      } else {
+        regimen_concept_ids <-
+          c(regimen_concept_ids,
+            regimen_concept_obj)
+      }
+    }
+
     if (check_validity) {
       if (verbose) {
         cli::cli_rule(left = "Checking Validity")
-      }
-
-
-      regimen_concept_objs <- unlist(rlang::list2(...))
-
-      regimen_concept_ids <- vector()
-      for (i in seq_along(regimen_concept_objs)) {
-        regimen_concept_obj <- regimen_concept_objs[[i]]
-        if (class(regimen_concept_obj) == "concept") {
-          regimen_concept_ids <-
-            c(regimen_concept_ids,
-              regimen_concept_obj@concept_id)
-        } else {
-          regimen_concept_ids <-
-            c(regimen_concept_ids,
-              regimen_concept_obj)
-        }
       }
 
       sql_statement <-
