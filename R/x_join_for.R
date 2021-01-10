@@ -135,7 +135,7 @@ join_for_descendant_ids <-
         }
 
 #' @title
-#' Join For Ancestors
+#' Join For Descendants
 #'
 #' @description
 #' Perform a compound join of \code{\link{join_for_ancestor_ids}} and

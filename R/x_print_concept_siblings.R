@@ -1,5 +1,5 @@
 #' @title
-#' Print a Concept's Parents and Siblings
+#' Print a Concept's Parents and Siblings to the Console
 #' @description
 #' Print all of a concept's parents and siblings.
 #' @inheritParams print_concept_hierarchy

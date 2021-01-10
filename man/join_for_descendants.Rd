@@ -2,7 +2,7 @@
 % Please edit documentation in R/x_join_for.R
 \name{join_for_descendants}
 \alias{join_for_descendants}
-\title{Join For Ancestors}
+\title{Join For Descendants}
 \usage{
 join_for_descendants(
   kind = c("LEFT", "RIGHT", "INNER", "FULL"),

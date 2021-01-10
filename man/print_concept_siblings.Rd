@@ -2,7 +2,7 @@
 % Please edit documentation in R/x_print_concept_siblings.R
 \name{print_concept_siblings}
 \alias{print_concept_siblings}
-\title{Print a Concept's Parents and Siblings}
+\title{Print a Concept's Parents and Siblings to the Console}
 \usage{
 print_concept_siblings(
   concept_obj,

@@ -10,7 +10,7 @@ reference:
     contents:
       - connectAthena
       - dcAthena
-  - title: Concept Object
+  - title: Concept Class Object
     desc: >
        Operations related to Concept Class objects
     contents:
@@ -55,16 +55,21 @@ reference:
       List pre-built vectors on the CDM Metadata
     contents:
       - starts_with('list_')
-  - title: Get Metadata
+  - title: Get
     desc: >
-      Get real-time CDM Metadata
+      Get real-time CDM Data and Metadata
     contents:
       - starts_with('get_')
-  - title: Lookup
+  - title: Lookup Concept
     desc: >
-      Lookup details in the OMOP Vocabulary
+      Lookup concept details in the OMOP Vocabulary
     contents:
       - starts_with('lookup_')
+  - title: Lookup Vocabulary
+    desc: >
+      Lookup vocabulary-level details in the OMOP Vocabulary
+    contents:
+      - starts_with('vocab_')
   - title: HemOnc
     desc: >
       Lookup HemOnc Concepts by leveraging the HemOnc ontology
@@ -75,11 +80,15 @@ reference:
       Process the Drug Strength table to stage exposure calculations
     contents:
       - starts_with('ds_')
-  - title: Filter
+  - title: Filter Strip
     desc: >
       Wrappers around dplyr's `filter` functions to filter `strip` style columns
     contents:
       - filter_at_all_strip
       - filter_at_any_strip
       - filter_strip
-
+  - title: String Manipulation
+    desc: >
+      Manipulate character strings for mapping use cases
+    contents:
+      - starts_with('process_')
