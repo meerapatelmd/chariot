@@ -19,7 +19,3 @@ get_test_data(
 Get test data for further experimentation for functions in this or other
 packages.
 }
-\seealso{
-\code{\link[rlang]{parse_expr}}
- \code{\link[SqlRender]{render}}
-}
