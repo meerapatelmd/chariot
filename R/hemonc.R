@@ -339,55 +339,6 @@ ho_lookup_antineoplastics <-
     )
   }
 
-#' Normalize To HemOnc Components
-#' @description This function takes a mixture of HemOnc Regimen and HemOnc Component Concepts and returns all the unique HemOnc Components associated with the input combination.
-#' @param hemonc_concept_ids HemOnc Vocabulary Concept Ids of either Regimen or Component concept classes.
-#' @seealso
-#'  \code{\link[dplyr]{filter}},\code{\link[dplyr]{select}}
-#' @rdname deconstruct_hemonc_ids
-#' @export
-#' @importFrom dplyr filter select
-
-
-deconstruct_hemonc_ids <-
-  function(hemonc_concept_ids,
-           schema = NULL) {
-
-    # If any of the concept_ids are regimens, to get their antineoplastic components
-    input_concept <- queryConceptId(hemonc_concept_ids)
-
-    qa <- input_concept %>%
-      dplyr::filter(!(concept_class_id %in% c("Regimen", "Component")))
-
-    if (nrow(qa)) {
-      stop(sprintf("concept id arguments %s are not Regimen or Components.", paste(qa$concept_id, collapse = ", ")))
-    }
-
-    input_regimens <- input_concept %>%
-      dplyr::filter(concept_class_id == "Regimen")
-    input_components <- input_concept %>%
-      dplyr::filter(concept_class_id == "Component")
-
-
-    if (nrow(input_regimens)) {
-      component_concept_ids <-
-        c(
-          input_components$concept_id,
-          queryHemOncRegToAntineo(
-            regimen_concept_ids = input_regimens$concept_id,
-            schema = schema
-          ) %>%
-            dplyr::select(has_antineoplastic_concept_id) %>%
-            unlist() %>%
-            unname()
-        )
-    } else {
-      component_concept_ids <- input_components$concept_id
-    }
-
-    return(unique(component_concept_ids))
-  }
-
 
 
 #' @title
