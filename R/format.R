@@ -6,6 +6,7 @@
 #' @rdname get_strip
 #' @export
 #' @importFrom dplyr select
+#' @family concept format functions
 
 get_strip <-
   function(concept_id,
@@ -48,14 +49,19 @@ get_strip <-
 #' @title
 #' Unbox Strip
 #' @description
-#' First separates rows by the `row_sep` argument, followed by unmerging the strip
+#' Unboxing refers to the process of both unmerging a column, either a label or a strip,
+#' while also separating rowwise by the `sep` argument. It is meant to isolate
+#' the Concept attributes from a merge column while also taking in account that
+#' rowwise aggregates may have also occurred, and without separating these values out,
+#' some concepts in the source data may be misparsed.
 #' @seealso
 #'  \code{\link[tidyr]{separate_rows}}
 #' @rdname unbox_strip
 #' @export
 #' @importFrom tidyr separate_rows
 #' @example inst/example/format_unbox.R
-
+#' @family concept format functions
+#' @family unboxing functions
 unbox_strip <-
   function(data,
            strip_col,
@@ -82,20 +88,25 @@ unbox_strip <-
 
 
 #' @title
-#' Unbox Strip
+#' Unbox Label
 #' @description
-#' First separates rows by the `row_sep` argument, followed by unmerging the strip
+#' Unboxing refers to the process of both unmerging a column, either a label or a strip,
+#' while also separating rowwise by the `sep` argument. It is meant to isolate
+#' the Concept attributes from a merge column while also taking in account that
+#' rowwise aggregates may have also occurred, and without separating these values out,
+#' some concepts in the source data may be misparsed.
 #' @seealso
 #'  \code{\link[tidyr]{separate_rows}}
 #' @rdname unbox_label
 #' @export
 #' @importFrom tidyr separate_rows extract
 #' @example inst/example/format_unbox.R
-
+#' @family concept format functions
+#' @family unboxing functions
 unbox_label <-
   function(data,
            label_col,
-           row_sep = "\n",
+           sep = "\n",
            remove = FALSE) {
 
 
@@ -103,7 +114,7 @@ unbox_label <-
     #     tibble::tibble(Concept = "1112807 aspirin\n1112807 aspirin")
 
     data %>%
-      tidyr::separate_rows({{ label_col }}, sep = row_sep) %>%
+      tidyr::separate_rows({{ label_col }}, sep = sep) %>%
       tidyr::extract(
         col = {{ label_col }},
         into = c("concept_id", "concept_name"),
@@ -137,7 +148,7 @@ unbox_label <-
 #' @importFrom tibble rowid_to_column
 #' @importFrom rubix normalize_all_to_na
 #' @example inst/example/format_filter_strip.R
-
+#' @family concept format functions
 filter_at_all_strip <-
   function(data,
            strip_cols,
@@ -162,7 +173,7 @@ filter_at_all_strip <-
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select rename_at bind_cols filter_at filter distinct bind_rows
 #' @example inst/example/format_filter_strip.R
-
+#' @family concept format functions
 filter_at_any_strip <-
   function(data,
            strip_cols,
@@ -206,7 +217,7 @@ filter_at_any_strip <-
 #' @importFrom tidyr separate_rows
 #' @importFrom rubix normalize_all_to_na
 #' @example inst/example/format_filter_strip.R
-
+#' @family concept format functions
 filter_strip <-
   function(data,
            strip_col,
@@ -233,59 +244,17 @@ filter_strip <-
       ) %>%
       dplyr::filter(...) %>%
       dplyr::select(!dplyr::any_of(column_names))
-    # column_names <-  c("concept_id",
-    #                           "concept_name",
-    #                           "domain_id",
-    #                           "vocabulary_id",
-    #                           "concept_class_id",
-    #                           "standard_concept",
-    #                           "concept_code",
-    #                           "valid_start_date",
-    #                           "valid_end_date",
-    #                           "invalid_reason")
-    #
-    #
-    # if (any(column_names %in% colnames(data))) {
-    #
-    #         qa <- column_names[column_names %in% colnames(data)]
-    #
-    #         stop('data cannot have any concept table column names: ', paste(qa, collapse = ", "))
-    #
-    # }
-    #
-    # .output <-
-    # data %>%
-    #     dplyr::mutate(!!tmp_col := !!merge_col) %>%
-    #     separateConceptStrip(!!tmp_col) %>%
-    #     # tidyr::separate_rows(!!tmp_col,
-    #     #                      sep = "\n") %>%
-    #     rubix::normalize_all_to_na() %>%
-    #     dplyr::filter_at(dplyr::vars(!!tmp_col), dplyr::all_vars(!is.na(.))) %>%
-    #     unmergeStrip(strip_col = !!tmp_col,
-    #                  remove = FALSE) %>%
-    #     dplyr::filter(...) %>%
-    #     dplyr::select(-any_of(column_names)) %>%
-    #     dplyr::select(-!!tmp_col) %>%
-    #     dplyr::distinct()
-    #
-    # qa <- nrow(.output) > nrow(data)
-    #
-    # if (qa) {
-    #         warning('returned data has more rows than input data')
-    # }
-    #
-    # return(.output)
   }
 
 
 
-#' Concert a Label Column to a Merge Column
+#' Convert a Label to a Strip
 #' @seealso
 #'  \code{\link[tidyr]{extract}}
 #' @rdname label_to_strip
 #' @export
 #' @importFrom tidyr extract
-
+#' @family concept format functions
 label_to_strip <-
   function(data,
            label_col,
@@ -334,7 +303,7 @@ label_to_strip <-
 #' @export
 #' @importFrom tidyr unite
 #' @importFrom dplyr all_of mutate_at vars
-
+#' @family concept format functions
 merge_label <-
   function(data,
            into,
@@ -361,7 +330,7 @@ merge_label <-
   }
 
 
-#' Merge OMOP Concepts into a Strip
+#' Merge Concept Attributes into a Strip
 #' @description
 #' All the OMOP Vocabulary Concept Table fields other than the date fields are "merged"into a single string, called a "Strip". If the Strip output is `<NA>` while the input concept id is not, a flagMergeStrip object is returned in the Global Environment.
 #' @return A tibble with all blank and "NA" normalized to `<NA>` with 1. If present, `valid_start_date` and `valid_end_date` fields are permanently removed, 2. 8 out of the 10 remaining Concept Table fields (concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason) are merged into a single column with the provided column name, 3. the concept_id column is renamed to the format of the provided merged column name: {into_}concept_id. The remaining of the 7 Concept Table fields may also be preserved outside of the merge if provided. All other columns present in the input data are returned along with the transformations described.
@@ -381,7 +350,7 @@ merge_label <-
 #' @importFrom tidyr unite
 #' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
-
+#' @family concept format functions
 merge_strip <-
   function(data,
            into,
@@ -545,7 +514,7 @@ merge_strip <-
 
 
 
-#' Parse a Concept Label
+#' Unmerge a Label
 #' @description
 #' Parse a concept Label in the format of "{concept_id} {concept_name}".
 #' @seealso
@@ -553,7 +522,7 @@ merge_strip <-
 #' @rdname unmerge_label
 #' @export
 #' @importFrom tidyr extract
-
+#' @family concept format functions
 
 unmerge_label <-
   function(data,
@@ -568,7 +537,7 @@ unmerge_label <-
       )
   }
 
-#' Convert a Merge Strip to a Label
+#' Convert a Strip to a Label
 #' @rdname strip_to_label
 #' @export
 
@@ -590,7 +559,7 @@ strip_to_label <-
 
 
 
-#' Unmerge OMOP Concept Strip
+#' Unmerge a Strip
 #' @description This function unmerges an OMOP concept strip created by a 'merge' function using the tidyr extract function. If the input is not a tibble, it will be converted into one with the blanks and "NA" values normalized to `<NA>`. A warning is returned in the console if some concepts fail to unmerge into their respective concept table fields, as determined by all the new column fields having a value of `<NA>` with a non-`<NA>` value in the strip_col instance inputed. Errors will be thrown if the data input already contains columns that will collide with the new columns, the names of which defaults to the names of the original concept table fields: concept_id, concept_name, domain_id, vocabulary_id, concept_class_id, standard_concept, concept_code, invalid_reason. Note that the original concept table fields `valid_start_date` and `valid_end_date` are the only concept table fields are not a requirement in the merge and unmerging process.
 #' @return a tibble with all blanks, "NA", and <NA> normalized to NA, with unmerged columns with or without the provided prefix and suffix pasted in postions 1 to 8, followed by the strip column if the remove parameter is FALSE, and the remaining fields present in the input.
 #' @param data dataframe
@@ -611,7 +580,7 @@ strip_to_label <-
 #' @importFrom tibble as_tibble
 #' @importFrom rubix normalize_all_to_na
 #' @importFrom stringr str_remove_all str_replace_all
-
+#' @family concept format functions
 unmerge_strip <-
   function(data,
            strip_col,
