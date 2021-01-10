@@ -2,7 +2,7 @@
 % Please edit documentation in R/x_join_on.R
 \name{join_on_concept_id}
 \alias{join_on_concept_id}
-\title{FUNCTION_TITLE}
+\title{Join On Concept Id}
 \usage{
 join_on_concept_id(
   kind = c("LEFT", "RIGHT", "INNER", "FULL"),
@@ -25,45 +25,8 @@ join_on_concept_id(
   render_only = FALSE
 )
 }
-\arguments{
-\item{kind}{PARAM_DESCRIPTION, Default: c("LEFT", "RIGHT", "INNER", "FULL")}
-
-\item{data}{PARAM_DESCRIPTION}
-
-\item{column}{PARAM_DESCRIPTION, Default: NULL}
-
-\item{select_data_columns}{PARAM_DESCRIPTION, Default: '*'}
-
-\item{distinct}{PARAM_DESCRIPTION, Default: FALSE}
-
-\item{write_schema}{PARAM_DESCRIPTION, Default: 'patelm9'}
-
-\item{vocab_schema}{PARAM_DESCRIPTION, Default: 'omop_vocabulary'}
-
-\item{where_in_concept_field}{PARAM_DESCRIPTION}
-
-\item{where_in_concept_field_value}{PARAM_DESCRIPTION}
-
-\item{where_not_in_concept_field}{PARAM_DESCRIPTION}
-
-\item{where_not_in_concept_field_value}{PARAM_DESCRIPTION}
-
-\item{where_is_null_concept_field}{PARAM_DESCRIPTION, Default: 'invalid_reason'}
-
-\item{where_is_not_null_concept_field}{PARAM_DESCRIPTION}
-
-\item{conn}{PARAM_DESCRIPTION}
-
-\item{conn_fun}{PARAM_DESCRIPTION, Default: 'connectAthena()'}
-
-\item{verbose}{PARAM_DESCRIPTION, Default: TRUE}
-
-\item{render_sql}{PARAM_DESCRIPTION, Default: TRUE}
-
-\item{render_only}{PARAM_DESCRIPTION, Default: FALSE}
-}
 \description{
-FUNCTION_DESCRIPTION
+Join On Concept Id
 }
 \examples{
 library(chariot)

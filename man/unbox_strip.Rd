@@ -15,7 +15,11 @@ unbox_strip(
 )
 }
 \description{
-First separates rows by the `row_sep` argument, followed by unmerging the strip
+Unboxing refers to the process of both unmerging a column, either a label or a strip,
+while also separating rowwise by the `sep` argument. It is meant to isolate
+the Concept attributes from a merge column while also taking in account that
+rowwise aggregates may have also occurred, and without separating these values out,
+some concepts in the source data may be misparsed.
 }
 \examples{
 library(tidyverse)
@@ -38,4 +42,21 @@ unbox_strip(test_strip,
 }
 \seealso{
 \code{\link[tidyr]{separate_rows}}
+
+Other concept format functions: 
+\code{\link{filter_at_all_strip}()},
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{get_strip}()},
+\code{\link{label_to_strip}()},
+\code{\link{merge_label}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unmerge_label}()},
+\code{\link{unmerge_strip}()}
+
+Other unboxing functions: 
+\code{\link{unbox_label}()}
 }
+\concept{concept format functions}
+\concept{unboxing functions}

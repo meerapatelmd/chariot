@@ -12,9 +12,10 @@ reference:
       - dcAthena
   - title: Concept Object
     desc: >
-       Concept Class objects
+       Operations related to Concept Class objects
     contents:
       - get_concept
+      - contains('name_cluster')
   - title: Join
     desc: >
       Join a dataframe to a OMOP Vocabulary table
@@ -26,6 +27,7 @@ reference:
        Visualize a concept hierarachy
     contents:
       - print_concept_hierarchy
+      - print_concept_siblings
   - title: Concept Formatting
     desc:  >
        Format concepts and their attributes
@@ -49,21 +51,33 @@ reference:
       - search_split_phrase
       - search_starts_with_phrase
   - title: List Metadata
+    desc: >
+      List pre-built vectors on the CDM Metadata
     contents:
       - starts_with('list_')
+  - title: Get Metadata
+    desc: >
+      Get real-time CDM Metadata
+    contents:
       - starts_with('get_')
-  - title: Lookup Vocabulary
+  - title: Lookup
+    desc: >
+      Lookup details in the OMOP Vocabulary
     contents:
       - starts_with('lookup_')
-  - title: HemOnc Queries
+  - title: HemOnc
+    desc: >
+      Lookup HemOnc Concepts by leveraging the HemOnc ontology
     contents:
       - starts_with('ho_')
   - title: Drug Strength Calculations
+    desc: >
+      Process the Drug Strength table to stage exposure calculations
     contents:
       - starts_with('ds_')
   - title: Filter
     desc: >
-      Wrappers around dplyr's `filter` functions
+      Wrappers around dplyr's `filter` functions to filter `strip` style columns
     contents:
       - filter_at_all_strip
       - filter_at_any_strip

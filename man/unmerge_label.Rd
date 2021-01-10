@@ -2,7 +2,7 @@
 % Please edit documentation in R/format.R
 \name{unmerge_label}
 \alias{unmerge_label}
-\title{Parse a Concept Label}
+\title{Unmerge a Label}
 \usage{
 unmerge_label(data, label_col, remove = FALSE)
 }
@@ -11,4 +11,17 @@ Parse a concept Label in the format of "{concept_id} {concept_name}".
 }
 \seealso{
 \code{\link[tidyr]{extract}}
+
+Other concept format functions: 
+\code{\link{filter_at_all_strip}()},
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{get_strip}()},
+\code{\link{label_to_strip}()},
+\code{\link{merge_label}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unbox_strip}()},
+\code{\link{unmerge_strip}()}
 }
+\concept{concept format functions}

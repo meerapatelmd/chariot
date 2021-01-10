@@ -2,8 +2,7 @@
 % Please edit documentation in R/format.R
 \name{get_strip}
 \alias{get_strip}
-\title{=
-Get Concept Strip}
+\title{Get Concept Strip}
 \usage{
 get_strip(
   concept_id,
@@ -19,7 +18,6 @@ get_strip(
 )
 }
 \description{
-=
 Get Concept Strip
 }
 \examples{
@@ -52,4 +50,17 @@ dcAthena(conn = conn)
 }
 \seealso{
 \code{\link[dplyr]{select}}
+
+Other concept format functions: 
+\code{\link{filter_at_all_strip}()},
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{label_to_strip}()},
+\code{\link{merge_label}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unbox_strip}()},
+\code{\link{unmerge_label}()},
+\code{\link{unmerge_strip}()}
 }
+\concept{concept format functions}

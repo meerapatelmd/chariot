@@ -12,4 +12,17 @@ A Label is in the format of "{concept_id} concept_name". It is less comprehensiv
 \seealso{
 \code{\link[tidyr]{unite}}
  \code{\link[dplyr]{reexports}},\code{\link[dplyr]{mutate_all}},\code{\link[dplyr]{vars}}
+
+Other concept format functions: 
+\code{\link{filter_at_all_strip}()},
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{get_strip}()},
+\code{\link{label_to_strip}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unbox_strip}()},
+\code{\link{unmerge_label}()},
+\code{\link{unmerge_strip}()}
 }
+\concept{concept format functions}

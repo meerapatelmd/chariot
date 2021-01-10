@@ -2,13 +2,26 @@
 % Please edit documentation in R/format.R
 \name{label_to_strip}
 \alias{label_to_strip}
-\title{Concert a Label Column to a Merge Column}
+\title{Convert a Label to a Strip}
 \usage{
 label_to_strip(data, label_col, into_strip_col, remove = FALSE)
 }
 \description{
-Concert a Label Column to a Merge Column
+Convert a Label to a Strip
 }
 \seealso{
 \code{\link[tidyr]{extract}}
+
+Other concept format functions: 
+\code{\link{filter_at_all_strip}()},
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{get_strip}()},
+\code{\link{merge_label}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unbox_strip}()},
+\code{\link{unmerge_label}()},
+\code{\link{unmerge_strip}()}
 }
+\concept{concept format functions}

@@ -2,10 +2,10 @@
 % Please edit documentation in R/format.R
 \name{strip_to_label}
 \alias{strip_to_label}
-\title{Convert a Merge Strip to a Label}
+\title{Convert a Strip to a Label}
 \usage{
 strip_to_label(data, strip_col, into_label_col, remove = FALSE)
 }
 \description{
-Convert a Merge Strip to a Label
+Convert a Strip to a Label
 }

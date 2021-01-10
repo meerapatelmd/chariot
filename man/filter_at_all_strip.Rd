@@ -79,4 +79,17 @@ dcAthena(conn = conn)
 \code{\link[dplyr]{select}},\code{\link[dplyr]{select_all}},\code{\link[dplyr]{bind}},\code{\link[dplyr]{filter_all}},\code{\link[dplyr]{filter}},\code{\link[dplyr]{distinct}}
  \code{\link[tidyr]{separate_rows}}
  \code{\link[rubix]{normalize_all_to_na}}
+
+Other concept format functions: 
+\code{\link{filter_at_any_strip}()},
+\code{\link{filter_strip}()},
+\code{\link{get_strip}()},
+\code{\link{label_to_strip}()},
+\code{\link{merge_label}()},
+\code{\link{merge_strip}()},
+\code{\link{unbox_label}()},
+\code{\link{unbox_strip}()},
+\code{\link{unmerge_label}()},
+\code{\link{unmerge_strip}()}
 }
+\concept{concept format functions}
