@@ -1,14 +1,4 @@
 #' @title
-#' Vocabulary Level Queries
-#'
-#' @description
-#' This family of functions explores the OMOP Vocabulary at the Source Vocabulary level. Lookup functions find details about the given vocabulary while the Query functions query for the inter- and intra-relationships between vocabularies. The concept_class_id for the vocabulary is retained to provide a layer of granularity in the resultsets.
-#'
-#' @name vocabulary_level_functions
-#' @keywords internal
-NULL
-
-#' @title
 #' Lookup a Source Vocabulary's Relationships
 #'
 #' @details
@@ -25,7 +15,7 @@ NULL
 #' @rdname vocab_lookup_relationships
 #' @export
 #' @importFrom SqlRender render
-
+#' @example inst/example/vocabulary_relationships.R
 
 vocab_lookup_relationships <-
   function(vocabulary_id,
@@ -93,12 +83,12 @@ vocab_lookup_relationships <-
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname lookup_intervocabulary_relationship
+#' @rdname vocab_lookup_interrelation
 #'
 #' @export
 #' @importFrom SqlRender render
-
-vocab_lookup_inter_relationship <-
+#' @example inst/example/vocabulary_relationships.R
+vocab_lookup_interrelation <-
   function(vocabulary_id,
            conn,
            conn_fun = "connectAthena()",
@@ -110,6 +100,14 @@ vocab_lookup_inter_relationship <-
            render_sql = FALSE,
            verbose = FALSE,
            sleepTime = 1) {
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
     queryAthena(
       sql_statement =
         SqlRender::render(
@@ -134,7 +132,6 @@ vocab_lookup_inter_relationship <-
           vocabulary_id = vocabulary_id
         ),
       conn = conn,
-      conn_fun = conn_fun,
       cache_only = cache_only,
       skip_cache = skip_cache,
       override_cache = override_cache,
@@ -162,12 +159,12 @@ vocab_lookup_inter_relationship <-
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname vocab_lookup_intrarelationship
+#' @rdname vocab_lookup_intrarelation
 #'
 #' @export
 #' @importFrom SqlRender render
-
-vocab_lookup_intrarelationship <-
+#' @example inst/example/vocabulary_relationships.R
+vocab_lookup_intrarelation <-
   function(vocabulary_id,
            conn,
            conn_fun = "connectAthena()",
@@ -179,6 +176,14 @@ vocab_lookup_intrarelationship <-
            render_sql = FALSE,
            verbose = FALSE,
            sleepTime = 1) {
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
     queryAthena(
       sql_statement =
         SqlRender::render(
@@ -195,7 +200,7 @@ vocab_lookup_intrarelationship <-
         LEFT JOIN @vocab_schema.concept c2
         ON c2.concept_id = cr.concept_id_2
         WHERE c.vocabulary_id IN ('@vocabulary_id')
-                AND c2.vocabulary IN ('@vocabulary_id')
+                AND c2.vocabulary_id IN ('@vocabulary_id')
                 AND c.invalid_reason IS NULL
                 AND c2.invalid_reason IS NULL
                 AND cr.invalid_reason IS NULL",
@@ -203,7 +208,6 @@ vocab_lookup_intrarelationship <-
           vocabulary_id = vocabulary_id
         ),
       conn = conn,
-      conn_fun = conn_fun,
       cache_only = cache_only,
       skip_cache = skip_cache,
       override_cache = override_cache,
