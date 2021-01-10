@@ -70,10 +70,11 @@ test_data_descendants
 
 The construct a full concept lineage, the ancestors and descendants are harmonized. 
 Harmonization is achieved by:  
-1. Renaming the `ancestor_` and `descendant_` concepts 
+
+1. Renaming the `ancestor_` and `descendant_` concepts  
 to `relative_` while maintaining the original identity in a separate column  
 1. Arranging the ancestors in descending order by levels of separation and the 
-descendants in ascending order  
+descendants in ascending order   
 1. Combining the two datasets to create the complete lineage from the topmost 
 ancestor to the bottommost descendant  
 
