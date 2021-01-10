@@ -118,32 +118,32 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_data</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="../reference/get_test_drug_concepts.html">get_test_drug_concepts</a></span><span class="op">(</span>conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
-<span class="co">#&gt; [2021-01-10 12:19:21]    Overriding cache... Querying Athena...</span>
-<span class="co">#&gt; [2021-01-10 12:19:21]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:51]    Overriding cache... Querying Athena...</span>
+<span class="co">#&gt; [2021-01-10 12:38:51]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:21]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:51]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:21]    SQL: SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('RxNorm', 'RxNorm Extension') AND c.standard_concept &lt;&gt; 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 100</span>
-<span class="co">#&gt; [2021-01-10 12:19:21]    Querying...</span>
-<span class="co">#&gt; [2021-01-10 12:19:24]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-10 12:19:24]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:51]    SQL: SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('RxNorm', 'RxNorm Extension') AND c.standard_concept &lt;&gt; 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 100</span>
+<span class="co">#&gt; [2021-01-10 12:38:51]    Querying...</span>
+<span class="co">#&gt; [2021-01-10 12:38:54]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-10 12:38:54]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-10 12:19:24]    Caching resultset...</span></code></pre></div>
+<span class="co">#&gt; [2021-01-10 12:38:54]    Caching resultset...</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_data</span>
 <span class="co">#&gt; # A tibble: 100 x 10</span>
 <span class="co">#&gt;    concept_id concept_name domain_id vocabulary_id concept_class_id</span>
 <span class="co">#&gt;         &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span>
-<span class="co">#&gt;  1   41476254 8000 ML Sod… Drug      RxNorm Exten… Quant Clinical …</span>
-<span class="co">#&gt;  2   43664100 10000 MG ma… Drug      RxNorm Exten… Quant Branded B…</span>
-<span class="co">#&gt;  3   41323905 Cynara scol… Drug      RxNorm Exten… Marketed Product</span>
-<span class="co">#&gt;  4   35853305 fenbufen 15… Drug      RxNorm Exten… Clinical Drug   </span>
-<span class="co">#&gt;  5   40954983 Vincamine I… Drug      RxNorm Exten… Clinical Drug F…</span>
-<span class="co">#&gt;  6     783846 Ginkgo Bilo… Drug      RxNorm Exten… Branded Drug    </span>
-<span class="co">#&gt;  7   36271895 Escitalopra… Drug      RxNorm Exten… Branded Drug Co…</span>
-<span class="co">#&gt;  8   40822493 Bisacodyl 1… Drug      RxNorm Exten… Branded Drug Box</span>
-<span class="co">#&gt;  9   36061132 wasp venoms… Drug      RxNorm Exten… Branded Drug Fo…</span>
-<span class="co">#&gt; 10   21053699 Allopurinol… Drug      RxNorm Exten… Clinical Drug B…</span>
+<span class="co">#&gt;  1   21080394 Homeopathic… Drug      RxNorm Exten… Clinical Drug B…</span>
+<span class="co">#&gt;  2   41429269 150 ML Camp… Drug      RxNorm Exten… Quant Clinical …</span>
+<span class="co">#&gt;  3   43585470 ivabradine … Drug      RxNorm Exten… Branded Drug Co…</span>
+<span class="co">#&gt;  4    2070953 bromfenac 1… Drug      RxNorm Exten… Branded Drug Co…</span>
+<span class="co">#&gt;  5   43838702 zopiclone O… Drug      RxNorm Exten… Branded Drug Fo…</span>
+<span class="co">#&gt;  6   41426211 100 ML Sulf… Drug      RxNorm Exten… Quant Branded B…</span>
+<span class="co">#&gt;  7   41177765 quinapril 1… Drug      RxNorm Exten… Clinical Drug B…</span>
+<span class="co">#&gt;  8   19043156 troxerutin … Drug      RxNorm        Clinical Drug C…</span>
+<span class="co">#&gt;  9   41402703 60 ML Eryth… Drug      RxNorm Exten… Quant Branded B…</span>
+<span class="co">#&gt; 10   43860221 1 ML Betame… Drug      RxNorm Exten… Quant Branded B…</span>
 <span class="co">#&gt; # … with 90 more rows, and 5 more variables: standard_concept &lt;chr&gt;,</span>
 <span class="co">#&gt; #   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span>
 <span class="co">#&gt; #   invalid_reason &lt;chr&gt;</span></code></pre></div>
@@ -151,34 +151,34 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_data_relationships</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/lookup_relationships.html">lookup_relationships</a></span><span class="op">(</span><span class="va">test_data</span><span class="op">$</span><span class="va">concept_id</span>,
                                                 conn <span class="op">=</span> <span class="va">conn</span><span class="op">)</span>
-<span class="co">#&gt; [2021-01-10 12:19:25]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:25]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:25]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:55]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-10 12:19:26]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:56]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:26]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:56]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-10 12:19:27]    </span>
+<span class="co">#&gt; [2021-01-10 12:38:56]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_data_relationships</span>
-<span class="co">#&gt; # A tibble: 989 x 21</span>
+<span class="co">#&gt; # A tibble: 871 x 21</span>
 <span class="co">#&gt;    relationship_id concept_id_1 concept_name_1 domain_id_1 vocabulary_id_1</span>
 <span class="co">#&gt;    &lt;chr&gt;                  &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;       &lt;chr&gt;          </span>
-<span class="co">#&gt;  1 RxNorm has dos…     43663771 5 ML Ketorola… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  2 Quantified for…     43663771 5 ML Ketorola… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  3 Has marketed f…     43663771 5 ML Ketorola… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  4 Mapped from         43663771 5 ML Ketorola… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  5 Maps to             43663771 5 ML Ketorola… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  6 RxNorm has dos…     43664100 10000 MG magn… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  7 Box of              43664100 10000 MG magn… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  8 Mapped from         43664100 10000 MG magn… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt;  9 Maps to             43664100 10000 MG magn… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt; 10 RxNorm has dos…     43770064 1 ML Triamcin… Drug        RxNorm Extensi…</span>
-<span class="co">#&gt; # … with 979 more rows, and 16 more variables: concept_class_id_1 &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 RxNorm has dos…     43655990 Nystatin Dela… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  2 Mapped from         43655990 Nystatin Dela… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  3 Maps to             43655990 Nystatin Dela… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  4 RxNorm has dos…     44048098 ciclopirox 0.… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  5 Mapped from         44048098 ciclopirox 0.… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  6 Maps to             44048098 ciclopirox 0.… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  7 RxNorm has dos…     44050454 Hydrochloroth… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  8 Has supplier        44050454 Hydrochloroth… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt;  9 Mapped from         44050454 Hydrochloroth… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt; 10 Maps to             44050454 Hydrochloroth… Drug        RxNorm Extensi…</span>
+<span class="co">#&gt; # … with 861 more rows, and 16 more variables: concept_class_id_1 &lt;chr&gt;,</span>
 <span class="co">#&gt; #   standard_concept_1 &lt;chr&gt;, concept_code_1 &lt;chr&gt;, valid_start_date_1 &lt;date&gt;,</span>
 <span class="co">#&gt; #   valid_end_date_1 &lt;date&gt;, invalid_reason_1 &lt;chr&gt;, concept_id_2 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   concept_name_2 &lt;chr&gt;, domain_id_2 &lt;chr&gt;, vocabulary_id_2 &lt;chr&gt;,</span>
@@ -194,20 +194,20 @@
               suffix <span class="op">=</span> <span class="st">"_2"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_data_relationships2</span>
-<span class="co">#&gt; # A tibble: 989 x 5</span>
+<span class="co">#&gt; # A tibble: 871 x 5</span>
 <span class="co">#&gt;    concept_2_id concept_2         concept_1_id concept_1         relationship_id</span>
 <span class="co">#&gt;           &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;          </span>
-<span class="co">#&gt;  1     19129139 [V] [N] 19129139…     43663771 [V] [S] 43663771… RxNorm has dos…</span>
-<span class="co">#&gt;  2     43605153 [V] [S] 43605153…     43663771 [V] [S] 43663771… Quantified for…</span>
-<span class="co">#&gt;  3     43609425 [V] [S] 43609425…     43663771 [V] [S] 43663771… Has marketed f…</span>
-<span class="co">#&gt;  4     43663771 [V] [S] 43663771…     43663771 [V] [S] 43663771… Mapped from    </span>
-<span class="co">#&gt;  5     43663771 [V] [S] 43663771…     43663771 [V] [S] 43663771… Maps to        </span>
-<span class="co">#&gt;  6     19082170 [V] [N] 19082170…     43664100 [V] [S] 43664100… RxNorm has dos…</span>
-<span class="co">#&gt;  7     43609733 [V] [S] 43609733…     43664100 [V] [S] 43664100… Box of         </span>
-<span class="co">#&gt;  8     43664100 [V] [S] 43664100…     43664100 [V] [S] 43664100… Mapped from    </span>
-<span class="co">#&gt;  9     43664100 [V] [S] 43664100…     43664100 [V] [S] 43664100… Maps to        </span>
-<span class="co">#&gt; 10     19082191 [V] [N] 19082191…     43770064 [V] [S] 43770064… RxNorm has dos…</span>
-<span class="co">#&gt; # … with 979 more rows</span></code></pre></div>
+<span class="co">#&gt;  1     19001949 [V] [N] 19001949…     43655990 [V] [S] 43655990… RxNorm has dos…</span>
+<span class="co">#&gt;  2     43655990 [V] [S] 43655990…     43655990 [V] [S] 43655990… Mapped from    </span>
+<span class="co">#&gt;  3     43655990 [V] [S] 43655990…     43655990 [V] [S] 43655990… Maps to        </span>
+<span class="co">#&gt;  4     19082224 [V] [N] 19082224…     44048098 [V] [S] 44048098… RxNorm has dos…</span>
+<span class="co">#&gt;  5     44048098 [V] [S] 44048098…     44048098 [V] [S] 44048098… Mapped from    </span>
+<span class="co">#&gt;  6     44048098 [V] [S] 44048098…     44048098 [V] [S] 44048098… Maps to        </span>
+<span class="co">#&gt;  7     19082573 [V] [N] 19082573…     44050454 [V] [S] 44050454… RxNorm has dos…</span>
+<span class="co">#&gt;  8     43132415 [V] [N] 43132415…     44050454 [V] [S] 44050454… Has supplier   </span>
+<span class="co">#&gt;  9     44050454 [V] [S] 44050454…     44050454 [V] [S] 44050454… Mapped from    </span>
+<span class="co">#&gt; 10     44050454 [V] [S] 44050454…     44050454 [V] [S] 44050454… Maps to        </span>
+<span class="co">#&gt; # … with 861 more rows</span></code></pre></div>
 <p>The dataset can now be pivoted by the relationship, hinging on <code>concept_1</code>, which are the concepts that were originally inputted.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output</span> <span class="op">&lt;-</span>
@@ -220,27 +220,28 @@
 <span class="co">#&gt; * Use `values_fn = length` to identify where the duplicates arise</span>
 <span class="co">#&gt; * Use `values_fn = {summary_fun}` to summarise duplicates</span>
 <span class="va">output</span>
-<span class="co">#&gt; # A tibble: 100 x 24</span>
-<span class="co">#&gt;    concept_1 `RxNorm has dos… `Quantified for… `Has marketed f… `Mapped from`</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;list&gt;           &lt;list&gt;           &lt;list&gt;           &lt;list&gt;       </span>
-<span class="co">#&gt;  1 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  2 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  3 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  4 [V] [S] … &lt;chr [1]&gt;        &lt;NULL&gt;           &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  5 [V] [S] … &lt;chr [2]&gt;        &lt;NULL&gt;           &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  6 [V] [S] … &lt;NULL&gt;           &lt;NULL&gt;           &lt;NULL&gt;           &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  7 [V] [S] … &lt;NULL&gt;           &lt;NULL&gt;           &lt;NULL&gt;           &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  8 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;        &lt;chr [1]&gt;    </span>
-<span class="co">#&gt;  9 [V] [S] … &lt;chr [2]&gt;        &lt;NULL&gt;           &lt;NULL&gt;           &lt;chr [2]&gt;    </span>
-<span class="co">#&gt; 10 [V] [S] … &lt;chr [1]&gt;        &lt;NULL&gt;           &lt;NULL&gt;           &lt;chr [1]&gt;    </span>
-<span class="co">#&gt; # … with 90 more rows, and 19 more variables: `Maps to` &lt;list&gt;, `Box</span>
-<span class="co">#&gt; #   of` &lt;list&gt;, `Tradename of` &lt;list&gt;, `Consists of` &lt;list&gt;, `Has brand</span>
-<span class="co">#&gt; #   name` &lt;list&gt;, `Available as box` &lt;list&gt;, `RxNorm is a` &lt;list&gt;, `Marketed</span>
-<span class="co">#&gt; #   form of` &lt;list&gt;, `Has supplier` &lt;list&gt;, `Concept replaces` &lt;list&gt;, `Has</span>
-<span class="co">#&gt; #   quantified form` &lt;list&gt;, Constitutes &lt;list&gt;, `Has tradename` &lt;list&gt;,</span>
-<span class="co">#&gt; #   `RxNorm inverse is a` &lt;list&gt;, `Drug has drug class` &lt;list&gt;, `RxNorm -</span>
-<span class="co">#&gt; #   SPL` &lt;list&gt;, `RxNorm has ing` &lt;list&gt;, `RxNorm - ATC` &lt;list&gt;, `Has precise</span>
-<span class="co">#&gt; #   ing` &lt;list&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 100 x 29</span>
+<span class="co">#&gt;    concept_1 `RxNorm has dos… `Mapped from` `Maps to` `Has supplier`</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;list&gt;           &lt;list&gt;        &lt;list&gt;    &lt;list&gt;        </span>
+<span class="co">#&gt;  1 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt;  2 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt;  3 [V] [S] … &lt;chr [1]&gt;        &lt;chr [2]&gt;     &lt;chr [1]&gt; &lt;chr [1]&gt;     </span>
+<span class="co">#&gt;  4 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt;  5 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt;  6 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;chr [1]&gt;     </span>
+<span class="co">#&gt;  7 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;chr [1]&gt;     </span>
+<span class="co">#&gt;  8 [V] [S] … &lt;NULL&gt;           &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt;  9 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt; 10 [V] [S] … &lt;chr [1]&gt;        &lt;chr [1]&gt;     &lt;chr [1]&gt; &lt;NULL&gt;        </span>
+<span class="co">#&gt; # … with 90 more rows, and 24 more variables: `Has brand name` &lt;list&gt;,</span>
+<span class="co">#&gt; #   `Marketed form of` &lt;list&gt;, `Drug has drug class` &lt;list&gt;, `RxNorm ing</span>
+<span class="co">#&gt; #   of` &lt;list&gt;, `Tradename of` &lt;list&gt;, `Available as box` &lt;list&gt;, `Consists</span>
+<span class="co">#&gt; #   of` &lt;list&gt;, `Has tradename` &lt;list&gt;, `Box of` &lt;list&gt;, `Has marketed</span>
+<span class="co">#&gt; #   form` &lt;list&gt;, `Concept replaces` &lt;list&gt;, `RxNorm inverse is a` &lt;list&gt;,</span>
+<span class="co">#&gt; #   Constitutes &lt;list&gt;, `RxNorm is a` &lt;list&gt;, `Has quantified form` &lt;list&gt;,</span>
+<span class="co">#&gt; #   Contains &lt;list&gt;, `RxNorm - SPL` &lt;list&gt;, `RxNorm has ing` &lt;list&gt;, `RxNorm -</span>
+<span class="co">#&gt; #   ATC` &lt;list&gt;, `Quantified form of` &lt;list&gt;, `Contained in` &lt;list&gt;, `RxNorm -</span>
+<span class="co">#&gt; #   NDFRT eq` &lt;list&gt;, `RxNorm - Source eq` &lt;list&gt;, `RxNorm - VAProd eq` &lt;list&gt;</span></code></pre></div>
 <p>Since at times a <code>concept_1</code> may have a specific relationship to more than 1 <code>concept_2</code>, a list-cols are returned in the output. To create a more readable output, an aggregate function on <code>concept_2</code> must be supplied to convert multiple <code>concept_2</code> values into a string of length 1.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">output</span> <span class="op">&lt;-</span>
@@ -252,26 +253,28 @@
               values_fn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>concept_2 <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"|"</span><span class="op">)</span><span class="op">)</span>
               <span class="op">)</span>
 <span class="va">output</span>
-<span class="co">#&gt; # A tibble: 100 x 24</span>
-<span class="co">#&gt;    concept_1 `RxNorm has dos… `Quantified for… `Has marketed f… `Mapped from`</span>
-<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        </span>
-<span class="co">#&gt;  1 [V] [S] … [V] [N] 1912913… [V] [S] 4360515… [V] [S] 4360942… [V] [S] 4366…</span>
-<span class="co">#&gt;  2 [V] [S] … [V] [N] 1908217… [V] [S] 4369228… [V] [S] 4380769… [V] [S] 4366…</span>
-<span class="co">#&gt;  3 [V] [S] … [V] [N] 1908219… [V] [S] 4360341… [V] [S] 4386039… [V] [S] 4377…</span>
-<span class="co">#&gt;  4 [V] [S] … [V] [N] 1908257… &lt;NA&gt;             [V] [S] 4412820… [V] [S] 4408…</span>
-<span class="co">#&gt;  5 [V] [S] … [V] [N] 1908210… &lt;NA&gt;             [V] [S] 3628105… [V] [S] 3627…</span>
-<span class="co">#&gt;  6 [V] [S] … &lt;NA&gt;             &lt;NA&gt;             &lt;NA&gt;             [V] [S] 4293…</span>
-<span class="co">#&gt;  7 [V] [S] … &lt;NA&gt;             &lt;NA&gt;             &lt;NA&gt;             [V] [S] 2070…</span>
-<span class="co">#&gt;  8 [V] [S] … [V] [N] 1908222… [V] [S] 2104743… [V] [S] 2102948… [V] [S] 2102…</span>
-<span class="co">#&gt;  9 [V] [S] … [V] [N] 1908210… &lt;NA&gt;             &lt;NA&gt;             [V] [S] 3627…</span>
-<span class="co">#&gt; 10 [V] [S] … [V] [N] 1908210… &lt;NA&gt;             &lt;NA&gt;             [V] [S] 3678…</span>
-<span class="co">#&gt; # … with 90 more rows, and 19 more variables: `Maps to` &lt;chr&gt;, `Box of` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Tradename of` &lt;chr&gt;, `Consists of` &lt;chr&gt;, `Has brand name` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Available as box` &lt;chr&gt;, `RxNorm is a` &lt;chr&gt;, `Marketed form of` &lt;chr&gt;,</span>
-<span class="co">#&gt; #   `Has supplier` &lt;chr&gt;, `Concept replaces` &lt;chr&gt;, `Has quantified</span>
-<span class="co">#&gt; #   form` &lt;chr&gt;, Constitutes &lt;chr&gt;, `Has tradename` &lt;chr&gt;, `RxNorm inverse is</span>
-<span class="co">#&gt; #   a` &lt;chr&gt;, `Drug has drug class` &lt;chr&gt;, `RxNorm - SPL` &lt;chr&gt;, `RxNorm has</span>
-<span class="co">#&gt; #   ing` &lt;chr&gt;, `RxNorm - ATC` &lt;chr&gt;, `Has precise ing` &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 100 x 29</span>
+<span class="co">#&gt;    concept_1 `RxNorm has dos… `Mapped from` `Maps to` `Has supplier`</span>
+<span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt;     &lt;chr&gt;         </span>
+<span class="co">#&gt;  1 [V] [S] … [V] [N] 1900194… [V] [S] 4365… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt;  2 [V] [S] … [V] [N] 1908222… [V] [S] 4404… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt;  3 [V] [S] … [V] [N] 1908257… [V] [S] 4405… [V] [S] … [V] [N] 43132…</span>
+<span class="co">#&gt;  4 [V] [S] … [V] [N] 1908257… [V] [S] 4409… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt;  5 [V] [S] … [V] [N] 1908207… [V] [S] 4115… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt;  6 [V] [S] … [V] [N] 4623446… [V] [S] 2103… [V] [S] … [V] [N] 21020…</span>
+<span class="co">#&gt;  7 [V] [S] … [D] [N] 4016739… [V] [S] 2105… [V] [S] … [V] [N] 21020…</span>
+<span class="co">#&gt;  8 [V] [S] … &lt;NA&gt;             [V] [S] 4022… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt;  9 [V] [S] … [V] [N] 1908257… [V] [S] 4085… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt; 10 [V] [S] … [V] [N] 1900194… [V] [S] 4089… [V] [S] … &lt;NA&gt;          </span>
+<span class="co">#&gt; # … with 90 more rows, and 24 more variables: `Has brand name` &lt;chr&gt;, `Marketed</span>
+<span class="co">#&gt; #   form of` &lt;chr&gt;, `Drug has drug class` &lt;chr&gt;, `RxNorm ing of` &lt;chr&gt;,</span>
+<span class="co">#&gt; #   `Tradename of` &lt;chr&gt;, `Available as box` &lt;chr&gt;, `Consists of` &lt;chr&gt;, `Has</span>
+<span class="co">#&gt; #   tradename` &lt;chr&gt;, `Box of` &lt;chr&gt;, `Has marketed form` &lt;chr&gt;, `Concept</span>
+<span class="co">#&gt; #   replaces` &lt;chr&gt;, `RxNorm inverse is a` &lt;chr&gt;, Constitutes &lt;chr&gt;, `RxNorm is</span>
+<span class="co">#&gt; #   a` &lt;chr&gt;, `Has quantified form` &lt;chr&gt;, Contains &lt;chr&gt;, `RxNorm -</span>
+<span class="co">#&gt; #   SPL` &lt;chr&gt;, `RxNorm has ing` &lt;chr&gt;, `RxNorm - ATC` &lt;chr&gt;, `Quantified form</span>
+<span class="co">#&gt; #   of` &lt;chr&gt;, `Contained in` &lt;chr&gt;, `RxNorm - NDFRT eq` &lt;chr&gt;, `RxNorm -</span>
+<span class="co">#&gt; #   Source eq` &lt;chr&gt;, `RxNorm - VAProd eq` &lt;chr&gt;</span></code></pre></div>
 <p>The resulting dataset contains a row for each original concept provided with each relationship and concept/s it has the relationship to in a pipe-separated string.</p>
   </div>
 
