@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lookup a Source Vocabulary's Relationships — vocab_lookup_relationships • chariot</title>
+<title>Query a Source Vocabulary's Relationships to Other Vocabularies — vocab_lookup_interrelation • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Lookup a Source Vocabulary's Relationships — vocab_lookup_relationships" />
-<meta property="og:description" content="Lookup a Source Vocabulary's Relationships" />
+<meta property="og:title" content="Query a Source Vocabulary's Relationships to Other Vocabularies — vocab_lookup_interrelation" />
+<meta property="og:description" content="Query a Source Vocabulary's Relationships to Other Vocabularies" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -140,16 +140,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lookup a Source Vocabulary's Relationships</h1>
+    <h1>Query a Source Vocabulary's Relationships to Other Vocabularies</h1>
     <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/x_vocabulary_relationships.R'><code>R/x_vocabulary_relationships.R</code></a></small>
-    <div class="hidden name"><code>vocab_lookup_relationships.Rd</code></div>
+    <div class="hidden name"><code>vocab_lookup_interrelation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Lookup a Source Vocabulary's Relationships</p>
+    <p>Query a Source Vocabulary's Relationships to Other Vocabularies</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vocab_lookup_relationships</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>vocab_lookup_interrelation</span><span class='op'>(</span>
   <span class='va'>vocabulary_id</span>,
   <span class='va'>conn</span>,
   conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
@@ -157,63 +157,16 @@
   cache_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
   skip_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
   override_cache <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cache_resultset <span class='op'>=</span> <span class='cn'>TRUE</span>,
   render_sql <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  render_only <span class='op'>=</span> <span class='cn'>FALSE</span>,
   verbose <span class='op'>=</span> <span class='cn'>FALSE</span>,
   sleepTime <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>vocabulary_id</th>
-      <td><p>Vector of 1 or more `vocabulary_id` from the OMOP Vocabulary</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>Connection object. If provided, diverts queries
-to the connection instead of the local Athena instance without caching
-features.</p></td>
-    </tr>
-    <tr>
-      <th>cache_only</th>
-      <td><p>Loads from the cache and does not query the
-database. A NULL object is returned if a resultset was not cached.</p></td>
-    </tr>
-    <tr>
-      <th>skip_cache</th>
-      <td><p>Skip the caching altogether and directly
-query the database.</p></td>
-    </tr>
-    <tr>
-      <th>override_cache</th>
-      <td><p>If TRUE, the cache will not be loaded and will
-be overwritten by a new query. For override_cache to take effect,
-skip_cache should be FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>render_sql</th>
-      <td><p>If TRUE, the SQL will be printed back in the
-console prior to execution. Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>If TRUE, prints loading and querying operations
-messages to the console. Default: FALSE</p></td>
-    </tr>
-    <tr>
-      <th>sleepTime</th>
-      <td><p>Argument for `Sys.sleep()` in between queries to
-allow for halting function execution, especially in cases where other chariot
-functions are executing multiple queries in succession and require
-cancellation.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Lookup all of a Source Vocabulary's non-null relationships in the Concept Relationship Table.</p>
+    <p>Query for the Source Vocabulary's valid relationships in the Concept Relationship Table and all of the OMOP Source Vocabulary and Concept Classes that the relationships are to. For a resultset for relationships within the vocabulary, see <code>lookup_intravocabulary_relationship</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://ohdsi.github.io/SqlRender/reference/render.html'>render</a></code></p></div>
@@ -223,9 +176,9 @@ cancellation.</p></td>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='co'># Lookup relationships on the Vocabulary-Concept Class Id axis</span>
-<span class='fu'>vocab_lookup_relationships</span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
+<span class='fu'><a href='vocab_lookup_relationships.html'>vocab_lookup_relationships</a></span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-10 12:18:45]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 5</span><span>
+#&gt; [2021-01-10 12:18:39]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 5</span><span>
 #&gt;    vocabulary_id_1 concept_class_id_1 relationship_id     vocabulary_id_2 concept_class_id_2
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name         Brand name of       HemOnc          Component         
@@ -242,7 +195,7 @@ cancellation.</p></td>
 <span class='co'># Relationships between HemOnc concepts only can also be looked up</span>
 <span class='fu'><a href='vocab_lookup_intrarelation.html'>vocab_lookup_intrarelation</a></span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-10 12:18:45]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 70 x 5</span><span>
+#&gt; [2021-01-10 12:18:39]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 70 x 5</span><span>
 #&gt;    vocabulary_id_1 concept_class_id_1 relationship_id     vocabulary_id_2 concept_class_id_2
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name         Brand name of       HemOnc          Component         
@@ -257,9 +210,9 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component          May have route      HemOnc          Route             
 #&gt; </span><span style='color: #555555;'># … with 60 more rows</span><span></div><div class='input'>
 <span class='co'># Relationships between HemOnc and non-Hemonc Concepts</span>
-<span class='fu'><a href='vocab_lookup_interrelation.html'>vocab_lookup_interrelation</a></span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
+<span class='fu'>vocab_lookup_interrelation</span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-10 12:18:45]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 5</span><span>
+#&gt; [2021-01-10 12:18:39]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 5</span><span>
 #&gt;    vocabulary_id_1 concept_class_id_1 relationship_id vocabulary_id_2  concept_class_id_2
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
 #&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Component          Maps to         RxNorm           Branded Drug Form 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter for RxNorm Concepts — filterRxNorm • chariot</title>
+<title>Get Test Data — get_test_data • chariot</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Filter for RxNorm Concepts — filterRxNorm" />
-<meta property="og:description" content="Filter for RxNorm Concepts" />
+<meta property="og:title" content="Get Test Data — get_test_data" />
+<meta property="og:description" content="Get test data for further experimentation for functions in this or other
+packages." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -140,21 +141,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter for RxNorm Concepts</h1>
-    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/filter.R'><code>R/filter.R</code></a></small>
-    <div class="hidden name"><code>filterRxNorm.Rd</code></div>
+    <h1>Get Test Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/meerapatelmd/chariot/blob/master/R/x_get_test.R'><code>R/x_get_test.R</code></a></small>
+    <div class="hidden name"><code>get_test_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Filter for RxNorm Concepts</p>
+    <p>Get test data for further experimentation for functions in this or other
+packages.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>filterRxNorm</span><span class='op'>(</span>
-  <span class='va'>.data</span>,
-  has_prefix <span class='op'>=</span> <span class='cn'>NULL</span>,
-  has_suffix <span class='op'>=</span> <span class='cn'>NULL</span>,
-  includeExt <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  invert <span class='op'>=</span> <span class='cn'>FALSE</span>
+    <pre class="usage"><span class='fu'>get_test_data</span><span class='op'>(</span>
+  <span class='va'>conn</span>,
+  conn_fun <span class='op'>=</span> <span class='st'>"connectAthena()"</span>,
+  fields <span class='op'>=</span> <span class='st'>"*"</span>,
+  schema <span class='op'>=</span> <span class='st'>"omop_vocabulary"</span>,
+  table <span class='op'>=</span> <span class='st'>"concept"</span>,
+  limit <span class='op'>=</span> <span class='fl'>100</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  render_sql <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
 
