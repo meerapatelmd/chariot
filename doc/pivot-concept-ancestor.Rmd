@@ -1,0 +1,172 @@
+---
+title: "Pivot Concept Ancestors and Descendants"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pivot Concept Ancestors and Descendants}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup,message=FALSE,warning=FALSE,results='hide'}
+library(chariot)
+library(tidyverse)
+```
+
+```{r,results='hide', message=FALSE}
+conn <- connectAthena()
+```
+
+Pivoting the Concept Ancestor table can provide a rich array representing 
+the class hierarchy an OMOP Concept may have. 
+
+To exemplify, a test Drug concept is retrieved. Using more than 1 concept can 
+lead to messy results since the classifications between randomly acquired concepts 
+can be vastly different. 
+
+```{r}
+test_data <- 
+  get_test_drug_concepts(conn = conn,
+                         limit = 1)
+```
+
+```{r}
+test_data
+```
+
+The ancestors of this concept are derived. 
+
+```{r}
+test_data_ancestors <-
+  join_for_ancestors(data = test_data,
+                     descendant_id_column = "concept_id",
+                     conn = conn)
+```
+
+```{r}
+test_data_ancestors
+```
+
+The descendants are also derived. 
+
+```{r}
+test_data_descendants <-
+  join_for_descendants(
+    data = test_data, 
+    ancestor_id_column = "concept_id",
+    conn = conn
+  )
+```
+
+```{r}
+test_data_descendants
+```
+
+The construct a full concept lineage, the ancestors and descendants are harmonized. 
+Harmonization is achieved by:  
+1. Renaming the `ancestor_` and `descendant_` concepts 
+to `relative_` while maintaining the original identity in a separate column  
+1. Arranging the ancestors in descending order by levels of separation and the 
+descendants in ascending order  
+1. Combining the two datasets to create the complete lineage from the topmost 
+ancestor to the bottommost descendant  
+
+```{r}
+test_data_ancestors2 <- 
+  test_data_ancestors %>%
+  rename_all(str_replace_all, "ancestor_", "relative_") %>% 
+  mutate(relative_type = "ancestor") %>%
+  arrange(desc(min_levels_of_separation))
+
+test_data_descendants2 <-
+  test_data_descendants %>%
+  rename_all(str_replace_all, "descendant_", "relative_") %>% 
+  mutate(relative_type = "descendant") %>%
+  arrange(min_levels_of_separation)
+
+test_data_relatives <-
+  bind_rows(test_data_ancestors2,
+            test_data_descendants2)
+
+test_data_relatives
+```
+
+The preserve the ordering of the lineage, a `levels_of_separation` field of 
+the factor datatype is created by combining a marker between `relative_type` and 
+the `min_levels_of_separation`.
+
+```{r}
+test_data_relatives2 <-
+  test_data_relatives %>%
+  unite(col = levels_of_separation, 
+        relative_type,
+        min_levels_of_separation) %>%
+  mutate(levels_of_separation = factor(levels_of_separation,
+                                       levels = c("ancestor_3", "ancestor_2",
+                                                  "ancestor_1", "ancestor_0", 
+                                                  "descendant_0", "descendant_1")))
+test_data_relatives2$levels_of_separation
+```
+
+
+To properly pivot the resultset, the source concept and relative concepts 
+require transformation into a single cell per concept. This is achieved by 
+converting concepts into the `strip` format. 
+
+```{r}
+test_data_relatives3 <-
+  test_data_relatives2 %>%
+  merge_strip(into = "concept") %>%
+  merge_strip(into = "relative", 
+              prefix = "relative_")
+```
+
+```{r}
+test_data_relatives3
+```
+
+The dataset can now be pivoted by the level of separation, hinging on the source 
+`concept`.
+
+```{r}
+output <-
+  test_data_relatives3 %>%
+  pivot_wider(id_col = concept,
+              names_from = levels_of_separation, 
+              values_from = relative)
+output
+```
+
+Since `concept` has more than 1 `relative` at any given `levels_of_separation`,
+list-cols are returned in the output. To create a more readable  output, an 
+aggregate function on `relative` must be supplied to convert multiple `relative` 
+values into a string of length 1. 
+
+```{r}
+output <-
+  test_data_relatives3 %>%
+  pivot_wider(id_col = concept,
+              names_from = levels_of_separation, 
+              values_from = relative,
+              #Add aggregate 
+              values_fn = list(relative = ~ paste(unique(.), collapse = "|")))
+output
+```
+
+
+The resulting dataset contains a single row for the source concept provided with 
+each relative cast across in the order from topmost ancestor to bottommost 
+descendant aggregated into a pipe-separated string. 
+
+```{r,include=FALSE}
+dcAthena(conn = conn)
+```
+
+
+
