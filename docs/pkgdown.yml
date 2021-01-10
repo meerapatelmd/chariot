@@ -2,9 +2,10 @@ pandoc: 2.3.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  harmonizing-hemonc-concepts: harmonizing-hemonc-concepts.html
   mapping-to-hemonc: mapping-to-hemonc.html
   pivot-concept-ancestor: pivot-concept-ancestor.html
   pivot-concept-relationships: pivot-concept-relationships.html
   string-manipulation: string-manipulation.html
-last_built: 2021-01-10T17:28Z
+last_built: 2021-01-10T19:28Z
 
