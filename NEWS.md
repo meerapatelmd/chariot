@@ -1,3 +1,12 @@
+# chariot 1.1.0.9000 (2021-01-10)  
+* fixed bugs in `strip` and `label` formatting functions  
+* added vignettes for HemOnc functions (`ho_*`), pivoting Concept Relationship and 
+Concept Ancestor resultsets, and manipulating strings for mapping purposes.  
+* added Vocabulary Level functions (`vocab_*`)  
+* added functions that retrieve test data  (`get_test_*`)  
+* added scraping of CDM GitHub wiki on package load  
+  
+
 # chariot 1.1.0 (2021-01-09)  
 * add Drug Strength Staging (`ds_*`) functions to prep and join data for drug exposure 
 calculations   
