@@ -38,16 +38,15 @@ list_fields <-
 
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param schema PARAM_DESCRIPTION
+#' @title
+#' List Hierarchical Relationships
 #' @inheritParams queryAthena
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_hierarchical_relationships
+#' @rdname get_hierarchical_relationships
 #' @export
 #' @importFrom SqlRender render
-list_hierarchical_relationships <-
+get_hierarchical_relationships <-
   function(vocab_schema,
            conn = NULL,
            conn_fun = "connectAthena()",
@@ -73,32 +72,14 @@ list_hierarchical_relationships <-
   }
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param schema PARAM_DESCRIPTION
-#' @param conn PARAM_DESCRIPTION, Default: NULL
-#' @param conn_fun PARAM_DESCRIPTION, Default: 'connectAthena()'
-#' @param cache_only PARAM_DESCRIPTION, Default: FALSE
-#' @param skip_cache PARAM_DESCRIPTION, Default: FALSE
-#' @param override_cache PARAM_DESCRIPTION, Default: FALSE
-#' @param cache_resultset PARAM_DESCRIPTION, Default: TRUE
-#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
-#' @param verbose PARAM_DESCRIPTION, Default: TRUE
-#' @param sleepTime PARAM_DESCRIPTION, Default: 1
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
-#' @examples
-#' \dontrun{
-#' if (interactive()) {
-#'   # EXAMPLE1
-#' }
-#' }
+#' @title
+#' Get Ancestry Relationships
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_defines_ancestry
+#' @rdname get_ancestor_relationships
 #' @export
 #' @importFrom SqlRender render
-list_defines_ancestry <-
+get_ancestor_relationships <-
   function(vocab_schema,
            conn = NULL,
            conn_fun = "connectAthena()",
@@ -122,15 +103,15 @@ list_defines_ancestry <-
     )
   }
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title
+#' Get Vocabulary Ids
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
-#' @rdname list_vocabulary_ids
+#' @rdname get_vocabulary_ids
 #' @export
 #' @importFrom SqlRender render
 
-list_vocabulary_ids <-
+get_vocabulary_ids <-
   function(vocab_schema = "omop_vocabulary",
            conn,
            conn_fun = "connectAthena()",

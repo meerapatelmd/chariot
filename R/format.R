@@ -1,4 +1,4 @@
-#' @title =
+#' @title
 #' Get Concept Strip
 #' @example inst/example/format_merge.R
 #' @seealso

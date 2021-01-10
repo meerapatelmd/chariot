@@ -336,7 +336,7 @@ get_test_drug_concepts <-
 #' @seealso
 #'  \code{\link[rlang]{parse_expr}}
 #'  \code{\link[SqlRender]{render}}
-#' @rdname get_test_drug_concepts
+#' @rdname get_test_drug_classes
 #' @export
 #' @importFrom rlang parse_expr
 #' @importFrom SqlRender render
