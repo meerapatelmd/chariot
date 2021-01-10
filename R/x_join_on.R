@@ -1,23 +1,5 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param kind PARAM_DESCRIPTION, Default: c("LEFT", "RIGHT", "INNER", "FULL")
-#' @param data PARAM_DESCRIPTION
-#' @param column PARAM_DESCRIPTION, Default: NULL
-#' @param select_data_columns PARAM_DESCRIPTION, Default: '*'
-#' @param distinct PARAM_DESCRIPTION, Default: FALSE
-#' @param write_schema PARAM_DESCRIPTION, Default: 'patelm9'
-#' @param vocab_schema PARAM_DESCRIPTION, Default: 'omop_vocabulary'
-#' @param where_in_concept_field PARAM_DESCRIPTION
-#' @param where_in_concept_field_value PARAM_DESCRIPTION
-#' @param where_not_in_concept_field PARAM_DESCRIPTION
-#' @param where_not_in_concept_field_value PARAM_DESCRIPTION
-#' @param where_is_null_concept_field PARAM_DESCRIPTION, Default: 'invalid_reason'
-#' @param where_is_not_null_concept_field PARAM_DESCRIPTION
-#' @param conn PARAM_DESCRIPTION
-#' @param conn_fun PARAM_DESCRIPTION, Default: 'connectAthena()'
-#' @param verbose PARAM_DESCRIPTION, Default: TRUE
-#' @param render_sql PARAM_DESCRIPTION, Default: TRUE
-#' @param render_only PARAM_DESCRIPTION, Default: FALSE
+#' @title
+#' Join On Concept Id
 #' @example inst/example/join.R
 #' @rdname join_on_concept_id
 #' @export
@@ -68,8 +50,8 @@ join_on_concept_id <-
 
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title
+#' Join On Concept Code
 #' @inheritParams join_on_concept_id
 #' @rdname join_on_concept_code
 #' @export
@@ -122,8 +104,8 @@ join_on_concept_code <-
         }
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title
+#' Join On Concept Name
 #' @inheritParams join_on_concept_id
 #' @rdname join_on_concept_name
 #' @export
@@ -177,8 +159,8 @@ join_on_concept_name <-
 
 
 
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
+#' @title
+#' Join On Concept Synonym Name
 #' @inheritParams join_on_concept_id
 #' @param where_in_concept_synonym_field PARAM_DESCRIPTION
 #' @param where_in_concept_synonym_field_value PARAM_DESCRIPTION
