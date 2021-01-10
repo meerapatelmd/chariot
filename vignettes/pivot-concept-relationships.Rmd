@@ -1,0 +1,107 @@
+---
+title: "Pivot Concept Relationships"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Pivot Concept Relationships}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup,message=FALSE,warning=FALSE,results='hide'}
+library(chariot)
+library(tidyverse)
+```
+
+```{r,results='hide', message=FALSE}
+conn <- connectAthena()
+```
+
+Pivoting the Concept Relationship table can provide a rich array representing 
+the various relationships an OMOP Concept may have. 
+
+To exemplify, a test dataset of RxNorm and RxNorm Extension concepts are 
+retrieved. 
+
+```{r}
+test_data <- 
+  get_test_drug_concepts(conn = conn)
+```
+
+```{r}
+test_data
+```
+
+The relationships of these concepts are derived. 
+
+```{r}
+test_data_relationships <- lookup_relationships(test_data$concept_id,
+                                                conn = conn)
+```
+
+```{r}
+test_data_relationships
+```
+
+To properly pivot the resultset, the concepts on both sides require transformation 
+into a single cell per concept. This is achieved by converting concepts into the 
+`strip` format. 
+
+```{r}
+test_data_relationships2 <-
+  test_data_relationships %>%
+  merge_strip(into = "concept_1", 
+              suffix = "_1") %>%
+  merge_strip(into = "concept_2",
+              suffix = "_2")
+```
+
+```{r}
+test_data_relationships2
+```
+
+The dataset can now be pivoted by the relationship, hinging on `concept_1`, which 
+are the concepts that were originally inputted. 
+
+```{r}
+output <-
+  test_data_relationships2 %>%
+  pivot_wider(id_cols = concept_1,
+              names_from = relationship_id, 
+              values_from = concept_2)
+output
+```
+
+Since at times a `concept_1` may have a specific relationship to more than 1 
+`concept_2`, a list-cols are returned in the output. To create a more readable 
+output, an aggregate function on `concept_2` must be supplied to convert multiple 
+`concept_2` values into a string of length 1. 
+
+```{r}
+output <-
+  test_data_relationships2 %>%
+  pivot_wider(id_cols = concept_1,
+              names_from = relationship_id, 
+              values_from = concept_2,
+              # Add aggregate function
+              values_fn = list(concept_2 = ~ paste(unique(.), collapse = "|"))
+              )
+output
+```
+
+The resulting dataset contains a row for each original concept provided with 
+each relationship and concept/s it has the relationship to in a pipe-separated 
+string. 
+
+```{r,include=FALSE}
+dcAthena(conn = conn)
+```
+
+
+
