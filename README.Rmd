@@ -95,5 +95,9 @@ lisinopril_class_concept
 
 
 ```{r,echo=FALSE,eval=TRUE,results='hide',message=FALSE}
-pg13::local_connect()
+pg13::dc(conn = conn)
 ```
+
+## Code of Conduct
+
+Please note that the chariot project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

@@ -48,6 +48,7 @@ library(chariot)
 aspirin <- get_concept(concept_id = 1112807,
                        vocab_schema = "omop_vocabulary",
                        conn = conn)
+#> [2021-01-10 14:30:09]    [2021-01-10 14:30:09]   [2021-01-10 14:30:09]   [2021-01-10 14:30:10]   [2021-01-10 14:30:10]   [2021-01-10 14:30:10]   
 class(aspirin)
 #> [1] "concept"
 #> attr(,"package")
@@ -65,6 +66,9 @@ aspirin
 #> 
 #> Slot "concept_synonym_names":
 #> [1] ""
+#> 
+#> Slot "maps_to_concept_names":
+#> [1] "aspirin"
 #> 
 #> Slot "domain_id":
 #> [1] "Drug"
@@ -152,6 +156,9 @@ lisinopril_class_concept
 #> Slot "concept_synonym_names":
 #> [1] "lisinopril"
 #> 
+#> Slot "maps_to_concept_names":
+#> [1] "lisinopril"
+#> 
 #> Slot "domain_id":
 #> [1] "Drug"
 #> 
@@ -176,3 +183,10 @@ lisinopril_class_concept
 #> Slot "invalid_reason":
 #> [1] NA
 ```
+
+## Code of Conduct
+
+Please note that the chariot project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
