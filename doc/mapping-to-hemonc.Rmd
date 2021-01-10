@@ -99,7 +99,7 @@ ho_grep_regimens("tastuzumab",
 
 You can also look up the Components that belong to a Regimen in HemOnc.  
 ```{r}
-ex5 <- ho_lookup_antineoplastics(regimen_concept_ids = 35804201,
+ex5 <- ho_lookup_antineoplastics(35804201,
                           conn = conn)
 ```
 
@@ -113,7 +113,7 @@ Concept Ids is derived.
 
 ```{r}
 ex6 <-
-ho_lookup_regimen(component_concept_ids = c(35803229,35803361),
+ho_lookup_regimen(35803229,35803361,
                   conn = conn)
 ```
 
@@ -121,7 +121,37 @@ ho_lookup_regimen(component_concept_ids = c(35803229,35803361),
 ex6
 ```
 
+These functions also allow Concept Class object support. For example, for the 
+most recent example, using a Concept Class object may allow the user to stay 
+informed with the Concept attributes when executing the function.  
 
+```{r}
+Paclitaxel <- get_concept(concept_id = 35803229)
+Trastuzumab <- get_concept(concept_id = 35803361)
+```
+
+Now we know what is being looked up while also containing the `concept_id` needed 
+as the essential input for the function.  
+
+```{r}
+Paclitaxel
+```
+
+```{r}
+Trastuzumab 
+```
+
+
+```{r}
+ex7 <-
+ho_lookup_regimen(Paclitaxel,
+                  Trastuzumab, 
+                  conn = conn)
+```
+
+```{r}
+ex7
+```
 
 
 ```{r}
