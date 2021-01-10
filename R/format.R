@@ -340,21 +340,24 @@ merge_label <-
            into,
            prefix = NULL,
            suffix = NULL,
-           remove = TRUE) {
-    label_parts <- paste0(prefix, c("concept_id", "concept_name"), suffix)
-    names(label_parts) <- c("concept_id", "concept_name")
+           remove = FALSE) {
+
+    into <- dplyr::enquo(into)
+
+    label_parts <- list(concept_id = paste0(prefix, "concept_id", suffix),
+                        concept_name = paste0(prefix, "concept_name", suffix))
+
 
 
     data %>%
       tidyr::unite(
-        col = {{ into }},
-        dplyr::all_of(label_parts$concept_id),
-        dplyr::all_of(label_parts$concept_name),
+        col = !!into,
+        dplyr::all_of(label_parts[["concept_id"]]),
+        dplyr::all_of(label_parts[["concept_name"]]),
         sep = " ",
         na.rm = TRUE,
         remove = remove
-      ) %>%
-      dplyr::mutate_at(dplyr::vars({{ into }}), ~ na_if(., "NA NA"))
+      )
   }
 
 
