@@ -301,8 +301,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-concept-formatting" class="hasAnchor"><a href="#section-concept-formatting" class="anchor"></a>Concept Formatting</h2>
-          <p class="section-desc"><p>Format concepts and their attributes</p></p>
+          <h2 id="section-lookup-concept" class="hasAnchor"><a href="#section-lookup-concept" class="anchor"></a>Lookup Concept</h2>
+          <p class="section-desc"><p>Lookup concept details in the OMOP Vocabulary</p></p>
         </th>
       </tr>
       
@@ -313,51 +313,76 @@
       <tr>
         
         <td>
-          <p><code><a href="label_to_strip.html">label_to_strip()</a></code> </p>
+          <p><code><a href="lookup_atc_class_ingredients.html">lookup_atc_class_ingredients()</a></code> </p>
         </td>
-        <td><p>Convert a Label to a Strip</p></td>
+        <td><p>Lookup the RxNorm Ingredients of an ATC Class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="strip_to_label.html">strip_to_label()</a></code> </p>
+          <p><code><a href="lookup_orphan_concepts.html">lookup_orphan_concepts()</a></code> </p>
         </td>
-        <td><p>Convert a Strip to a Label</p></td>
+        <td><p>Lookup Orphan Concepts for a Domain, Vocabulary, and/or Concept Class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="merge_label.html">merge_label()</a></code> </p>
+          <p><code><a href="lookup_relationships.html">lookup_relationships()</a></code> </p>
         </td>
-        <td><p>Make Label Column</p></td>
+        <td><p>Lookup Relationships of a Set of Concepts</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="merge_strip.html">merge_strip()</a></code> </p>
+          <p><code><a href="lookup_top_ancestors.html">lookup_top_ancestors()</a></code> </p>
         </td>
-        <td><p>Merge Concept Attributes into a Strip</p></td>
+        <td><p>Lookup Topmost Ancestors for a Domain, Vocabulary, and/or Concept Class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="unmerge_label.html">unmerge_label()</a></code> </p>
+          <p><code><a href="lookup_ucum.html">lookup_ucum()</a></code> </p>
         </td>
-        <td><p>Unmerge a Label</p></td>
+        <td><p>Lookup UCUM Unit Concepts</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="unmerge_strip.html">unmerge_strip()</a></code> </p>
+          <p><code><a href="lookup_ucum_time.html">lookup_ucum_time()</a></code> </p>
         </td>
-        <td><p>Unmerge a Strip</p></td>
+        <td><p>List UCUM Concepts Related to Time</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="unbox_label.html">unbox_label()</a></code> </p>
+          <p><code><a href="lookup_upper_limit_ancestors.html">lookup_upper_limit_ancestors()</a></code> </p>
         </td>
-        <td><p>Unbox Label</p></td>
+        <td><p>Lookup the Ancestors at the Upper Limit of the Max Level of Separation</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-lookup-vocabulary" class="hasAnchor"><a href="#section-lookup-vocabulary" class="anchor"></a>Lookup Vocabulary</h2>
+          <p class="section-desc"><p>Lookup vocabulary-level details in the OMOP Vocabulary</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="vocab_lookup_interrelation.html">vocab_lookup_interrelation()</a></code> </p>
+        </td>
+        <td><p>Query a Source Vocabulary's Relationships to Other Vocabularies</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="unbox_strip.html">unbox_strip()</a></code> </p>
+          <p><code><a href="vocab_lookup_intrarelation.html">vocab_lookup_intrarelation()</a></code> </p>
         </td>
-        <td><p>Unbox Strip</p></td>
+        <td><p>Query a Source Vocabulary's Relationships</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vocab_lookup_relationships.html">vocab_lookup_relationships()</a></code> </p>
+        </td>
+        <td><p>Lookup a Source Vocabulary's Relationships</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -412,7 +437,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-list-metadata" class="hasAnchor"><a href="#section-list-metadata" class="anchor"></a>List Metadata</h2>
-          <p class="section-desc"><p>List pre-built vectors on the CDM Metadata</p></p>
+          <p class="section-desc"><p>List pre-built atomic vectors of CDM Metadata</p></p>
         </th>
       </tr>
       
@@ -455,7 +480,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-get" class="hasAnchor"><a href="#section-get" class="anchor"></a>Get</h2>
-          <p class="section-desc"><p>Get real-time CDM Data and Metadata</p></p>
+          <p class="section-desc"><p>Get real-time Data and Metadata</p></p>
         </th>
       </tr>
       
@@ -541,92 +566,6 @@
           <p><code><a href="get_vocabulary_ids.html">get_vocabulary_ids()</a></code> </p>
         </td>
         <td><p>Get Vocabulary Ids</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-lookup-concept" class="hasAnchor"><a href="#section-lookup-concept" class="anchor"></a>Lookup Concept</h2>
-          <p class="section-desc"><p>Lookup concept details in the OMOP Vocabulary</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="lookup_atc_class_ingredients.html">lookup_atc_class_ingredients()</a></code> </p>
-        </td>
-        <td><p>Lookup the RxNorm Ingredients of an ATC Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_orphan_concepts.html">lookup_orphan_concepts()</a></code> </p>
-        </td>
-        <td><p>Lookup Orphan Concepts for a Domain, Vocabulary, and/or Concept Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_relationships.html">lookup_relationships()</a></code> </p>
-        </td>
-        <td><p>Lookup Relationships of a Set of Concepts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_top_ancestors.html">lookup_top_ancestors()</a></code> </p>
-        </td>
-        <td><p>Lookup Topmost Ancestors for a Domain, Vocabulary, and/or Concept Class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_ucum.html">lookup_ucum()</a></code> </p>
-        </td>
-        <td><p>Lookup UCUM Unit Concepts</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_ucum_time.html">lookup_ucum_time()</a></code> </p>
-        </td>
-        <td><p>List UCUM Concepts Related to Time</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lookup_upper_limit_ancestors.html">lookup_upper_limit_ancestors()</a></code> </p>
-        </td>
-        <td><p>Lookup the Ancestors at the Upper Limit of the Max Level of Separation</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-lookup-vocabulary" class="hasAnchor"><a href="#section-lookup-vocabulary" class="anchor"></a>Lookup Vocabulary</h2>
-          <p class="section-desc"><p>Lookup vocabulary-level details in the OMOP Vocabulary</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="vocab_lookup_interrelation.html">vocab_lookup_interrelation()</a></code> </p>
-        </td>
-        <td><p>Query a Source Vocabulary's Relationships to Other Vocabularies</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vocab_lookup_intrarelation.html">vocab_lookup_intrarelation()</a></code> </p>
-        </td>
-        <td><p>Query a Source Vocabulary's Relationships</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vocab_lookup_relationships.html">vocab_lookup_relationships()</a></code> </p>
-        </td>
-        <td><p>Lookup a Source Vocabulary's Relationships</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -741,7 +680,68 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-filter-strip" class="hasAnchor"><a href="#section-filter-strip" class="anchor"></a>Filter Strip</h2>
+          <h2 id="section-concept-formatting" class="hasAnchor"><a href="#section-concept-formatting" class="anchor"></a>Concept Formatting</h2>
+          <p class="section-desc"><p>Format concepts and their attributes</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="label_to_strip.html">label_to_strip()</a></code> </p>
+        </td>
+        <td><p>Convert a Label to a Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="strip_to_label.html">strip_to_label()</a></code> </p>
+        </td>
+        <td><p>Convert a Strip to a Label</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="merge_label.html">merge_label()</a></code> </p>
+        </td>
+        <td><p>Make Label Column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="merge_strip.html">merge_strip()</a></code> </p>
+        </td>
+        <td><p>Merge Concept Attributes into a Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unmerge_label.html">unmerge_label()</a></code> </p>
+        </td>
+        <td><p>Unmerge a Label</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unmerge_strip.html">unmerge_strip()</a></code> </p>
+        </td>
+        <td><p>Unmerge a Strip</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unbox_label.html">unbox_label()</a></code> </p>
+        </td>
+        <td><p>Unbox Label</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unbox_strip.html">unbox_strip()</a></code> </p>
+        </td>
+        <td><p>Unbox Strip</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-filter-strip-format" class="hasAnchor"><a href="#section-filter-strip-format" class="anchor"></a>Filter Strip Format</h2>
           <p class="section-desc"><p>Wrappers around dplyr’s <code>filter</code> functions to filter <code>strip</code> style columns</p></p>
         </th>
       </tr>

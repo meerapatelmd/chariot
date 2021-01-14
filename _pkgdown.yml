@@ -28,18 +28,16 @@ reference:
     contents:
       - print_concept_hierarchy
       - print_concept_siblings
-  - title: Concept Formatting
-    desc:  >
-       Format concepts and their attributes
+  - title: Lookup Concept
+    desc: >
+      Lookup concept details in the OMOP Vocabulary
     contents:
-      - label_to_strip
-      - strip_to_label
-      - merge_label
-      - merge_strip
-      - unmerge_label
-      - unmerge_strip
-      - unbox_label
-      - unbox_strip
+      - starts_with('lookup_')
+  - title: Lookup Vocabulary
+    desc: >
+      Lookup vocabulary-level details in the OMOP Vocabulary
+    contents:
+      - starts_with('vocab_')
   - title: Search
     desc:  >
         Search for a phrase in the OMOP Vocabulary
@@ -52,24 +50,14 @@ reference:
       - search_starts_with_phrase
   - title: List Metadata
     desc: >
-      List pre-built vectors on the CDM Metadata
+      List pre-built atomic vectors of CDM Metadata
     contents:
       - starts_with('list_')
   - title: Get
     desc: >
-      Get real-time CDM Data and Metadata
+      Get real-time Data and Metadata
     contents:
       - starts_with('get_')
-  - title: Lookup Concept
-    desc: >
-      Lookup concept details in the OMOP Vocabulary
-    contents:
-      - starts_with('lookup_')
-  - title: Lookup Vocabulary
-    desc: >
-      Lookup vocabulary-level details in the OMOP Vocabulary
-    contents:
-      - starts_with('vocab_')
   - title: HemOnc
     desc: >
       Lookup HemOnc Concepts by leveraging the HemOnc ontology
@@ -80,7 +68,19 @@ reference:
       Process the Drug Strength table to stage exposure calculations
     contents:
       - starts_with('ds_')
-  - title: Filter Strip
+  - title: Concept Formatting
+    desc:  >
+       Format concepts and their attributes
+    contents:
+      - label_to_strip
+      - strip_to_label
+      - merge_label
+      - merge_strip
+      - unmerge_label
+      - unmerge_strip
+      - unbox_label
+      - unbox_strip
+  - title: Filter Strip Format
     desc: >
       Wrappers around dplyr's `filter` functions to filter `strip` style columns
     contents:
