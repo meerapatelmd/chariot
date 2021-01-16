@@ -1,0 +1,48 @@
+---
+title: "Explore 'Maps to' Relationship"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explore 'Maps to' Relationship}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chariot)
+```
+
+The 'Maps to' relationship and its inverse are explored for 
+each of the standard controlled vocabularies that often serves 
+as the target from source.  
+
+```sql
+SELECT DISTINCT 
+  cr.relationship_id,
+  ca.min_levels_of_separation,
+  ca.max_levels_of_separation   
+FROM omop_vocabulary.concept c 
+INNER JOIN omop_vocabulary.concept_relationship cr
+ON cr.concept_id_1 = c.concept_id 
+INNER JOIN omop_vocabulary.concept c2 
+ON cr.concept_id_2 = c2.concept_id  
+INNER JOIN omop_vocabulary.concept_ancestor ca 
+ON ca.ancestor_concept_id = cr.concept_id_1
+WHERE 
+  c.vocabulary_id IN ('SNOMED') 
+    AND c.invalid_reason IS NULL
+    AND c2.vocabulary_id IN ('SNOMED') 
+    AND c2.invalid_reason IS NULL
+    AND cr.relationship_id = 'Maps to' 
+```
+
+```{r}
+queryAthena()
+```
+

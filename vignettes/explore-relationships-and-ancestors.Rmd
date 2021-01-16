@@ -1,0 +1,111 @@
+---
+title: "Explore Relationship and Ancestor"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Explore Relationship and Ancestor}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chariot)
+```
+
+There are 3 different types of relationships represented in 
+the Concept Relationship table depending on whether they are 
+hierarchical and if they define ancestry. 
+
+```sql
+SELECT DISTINCT 
+  is_hierarchical,
+  defines_ancestry
+FROM omop_vocabulary.relationship
+```
+
+```{r}
+relationship_types <- 
+  queryAthena(sql_statement = 
+                "
+                SELECT DISTINCT 
+                  is_hierarchical,
+                  defines_ancestry
+                FROM omop_vocabulary.relationship
+                ")
+```
+
+
+The valid relationship types amongst each of the most commonly employed 
+target controlled vocabularies used in OMOP are derived. 
+
+```{r}
+target_vocabularies <- c("SNOMED", "LOINC", 
+                         "RxNorm", "RxNorm Extension", 
+                         "HemOnc", "ATC")
+```
+
+```sql
+SELECT DISTINCT
+  c.vocabulary_id,
+  c.concept_class_id AS concept_class_id_1,
+  c2.concept_class_id AS concept_class_id_2,
+  r.is_hierarchical,
+  r.defines_ancestry
+FROM omop_vocabulary.concept c 
+INNER JOIN omop_vocabulary.concept_relationship cr 
+ON cr.concept_id_1 = c.concept_id 
+INNER JOIN omop_vocabulary.concept c2 
+ON cr.concept_id_2 = c2.concept_id
+LEFT JOIN omop_vocabulary.relationship r 
+ON r.relationship_id = cr.relationship_id
+WHERE 
+  c.invalid_reason IS NULL
+    AND c.vocabulary_id IN ('@target_vocabulary') 
+    AND c2.invalid_reason IS NULL 
+    AND c2.vocabulary_id IN ('@target_vocabulary')
+    AND cr.invalid_reason IS NULL;
+```
+
+```{r,cache=TRUE}
+output <- list()
+for (i in seq_along(target_vocabularies)) {
+  target_vocabulary <- target_vocabularies[i]
+  sql_statement <- 
+    SqlRender::render(
+      "
+      SELECT DISTINCT
+        c.vocabulary_id,
+        c.concept_class_id AS concept_class_id_1,
+        c2.concept_class_id AS concept_class_id_2,
+        r.is_hierarchical,
+        r.defines_ancestry
+      FROM omop_vocabulary.concept c 
+      INNER JOIN omop_vocabulary.concept_relationship cr 
+      ON cr.concept_id_1 = c.concept_id 
+      INNER JOIN omop_vocabulary.concept c2 
+      ON cr.concept_id_2 = c2.concept_id
+      LEFT JOIN omop_vocabulary.relationship r 
+      ON r.relationship_id = cr.relationship_id
+      WHERE 
+        c.invalid_reason IS NULL
+          AND c.vocabulary_id IN ('@target_vocabulary') 
+          AND c2.invalid_reason IS NULL 
+          AND c2.vocabulary_id IN ('@target_vocabulary')
+          AND cr.invalid_reason IS NULL;
+      ",
+      target_vocabulary = target_vocabulary
+    )
+  output[[i]] <-
+    queryAthena(
+      sql_statement = sql_statement
+    )
+}
+```
+
+
