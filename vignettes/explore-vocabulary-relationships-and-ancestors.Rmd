@@ -38,6 +38,7 @@ relationship_types <-
                   defines_ancestry
                 FROM omop_vocabulary.relationship
                 ")
+relationship_types
 ```
 
 
