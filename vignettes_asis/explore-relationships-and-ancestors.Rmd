@@ -1,0 +1,435 @@
+---
+title: "Explore Relationships and Ancestors"
+author: "Meera Y. Patel, M.D."
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    theme: flatly
+    highlight: kate  
+    toc: yes
+    number_sections: true
+    toc_depth: 3 
+    toc_float: 
+      collapsed: false  
+      smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = "##",
+                      tidy = TRUE, #`styler` to use styler:style_text() to reformat code
+                      tidy.opts = list(blank = FALSE, width.cutoff = 60),
+                      echo = TRUE,
+                      eval = TRUE,
+                      cache = TRUE,
+                      child = NULL, #file/s to knit and then include,
+                      collapse = FALSE, #collapse all output into a single block,
+                      error = TRUE, #display error messages in doc. FALSE stops render when error is thrown
+                      fig.align = "center", #left, right, center, or default
+                      fig.width = 7, #inches
+                      fig.height = 7, #inches
+                      fig.asp=0.50, #adds whitespace around images
+                      include = TRUE, #include chunk?
+                      message = TRUE, #display code messages?
+                      tidy = TRUE, #tidy code 
+                      warning = TRUE, #include warnings?
+                      results = "markup"
+                        # "asis": passthrough results
+                        # "hide": do not display results 
+                        # "hold": put all results below all code
+                      )
+```
+  
+```{r libraries}
+library(chariot)
+library(tidyverse)
+library(RColorBrewer)
+```
+
+```{r}
+nb.cols <- 20
+mycolors <- colorRampPalette(brewer.pal(8, "Paired"))(nb.cols)
+```
+
+There are 4 different types of relationships represented in 
+the Concept Relationship table depending on whether they are 
+hierarchical and if they define ancestry:  
+
+1. Is Hierarchical & Does Not Define Ancestry  
+1. Is Not Hierarchical & Defines Ancestry  
+1. Is Hierarchical & Defines Ancestry   
+1. Is Not Hierarchical & Does Not Define Ancestry  
+
+These relationship types can be queried directly in the 
+Relationship table.  
+
+```sql
+SELECT DISTINCT 
+  is_hierarchical,
+  defines_ancestry
+FROM omop_vocabulary.relationship
+```
+
+```{r,message=FALSE,results='hide'}
+relationship_types <- 
+  queryAthena(sql_statement = 
+                "
+                SELECT DISTINCT 
+                  is_hierarchical,
+                  defines_ancestry
+                FROM omop_vocabulary.relationship
+                ")
+```
+
+The relationship types are presented as boolean with the 
+following definitions from the [OMOP CDM v5.3.1 wiki](https://ohdsi.github.io/CommonDataModel/cdm531.html#RELATIONSHIP):  
+**is_hierarchical**: Defines whether a relationship defines 
+concepts into classes or hierarchies. Values are 1 for 
+hierarchical relationship or 0 if not.  
+**defines_ancestry**: Defines whether a hierarchical 
+relationship contributes to the concept_ancestor table. 
+These are subsets of the hierarchical relationships. 
+Valid values are 1 or 0.	
+
+```{r}
+relationship_types
+```
+
+Though a relationship that defines ancestry is by definition 
+required to also be deemed hierarchical, non-hierarchical 
+relationships that define ancestry appear to exist in the 
+Relationship table. 
+
+```sql
+SELECT DISTINCT
+  c.vocabulary_id AS vocabulary_id_1,
+  c.concept_class_id AS concept_class_id_1,
+  c2.vocabulary_id AS vocabulary_id_2,
+  c2.concept_class_id AS concept_class_id_2,  
+  cr.relationship_id,
+  cr.invalid_reason
+FROM omop_vocabulary.relationship r 
+INNER JOIN omop_vocabulary.concept_relationship cr 
+ON cr.relationship_id = r.relationship_id 
+INNER JOIN omop_vocabulary.concept c 
+ON cr.concept_id_1 = c.concept_id 
+INNER JOIN omop_vocabulary.concept c2 
+ON cr.concept_id_2 = c2.concept_id 
+WHERE 
+  r.is_hierarchical = 0 
+    AND r.defines_ancestry = 1 
+    AND c.invalid_reason IS NULL 
+    AND c2.invalid_reason IS NULL
+```
+
+```{r,results='hide'}
+outliers <-
+  queryAthena(sql_statement = 
+              "
+              SELECT DISTINCT
+                c.vocabulary_id AS vocabulary_id_1,
+                c.concept_class_id AS concept_class_id_1,
+                c2.vocabulary_id AS vocabulary_id_2,
+                c2.concept_class_id AS concept_class_id_2,  
+                cr.relationship_id,
+                cr.invalid_reason
+              FROM omop_vocabulary.relationship r 
+              INNER JOIN omop_vocabulary.concept_relationship cr 
+              ON cr.relationship_id = r.relationship_id 
+              INNER JOIN omop_vocabulary.concept c 
+              ON cr.concept_id_1 = c.concept_id 
+              INNER JOIN omop_vocabulary.concept c2 
+              ON cr.concept_id_2 = c2.concept_id 
+              WHERE 
+                r.is_hierarchical = '0'
+                  AND r.defines_ancestry = '1' 
+                  AND c.invalid_reason IS NULL 
+                  AND c2.invalid_reason IS NULL
+              ")  %>%
+    mutate(`Vocabulary to Vocabulary` = paste0(vocabulary_id_1, " to ", vocabulary_id_2))
+```
+
+The relationships indicate that these types of relationships only 
+exist in the Drug Domain. 
+
+```{r,echo=FALSE}
+# Since fill is length > 8, a new set of colors must be made for 
+# the length of the field that will be the fill 
+nb.cols <- length(unique(outliers$`Vocabulary to Vocabulary`))
+mycolors <- colorRampPalette(brewer.pal(8, "Set2"))(nb.cols)
+
+# Plot
+ggplot2::ggplot(
+  data = outliers,
+  mapping = aes(x = relationship_id,
+                fill = `Vocabulary to Vocabulary`)) +
+  ggplot2::geom_bar() + 
+  ggplot2::scale_fill_manual(values = mycolors) +
+  ggplot2::theme_minimal() + 
+  ggplot2::labs(
+    title = "Non-Hierarchical Relationships that Define Ancestry",
+    x = "Relationship Id") +
+  ggplot2::theme(
+    axis.text.x = element_text(angle = 30, 
+                               vjust = 1,
+                               size = 6),
+    legend.text = element_text(size = 6),
+    legend.key.size = unit(.33, "cm")
+    )
+```
+
+
+## Full Review  
+
+For each of the 4 relationship types, any association with select 
+controlled vocabularies SNOMED, LOINC, RxNorm, RxNorm Extension, 
+HemOnc and ATC is derived. Relationships analyzed are filtered 
+for those within each vocabulary system.  
+
+### Methods  
+
+Relationships for each relationship type and target vocabulary 
+is queried. 
+
+```sql
+SELECT 
+  c.vocabulary_id,
+  c.concept_class_id AS concept_class_id_1,
+  c2.concept_class_id AS concept_class_id_2,
+  r.relationship_id,
+  r.is_hierarchical,
+  r.defines_ancestry,
+  ca.min_levels_of_separation,
+  ca.max_levels_of_separation
+FROM patelm9.@staging_table t 
+INNER JOIN omop_vocabulary.relationship r 
+ON t.is_hierarchical = r.is_hierarchical 
+    AND t.defines_ancestry = r.defines_ancestry 
+INNER JOIN omop_vocabulary.concept_relationship cr 
+ON cr.relationship_id = r.relationship_id 
+INNER JOIN omop_vocabulary.concept c 
+ON cr.concept_id_1 = c.concept_id  
+INNER JOIN omop_vocabulary.concept c2 
+ON cr.concept_id_2 = c2.concept_id 
+INNER JOIN omop_vocabulary.concept_ancestor ca 
+ON ca.ancestor_concept_id = cr.concept_id_1 
+     AND ca.descendant_concept_id = cr.concept_id_2
+WHERE 
+  c.invalid_reason IS NULL 
+    AND c2.invalid_reason IS NULL 
+    AND c.vocabulary_id IN ('@target_vocabulary') 
+    AND c2.vocabulary_id IN ('@target_vocabulary')
+    AND cr.invalid_reason IS NULL
+```
+
+```{r,results='hide',cache=TRUE}
+# Target vocabularies
+target_vocabularies <- c("SNOMED", "LOINC", 
+                         "RxNorm", "RxNorm Extension", 
+                         "HemOnc", "ATC")
+
+# Looping over each relationship type 
+output <- list()
+for (i in 1:nrow(relationship_types)) {
+  relationship_type <- 
+    relationship_types %>%
+    filter(row_number() == i)
+  
+  conn <- connectAthena()
+  staging_table <- pg13::write_staging_table(conn = conn, 
+                                             schema = "patelm9",
+                                             data = relationship_type,
+                                             drop_existing = TRUE,
+                                             drop_on_exit = FALSE)
+  
+  output[[i]] <- list()
+  # Loop over each target vocabulary by relationship type
+  for (j in seq_along(target_vocabularies)) {
+  
+    target_vocabulary <- target_vocabularies[j]
+    
+    sql_statement <-
+      SqlRender::render(
+        "
+        SELECT 
+          c.vocabulary_id,
+          c.concept_class_id AS concept_class_id_1,
+          c2.concept_class_id AS concept_class_id_2,
+          r.relationship_id,
+          r.is_hierarchical,
+          r.defines_ancestry,
+          ca.min_levels_of_separation,
+          ca.max_levels_of_separation
+        FROM patelm9.@staging_table t 
+        INNER JOIN omop_vocabulary.relationship r 
+        ON t.is_hierarchical = r.is_hierarchical 
+            AND t.defines_ancestry = r.defines_ancestry 
+        INNER JOIN omop_vocabulary.concept_relationship cr 
+        ON cr.relationship_id = r.relationship_id 
+        INNER JOIN omop_vocabulary.concept c 
+        ON cr.concept_id_1 = c.concept_id  
+        INNER JOIN omop_vocabulary.concept c2 
+        ON cr.concept_id_2 = c2.concept_id 
+        INNER JOIN omop_vocabulary.concept_ancestor ca 
+        ON ca.ancestor_concept_id = cr.concept_id_1 
+             AND ca.descendant_concept_id = cr.concept_id_2
+        WHERE 
+          c.invalid_reason IS NULL 
+            AND c2.invalid_reason IS NULL 
+            AND c.vocabulary_id IN ('@target_vocabulary') 
+            AND c2.vocabulary_id IN ('@target_vocabulary')
+            AND cr.invalid_reason IS NULL
+        ",
+        staging_table = staging_table,
+        target_vocabulary = target_vocabulary
+      )
+    
+    output[[i]][[j]] <-
+      queryAthena(sql_statement = sql_statement)
+    names(output[[i]])[j] <- target_vocabulary
+  
+  }
+  
+  pg13::drop_all_staging_tables(conn = conn, 
+                                schema = "patelm9")
+  dcAthena(conn = conn)
+}
+
+# Add names to output
+relationship_type_labels <- 
+  c("Is Hierarchical & Does Not Define Ancestry",
+    "Is Not Hierarchical & Defines Ancestry",
+    "Is Hierarchical & Defines Ancestry", 
+    "Is Not Hierarchical & Does Not Define Ancestry")
+names(output) <- relationship_type_labels
+```
+
+The relationships are counted by relationship type.  
+
+```{r}
+# Bind outputs by relationship type
+output2_a <-
+  output %>%
+  map(bind_rows) %>%
+  # Rename target fields for aesthetics in plots
+  map(function(x) x %>% rename(Vocabulary = vocabulary_id)) %>%
+  # Add relationship_id count
+  map(group_by,relationship_id) %>%
+  map(mutate, count = length(relationship_id)) %>%
+  map(ungroup) %>%
+  # Convert controlled vocabularies to factors
+  map(mutate_at, vars(Vocabulary), ~ factor(., 
+                                       levels = c("SNOMED",
+                                                  "LOINC",
+                                                  "RxNorm",
+                                                  "RxNorm Extension",
+                                                  "ATC", 
+                                                  "HemOnc")))
+```
+
+The distribution of `max_levels_of_separation` and 
+`min_levels_of_separation` is also assessed by relationship 
+type.  
+
+```{r}
+output2_b <-
+  output2 %>%
+  map(function(x) x %>% 
+        pivot_longer(cols = c(min_levels_of_separation, 
+                              max_levels_of_separation),
+                     names_to = "Type of Separation",
+                     values_to = "level_of_separation")) %>%
+  map(function(x) x %>%
+        mutate_at(vars(`Type of Separation`),
+                function(y) case_when(y %in% c("max_levels_of_separation") ~ "Max",
+                                      TRUE ~ "Min")))
+```
+
+
+```{r,echo=FALSE}
+plot_counts <- 
+  function(data,
+           title) {
+    ggplot2::ggplot(data = data,
+                aes(x = reorder(relationship_id, -count),
+                    fill = Vocabulary)) +
+  ggplot2::geom_bar() + 
+  ggplot2::scale_fill_brewer(palette = "Paired") +
+  ggplot2::labs(title = title,
+                x = "Relationship Id") + 
+  ggplot2::theme_minimal() +
+  ggplot2::theme(axis.text.x = element_text(angle = 30, 
+                                            vjust = 1,
+                                            size = 6),
+                 legend.text = element_text(size = 6),
+                 legend.key.size = unit(.33, "cm"))
+  }
+```
+
+```{r,echo=FALSE}
+plot_levels <-
+  function(data,
+           title) {
+  ggplot2::ggplot(data = data,
+                  aes(x = level_of_separation, 
+                      fill = `Type of Separation`)) +
+    ggplot2::geom_bar(position = "dodge") + 
+    ggplot2::scale_fill_brewer(palette = "Dark2") +
+    ggplot2::labs(title = title,
+                  x = "Level of Separation")
+  }
+```
+
+### Results  
+#### Hierarchical & Does Not Define Ancestry 
+
+There are zero relationships that are hierarchical, but do 
+not define ancestry in the select controlled vocabularies.  
+
+#### Not Hierachical & Define Ancestry  
+
+Though already reviewed earlier, relationships that are not 
+hierarchical and define ancestry is re-reviewed for the 
+controlled vocabulary subset of RxNorm, RxNorm Extension, ATC, 
+and HemOnc. 
+
+```{r,echo=FALSE}
+plot_counts(output2_a$`Is Not Hierarchical & Defines Ancestry`,
+            title = "Relationship Id Distribution")
+```
+
+```{r,echo=FALSE}
+plot_levels(output2_b$`Is Not Hierarchical & Defines Ancestry`,
+            title = "Levels of Separation Distribution")
+```
+
+#### Not Hierachical & Define Ancestry 
+
+```{r,echo=FALSE}
+plot_counts(data = output2_a$`Is Hierarchical & Defines Ancestry`,
+            title = "Relationship Id Distribution")
+```
+
+```{r,echo=FALSE}
+plot_levels(
+  data = output2_b$`Is Hierarchical & Defines Ancestry`,
+  title = "Levels of Separation Distribution"
+  )
+```
+
+#### Not Hierarchical and Do Not Define Ancestry  
+
+```{r,echo=FALSE}
+plot_counts(
+    data = output2_a$`Is Not Hierarchical & Does Not Define Ancestry`,
+    title = "Relationship Id Distribution"
+  )
+```
+
+```{r,echo=FALSE}
+plot_levels(
+  data = output2_b$`Is Not Hierarchical & Does Not Define Ancestry`,
+  title = "Levels of Separation Distribution"
+  )
+```
+
+
