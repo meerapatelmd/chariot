@@ -153,12 +153,48 @@ ggplot2::ggplot(
 ```
 
 
-## Full Review 
+## Full Review  
 
 For each of the 4 relationship types, any association with select 
 controlled vocabularies SNOMED, LOINC, RxNorm, RxNorm Extension, 
 HemOnc and ATC is derived. Relationships analyzed are filtered 
-for those within each vocabulary system.
+for those within each vocabulary system.  
+
+### Methods  
+
+Relationships for each relationship type and target vocabulary 
+is queried. 
+
+```sql
+SELECT 
+  c.vocabulary_id,
+  c.concept_class_id AS concept_class_id_1,
+  c2.concept_class_id AS concept_class_id_2,
+  r.relationship_id,
+  r.is_hierarchical,
+  r.defines_ancestry,
+  ca.min_levels_of_separation,
+  ca.max_levels_of_separation
+FROM patelm9.@staging_table t 
+INNER JOIN omop_vocabulary.relationship r 
+ON t.is_hierarchical = r.is_hierarchical 
+    AND t.defines_ancestry = r.defines_ancestry 
+INNER JOIN omop_vocabulary.concept_relationship cr 
+ON cr.relationship_id = r.relationship_id 
+INNER JOIN omop_vocabulary.concept c 
+ON cr.concept_id_1 = c.concept_id  
+INNER JOIN omop_vocabulary.concept c2 
+ON cr.concept_id_2 = c2.concept_id 
+INNER JOIN omop_vocabulary.concept_ancestor ca 
+ON ca.ancestor_concept_id = cr.concept_id_1 
+     AND ca.descendant_concept_id = cr.concept_id_2
+WHERE 
+  c.invalid_reason IS NULL 
+    AND c2.invalid_reason IS NULL 
+    AND c.vocabulary_id IN ('@target_vocabulary') 
+    AND c2.vocabulary_id IN ('@target_vocabulary')
+    AND cr.invalid_reason IS NULL
+```
 
 ```{r,results='hide',cache=TRUE}
 # Target vocabularies
@@ -242,6 +278,7 @@ relationship_type_labels <-
 names(output) <- relationship_type_labels
 ```
 
+The relationships are counted by relationship type.  
 
 ```{r}
 # Bind outputs by relationship type
@@ -264,6 +301,9 @@ output2_a <-
                                                   "HemOnc")))
 ```
 
+The distribution of `max_levels_of_separation` and 
+`min_levels_of_separation` is also assessed by relationship 
+type.  
 
 ```{r}
 output2_b <-
@@ -314,13 +354,13 @@ plot_levels <-
   }
 ```
 
-
-### Hierarchical & Does Not Define Ancestry 
+### Results  
+#### Hierarchical & Does Not Define Ancestry 
 
 There are zero relationships that are hierarchical, but do 
 not define ancestry in the select controlled vocabularies.  
 
-### Not Hierachical & Define Ancestry  
+#### Not Hierachical & Define Ancestry  
 
 Though already reviewed earlier, relationships that are not 
 hierarchical and define ancestry is re-reviewed for the 
@@ -329,41 +369,41 @@ and HemOnc.
 
 ```{r,echo=FALSE}
 plot_counts(output2_a$`Is Not Hierarchical & Defines Ancestry`,
-            title = "Is Not Hierarchical & Defines Ancestry")
+            title = "Relationship Id Distribution")
 ```
 
 ```{r,echo=FALSE}
 plot_levels(output2_b$`Is Not Hierarchical & Defines Ancestry`,
-            title = "Is Not Hierarchical & Defines Ancestry")
+            title = "Levels of Separation Distribution")
 ```
 
-### Not Hierachical & Define Ancestry 
+#### Not Hierachical & Define Ancestry 
 
-```{r}
+```{r,echo=FALSE}
 plot_counts(data = output2_a$`Is Hierarchical & Defines Ancestry`,
-            title = "Is Hierarchical & Defines Ancestry")
+            title = "Relationship Id Distribution")
 ```
 
-```{r}
+```{r,echo=FALSE}
 plot_levels(
   data = output2_b$`Is Hierarchical & Defines Ancestry`,
-  title = "Is Hierarchical & Defines Ancestry"
+  title = "Levels of Separation Distribution"
   )
 ```
 
-### Not Hierarchical and Do Not Define Ancestry  
+#### Not Hierarchical and Do Not Define Ancestry  
 
-```{r}
+```{r,echo=FALSE}
 plot_counts(
     data = output2_a$`Is Not Hierarchical & Does Not Define Ancestry`,
-    title = "Is Not Hierarchical & Does Not Define Ancestry"
+    title = "Relationship Id Distribution"
   )
 ```
 
-```{r}
+```{r,echo=FALSE}
 plot_levels(
   data = output2_b$`Is Not Hierarchical & Does Not Define Ancestry`,
-  title = "Is Not Hierarchical & Does Not Define Ancestry"
+  title = "Levels of Separation Distribution"
   )
 ```
 
