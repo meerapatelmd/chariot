@@ -1,7 +1,47 @@
 navbar:
   structure:
-    left:  [home, reference, articles, news]
-    right: [github]
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fas fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/meerapatelmd/chariot/
+    articles:
+      text: Articles
+      menu:
+      - text: Explore 'Maps to' Relationship
+        href: articles/explore-maps-to-relationship.html
+      - text: Explore Relationships and Ancestors
+        href: articles/explore-relationships-and-ancestors.html
+      - text: Explore Vocabulary Relationships and Ancestors
+        href: articles/explore-vocabulary-relationships-and-ancestors.html
+      - text: Harmonizing HemOnc Concepts
+        href: articles/harmonizing-hemonc-concepts.html
+      - text: Mapping to HemOnc
+        href: articles/mapping-to-hemonc.html
+      - text: Pivot Concept Ancestors and Descendants
+        href: articles/pivot-concept-ancestor.html
+      - text: Pivot Concept Relationships
+        href: articles/pivot-concept-relationships.html
+      - text: Setup Drug Strength
+        href: articles/setup-drug-strength.html
+      - text: String Manipulation
+        href: articles/string-manipulation.html
 
 reference:
   - title: Connection
