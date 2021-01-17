@@ -103,6 +103,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
+    </li>
+    <li>
+      <a href="../articles/explore-vocabulary-relationships-and-ancestors.html">Explore Vocabulary Relationships and Ancestors</a>
+    </li>
+    <li>
       <a href="../articles/harmonizing-hemonc-concepts.html">Harmonizing HemOnc Concepts</a>
     </li>
     <li>
@@ -184,54 +190,54 @@
 <span class='co'># Lookup relationships on the Vocabulary-Concept Class Id axis</span>
 <span class='fu'><a href='vocab_lookup_relationships.html'>vocab_lookup_relationships</a></span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-14 18:02:11]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 5</span><span>
-#&gt;    vocabulary_id_1 concept_class_id_1 relationship_id     vocabulary_id_2 concept_class_id_2
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name         Brand name of       HemOnc          Component         
-#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component          Antineoplastic of   HemOnc          Procedure         
-#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component          Antineoplastic of   HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component          Concept replaces    HemOnc          Component         
-#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component          Has FDA indication  HemOnc          Condition         
-#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component          Has accepted use    HemOnc          Condition         
-#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component          Has brand name      HemOnc          Brand Name        
-#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component          Immunosuppressor of HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component          Is a                HemOnc          Component Class   
-#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component          Local therapy of    HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div><div class='input'>
+#&gt; [2021-01-17 01:04:31]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 5</span><span>
+#&gt;    vocabulary_id_1 concept_class_i… relationship_id vocabulary_id_2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name       Brand name of   HemOnc         
+#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component        Antineoplastic… HemOnc         
+#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component        Antineoplastic… HemOnc         
+#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component        Concept replac… HemOnc         
+#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component        Has FDA indica… HemOnc         
+#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component        Has accepted u… HemOnc         
+#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component        Has brand name  HemOnc         
+#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component        Immunosuppress… HemOnc         
+#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component        Is a            HemOnc         
+#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component        Local therapy … HemOnc         
+#&gt; </span><span style='color: #555555;'># … with 90 more rows, and 1 more variable: concept_class_id_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Relationships between HemOnc concepts only can also be looked up</span>
 <span class='fu'>vocab_lookup_intrarelation</span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-14 18:02:11]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 70 x 5</span><span>
-#&gt;    vocabulary_id_1 concept_class_id_1 relationship_id     vocabulary_id_2 concept_class_id_2
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name         Brand name of       HemOnc          Component         
-#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component          Antineoplastic of   HemOnc          Procedure         
-#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component          Antineoplastic of   HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component          Has FDA indication  HemOnc          Condition         
-#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component          Has accepted use    HemOnc          Condition         
-#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component          Has brand name      HemOnc          Brand Name        
-#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component          Immunosuppressor of HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component          Is a                HemOnc          Component Class   
-#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component          Local therapy of    HemOnc          Regimen           
-#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component          May have route      HemOnc          Route             
-#&gt; </span><span style='color: #555555;'># … with 60 more rows</span><span></div><div class='input'>
+#&gt; [2021-01-17 01:04:31]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 70 x 5</span><span>
+#&gt;    vocabulary_id_1 concept_class_i… relationship_id vocabulary_id_2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Brand Name       Brand name of   HemOnc         
+#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component        Antineoplastic… HemOnc         
+#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component        Antineoplastic… HemOnc         
+#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component        Has FDA indica… HemOnc         
+#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component        Has accepted u… HemOnc         
+#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component        Has brand name  HemOnc         
+#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component        Immunosuppress… HemOnc         
+#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component        Is a            HemOnc         
+#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component        Local therapy … HemOnc         
+#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component        May have route  HemOnc         
+#&gt; </span><span style='color: #555555;'># … with 60 more rows, and 1 more variable: concept_class_id_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Relationships between HemOnc and non-Hemonc Concepts</span>
 <span class='fu'><a href='vocab_lookup_interrelation.html'>vocab_lookup_interrelation</a></span><span class='op'>(</span>vocabulary_id <span class='op'>=</span> <span class='st'>"HemOnc"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver
-#&gt; [2021-01-14 18:02:11]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 5</span><span>
-#&gt;    vocabulary_id_1 concept_class_id_1 relationship_id vocabulary_id_2  concept_class_id_2
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Component          Maps to         RxNorm           Branded Drug Form 
-#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component          Maps to         RxNorm           Clinical Drug Form
-#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component          Maps to         RxNorm           Ingredient        
-#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component          Maps to         RxNorm Extension Ingredient        
-#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component Class    Subsumes        RxNorm           Branded Drug Form 
-#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component Class    Subsumes        RxNorm           Clinical Drug Form
-#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component Class    Subsumes        RxNorm           Ingredient        
-#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component Class    Subsumes        RxNorm           Precise Ingredient
-#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component Class    Subsumes        RxNorm Extension Brand Name        
-#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component Class    Subsumes        RxNorm Extension Ingredient        
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div></span></pre>
+#&gt; [2021-01-17 01:04:31]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 5</span><span>
+#&gt;    vocabulary_id_1 concept_class_i… relationship_id vocabulary_id_2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          
+#&gt; </span><span style='color: #555555;'> 1</span><span> HemOnc          Component        Maps to         RxNorm         
+#&gt; </span><span style='color: #555555;'> 2</span><span> HemOnc          Component        Maps to         RxNorm         
+#&gt; </span><span style='color: #555555;'> 3</span><span> HemOnc          Component        Maps to         RxNorm         
+#&gt; </span><span style='color: #555555;'> 4</span><span> HemOnc          Component        Maps to         RxNorm Extensi…
+#&gt; </span><span style='color: #555555;'> 5</span><span> HemOnc          Component Class  Subsumes        RxNorm         
+#&gt; </span><span style='color: #555555;'> 6</span><span> HemOnc          Component Class  Subsumes        RxNorm         
+#&gt; </span><span style='color: #555555;'> 7</span><span> HemOnc          Component Class  Subsumes        RxNorm         
+#&gt; </span><span style='color: #555555;'> 8</span><span> HemOnc          Component Class  Subsumes        RxNorm         
+#&gt; </span><span style='color: #555555;'> 9</span><span> HemOnc          Component Class  Subsumes        RxNorm Extensi…
+#&gt; </span><span style='color: #555555;'>10</span><span> HemOnc          Component Class  Subsumes        RxNorm Extensi…
+#&gt; </span><span style='color: #555555;'># … with 14 more rows, and 1 more variable: concept_class_id_2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

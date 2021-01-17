@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setup Drug Strength • chariot</title>
+<title>Explore 'Maps to' Relationship • chariot</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Setup Drug Strength">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Explore 'Maps to' Relationship">
 <meta property="og:description" content="chariot">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -110,11 +110,11 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Setup Drug Strength</h1>
+      <h1 data-toc-skip>Explore ‘Maps to’ Relationship</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/meerapatelmd/chariot/blob/master/vignettes/setup-drug-strength.Rmd"><code>vignettes/setup-drug-strength.Rmd</code></a></small>
-      <div class="hidden name"><code>setup-drug-strength.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/meerapatelmd/chariot/blob/master/vignettes/explore-maps-to-relationship.Rmd"><code>vignettes/explore-maps-to-relationship.Rmd</code></a></small>
+      <div class="hidden name"><code>explore-maps-to-relationship.Rmd</code></div>
 
     </div>
 
@@ -123,15 +123,24 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://meerapatelmd.github.io/chariot/">chariot</a></span><span class="op">)</span>
 <span class="co">#&gt; Read GitHub Wiki &lt;https://ohdsi.github.io/CommonDataModel/cdm60.html&gt;</span></code></pre></div>
-<p>There are multiple transformations involved in using the Drug Strength table. Firstly, the conceptual representation of drug strength is spread across <code>amount</code>, <code>numerator</code>, and/or a <code>denominator</code>. Additionally, for each of the 3, there is a value and a unit, where the unit is represented as a concept id.</p>
-<p>The Drug Strength table is prepared in advance as the Drug Strength Staged table, where the <code>value</code> and <code>unit</code> are mapped and represented in their final form. For the staged <code>value</code>, the form takes on that of a varchar (string) with a mathematical expression of the fraction that can be evaluated later on.</p>
-<p>To stage the Drug Strength table, it is first processed. All the invalid entries in the Drug Strength table are filtered out and the related fields, <code>invalid_reason</code>, <code>valid_start_date</code>, and <code>valid_end_date</code> are removed. Since it has little relevance to the use cases seen in this package, <code>box_size</code> is also removed.</p>
-<p>The unit concept ids are also mapped to their concept names.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ds_process.html">ds_process</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p>The result of this function call is a Drug Strength Processed table. This is the table that is used to stage the <code>value</code> and <code>unit</code> fields and it is prerequisite for the next staging step.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ds_stage.html">ds_stage</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>The ‘Maps to’ relationship and its inverse are explored for each of the standard controlled vocabularies that often serves as the target from source.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  cr.relationship_id,</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  ca.min_levels_of_separation,</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  ca.max_levels_of_separation   </a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">FROM</span> omop_vocabulary.concept c </a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">INNER</span> <span class="kw">JOIN</span> omop_vocabulary.concept_relationship cr</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">ON</span> cr.concept_id_1 = c.concept_id </a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">INNER</span> <span class="kw">JOIN</span> omop_vocabulary.concept c2 </a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">ON</span> cr.concept_id_2 = c2.concept_id  </a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">INNER</span> <span class="kw">JOIN</span> omop_vocabulary.concept_ancestor ca </a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">ON</span> ca.ancestor_concept_id = cr.concept_id_<span class="dv">1</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">WHERE</span> </a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">  c.vocabulary_id <span class="kw">IN</span> (<span class="st">'SNOMED'</span>) </a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">    <span class="kw">AND</span> c.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="kw">AND</span> c2.vocabulary_id <span class="kw">IN</span> (<span class="st">'SNOMED'</span>) </a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="kw">AND</span> c2.invalid_reason <span class="kw">IS</span> <span class="kw">NULL</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="kw">AND</span> cr.relationship_id = <span class="st">'Maps to'</span> </a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

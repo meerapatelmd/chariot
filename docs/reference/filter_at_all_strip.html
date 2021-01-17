@@ -103,6 +103,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
+    </li>
+    <li>
+      <a href="../articles/explore-vocabulary-relationships-and-ancestors.html">Explore Vocabulary Relationships and Ancestors</a>
+    </li>
+    <li>
       <a href="../articles/harmonizing-hemonc-concepts.html">Harmonizing HemOnc Concepts</a>
     </li>
     <li>
@@ -207,9 +213,9 @@
 </div><div class='output co'>#&gt; Connecting using PostgreSQL driver</div><div class='input'><span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-14 17:52:14]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-01-14 17:52:14]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2021-01-14 17:52:14]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-01-17 00:54:00]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-01-17 00:54:00]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2021-01-17 00:54:00]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'>
 <span class='co'># Merge</span>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
@@ -303,7 +309,7 @@
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 0 x 2</span><span>
 #&gt; </span><span style='color: #555555;'># … with 2 variables: concept_a </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, concept_b </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 <span class='fu'><a href='dcAthena.html'>dcAthena</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-01-14 17:52:15]	Postgres connection to 'athena' closed</div></span></pre>
+</div><div class='output co'>#&gt; [2021-01-17 00:54:01]	Postgres connection to 'athena' closed</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -61,6 +61,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
+    </li>
+    <li>
+      <a href="../articles/explore-vocabulary-relationships-and-ancestors.html">Explore Vocabulary Relationships and Ancestors</a>
+    </li>
+    <li>
       <a href="../articles/harmonizing-hemonc-concepts.html">Harmonizing HemOnc Concepts</a>
     </li>
     <li>
@@ -120,7 +126,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</span>
 <span class="co">#&gt; ✓ ggplot2 3.3.3     ✓ purrr   0.3.4</span>
-<span class="co">#&gt; ✓ tibble  3.0.4     ✓ dplyr   1.0.2</span>
+<span class="co">#&gt; ✓ tibble  3.0.5     ✓ dplyr   1.0.3</span>
 <span class="co">#&gt; ✓ tidyr   1.1.2     ✓ stringr 1.4.0</span>
 <span class="co">#&gt; ✓ readr   1.4.0     ✓ forcats 0.5.0</span>
 <span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
@@ -136,16 +142,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35806596` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="va">Irinotecan</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_concept.html">get_concept</a></span><span class="op">(</span>concept_id <span class="op">=</span> <span class="fl">35803130</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Is Concept Id Valid Integer? ────────────────────────────────────────────────</span>
@@ -153,16 +159,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803130` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:23]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span></code></pre></div>
 <p>To check for this, the FOLFOX plus Irinotecan combination are reduced to Components.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_components</span> <span class="op">&lt;-</span> 
@@ -170,8 +176,8 @@
                         <span class="va">Irinotecan</span><span class="op">)</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; ── Checking Validity ───────────────────────────────────────────────────────────</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Cached SQL: </span>
 <span class="co">#&gt;                             SELECT *</span>
 <span class="co">#&gt;                             FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                             WHERE c.concept_id IN (35806596,35803130)</span>
@@ -179,86 +185,86 @@
 <span class="co">#&gt;                                     AND c.concept_class_id IN ('Regimen', 'Component')</span>
 <span class="co">#&gt;                                     AND c.vocabulary_id = 'HemOnc'</span>
 <span class="co">#&gt;                             </span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Target column: hemonc_concept_ids</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Target column: hemonc_concept_ids</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010455;</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Data 'data' has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
-<span class="co">#&gt; ✓ Table name 'V20210114180224' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
+<span class="co">#&gt; ✓ Table name 'V20210117010455' is not a reserved word</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Field name 'hemonc_concept_ids' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Writing patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Writing patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: SELECT a.*, b.* FROM patelm9.V20210114180224 a LEFT JOIN omop_vocabulary.concept b ON a.hemonc_concept_ids = b.concept_id WHERE b.invalid_reason IS NULL</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Querying...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: SELECT a.*, b.* FROM patelm9.V20210117010455 a LEFT JOIN omop_vocabulary.concept b ON a.hemonc_concept_ids = b.concept_id WHERE b.invalid_reason IS NULL</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Querying...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010455;</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Target column: component_id</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Target column: component_id</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010455;</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Data 'data' has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
-<span class="co">#&gt; ✓ Table name 'V20210114180224' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
+<span class="co">#&gt; ✓ Table name 'V20210117010455' is not a reserved word</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Field name 'component_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Writing patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Writing patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: SELECT a.*, b.* FROM patelm9.V20210114180224 a LEFT JOIN omop_vocabulary.concept b ON a.component_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Querying...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: SELECT a.*, b.* FROM patelm9.V20210117010455 a LEFT JOIN omop_vocabulary.concept b ON a.component_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Querying...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-17 01:04:55]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010455;</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Dropping patelm9.V20210117010455...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:55]    Postgres connection to 'athena' closed</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_components</span>
 <span class="co">#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id</span>
@@ -277,16 +283,16 @@
   <span class="fu"><a href="../reference/ho_lookup_regimen.html">ho_lookup_regimen</a></span><span class="op">(</span><span class="va">new_components</span><span class="op">$</span><span class="va">concept_id</span><span class="op">)</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803081,35803227,35803130)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -315,9 +321,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -346,9 +352,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -377,9 +383,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -408,50 +414,50 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Target column: regimen_concept_id</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Target column: regimen_concept_id</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Dropping patelm9.V20210117010456...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010456;</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Dropping patelm9.V20210117010456...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Data 'data' has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
-<span class="co">#&gt; ✓ Table name 'V20210114180224' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
+<span class="co">#&gt; ✓ Table name 'V20210117010456' is not a reserved word</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Field name 'regimen_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_name' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Writing patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Writing patelm9.V20210117010456...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Writing patelm9.V20210117010456...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    SQL: SELECT a.*, b.* FROM patelm9.V20210114180224 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
-<span class="co">#&gt; [2021-01-14 18:02:24]    Querying...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    SQL: SELECT a.*, b.* FROM patelm9.V20210117010456 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Querying...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Dropping patelm9.V20210114180224...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Dropping patelm9.V20210117010456...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180224;</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Dropping patelm9.V20210114180224...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-17 01:04:56]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010456;</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Dropping patelm9.V20210117010456...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_regimen</span>
 <span class="co">#&gt;    regimen_concept_id                                  regimen_concept_name</span>
@@ -490,16 +496,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803361` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="va">Trastuzumab</span>
 <span class="co">#&gt; An object of class "concept"</span>
 <span class="co">#&gt; Slot "concept_id":</span>
@@ -545,16 +551,16 @@
 <code class="sourceCode R"><span class="va">new_regimen2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ho_lookup_regimen.html">ho_lookup_regimen</a></span><span class="op">(</span><span class="va">new_component_ids2</span><span class="op">)</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803081,35803227,35803130,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -583,9 +589,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -614,9 +620,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -645,9 +651,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -676,9 +682,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -707,8 +713,8 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span></code></pre></div>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span></code></pre></div>
 <p>In this case, a regimen was not found as indicated by a zero row result.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_regimen2</span>
@@ -726,80 +732,80 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803077` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:56]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Is Concept Id Valid Integer? ────────────────────────────────────────────────</span>
 <span class="co">#&gt; ✓ Concept Id is a valid integer</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803081` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Is Concept Id Valid Integer? ────────────────────────────────────────────────</span>
 <span class="co">#&gt; ✓ Concept Id is a valid integer</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803227` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Is Concept Id Valid Integer? ────────────────────────────────────────────────</span>
 <span class="co">#&gt; ✓ Concept Id is a valid integer</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803130` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Is Concept Id Valid Integer? ────────────────────────────────────────────────</span>
 <span class="co">#&gt; ✓ Concept Id is a valid integer</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Concept Id in Concept Table ──────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; ✓ Concept Id `35803361` found in Concept Table</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup Synonyms ─────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Lookup 'Maps to' Concept Names ──────────────────────────────────────────────</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:25]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">new_component_objs2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">new_component_objs2</span>,
                                      <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">slot</span><span class="op">(</span><span class="va">x</span>, <span class="st">"concept_name"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">new_component_objs2</span>
@@ -1015,16 +1021,16 @@
 <span class="op">}</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803081,35803227,35803130,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1053,9 +1059,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1084,9 +1090,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1115,9 +1121,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1146,20 +1152,20 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803227,35803130,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1188,9 +1194,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1219,9 +1225,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1250,9 +1256,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1281,20 +1287,20 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803081,35803130,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1323,9 +1329,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1354,9 +1360,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1385,9 +1391,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1416,20 +1422,20 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803081,35803227,35803361)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1458,9 +1464,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1489,9 +1495,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1520,9 +1526,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1551,20 +1557,20 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: SELECT *</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: SELECT *</span>
 <span class="co">#&gt;                              FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                              WHERE c.concept_id IN (35803077,35803081,35803227,35803130)</span>
 <span class="co">#&gt;                                 AND c.invalid_reason IS NULL</span>
 <span class="co">#&gt;                                 AND c.concept_class_id &lt;&gt; 'Component';</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1593,9 +1599,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1624,9 +1630,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1655,9 +1661,9 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Loading Cache...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached SQL: WITH component_regimens AS (</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Loading Cache...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached SQL: WITH component_regimens AS (</span>
 <span class="co">#&gt;                                         SELECT cr.concept_id_2 AS regimen_i_concept_id</span>
 <span class="co">#&gt;                                         FROM omop_vocabulary.concept c</span>
 <span class="co">#&gt;                                         LEFT JOIN omop_vocabulary.concept_relationship cr</span>
@@ -1686,50 +1692,50 @@
 <span class="co">#&gt;                                 ON t.regimen_concept_id = cr.regimen_i_concept_id</span>
 <span class="co">#&gt;                                 ;</span>
 <span class="co">#&gt;                                 </span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Cached resultset found...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Target column: regimen_concept_id</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Cached resultset found...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Target column: regimen_concept_id</span>
 <span class="co">#&gt; Connecting using PostgreSQL driver</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Dropping patelm9.V20210114180226...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Dropping patelm9.V20210117010457...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180226;</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Dropping patelm9.V20210114180226...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010457;</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Dropping patelm9.V20210117010457...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Data 'data' has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
-<span class="co">#&gt; ✓ Table name 'V20210114180226' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
+<span class="co">#&gt; ✓ Table name 'V20210117010457' is not a reserved word</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Field name 'regimen_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_id' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Field name 'has_antineoplastic_concept_name' is not a reserved word</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Writing patelm9.V20210114180226...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Writing patelm9.V20210114180226...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Writing patelm9.V20210117010457...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Writing patelm9.V20210117010457...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    SQL: SELECT a.*, b.* FROM patelm9.V20210114180226 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Querying...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Querying...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    SQL: SELECT a.*, b.* FROM patelm9.V20210117010457 a LEFT JOIN omop_vocabulary.concept b ON a.regimen_concept_id = b.concept_id WHERE b.invalid_reason IS NULL</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Querying...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Querying...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Returned data has more than 0 rows</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Dropping patelm9.V20210114180226...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Dropping patelm9.V20210117010457...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ Open connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    </span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    </span>
 <span class="co">#&gt; ✓ JDBC connection</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    SQL: DROP TABLE IF EXISTS patelm9.V20210114180226;</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Sending...</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Sending...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Dropping patelm9.V20210114180226...complete</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
-<span class="co">#&gt; [2021-01-14 18:02:26]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    SQL: DROP TABLE IF EXISTS patelm9.V20210117010457;</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Sending...</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Sending...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Dropping patelm9.V20210117010457...complete</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
+<span class="co">#&gt; [2021-01-17 01:04:57]    Postgres connection to 'athena' closed</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">new_regimens2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">new_component_permutations</span><span class="op">)</span>
 <span class="va">new_regimens2</span> <span class="op">&lt;-</span>
   <span class="va">new_regimens2</span> <span class="op">%&gt;%</span>
