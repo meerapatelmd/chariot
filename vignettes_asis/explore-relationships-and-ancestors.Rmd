@@ -12,6 +12,7 @@ output:
     toc_float: 
       collapsed: false  
       smooth_scroll: false
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(comment = "##",
                       tidy.opts = list(blank = FALSE, width.cutoff = 60),
                       echo = TRUE,
                       eval = TRUE,
-                      cache = TRUE,
+                      cache = FALSE,
                       child = NULL, #file/s to knit and then include,
                       collapse = FALSE, #collapse all output into a single block,
                       error = TRUE, #display error messages in doc. FALSE stops render when error is thrown
@@ -29,8 +30,8 @@ knitr::opts_chunk$set(comment = "##",
                       fig.height = 7, #inches
                       fig.asp=0.50, #adds whitespace around images
                       include = TRUE, #include chunk?
-                      message = TRUE, #display code messages?
-                      tidy = TRUE, #tidy code 
+                      message = FALSE, #display code messages?
+                      tidy = FALSE, #tidy code 
                       warning = TRUE, #include warnings?
                       results = "markup"
                         # "asis": passthrough results
@@ -43,11 +44,6 @@ knitr::opts_chunk$set(comment = "##",
 library(chariot)
 library(tidyverse)
 library(RColorBrewer)
-```
-
-```{r}
-nb.cols <- 20
-mycolors <- colorRampPalette(brewer.pal(8, "Paired"))(nb.cols)
 ```
 
 There are 4 different types of relationships represented in 
@@ -221,7 +217,13 @@ WHERE
     AND cr.invalid_reason IS NULL
 ```
 
-```{r,results='hide',cache=TRUE}
+```{r,echo=FALSE}
+output <- R.cache::loadCache(dirs = "chariot/vignettes/explore-relationships-and-ancestors/",
+                   key = list("output"))
+```
+
+
+```{r,results='hide',eval=is.null(output)}
 # Target vocabularies
 target_vocabularies <- c("SNOMED", "LOINC", 
                          "RxNorm", "RxNorm Extension", 
@@ -301,6 +303,11 @@ relationship_type_labels <-
     "Is Hierarchical & Defines Ancestry", 
     "Is Not Hierarchical & Does Not Define Ancestry")
 names(output) <- relationship_type_labels
+
+R.cache::saveCache(object = output, 
+                   dirs = "chariot/vignettes/explore-relationships-and-ancestors/",
+                   key = list("output")
+                   )
 ```
 
 The relationships are counted by relationship type.  
@@ -332,7 +339,8 @@ type.
 
 ```{r}
 output2_b <-
-  output2 %>%
+  output %>%
+  map(bind_rows) %>%
   map(function(x) x %>% 
         pivot_longer(cols = c(min_levels_of_separation, 
                               max_levels_of_separation),

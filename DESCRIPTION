@@ -42,10 +42,12 @@ Imports:
     xml2
 Suggests: 
     knitr,
+    R.rsp,
     rmarkdown,
     spelling
 VignetteBuilder: 
-    knitr
+    knitr,
+    R.rsp
 Remotes:
     meerapatelmd/rubix,
     meerapatelmd/secretary,

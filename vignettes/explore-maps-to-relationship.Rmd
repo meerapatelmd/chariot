@@ -42,7 +42,3 @@ WHERE
     AND cr.relationship_id = 'Maps to' 
 ```
 
-```{r}
-queryAthena()
-```
-
