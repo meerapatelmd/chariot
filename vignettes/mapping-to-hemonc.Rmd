@@ -10,11 +10,13 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+  results = 'hide'
 )
 ```
 
-```{r setup}
+```{r setup,message=FALSE}
 library(chariot)
 ```
 
@@ -38,7 +40,7 @@ The monotherapy is assumed by the length of the input (`1`), and the function
 first searches for "trastuzumab" and runs an additional search for the pattern
 "monotherapy" based on the value of `1`. 
 
-```{r}
+```{r,results='markup'}
 ex1
 ```
 
@@ -57,7 +59,7 @@ ex2 <-
 The pattern matched is "Trastuzumab" with any HemOnc Regimens containing the 
 pattern "and" for 2 components. 
 
-```{r}
+```{r,results='markup'}
 ex2
 ```
 
@@ -74,7 +76,7 @@ ex3 <-
 
 For trastuzumab regimens containing 3 components, 2 commas are searched for. 
 
-```{r}
+```{r,results='markup'}
 ex3
 ```
 
@@ -103,7 +105,7 @@ ex5 <- ho_lookup_antineoplastics(35804201,
                           conn = conn)
 ```
 
-```{r}
+```{r,results='markup'}
 ex5
 ```
 
@@ -117,7 +119,7 @@ ho_lookup_regimen(35803229,35803361,
                   conn = conn)
 ```
 
-```{r}
+```{r,results='markup'}
 ex6
 ```
 
@@ -133,11 +135,11 @@ Trastuzumab <- get_concept(concept_id = 35803361)
 Now we know what is being looked up while also containing the `concept_id` needed 
 as the essential input for the function.  
 
-```{r}
+```{r,results='markup'}
 Paclitaxel
 ```
 
-```{r}
+```{r,results='markup'}
 Trastuzumab 
 ```
 
@@ -149,7 +151,7 @@ ho_lookup_regimen(Paclitaxel,
                   conn = conn)
 ```
 
-```{r}
+```{r,results='markup'}
 ex7
 ```
 
