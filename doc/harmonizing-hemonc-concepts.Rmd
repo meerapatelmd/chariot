@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup,message=FALSE}
 library(chariot)
 library(tidyverse)
 ```
@@ -26,14 +26,14 @@ Regimens and/or Regimen and Component combinations that map to the reduced list.
 For example, the Regimen FOLFOX along with Irinotecan would harmonize to 
 FOLFIRINOX. 
 
-```{r}
+```{r,results='hide',message=FALSE}
 FOLFOX <- get_concept(concept_id = 35806596)
 Irinotecan <- get_concept(concept_id = 35803130)
 ```
 
 To check for this, the FOLFOX plus Irinotecan combination are reduced to Components. 
 
-```{r}
+```{r,results='hide',message=FALSE}
 new_components <- 
   ho_reduce_to_components(FOLFOX,
                         Irinotecan)
@@ -45,7 +45,7 @@ new_components
 
 The components can then be submitted to generate a potential regimen match. 
 
-```{r}
+```{r,results='hide',message=FALSE}
 new_regimen <- 
   ho_lookup_regimen(new_components$concept_id)
 ```
@@ -62,7 +62,7 @@ drug to an established Regimen for experimental reasons.
 For demonstration purposes, suppose the new Components reduced down to 
 Fluorouracil, Folinic acid, Oxaliplatin, and Irinotecan as well as Trastuzumab. 
 
-```{r}
+```{r,results='hide',message=F}
 Trastuzumab <- get_concept(concept_id = 35803361)
 Trastuzumab
 ```
@@ -74,7 +74,7 @@ new_component_ids2
 ```
 
 
-```{r}
+```{r,results='hide',message=FALSE}
 new_regimen2 <- ho_lookup_regimen(new_component_ids2)
 ```
 
@@ -90,11 +90,14 @@ this case, it is 4.
 
 The Concept classes are retrieved for each of the Components. 
 
-```{r}
+```{r,results='hide',message=F}
 new_component_objs2 <- lapply(new_component_ids2,
                               get_concept)
 names(new_component_objs2) <- lapply(new_component_objs2,
                                      function(x) slot(x, "concept_name"))
+```
+
+```{r}
 new_component_objs2
 ```
 
@@ -115,7 +118,7 @@ removed Component in a particular permutation is also saved as the name.
 
 The permutations are mapped to Regimens.
 
-```{r}
+```{r,results='hide',message=F}
 new_regimens2 <- list()
 for (i in seq_along(new_component_permutations)) {
   
@@ -126,6 +129,9 @@ names(new_regimens2) <- names(new_component_permutations)
 new_regimens2 <-
   new_regimens2 %>%
   purrr::keep(~ nrow(.) > 0)
+```
+
+```{r}
 new_regimens2
 ```
 
