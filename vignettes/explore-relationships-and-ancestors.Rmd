@@ -40,11 +40,12 @@ knitr::opts_chunk$set(comment = "##",
                       )
 ```
   
-```{r libraries}
+```{r libraries,message=FALSE}
 library(chariot)
 library(tidyverse)
 library(RColorBrewer)
 ```
+
 
 There are 4 different types of relationships represented in 
 the Concept Relationship table depending on whether they are 
@@ -67,7 +68,9 @@ FROM omop_vocabulary.relationship
 
 ```{r,message=FALSE,results='hide'}
 relationship_types <- 
-  queryAthena(sql_statement = 
+  queryAthena(
+    conn = conn,
+      sql_statement = 
                 "
                 SELECT DISTINCT 
                   is_hierarchical,
