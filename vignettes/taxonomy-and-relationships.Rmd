@@ -1,0 +1,506 @@
+---
+title: "Taxonomy and Relationships"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Taxonomy and Relationships}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+print_dt <-
+  function(x,
+           rownames = FALSE,
+           filter = "top",
+           scrollX = TRUE) {
+    
+    x <-
+      x %>% 
+      dplyr::mutate_all(factor)
+    
+    DT::datatable(
+      x,
+      rownames = rownames,
+      filter = filter,
+      extensions = "Buttons",
+      options = 
+        list(dom = "Blfrtip", 
+             buttons = c("copy", "csv","excel", "pdf", "print"), 
+             lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All")),
+             scrollX = scrollX
+            )
+      )
+  }
+```
+
+```{r setup}
+library(chariot)
+```
+
+3 types of relationships can be derived from the OMOP 
+Vocabulary tables:  
+
+1. [Taxonomy](#taxonomy): hierarchical parent-to-child relationships represented 
+by _Is a_ or _Subsumes_ predicates.  
+2. [Mapping](#mapping): _Maps to_ or _Mapped from_ relationships between 
+OMOP concepts that either a.) represent a 
+mapping from a non-standard vocabulary to a standard controlled vocabulary 
+such as NDC to RxNorm or b.) represent a mapping from a deprecated 
+concept to its most current counterpart.  
+3. [Lateral](#lateral-relationships): non-hierarchical relationships between OMOP concepts 
+represented by all other relationships. 
+
+Here, I am using "[V] [S] 4115276 Non-small cell lung cancer [SNOMED 254637007] [Condition] [Clinical Finding]" 
+as an example.  
+
+
+# Taxonomy  
+
+## CONCEPT_ANCESTOR Table  
+
+The ancestry of 4115276 is derived and ordered in a top-to-bottom 
+format. The CONCEPT_ANCESTOR table provides 2 types of paths: 
+the `min_levels_of_separation` and `max_levels_of_separation` 
+that represents the minimum and maximum distances between 
+the concepts within the hierarchy, respectively. Here, the 
+minimum is used.  
+
+
+```sql
+-- The ancestors are ordered from top-to-bottom
+SELECT c.concept_name, ca.min_levels_of_separation 
+FROM omop_vocabulary.concept_ancestor ca 
+LEFT JOIN omop_vocabulary.concept c 
+  ON c.concept_id = ca.ancestor_concept_id 
+WHERE 
+  ca.descendant_concept_id = 4115276 
+    AND c.invalid_reason IS NULL 
+ORDER BY min_levels_of_separation DESC
+UNION
+-- The descendants ordered inverse to maintain top-to-bottom format
+SELECT c.concept_name, ca.min_levels_of_separation 
+FROM omop_vocabulary.concept_ancestor ca 
+LEFT JOIN omop_vocabulary.concept c 
+ON c.concept_id = ca.descendant_concept_id 
+WHERE ca.ancestor_concept_id = 4115276 
+AND c.invalid_reason IS NULL 
+ORDER BY min_levels_of_separation;
+```
+
+
+```{r}
+taxonomy <- 
+queryAthena(
+  "
+  WITH a AS (
+    SELECT c.concept_name, ca.min_levels_of_separation 
+    FROM omop_vocabulary.concept_ancestor ca 
+    LEFT JOIN omop_vocabulary.concept c 
+      ON c.concept_id = ca.ancestor_concept_id 
+    WHERE 
+      ca.descendant_concept_id = 4115276 
+        AND c.invalid_reason IS NULL 
+    ORDER BY min_levels_of_separation DESC
+  ),
+  d AS (
+   SELECT c.concept_name, ca.min_levels_of_separation 
+    FROM omop_vocabulary.concept_ancestor ca 
+    LEFT JOIN omop_vocabulary.concept c 
+    ON c.concept_id = ca.descendant_concept_id 
+    WHERE ca.ancestor_concept_id = 4115276 
+    AND c.invalid_reason IS NULL 
+    ORDER BY min_levels_of_separation
+  )
+  
+  SELECT * 
+  FROM a 
+  UNION 
+  SELECT * 
+  FROM d
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(taxonomy)
+```
+
+
+
+## CONCEPT_RELATIONSHIP Table  
+
+The hierarchy seen above can also be derived from the CONCEPT_RELATIONSHIP 
+table by filtering for the _Is a_ and _Subsumes_ relationships.  
+
+```sql
+SELECT relationship_id, c.* 
+FROM omop_vocabulary.concept_relationship cr 
+LEFT JOIN omop_vocabulary.concept c 
+ON c.concept_id = cr.concept_id_2
+WHERE 
+  cr.concept_id_1 = 4115276 AND
+  cr.invalid_reason IS NULL AND 
+  relationship_id IN 
+    ('Subsumes', 'Is a');
+```
+
+```{r}
+taxonomy_relationship <-
+queryAthena(
+  "
+  SELECT relationship_id, c.* 
+  FROM omop_vocabulary.concept_relationship cr 
+  LEFT JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cr.concept_id_2
+  WHERE 
+    cr.concept_id_1 = 4115276 AND
+    cr.invalid_reason IS NULL AND 
+    relationship_id IN 
+      ('Subsumes', 'Is a');
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(taxonomy_relationship)
+```
+
+
+
+
+However, the CONCEPT_RELATIONSHIP table can only 
+represent direct relationships that are 1 degree of separation 
+between a concept. The CONCEPT_ANCESTOR table is used in situations 
+where traversing the taxonomy beyond a single level is required.  
+
+
+
+# Mapping 
+
+The `Maps to` and `Mapped from` relationship can be used to 
+either find the new concept assigned to a deprecated concept 
+or the mapping between a non-standard vocabulary such as an 
+ICD billing code to SNOMED. 
+
+## Source Concepts to Target Concepts  
+
+For 4115276, a _Mapped from_ 
+relationship exists from MeSH, ICD-O-3, HemOnc, other SNOMED 
+concepts, etc.... These relationships allows one to leverage 
+existing codes in source systems to route them to the correct 
+mapping in the OMOP CDM during an ETL.  
+
+```sql
+SELECT relationship_id, c.* 
+FROM omop_vocabulary.concept_relationship cr 
+LEFT JOIN omop_vocabulary.concept c 
+ON c.concept_id = cr.concept_id_2
+WHERE 
+  cr.concept_id_1 = 4115276 AND
+  cr.invalid_reason IS NULL AND 
+  relationship_id IN 
+    ('Mapped from', 'Maps to');
+```
+
+```{r}
+df <- 
+queryAthena(
+  "
+  SELECT relationship_id, c.* 
+  FROM omop_vocabulary.concept_relationship cr 
+  LEFT JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cr.concept_id_2
+  WHERE 
+    cr.concept_id_1 = 4115276 AND
+    cr.invalid_reason IS NULL AND 
+    relationship_id IN 
+      ('Mapped from', 'Maps to');
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(df)
+```
+
+
+
+
+Another example of this type of relationship are mappings 
+between NDC codes and RxNorm. Here, I find all the NDC concepts 
+for _acetaminophen_.  
+
+```sql
+SELECT c.* 
+FROM omop_vocabulary.concept_synonym cs 
+INNER JOIN omop_vocabulary.concept c 
+ON c.concept_id = cs.concept_id
+WHERE 
+  cs.concept_synonym_name LIKE '%acetaminophen%' 
+    AND c.vocabulary_id = 'NDC' 
+    AND c.invalid_reason IS NULL
+;
+```
+
+```{r}
+df <-
+queryAthena(
+  "
+  SELECT c.* 
+  FROM omop_vocabulary.concept_synonym cs 
+  INNER JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cs.concept_id
+  WHERE 
+    cs.concept_synonym_name LIKE '%acetaminophen%' 
+      AND c.vocabulary_id = 'NDC' 
+      AND c.invalid_reason IS NULL
+  ;
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+
+```{r,results='markup'}
+print_dt(df)
+```
+
+
+The CONCEPT_RELATIONSHIP table is used to map NDC 
+codes to RxNorm, which is often the case in an ETL from 
+a source drug orders table to the OMOP DRUG_EXPOSURES table.  
+
+```sql
+SELECT 
+  c1.concept_code AS ndc_code, 
+  c1.concept_name AS ndc_drug,
+  cr.relationship_id,
+  c2.concept_code AS target_code,
+  c2.concept_name AS target_name,
+  c2.vocabulary_id AS target_vocabulary
+FROM omop_vocabulary.concept_relationship cr 
+LEFT JOIN omop_vocabulary.concept c1 
+ON c1.concept_id = cr.concept_id_1  
+LEFT JOIN omop_vocabulary.concept c2
+ON c2.concept_id = cr.concept_id_2  
+WHERE cr.concept_id_1 IN (
+  SELECT DISTINCT c.concept_id  
+  FROM omop_vocabulary.concept_synonym cs 
+  INNER JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cs.concept_id
+  WHERE 
+    cs.concept_synonym_name LIKE '%acetaminophen%' 
+      AND c.vocabulary_id = 'NDC' 
+      AND c.invalid_reason IS NULL
+  )
+;
+```
+
+```{r}
+df <- 
+queryAthena(
+  "
+  SELECT 
+    c1.concept_code AS ndc_code, 
+    c1.concept_name AS ndc_drug,
+    cr.relationship_id,
+    c2.concept_code AS target_code,
+    c2.concept_name AS target_name,
+    c2.vocabulary_id AS target_vocabulary
+  FROM omop_vocabulary.concept_relationship cr 
+  LEFT JOIN omop_vocabulary.concept c1 
+  ON c1.concept_id = cr.concept_id_1  
+  LEFT JOIN omop_vocabulary.concept c2
+  ON c2.concept_id = cr.concept_id_2  
+  WHERE cr.concept_id_1 IN (
+    SELECT DISTINCT c.concept_id  
+    FROM omop_vocabulary.concept_synonym cs 
+    INNER JOIN omop_vocabulary.concept c 
+    ON c.concept_id = cs.concept_id
+    WHERE 
+      cs.concept_synonym_name LIKE '%acetaminophen%' 
+        AND c.vocabulary_id = 'NDC' 
+        AND c.invalid_reason IS NULL
+    )
+  ;
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(df)
+```
+
+
+
+## Deprecated Concepts to Valid Concepts 
+
+In addition to the use case above, concepts that are deprecated 
+usually have a _Maps to_ relationship to a valid replacement.  
+Since a search for _NSCLC_ does not return any deprecated concepts, 
+a search for _diabetes_ is used to exemplify instead.  
+
+```sql
+SELECT DISTINCT c.* 
+FROM omop_vocabulary.concept_synonym cs  
+INNER JOIN omop_vocabulary.concept c 
+ON c.concept_id = cs.concept_id 
+WHERE 
+  cs.concept_synonym_name LIKE '%diabetes%' 
+  AND c.invalid_reason IS NOT NULL;
+```
+
+```{r}
+df <-
+queryAthena(
+  "
+  SELECT DISTINCT c.* 
+  FROM omop_vocabulary.concept_synonym cs  
+  INNER JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cs.concept_id 
+  WHERE 
+    cs.concept_synonym_name LIKE '%diabetes%' 
+    AND c.invalid_reason IS NOT NULL;
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(df)
+```
+
+
+For these deprecated _diabetes_ concepts, the _Maps to_ 
+relationship exposes each of their valid counterparts.  
+
+```sql
+SELECT 
+  c1.concept_code AS deprecated_concept_code, 
+  c1.concept_name AS deprecated_concept_name,
+  c1.vocabulary_id AS deprecated_vocabulary_id, 
+  cr.relationship_id,
+  c2.concept_code,
+  c2.concept_name,
+  c2.vocabulary_id,
+  c2.invalid_reason
+FROM omop_vocabulary.concept_relationship cr 
+INNER JOIN omop_vocabulary.concept c1 
+ON cr.concept_id_1 = c1.concept_id  
+INNER JOIN omop_vocabulary.concept c2
+ON cr.concept_id_2 = c2.concept_id  
+WHERE 
+    cr.concept_id_1 IN (
+      SELECT DISTINCT c.concept_id 
+      FROM omop_vocabulary.concept_synonym cs  
+      INNER JOIN omop_vocabulary.concept c 
+      ON c.concept_id = cs.concept_id 
+      WHERE 
+        cs.concept_synonym_name LIKE '%diabetes%' 
+        AND c.invalid_reason IS NOT NULL
+     )
+       AND cr.invalid_reason IS NULL 
+       AND cr.relationship_id = 'Maps to'
+;
+```
+
+```{r}
+df <-
+queryAthena(
+  "
+  SELECT 
+    c1.concept_code AS deprecated_concept_code, 
+    c1.concept_name AS deprecated_concept_name,
+    c1.vocabulary_id AS deprecated_vocabulary_id, 
+    cr.relationship_id,
+    c2.concept_code,
+    c2.concept_name,
+    c2.vocabulary_id,
+    c2.invalid_reason
+  FROM omop_vocabulary.concept_relationship cr 
+  INNER JOIN omop_vocabulary.concept c1 
+  ON cr.concept_id_1 = c1.concept_id  
+  INNER JOIN omop_vocabulary.concept c2
+  ON cr.concept_id_2 = c2.concept_id  
+  WHERE 
+      cr.concept_id_1 IN (
+        SELECT DISTINCT c.concept_id 
+        FROM omop_vocabulary.concept_synonym cs  
+        INNER JOIN omop_vocabulary.concept c 
+        ON c.concept_id = cs.concept_id 
+        WHERE 
+          cs.concept_synonym_name LIKE '%diabetes%' 
+          AND c.invalid_reason IS NOT NULL
+       )
+         AND cr.invalid_reason IS NULL 
+         AND cr.relationship_id = 'Maps to'
+    
+  ;
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(df)
+```
+
+
+# Lateral Relationships  
+
+These relationships are all other relationships that are 
+non-hierarchical, meaning that a corresponding entry 
+would not be found in the CONCEPT_ANCESTOR table.  
+
+```sql
+SELECT relationship_id, c.* 
+FROM omop_vocabulary.concept_relationship cr 
+LEFT JOIN omop_vocabulary.concept c 
+ON c.concept_id = cr.concept_id_2
+WHERE 
+  cr.concept_id_1 = 4115276 AND
+  cr.invalid_reason IS NULL AND 
+  relationship_id NOT IN 
+    ('Subsumes', 'Is a', 'Mapped from', 'Maps to');
+```
+
+
+```{r}
+df <-
+queryAthena(
+  "
+  SELECT relationship_id, c.* 
+  FROM omop_vocabulary.concept_relationship cr 
+  LEFT JOIN omop_vocabulary.concept c 
+  ON c.concept_id = cr.concept_id_2
+  WHERE 
+    cr.concept_id_1 = 4115276 AND
+    cr.invalid_reason IS NULL AND 
+    relationship_id NOT IN 
+      ('Subsumes', 'Is a', 'Mapped from', 'Maps to');
+  ",
+  verbose = FALSE,
+  render_sql = FALSE
+)
+```
+
+```{r,results='markup'}
+print_dt(df)
+```
+
