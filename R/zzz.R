@@ -8,9 +8,13 @@
                         error = function(e) NULL
                 )
 
-                packageStartupMessage(
-                        "Read GitHub Wiki <https://ohdsi.github.io/CommonDataModel/cdm60.html>"
-                )
+                if (is.null(x)) {
+
+                        packageStartupMessage(
+                                "Read GitHub Wiki <https://ohdsi.github.io/CommonDataModel/cdm60.html>"
+                        )
+
+                }
 
 
         }
