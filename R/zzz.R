@@ -11,7 +11,7 @@
                 if (is.null(x)) {
 
                         packageStartupMessage(
-                                "Read GitHub Wiki <https://ohdsi.github.io/CommonDataModel/cdm60.html>"
+                                "Error: when reading GitHub Wiki <https://ohdsi.github.io/CommonDataModel/cdm60.html>"
                         )
 
                 }
