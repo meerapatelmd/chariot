@@ -123,3 +123,112 @@ lookup_relationships <-
       sleepTime = sleepTime
     )
   }
+
+
+
+
+#' @title
+#' Query a Relationship
+#' @description
+#' Returns a query for a relationship_id.
+#' @param ... Relationship ids.
+#' @seealso
+#'  \code{\link[cli]{cli_rule}}
+#'  \code{\link[rlang]{list2}}
+#'  \code{\link[SqlRender]{render}}
+#' @rdname query_relationships
+#' @export
+#' @importFrom cli cli_rule
+#' @importFrom rlang list2
+#' @importFrom SqlRender render
+
+
+query_relationships <-
+  function(relationship_ids,
+           conn,
+           conn_fun = "connectAthena()",
+           vocab_schema = "omop_vocabulary",
+           cache_only = FALSE,
+           skip_cache = FALSE,
+           override_cache = FALSE,
+           render_sql = FALSE,
+           verbose = FALSE,
+           sleepTime = 1) {
+
+
+    # Are relationship_ids valid?
+    relationship_ids <-
+    match.arg(arg = relationship_ids,
+              several.ok = TRUE,
+              choices =
+                  get_vocab_table_constraints(conn = conn,
+                                              tables = "CONCEPT_RELATIONSHIP",
+                                              conn_fun = conn_fun,
+                                              vocab_schema = vocab_schema,
+                                              skip_cache   = FALSE,
+                                              override_cache = FALSE,
+                                              render_sql = FALSE,
+                                              verbose = FALSE,
+                                              sleepTime = sleepTime) %>%
+                    purrr::pluck("CONCEPT_RELATIONSHIP", "relationship_id", "value"))
+
+
+    if (missing(conn)) {
+
+      conn <- eval(rlang::parse_expr(conn_fun))
+      on.exit(expr = dcAthena(conn = conn),
+              add = TRUE,
+              after = TRUE)
+    }
+
+
+
+    sql_statement <-
+      SqlRender::render(
+        "
+                                SELECT
+                                        cr.relationship_id,
+                                        c1.concept_id AS concept_id_1,
+                                        c1.concept_name AS concept_name_1,
+                                        c1.domain_id AS domain_id_1,
+                                        c1.vocabulary_id AS vocabulary_id_1,
+                                        c1.concept_class_id AS concept_class_id_1,
+                                        c1.standard_concept AS standard_concept_1,
+                                        c1.concept_code AS concept_code_1,
+                                        c1.valid_start_date AS valid_start_date_1,
+                                        c1.valid_end_date AS valid_end_date_1,
+                                        c1.invalid_reason AS invalid_reason_1,
+                                        c2.concept_id AS concept_id_2,
+                                        c2.concept_name AS concept_name_2,
+                                        c2.domain_id AS domain_id_2,
+                                        c2.vocabulary_id AS vocabulary_id_2,
+                                        c2.concept_class_id AS concept_class_id_2,
+                                        c2.standard_concept AS standard_concept_2,
+                                        c2.concept_code AS concept_code_2,
+                                        c2.valid_start_date AS valid_start_date_2,
+                                        c2.valid_end_date AS valid_end_date_2,
+                                        c2.invalid_reason AS invalid_reason_2
+                                FROM @vocab_schema.concept_relationship cr
+                                LEFT JOIN @vocab_schema.concept c1
+                                ON cr.concept_id_1 = c1.concept_id
+                                LEFT JOIN @vocab_schema.concept c2
+                                ON cr.concept_id_2 = c2.concept_id
+                                WHERE  cr.invalid_reason IS NULL
+                                        AND cr.relationship_id IN (@relationship_ids)
+                                ",
+        vocab_schema = vocab_schema,
+        relationship_ids = sprintf("'%s'", relationship_ids)
+      )
+
+
+    queryAthena(
+      sql_statement = sql_statement,
+      conn = conn,
+      cache_only = cache_only,
+      skip_cache = skip_cache,
+      override_cache = override_cache,
+      render_sql = render_sql,
+      verbose = verbose,
+      sleepTime = sleepTime
+    )
+  }
