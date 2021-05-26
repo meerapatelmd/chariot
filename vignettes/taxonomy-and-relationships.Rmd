@@ -10,6 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  results = 'hide',
+  cache   = TRUE,
   comment = "#>"
 )
 
@@ -128,7 +130,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(taxonomy)
 ```
 
@@ -170,7 +172,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(taxonomy_relationship)
 ```
 
@@ -230,7 +232,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 
@@ -273,7 +275,7 @@ queryAthena(
 ```
 
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 
@@ -341,7 +343,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 
@@ -381,7 +383,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 
@@ -457,7 +459,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 
@@ -500,7 +502,7 @@ queryAthena(
 )
 ```
 
-```{r,results='markup'}
+```{r,echo=FALSE,results='markup'}
 print_dt(df)
 ```
 

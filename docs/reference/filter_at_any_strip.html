@@ -189,12 +189,12 @@
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://meerapatelmd.github.io/chariot/'>chariot</a></span><span class='op'>)</span>
 
 <span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectAthena.html'>connectAthena</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:45:02]	Connected to 'athena'</div><div class='input'><span class='va'>test_data</span> <span class='op'>&lt;-</span>
+</div><div class='output co'>#&gt; [2021-05-26 16:00:42]	Connected to 'athena'</div><div class='input'><span class='va'>test_data</span> <span class='op'>&lt;-</span>
         <span class='fu'><a href='queryAthena.html'>queryAthena</a></span><span class='op'>(</span><span class='st'>"SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;"</span>,
                     conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:45:02]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:45:02]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
-#&gt; [2021-05-26 15:45:02]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'>
+</div><div class='output co'>#&gt; [2021-05-26 16:00:42]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 16:00:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 20;
+#&gt; [2021-05-26 16:00:42]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span></div><div class='input'>
 <span class='co'># Merge</span>
 <span class='fu'><a href='merge_strip.html'>merge_strip</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>test_data</span>,
             into <span class='op'>=</span> <span class='st'>"concept"</span><span class='op'>)</span>
@@ -298,7 +298,7 @@
 #&gt; </span><span style='color: #BCBCBC;'>7</span><span> [V] [S] 3051772 MR Lower extremity joi… [U] [N] 19123243 Levobupivacaine 0.62…
 #&gt; </span><span style='color: #BCBCBC;'>8</span><span> [D] [N] 19118814 Mitomycin 0.5 MG/ML [… [V] [C] 36240133 Noctesed Oral Produc…</div><div class='input'>
 <span class='fu'><a href='dcAthena.html'>dcAthena</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:45:03]	Postgres connection to 'athena' closed</div></span></pre>
+</div><div class='output co'>#&gt; [2021-05-26 16:00:42]	Postgres connection to 'athena' closed</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
