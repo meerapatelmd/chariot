@@ -103,6 +103,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/taxonomy-and-relationships.html">Taxonomy and Relationships</a>
+    </li>
+    <li>
       <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
     </li>
     <li>
@@ -184,158 +187,158 @@
 
 <span class='co'># Get Unfiltered Test Concepts (Invalid Concepts are included)</span>
 <span class='fu'>get_test_concepts</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:04:23]	Connected to 'athena'
-#&gt; [2021-05-26 15:04:23]	<span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:04:23]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:04:23]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:04:23]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 100
-#&gt; [2021-05-26 15:04:23]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:04:31]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 10</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:45:19]	Connected to 'athena'
+#&gt; [2021-05-26 15:45:19]	<span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:45:19]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:45:19]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:45:19]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 100
+#&gt; [2021-05-26 15:45:19]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:45:29]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 10</span><span>
 #&gt;    concept_id concept_name             domain_id  vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   40</span><span style='text-decoration: underline;'>838</span><span>877 zolpidem 10 MG Delayed … Drug       RxNorm Exten… Branded Drug Box
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   37</span><span style='text-decoration: underline;'>515</span><span>434 ethyl alcohol 21mL/30mL… Drug       SPL           OTC Drug        
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   21</span><span style='text-decoration: underline;'>400</span><span>828 Jobst Opaque class 2 (2… Device     dm+d          AMP             
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>    1</span><span style='text-decoration: underline;'>157</span><span>365 Guaifenesin 40 MG/ML / … Drug       RxNorm        Branded Drug    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   43</span><span style='text-decoration: underline;'>587</span><span>412 Diclofenac 0.0116 MG/MG… Drug       RxNorm Exten… Branded Drug Box
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   41</span><span style='text-decoration: underline;'>362</span><span>877 10 ML Oxytocin 3 UNT/ML… Drug       RxNorm Exten… Quant Clinical …
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>    3</span><span style='text-decoration: underline;'>460</span><span>724 Laboratory heating block Device     Nebraska Lex… Physical Object 
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>    3</span><span style='text-decoration: underline;'>039</span><span>871 Urinalysis type of non-… Measureme… LOINC         Lab Test        
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   42</span><span style='text-decoration: underline;'>606</span><span>969 BARRIER,OSTOMY,NEW IMAG… Drug       VA Product    VA Product      
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   21</span><span style='text-decoration: underline;'>328</span><span>301 Chailey adult pubic pre… Device     dm+d          AMP             
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   35</span><span style='text-decoration: underline;'>304</span><span>289 rosuvastatin 10mg/1 ORA… Drug       NDC           9-digit NDC     
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>    1</span><span style='text-decoration: underline;'>171</span><span>425 benzalkonium chloride .… Drug       NDC           9-digit NDC     
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   42</span><span style='text-decoration: underline;'>536</span><span>289 Garlic                   Observati… SNOMED        Substance       
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   36</span><span style='text-decoration: underline;'>738</span><span>182 Chromosome 17 Variant: … Measureme… OMOP Extensi… Genomic Variant 
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   42</span><span style='text-decoration: underline;'>260</span><span>353 Thrombectomy(Artery),Ab… Procedure  EDI           Procedure       
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   35</span><span style='text-decoration: underline;'>849</span><span>398 sodium chloride 9 MG/ML… Drug       RxNorm Exten… Branded Drug    
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   45</span><span style='text-decoration: underline;'>994</span><span>776 Pelican Select DuoVent … Device     SNOMED        Physical Object 
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   35</span><span style='text-decoration: underline;'>765</span><span>035 Dutasteride 0.5 MG Exte… Drug       RxNorm Exten… Marketed Product
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   41</span><span style='text-decoration: underline;'>307</span><span>205 Trimipramine 25 MG Oral… Drug       RxNorm Exten… Branded Drug Box
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   41</span><span style='text-decoration: underline;'>081</span><span>993 Framycetin / Hydrocorti… Drug       RxNorm Exten… Branded Drug Fo…
 #&gt; </span><span style='color: #949494;'># … with 90 more rows, and 5 more variables: standard_concept &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   invalid_reason &lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># The size of the resultset can be altered</span>
 <span class='fu'>get_test_concepts</span><span class='op'>(</span>limit <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:04:31]	Connected to 'athena'
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 25
-#&gt; [2021-05-26 15:04:31]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:04:38]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:04:38]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:04:38]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:04:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 25 x 10</span><span>
-#&gt;    concept_id concept_name             domain_id vocabulary_id  concept_class_id
-#&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   43</span><span style='text-decoration: underline;'>790</span><span>852 30 ML Midodrine 10 MG/M… Drug      RxNorm Extens… Quant Clinical …
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   36</span><span style='text-decoration: underline;'>292</span><span>278 Amikacine B. Braun inf.… Drug      GGR            Drug Product    
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   45</span><span style='text-decoration: underline;'>511</span><span>970 Faeces: mucous present   Condition Read           Read            
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   21</span><span style='text-decoration: underline;'>467</span><span>308 Jobst Opaque class 2 (2… Device    dm+d           AMPP            
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>    2</span><span style='text-decoration: underline;'>784</span><span>359 Removal of Radioactive … Procedure ICD10PCS       ICD10PCS        
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   44</span><span style='text-decoration: underline;'>115</span><span>720 Activated Charcoal 225 … Drug      RxNorm Extens… Marketed Product
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   44</span><span style='text-decoration: underline;'>672</span><span>075 TIN ORAL DROPS [STANNUM… Drug      DPD            Branded Drug Fo…
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   44</span><span style='text-decoration: underline;'>631</span><span>347 CALCIUM CARBONATE / FER… Drug      DPD            Branded Drug Fo…
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   43</span><span style='text-decoration: underline;'>773</span><span>475 50 ML Nitroglycerin 1 M… Drug      RxNorm Extens… Marketed Product
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   37</span><span style='text-decoration: underline;'>206</span><span>314 Mezlocillin (as mezloci… Drug      SNOMED         Clinical Drug   
+</div><div class='output co'>#&gt; [2021-05-26 15:45:29]	Connected to 'athena'
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept ORDER BY RANDOM() LIMIT 25
+#&gt; [2021-05-26 15:45:29]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:45:37]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 25 x 10</span><span>
+#&gt;    concept_id concept_name             domain_id  vocabulary_id concept_class_id
+#&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   36</span><span style='text-decoration: underline;'>766</span><span>621 TSC2 Transcript Variant… Measureme… OMOP Extensi… Transcript Vari…
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   43</span><span style='text-decoration: underline;'>557</span><span>909 ethyl alcohol .75mL/mL … Drug       NDC           9-digit NDC     
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>    4</span><span style='text-decoration: underline;'>187</span><span>692 Rhodococcus marinonasce… Observati… SNOMED        Organism        
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>    2</span><span style='text-decoration: underline;'>103</span><span>412 Biopsy, soft tissue of … Procedure  CPT4          CPT4            
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   45</span><span style='text-decoration: underline;'>330</span><span>902 gabapentin 300 MG Oral … Drug       NDC           11-digit NDC    
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   45</span><span style='text-decoration: underline;'>351</span><span>983 alanine 9.93 MG/ML / ar… Drug       NDC           11-digit NDC    
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   21</span><span style='text-decoration: underline;'>126</span><span>191 1 ML Pyridostigmine 4 M… Drug       RxNorm Exten… Quant Clinical …
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   36</span><span style='text-decoration: underline;'>171</span><span>063 losatan potassium 25mg/… Drug       SPL           Prescription Dr…
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   19</span><span style='text-decoration: underline;'>052</span><span>919 Livial                   Drug       RxNorm        Brand Name      
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   45</span><span style='text-decoration: underline;'>250</span><span>748 atomoxetine 60 MG Oral … Drug       NDC           11-digit NDC    
 #&gt; </span><span style='color: #949494;'># … with 15 more rows, and 5 more variables: standard_concept &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   invalid_reason &lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Concepts specific to the Drug domain can be sampled</span>
 <span class='co'># RxNorm/RxNorm Extension Concepts</span>
 <span class='fu'><a href='get_test_drug_concepts.html'>get_test_drug_concepts</a></span><span class='op'>(</span>limit <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:04:39]	Connected to 'athena'
-#&gt; [2021-05-26 15:04:39]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:04:39]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:04:39]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:04:39]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('RxNorm', 'RxNorm Extension') AND c.standard_concept &lt;&gt; 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 10
-#&gt; [2021-05-26 15:04:39]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:04:42]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 10</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:45:37]	Connected to 'athena'
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('RxNorm', 'RxNorm Extension') AND c.standard_concept &lt;&gt; 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 10
+#&gt; [2021-05-26 15:45:37]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:45:40]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 10</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   35</span><span style='text-decoration: underline;'>765</span><span>081 Cimetidine 400 MG Delaye… Drug      RxNorm Exten… Marketed Product
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   21</span><span style='text-decoration: underline;'>129</span><span>505 Secretin 0.016 MG Inject… Drug      RxNorm Exten… Clinical Drug   
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   21</span><span style='text-decoration: underline;'>115</span><span>507 Nicotine 2 MG Chewing Gu… Drug      RxNorm Exten… Marketed Product
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   36</span><span style='text-decoration: underline;'>896</span><span>926 500 ML Glucose 380 MG/ML… Drug      RxNorm Exten… Quant Clinical …
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   41</span><span style='text-decoration: underline;'>203</span><span>663 latanoprost 0.05 MG/ML [… Drug      RxNorm Exten… Branded Drug Co…
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   43</span><span style='text-decoration: underline;'>144</span><span>635 Ticarcillin 5000 MG [TIC… Drug      RxNorm Exten… Branded Drug Co…
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   43</span><span style='text-decoration: underline;'>691</span><span>009 ammonium carbonate / Bar… Drug      RxNorm Exten… Clinical Drug F…
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   42</span><span style='text-decoration: underline;'>902</span><span>653 hepatitis A vaccine (ina… Drug      RxNorm        Clinical Drug   
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   43</span><span style='text-decoration: underline;'>196</span><span>036 Nicotine 23.6 MG Transde… Drug      RxNorm Exten… Clinical Drug   
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   21</span><span style='text-decoration: underline;'>069</span><span>846 Hypochlorite Topical Sol… Drug      RxNorm Exten… Branded Drug Fo…
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>    2</span><span style='text-decoration: underline;'>040</span><span>436 kininogenase 10 IU Exten… Drug      RxNorm Exten… Clinical Drug   
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   44</span><span style='text-decoration: underline;'>171</span><span>122 Magnesium 375 MG Oral Ca… Drug      RxNorm Exten… Marketed Product
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   43</span><span style='text-decoration: underline;'>623</span><span>067 Ondansetron 0.64 MG/ML I… Drug      RxNorm Exten… Clinical Drug B…
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   21</span><span style='text-decoration: underline;'>172</span><span>928 lamotrigine 1 MG/ML Oral… Drug      RxNorm Exten… Clinical Drug   
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   41</span><span style='text-decoration: underline;'>337</span><span>755 1 ML prednisolone 50 MG/… Drug      RxNorm Exten… Quant Branded B…
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   43</span><span style='text-decoration: underline;'>163</span><span>124 Metoprolol 190 MG Oral T… Drug      RxNorm Exten… Branded Drug Box
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   35</span><span style='text-decoration: underline;'>789</span><span>604 0.02 ML exenatide 0.25 M… Drug      RxNorm Exten… Quant Branded B…
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   44</span><span style='text-decoration: underline;'>053</span><span>592 ALUMINUM ZIRCONIUM TETRA… Drug      RxNorm Exten… Clinical Drug C…
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   44</span><span style='text-decoration: underline;'>084</span><span>788 Calcium Carbonate 333 MG… Drug      RxNorm Exten… Clinical Drug   
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   41</span><span style='text-decoration: underline;'>474</span><span>685 6000 MG Dequalinium 0.00… Drug      RxNorm Exten… Quant Branded B…
 #&gt; </span><span style='color: #949494;'># … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># HemOnc/ATC Classes</span>
 <span class='fu'><a href='get_test_drug_classes.html'>get_test_drug_classes</a></span><span class='op'>(</span>limit <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:04:42]	Connected to 'athena'
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('ATC', 'HemOnc') AND c.standard_concept = 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 10
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:04:42]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 10</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:45:40]	Connected to 'athena'
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.invalid_reason IS NULL AND c.vocabulary_id IN ('ATC', 'HemOnc') AND c.standard_concept = 'C' AND c.domain_id = 'Drug' ORDER BY RANDOM() LIMIT 10
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:45:40]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 10</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   21</span><span style='text-decoration: underline;'>600</span><span>487 bromopride; systemic      Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>    1</span><span style='text-decoration: underline;'>588</span><span>699 perindopril and bisoprol… Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   21</span><span style='text-decoration: underline;'>603</span><span>333 aminophylline; systemic,… Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   21</span><span style='text-decoration: underline;'>602</span><span>670 terazosin; oral           Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   21</span><span style='text-decoration: underline;'>600</span><span>933 OTHER ALIMENTARY TRACT A… Drug      ATC           ATC 3rd         
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   21</span><span style='text-decoration: underline;'>600</span><span>689 clobenzorex               Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   21</span><span style='text-decoration: underline;'>604</span><span>833 betahistine; oral         Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   21</span><span style='text-decoration: underline;'>602</span><span>615 cyproterone; systemic     Drug      ATC           ATC 5th         
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   35</span><span style='text-decoration: underline;'>807</span><span>495 Bowel management          Drug      HemOnc        Component Class 
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>    1</span><span style='text-decoration: underline;'>588</span><span>672 idarucizumab              Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>   21</span><span style='text-decoration: underline;'>601</span><span>912 natamycin; topical        Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>   21</span><span style='text-decoration: underline;'>601</span><span>156 fat emulsions; parenteral Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>   21</span><span style='text-decoration: underline;'>603</span><span>007 Fluoroquinolones          Drug      ATC           ATC 4th         
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>   21</span><span style='text-decoration: underline;'>600</span><span>204 clidinium and psycholept… Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>   21</span><span style='text-decoration: underline;'>601</span><span>478 chlorothiazide and potas… Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>   21</span><span style='text-decoration: underline;'>602</span><span>805 tetracycline; systemic    Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>   21</span><span style='text-decoration: underline;'>603</span><span>098 rifamycin; parenteral     Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>   21</span><span style='text-decoration: underline;'>603</span><span>924 ciclosporin; systemic     Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>   21</span><span style='text-decoration: underline;'>605</span><span>086 levocabastine; ophthalmic Drug      ATC           ATC 5th         
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>   21</span><span style='text-decoration: underline;'>601</span><span>075 romiplostim; parenteral   Drug      ATC           ATC 5th         
 #&gt; </span><span style='color: #949494;'># … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Test data can also be taken from tables other than Concept</span>
 <span class='fu'><a href='get_test_data.html'>get_test_data</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='st'>"concept_relationship"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:04:42]	Connected to 'athena'
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept_relationship ORDER BY RANDOM() LIMIT 100
-#&gt; [2021-05-26 15:04:42]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:05:13]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:05:13]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:05:13]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:05:13]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 6</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:45:40]	Connected to 'athena'
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept_relationship ORDER BY RANDOM() LIMIT 100
+#&gt; [2021-05-26 15:45:40]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:46:12]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 100 x 6</span><span>
 #&gt;    concept_id_1 concept_id_2 relationship_id     valid_start_date valid_end_date
 #&gt;           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>        
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     37</span><span style='text-decoration: underline;'>207</span><span>378      4</span><span style='text-decoration: underline;'>204</span><span>887 Form continuity of  2019-07-31       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     42</span><span style='text-decoration: underline;'>932</span><span>579      1</span><span style='text-decoration: underline;'>332</span><span>525 Tradename of        2018-08-21       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     43</span><span style='text-decoration: underline;'>750</span><span>456     43</span><span style='text-decoration: underline;'>750</span><span>456 Mapped from         2016-12-18       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>      2</span><span style='text-decoration: underline;'>866</span><span>110      2</span><span style='text-decoration: underline;'>847</span><span>180 Is a                2014-04-22       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     40</span><span style='text-decoration: underline;'>870</span><span>868     40</span><span style='text-decoration: underline;'>870</span><span>868 Maps to             2017-07-18       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     19</span><span style='text-decoration: underline;'>082</span><span>573     41</span><span style='text-decoration: underline;'>283</span><span>000 RxNorm dose form of 2017-07-18       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     44</span><span style='text-decoration: underline;'>795</span><span>687      4</span><span style='text-decoration: underline;'>023</span><span>310 Concept was_a to    2019-01-31       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     40</span><span style='text-decoration: underline;'>910</span><span>639     41</span><span style='text-decoration: underline;'>377</span><span>017 Has marketed form   2017-07-18       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>      4</span><span style='text-decoration: underline;'>208</span><span>390     45</span><span style='text-decoration: underline;'>619</span><span>665 Mapped from         2013-10-07       2099-12-31    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>      4</span><span style='text-decoration: underline;'>293</span><span>448     46</span><span style='text-decoration: underline;'>010</span><span>397 Disp dose form of   2015-01-31       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     19</span><span style='text-decoration: underline;'>082</span><span>103       </span><span style='text-decoration: underline;'>784</span><span>206 RxNorm dose form of 2019-04-01       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>     41</span><span style='text-decoration: underline;'>016</span><span>475     40</span><span style='text-decoration: underline;'>804</span><span>151 Has brand name      2017-07-18       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>     40</span><span style='text-decoration: underline;'>022</span><span>479      1</span><span style='text-decoration: underline;'>177</span><span>480 RxNorm has ing      2005-04-04       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>     37</span><span style='text-decoration: underline;'>207</span><span>390     45</span><span style='text-decoration: underline;'>983</span><span>337 CD category of      2019-07-31       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>     46</span><span style='text-decoration: underline;'>024</span><span>687     37</span><span style='text-decoration: underline;'>209</span><span>200 Is a                2019-07-31       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>     37</span><span style='text-decoration: underline;'>207</span><span>390     46</span><span style='text-decoration: underline;'>266</span><span>267 CD category of      2019-07-31       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>     19</span><span style='text-decoration: underline;'>006</span><span>231     19</span><span style='text-decoration: underline;'>006</span><span>231 Maps to             1970-01-01       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>     19</span><span style='text-decoration: underline;'>106</span><span>872     21</span><span style='text-decoration: underline;'>031</span><span>752 Has tradename       2015-08-17       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>     40</span><span style='text-decoration: underline;'>809</span><span>865     40</span><span style='text-decoration: underline;'>875</span><span>199 Brand name of       2017-07-18       2099-12-31    
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>     43</span><span style='text-decoration: underline;'>727</span><span>862     21</span><span style='text-decoration: underline;'>018</span><span>690 Has brand name      2017-08-24       2099-12-31    
 #&gt; </span><span style='color: #949494;'># … with 90 more rows, and 1 more variable: invalid_reason &lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='get_test_data.html'>get_test_data</a></span><span class='op'>(</span>table <span class='op'>=</span> <span class='st'>"concept_ancestor"</span>, limit <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:05:14]	Connected to 'athena'
-#&gt; [2021-05-26 15:05:14]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
-#&gt; [2021-05-26 15:05:14]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:05:14]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:05:14]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept_ancestor ORDER BY RANDOM() LIMIT 10
-#&gt; [2021-05-26 15:05:14]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:05:47]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:05:47]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:05:47]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:05:47]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 4</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:46:12]	Connected to 'athena'
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #BB00BB;'>Overriding cache... Querying Athena...</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT * FROM omop_vocabulary.concept_ancestor ORDER BY RANDOM() LIMIT 10
+#&gt; [2021-05-26 15:46:12]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:46:46]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:46:46]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:46:46]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
+#&gt; [2021-05-26 15:46:46]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 10 x 4</span><span>
 #&gt;    ancestor_concept_… descendant_concep… min_levels_of_sepa… max_levels_of_sepa…
 #&gt;                 </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>               </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>           21</span><span style='text-decoration: underline;'>600</span><span>959           43</span><span style='text-decoration: underline;'>722</span><span>175                   7                   9
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>           45</span><span style='text-decoration: underline;'>705</span><span>581           43</span><span style='text-decoration: underline;'>268</span><span>489                   2                   2
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>           45</span><span style='text-decoration: underline;'>894</span><span>852           41</span><span style='text-decoration: underline;'>309</span><span>142                   2                   2
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>           46</span><span style='text-decoration: underline;'>305</span><span>158           41</span><span style='text-decoration: underline;'>227</span><span>122                   2                   3
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>           21</span><span style='text-decoration: underline;'>601</span><span>689           36</span><span style='text-decoration: underline;'>274</span><span>039                   3                   4
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>             </span><span style='text-decoration: underline;'>817</span><span>037           40</span><span style='text-decoration: underline;'>740</span><span>795                   2                   3
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>           36</span><span style='text-decoration: underline;'>217</span><span>214           43</span><span style='text-decoration: underline;'>818</span><span>200                   3                   4
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>           19</span><span style='text-decoration: underline;'>007</span><span>572           41</span><span style='text-decoration: underline;'>443</span><span>051                   2                   2
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>           45</span><span style='text-decoration: underline;'>702</span><span>462           41</span><span style='text-decoration: underline;'>278</span><span>624                   2                   2
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span>           45</span><span style='text-decoration: underline;'>643</span><span>345           21</span><span style='text-decoration: underline;'>128</span><span>257                   2                   3</div></span></pre>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>           45</span><span style='text-decoration: underline;'>640</span><span>896           40</span><span style='text-decoration: underline;'>948</span><span>906                   2                   3
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>            4</span><span style='text-decoration: underline;'>199</span><span>402            4</span><span style='text-decoration: underline;'>346</span><span>169                   4                   5
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>           45</span><span style='text-decoration: underline;'>681</span><span>866           43</span><span style='text-decoration: underline;'>603</span><span>360                   2                   2
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>           44</span><span style='text-decoration: underline;'>360</span><span>369           40</span><span style='text-decoration: underline;'>914</span><span>335                   2                   3
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>            4</span><span style='text-decoration: underline;'>180</span><span>627           37</span><span style='text-decoration: underline;'>109</span><span>108                   6                  10
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>           45</span><span style='text-decoration: underline;'>659</span><span>255           43</span><span style='text-decoration: underline;'>851</span><span>617                   2                   2
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>            2</span><span style='text-decoration: underline;'>856</span><span>643            2</span><span style='text-decoration: underline;'>856</span><span>643                   0                   0
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>           45</span><span style='text-decoration: underline;'>796</span><span>536           44</span><span style='text-decoration: underline;'>036</span><span>978                   2                   2
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>            4</span><span style='text-decoration: underline;'>102</span><span>111           36</span><span style='text-decoration: underline;'>522</span><span>481                   3                   7
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>           36</span><span style='text-decoration: underline;'>790</span><span>031           36</span><span style='text-decoration: underline;'>790</span><span>028                   1                   1</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

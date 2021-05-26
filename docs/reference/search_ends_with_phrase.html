@@ -103,6 +103,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/taxonomy-and-relationships.html">Taxonomy and Relationships</a>
+    </li>
+    <li>
       <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
     </li>
     <li>
@@ -256,9 +259,9 @@ cancellation.</p></td>
 <span class='co'># "Myocardial Infarction" insensitive to case.</span>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:25]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:25]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:25]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:14]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:14]	<span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:14]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -275,15 +278,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:25]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:26]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:26]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:26]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE LOWER(cs.concept_synonym_name) = LOWER('Myocardial Infarction') GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:26]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:29]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 11</span><span>
+#&gt; [2021-05-26 15:52:14]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:14]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 11</span><span>
 #&gt;   concept_id concept_name               domain_id vocabulary_id concept_class_id
 #&gt;        </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span>   40</span><span style='text-decoration: underline;'>623</span><span>902 Coronary artery thrombosis Condition SNOMED        Clinical Finding
@@ -294,9 +290,9 @@ cancellation.</p></td>
 <span class='co'># Repeat with case sensitivity</span>
 <span class='fu'><a href='search_exact_phrase.html'>search_exact_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial Infarction"</span>,
                     case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:29]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -313,15 +309,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:29]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:30]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:30]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:30]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE cs.concept_synonym_name = 'Myocardial Infarction' GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:30]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BB0000;font-weight: bold;'>! Returned data has 0 rows</span><span>
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:31]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 0 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 0 x 11</span><span>
 #&gt; </span><span style='color: #949494;'># … with 11 variables: concept_id &lt;int&gt;, concept_name &lt;chr&gt;, domain_id &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   vocabulary_id &lt;chr&gt;, concept_class_id &lt;chr&gt;, standard_concept &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span><span>
@@ -329,9 +318,9 @@ cancellation.</p></td>
 
 <span class='co'># Search concepts that contain the phrase "Myocardial Infarction"</span>
 <span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:31]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -348,15 +337,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:31]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:32]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:32]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:32]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%Myocardial infarction%') GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:32]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:36]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 258 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 258 x 11</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myocardial infarct… Condition SNOMED        Clinical Finding
@@ -373,9 +355,9 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #949494;'>#   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   invalid_reason &lt;chr&gt;, concept_synonyms &lt;chr&gt;</span><span></div><div class='input'><span class='fu'><a href='search_like_phrase.html'>search_like_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                    case_insensitive <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:36]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -392,15 +374,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:36]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:37]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:37]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:37]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE cs.concept_synonym_name LIKE '%Myocardial infarction%' GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:37]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:38]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 29 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 29 x 11</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial infarction in… Observat… LOINC         LOINC Component 
@@ -418,9 +393,9 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #949494;'>#   invalid_reason &lt;chr&gt;, concept_synonyms &lt;chr&gt;</span><span></div><div class='input'>
 <span class='co'># Search concepts that start with or end with the phrase "Myocardial Infarction"</span>
 <span class='fu'><a href='search_starts_with_phrase.html'>search_starts_with_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:38]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -437,15 +412,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:38]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:39]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:39]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:39]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('Myocardial infarction%') GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:39]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:42]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 18 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 18 x 11</span><span>
 #&gt;    concept_id concept_name             domain_id  vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>    1</span><span style='text-decoration: underline;'>014</span><span>313 Myocardial infarction i… Observati… LOINC         LOINC Component 
@@ -469,9 +437,9 @@ cancellation.</p></td>
 #&gt; </span><span style='color: #949494;'># … with 6 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;,</span><span>
 #&gt; </span><span style='color: #949494;'>#   concept_synonyms &lt;chr&gt;</span><span></div><div class='input'><span class='fu'>search_ends_with_phrase</span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:42]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                         INNER JOIN omop_vocabulary.concept c
@@ -488,15 +456,8 @@ cancellation.</p></td>
 #&gt;                                 c.valid_end_date,
 #&gt;                                 c.invalid_reason;
 #&gt;                         
-#&gt; [2021-05-26 15:11:42]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:43]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:43]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:43]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%Myocardial infarction') GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:43]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:48]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 55 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 55 x 11</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myocardial infarct… Condition SNOMED        Clinical Finding
@@ -516,9 +477,9 @@ cancellation.</p></td>
 <span class='co'># 'LIKE' clause</span>
 <span class='fu'><a href='search_split_phrase.html'>search_split_phrase</a></span><span class='op'>(</span>phrase <span class='op'>=</span> <span class='st'>"Myocardial infarction"</span>,
                     split <span class='op'>=</span> <span class='st'>" "</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:11:48]	Connected to 'athena'
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
+</div><div class='output co'>#&gt; [2021-05-26 15:52:15]	Connected to 'athena'
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> 
 #&gt;                                                         SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms
 #&gt;                                                         FROM omop_vocabulary.concept_synonym cs
 #&gt;                                                         INNER JOIN omop_vocabulary.concept c
@@ -536,15 +497,8 @@ cancellation.</p></td>
 #&gt;                                                                 c.valid_start_date,
 #&gt;                                                                 c.valid_end_date,
 #&gt;                                                                 c.invalid_reason;
-#&gt; [2021-05-26 15:11:48]	</span><span style='color: #BB00BB;'>No cached resultset found... querying Athena...</span><span>
-#&gt; [2021-05-26 15:11:49]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:11:49]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:11:49]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT c.*, STRING_AGG(cs.concept_synonym_name, '|') AS concept_synonyms FROM omop_vocabulary.concept_synonym cs INNER JOIN omop_vocabulary.concept c ON c.concept_id = cs.concept_id WHERE LOWER(cs.concept_synonym_name) LIKE LOWER('%Myocardial%') AND LOWER(cs.concept_synonym_name) LIKE LOWER('%infarction%') GROUP BY c.concept_id, c.concept_name, c.domain_id, c.vocabulary_id, c.concept_class_id, c.standard_concept, c.concept_code, c.valid_start_date, c.valid_end_date, c.invalid_reason;
-#&gt; [2021-05-26 15:11:49]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:11:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:11:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:11:53]	</span><span style='color: #BB00BB;'>Caching resultset...</span><span>
-#&gt; [2021-05-26 15:11:53]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 261 x 11</span><span>
+#&gt; [2021-05-26 15:52:15]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:52:15]	Postgres connection to 'athena' closed</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 261 x 11</span><span>
 #&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id
 #&gt;         </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span>     </span><span style='text-decoration: underline;'>312</span><span>327 Acute myocardial infarct… Condition SNOMED        Clinical Finding

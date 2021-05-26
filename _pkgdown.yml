@@ -24,6 +24,8 @@ navbar:
     articles:
       text: Articles
       menu:
+      - text: Taxonomy and Relationships
+        href: articles/taxonomy-and-relationships.html
       - text: Explore 'Maps to' Relationship
         href: articles/explore-maps-to-relationship.html
       - text: Explore Relationships and Ancestors

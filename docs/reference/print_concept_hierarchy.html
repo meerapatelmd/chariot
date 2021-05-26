@@ -105,6 +105,9 @@ shown." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/taxonomy-and-relationships.html">Taxonomy and Relationships</a>
+    </li>
+    <li>
       <a href="../articles/explore-maps-to-relationship.html">Explore 'Maps to' Relationship</a>
     </li>
     <li>
@@ -205,7 +208,7 @@ shown.</p>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
 
 <span class='va'>conn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectAthena.html'>connectAthena</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:50]	Connected to 'athena'</div><div class='input'><span class='co'># Drug Domain</span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:51]	Connected to 'athena'</div><div class='input'><span class='co'># Drug Domain</span>
 <span class='va'>concept_obj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_concept.html'>get_concept</a></span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                            concept_id <span class='op'>=</span> <span class='fl'>1308216</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Is Concept Id Valid Integer?</span><span> </span><span style='color: #00BBBB;'>────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id is a valid integer</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Concept Id in Concept Table</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>✓</span><span> Concept Id `1308216` found in Concept Table</span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup Synonyms</span><span> </span><span style='color: #00BBBB;'>─────────────────────────────────────────────────────────────</span><span></span></div><div class='output co'>#&gt; </div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BBBB;'>──</span><span> </span><span style='font-weight: bold;'>Lookup 'Maps to' Concept Names</span><span> </span><span style='color: #00BBBB;'>──────────────────────────────────────────────</span><span></span></div><div class='input'><span class='va'>concept_obj</span>
@@ -247,105 +250,105 @@ shown.</p>
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1308216)
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:50]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151050 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151050 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151050 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:50]	Sending...
-#&gt; [2021-05-26 15:10:50]	Sending...complete
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:50]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151050...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151050 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151050;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151050...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1308216)
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:51]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155151 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155151 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155151 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:51]	Sending...
+#&gt; [2021-05-26 15:51:51]	Sending...complete
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155151...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155151 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155151;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155151...complete</span><span>
 #&gt; 	[V] [C] 21601237 CARDIOVASCULAR SYSTEM [ATC C] [Drug] [ATC 1st]
 #&gt; 		[V] [C] 21601782 AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM [ATC C09] [Drug] [ATC 2nd]
 #&gt; 			[V] [C] 21601487 Thiazides, combinations with other drugs [ATC C03AX] [Drug] [ATC 4th]
@@ -415,105 +418,105 @@ shown.</p>
 #&gt;  										...</div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1308216)
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:51]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151051 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151051 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151051 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:51]	Sending...
-#&gt; [2021-05-26 15:10:51]	Sending...complete
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:51]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151051...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151051 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151051;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151051...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (1308216)
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:52]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155152 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155152 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155152 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:52]	Sending...
+#&gt; [2021-05-26 15:51:52]	Sending...complete
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155152...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155152 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155152;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155152...complete</span><span>
 #&gt; 	[V] [C] 21601237 CARDIOVASCULAR SYSTEM [ATC C] [Drug] [ATC 1st]
 #&gt; 		[V] [C] 21601782 AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM [ATC C09] [Drug] [ATC 2nd]
 #&gt; 			[V] [C] 21601487 Thiazides, combinations with other drugs [ATC C03AX] [Drug] [ATC 4th]
@@ -602,105 +605,105 @@ shown.</p>
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4187868)
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4187868)
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
 #&gt; 	[V] [S] 441840 Clinical finding [SNOMED 404684003] [Condition] [Clinical Finding]
 #&gt; 		[V] [S] 4094294 Clinical history and observation findings [SNOMED 250171008] [Condition] [Clinical Finding]
 #&gt; 			[V] [S] 4104314 Finding of lesion [SNOMED 300577008] [Condition] [Clinical Finding]
@@ -713,105 +716,105 @@ shown.</p>
 #&gt; 									</span><span style='font-weight: bold;'>*[V] [S] 4187868 pTis: Ductal carcinoma in situ (breast) [SNOMED 373176000] [Condition] [Clinical Finding]</span><span></div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4187868)
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:52]	Sending...
-#&gt; [2021-05-26 15:10:52]	Sending...complete
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:52]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151052 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151052;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151052...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4187868)
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155153...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155153 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155153;
+#&gt; [2021-05-26 15:51:53]	Sending...
+#&gt; [2021-05-26 15:51:53]	Sending...complete
+#&gt; [2021-05-26 15:51:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155153...complete</span><span>
 #&gt; 	[V] [S] 441840 Clinical finding [SNOMED 404684003] [Condition] [Clinical Finding]
 #&gt; 		[V] [S] 4094294 Clinical history and observation findings [SNOMED 250171008] [Condition] [Clinical Finding]
 #&gt; 			[V] [S] 4104314 Finding of lesion [SNOMED 300577008] [Condition] [Clinical Finding]
@@ -864,105 +867,105 @@ shown.</p>
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (319835)
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (319835)
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
 #&gt; 	[V] [S] 441840 Clinical finding [SNOMED 404684003] [Condition] [Clinical Finding]
 #&gt; 		[V] [S] 4042140 Finding by site [SNOMED 118234003] [Condition] [Clinical Finding]
 #&gt; 			[V] [S] 4199402 Finding of body region [SNOMED 301857004] [Condition] [Clinical Finding]
@@ -1012,105 +1015,105 @@ shown.</p>
 #&gt;  															[V] [S] 37309625 Acute on chronic right-sided congestive heart failure [SNOMED 16838951000119100] [Condition] [Clinical Finding]</div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (319835)
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151053 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151053;
-#&gt; [2021-05-26 15:10:53]	Sending...
-#&gt; [2021-05-26 15:10:53]	Sending...complete
-#&gt; [2021-05-26 15:10:53]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151053...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (319835)
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:54]	Sending...
+#&gt; [2021-05-26 15:51:54]	Sending...complete
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155154 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155154;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155154...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
 #&gt; 	[V] [S] 4199402 Finding of body region [SNOMED 301857004] [Condition] [Clinical Finding]
 #&gt; 		[V] [S] 4117930 Finding of trunk structure [SNOMED 302292003] [Condition] [Clinical Finding]
 #&gt; 			[V] [S] 441840 Clinical finding [SNOMED 404684003] [Condition] [Clinical Finding]
@@ -1199,105 +1202,105 @@ shown.</p>
 #&gt; [1] NA
 #&gt; </div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4298431)
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4298431)
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
 #&gt; 	[V] [S] 4322976 Procedure [SNOMED 71388002] [Procedure] [Procedure]
 #&gt; 		[V] [S] 4029205 Procedure by method [SNOMED 128927009] [Procedure] [Procedure]
 #&gt; 			[V] [S] 4297090 Evaluation procedure [SNOMED 386053000] [Procedure] [Procedure]
@@ -1342,105 +1345,105 @@ shown.</p>
 #&gt;  											[V] [S] 44807941 Band neutrophil percent differential count [SNOMED 827591000000105] [Measurement] [Procedure]</div><div class='input'><span class='fu'>print_concept_hierarchy</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='va'>conn</span>,
                         concept_obj <span class='op'>=</span> <span class='va'>concept_obj</span>,
                         level_of_separation_type <span class='op'>=</span> <span class='st'>"min"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4298431)
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
-#&gt; [2021-05-26 15:10:54]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:54]	Sending...
-#&gt; [2021-05-26 15:10:54]	Sending...complete
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151054 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
-#&gt; [2021-05-26 15:10:54]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151054;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151054...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	Target column: ancestor_concept_id
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151055 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	Target column: concept_hierarchy_id
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526151055 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	Target column: descendant_concept_id
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526151055...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526151055 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526151055;
-#&gt; [2021-05-26 15:10:55]	Sending...
-#&gt; [2021-05-26 15:10:55]	Sending...complete
-#&gt; [2021-05-26 15:10:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526151055...complete</span><span>
+</div><div class='output co'>#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Loading Cache...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Cached SQL:</span><span> SELECT * FROM omop_vocabulary.concept c WHERE c.concept_id IN (4298431)
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BB00BB;'>Cached resultset found...</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.ancestor_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.descendant_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: ancestor_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept b ON a.ancestor_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: concept_hierarchy_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.descendant_concept_id,b.min_levels_of_separation,b.max_levels_of_separation FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept_ancestor b ON a.concept_hierarchy_id = b.ancestor_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	Target column: descendant_concept_id
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:55]	Sending...
+#&gt; [2021-05-26 15:51:55]	Sending...complete
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Data 'data' has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:55]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #BBBB00;'>Writing patelm9.V20210526155155...complete</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> SELECT a.*, b.* FROM patelm9.V20210526155155 a LEFT JOIN omop_vocabulary.concept b ON a.descendant_concept_id = b.concept_id WHERE b.invalid_reason IS NULL
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #BBBB00;'>Querying...</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #BBBB00;'>Querying...complete</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Returned data has more than 0 rows</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #00BB00;font-weight: bold;'>✓ Open connection</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #00BB00;font-weight: bold;'>✓ JDBC connection</span><span>
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #0000BB;font-weight: bold;'>SQL:</span><span> DROP TABLE IF EXISTS patelm9.V20210526155155;
+#&gt; [2021-05-26 15:51:56]	Sending...
+#&gt; [2021-05-26 15:51:56]	Sending...complete
+#&gt; [2021-05-26 15:51:56]	</span><span style='color: #BBBB00;'>Dropping patelm9.V20210526155155...complete</span><span>
 #&gt; 	[V] [S] 4322976 Procedure [SNOMED 71388002] [Procedure] [Procedure]
 #&gt; 		[V] [S] 4029205 Procedure by method [SNOMED 128927009] [Procedure] [Procedure]
 #&gt; 			[V] [S] 4297090 Evaluation procedure [SNOMED 386053000] [Procedure] [Procedure]
