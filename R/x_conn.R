@@ -5,10 +5,13 @@
 #' @rdname connectAthena
 
 connectAthena <-
-  function(port = 5432) {
+  function(port    = 5432,
+           dbname  = "athena",
+           verbose = FALSE) {
     pg13::local_connect(
-      dbname = "athena",
-      port = port
+      dbname  = dbname,
+      port    = port,
+      verbose = verbose
     )
   }
 
@@ -43,11 +46,11 @@ connectAthena_ff <-
 
 dcAthena <-
   function(conn,
-           remove = FALSE,
-           verbose = TRUE) {
+           remove =  FALSE,
+           verbose = FALSE) {
     pg13::dc(
-      conn = conn,
-      remove = remove,
+      conn    = conn,
+      remove  = remove,
       verbose = verbose
     )
   }
