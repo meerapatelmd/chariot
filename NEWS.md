@@ -1,6 +1,6 @@
 
 # chariot 1.2.0.9000 (2021-05-26)  
-* 
+* added vignettes  
   
 
 # chariot 1.2.0 (2021-03-28)  

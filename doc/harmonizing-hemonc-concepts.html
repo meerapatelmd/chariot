@@ -332,13 +332,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt;   concept_id concept_name domain_id vocabulary_id concept_class_id</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; 1   35803077 Fluorouracil      Drug        HemOnc        Component</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 2   35803081 Folinic acid      Drug        HemOnc        Component</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3   35803130   Irinotecan      Drug        HemOnc        Component</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4   35803227  Oxaliplatin      Drug        HemOnc        Component</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 3   35803227  Oxaliplatin      Drug        HemOnc        Component</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 4   35803130   Irinotecan      Drug        HemOnc        Component</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;   standard_concept concept_code valid_start_date valid_end_date invalid_reason</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 1             &lt;NA&gt;          225       2019-05-27     2099-12-31           &lt;NA&gt;</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 2             &lt;NA&gt;          229       2019-05-27     2099-12-31           &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3             &lt;NA&gt;          280       2019-05-27     2099-12-31           &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 4             &lt;NA&gt;          377       2019-05-27     2099-12-31           &lt;NA&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 3             &lt;NA&gt;          377       2019-05-27     2099-12-31           &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 4             &lt;NA&gt;          280       2019-05-27     2099-12-31           &lt;NA&gt;</span></a></code></pre></div>
 <p>The components can then be submitted to generate a potential regimen match.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">new_regimen &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">ho_lookup_regimen</span>(new_components<span class="op">$</span>concept_id)</a></code></pre></div>
@@ -357,25 +357,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 11           35807526 FOLFIRINOX/modified FOLFIRINOX plus /- Chemoradiation</span></a>
 <a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 12           35807526 FOLFIRINOX/modified FOLFIRINOX plus /- Chemoradiation</span></a>
 <a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;    has_antineoplastic_concept_id has_antineoplastic_concept_name</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 1                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 2                       35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; 3                       35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; 4                       35803077                    Fluorouracil</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; 5                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; 6                       35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 7                       35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; 8                       35803077                    Fluorouracil</span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; 9                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; 10                      35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; 11                      35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; 12                      35803077                    Fluorouracil</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 1                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 2                       35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; 3                       35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; 4                       35803227                     Oxaliplatin</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; 5                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="co">#&gt; 6                       35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; 7                       35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; 8                       35803227                     Oxaliplatin</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; 9                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; 10                      35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; 11                      35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; 12                      35803227                     Oxaliplatin</span></a></code></pre></div>
 <p>In this case, various combinations existed. However, what if a combination does not cleanly map to a HemOnc Regimen? For example, sometimes there is an add-on drug to an established Regimen for experimental reasons.</p>
 <p>For demonstration purposes, suppose the new Components reduced down to Fluorouracil, Folinic acid, Oxaliplatin, and Irinotecan as well as Trastuzumab.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">Trastuzumab &lt;-<span class="st"> </span><span class="kw">get_concept</span>(<span class="dt">concept_id =</span> <span class="dv">35803361</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">Trastuzumab</a></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">new_component_ids2 &lt;-<span class="st"> </span><span class="kw">c</span>(new_components<span class="op">$</span>concept_id, Trastuzumab<span class="op">@</span>concept_id)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">new_component_ids2</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; [1] 35803077 35803081 35803130 35803227 35803361</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; [1] 35803077 35803081 35803227 35803130 35803361</span></a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">new_regimen2 &lt;-<span class="st"> </span><span class="kw">ho_lookup_regimen</span>(new_component_ids2)</a></code></pre></div>
 <p>In this case, a regimen was not found as indicated by a zero row result.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">new_regimen2</a>
@@ -437,7 +437,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-47" data-line-number="47"><span class="co">#&gt; [1] &quot;Folinic acid&quot;</span></a>
 <a class="sourceLine" id="cb12-48" data-line-number="48"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-49" data-line-number="49"><span class="co">#&gt; Slot &quot;concept_synonym_names&quot;:</span></a>
-<a class="sourceLine" id="cb12-50" data-line-number="50"><span class="co">#&gt; [1] &quot;LV|citrovorum factor|folinate calcium|folinato de calcio|sodium folinate&quot;</span></a>
+<a class="sourceLine" id="cb12-50" data-line-number="50"><span class="co">#&gt; [1] &quot;LV|citrovorum factor|folinate calcium|folinato de calcio|leucovorin calcium|sodium folinate&quot;</span></a>
 <a class="sourceLine" id="cb12-51" data-line-number="51"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-52" data-line-number="52"><span class="co">#&gt; Slot &quot;maps_to_concept_names&quot;:</span></a>
 <a class="sourceLine" id="cb12-53" data-line-number="53"><span class="co">#&gt; [1] &quot;leucovorin&quot;</span></a>
@@ -467,19 +467,19 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-77" data-line-number="77"><span class="co">#&gt; [1] NA</span></a>
 <a class="sourceLine" id="cb12-78" data-line-number="78"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-79" data-line-number="79"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-80" data-line-number="80"><span class="co">#&gt; $Irinotecan</span></a>
+<a class="sourceLine" id="cb12-80" data-line-number="80"><span class="co">#&gt; $Oxaliplatin</span></a>
 <a class="sourceLine" id="cb12-81" data-line-number="81"><span class="co">#&gt; An object of class &quot;concept&quot;</span></a>
 <a class="sourceLine" id="cb12-82" data-line-number="82"><span class="co">#&gt; Slot &quot;concept_id&quot;:</span></a>
-<a class="sourceLine" id="cb12-83" data-line-number="83"><span class="co">#&gt; [1] 35803130</span></a>
+<a class="sourceLine" id="cb12-83" data-line-number="83"><span class="co">#&gt; [1] 35803227</span></a>
 <a class="sourceLine" id="cb12-84" data-line-number="84"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-85" data-line-number="85"><span class="co">#&gt; Slot &quot;concept_name&quot;:</span></a>
-<a class="sourceLine" id="cb12-86" data-line-number="86"><span class="co">#&gt; [1] &quot;Irinotecan&quot;</span></a>
+<a class="sourceLine" id="cb12-86" data-line-number="86"><span class="co">#&gt; [1] &quot;Oxaliplatin&quot;</span></a>
 <a class="sourceLine" id="cb12-87" data-line-number="87"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-88" data-line-number="88"><span class="co">#&gt; Slot &quot;concept_synonym_names&quot;:</span></a>
-<a class="sourceLine" id="cb12-89" data-line-number="89"><span class="co">#&gt; [1] &quot;CPT-11|Camptothecin-11|U-101440E&quot;</span></a>
+<a class="sourceLine" id="cb12-89" data-line-number="89"><span class="co">#&gt; [1] &quot;JM-83|RP-54780|SR-96669&quot;</span></a>
 <a class="sourceLine" id="cb12-90" data-line-number="90"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-91" data-line-number="91"><span class="co">#&gt; Slot &quot;maps_to_concept_names&quot;:</span></a>
-<a class="sourceLine" id="cb12-92" data-line-number="92"><span class="co">#&gt; [1] &quot;irinotecan&quot;</span></a>
+<a class="sourceLine" id="cb12-92" data-line-number="92"><span class="co">#&gt; [1] &quot;oxaliplatin&quot;</span></a>
 <a class="sourceLine" id="cb12-93" data-line-number="93"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-94" data-line-number="94"><span class="co">#&gt; Slot &quot;domain_id&quot;:</span></a>
 <a class="sourceLine" id="cb12-95" data-line-number="95"><span class="co">#&gt; [1] &quot;Drug&quot;</span></a>
@@ -494,7 +494,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-104" data-line-number="104"><span class="co">#&gt; [1] NA</span></a>
 <a class="sourceLine" id="cb12-105" data-line-number="105"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-106" data-line-number="106"><span class="co">#&gt; Slot &quot;concept_code&quot;:</span></a>
-<a class="sourceLine" id="cb12-107" data-line-number="107"><span class="co">#&gt; [1] &quot;280&quot;</span></a>
+<a class="sourceLine" id="cb12-107" data-line-number="107"><span class="co">#&gt; [1] &quot;377&quot;</span></a>
 <a class="sourceLine" id="cb12-108" data-line-number="108"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-109" data-line-number="109"><span class="co">#&gt; Slot &quot;valid_start_date&quot;:</span></a>
 <a class="sourceLine" id="cb12-110" data-line-number="110"><span class="co">#&gt; [1] &quot;2019-05-27&quot;</span></a>
@@ -506,19 +506,19 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-116" data-line-number="116"><span class="co">#&gt; [1] NA</span></a>
 <a class="sourceLine" id="cb12-117" data-line-number="117"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-118" data-line-number="118"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-119" data-line-number="119"><span class="co">#&gt; $Oxaliplatin</span></a>
+<a class="sourceLine" id="cb12-119" data-line-number="119"><span class="co">#&gt; $Irinotecan</span></a>
 <a class="sourceLine" id="cb12-120" data-line-number="120"><span class="co">#&gt; An object of class &quot;concept&quot;</span></a>
 <a class="sourceLine" id="cb12-121" data-line-number="121"><span class="co">#&gt; Slot &quot;concept_id&quot;:</span></a>
-<a class="sourceLine" id="cb12-122" data-line-number="122"><span class="co">#&gt; [1] 35803227</span></a>
+<a class="sourceLine" id="cb12-122" data-line-number="122"><span class="co">#&gt; [1] 35803130</span></a>
 <a class="sourceLine" id="cb12-123" data-line-number="123"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-124" data-line-number="124"><span class="co">#&gt; Slot &quot;concept_name&quot;:</span></a>
-<a class="sourceLine" id="cb12-125" data-line-number="125"><span class="co">#&gt; [1] &quot;Oxaliplatin&quot;</span></a>
+<a class="sourceLine" id="cb12-125" data-line-number="125"><span class="co">#&gt; [1] &quot;Irinotecan&quot;</span></a>
 <a class="sourceLine" id="cb12-126" data-line-number="126"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-127" data-line-number="127"><span class="co">#&gt; Slot &quot;concept_synonym_names&quot;:</span></a>
-<a class="sourceLine" id="cb12-128" data-line-number="128"><span class="co">#&gt; [1] &quot;JM-83|RP-54780|SR-96669&quot;</span></a>
+<a class="sourceLine" id="cb12-128" data-line-number="128"><span class="co">#&gt; [1] &quot;CPT-11|Camptothecin-11|U-101440E&quot;</span></a>
 <a class="sourceLine" id="cb12-129" data-line-number="129"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-130" data-line-number="130"><span class="co">#&gt; Slot &quot;maps_to_concept_names&quot;:</span></a>
-<a class="sourceLine" id="cb12-131" data-line-number="131"><span class="co">#&gt; [1] &quot;oxaliplatin&quot;</span></a>
+<a class="sourceLine" id="cb12-131" data-line-number="131"><span class="co">#&gt; [1] &quot;irinotecan&quot;</span></a>
 <a class="sourceLine" id="cb12-132" data-line-number="132"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-133" data-line-number="133"><span class="co">#&gt; Slot &quot;domain_id&quot;:</span></a>
 <a class="sourceLine" id="cb12-134" data-line-number="134"><span class="co">#&gt; [1] &quot;Drug&quot;</span></a>
@@ -533,7 +533,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb12-143" data-line-number="143"><span class="co">#&gt; [1] NA</span></a>
 <a class="sourceLine" id="cb12-144" data-line-number="144"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-145" data-line-number="145"><span class="co">#&gt; Slot &quot;concept_code&quot;:</span></a>
-<a class="sourceLine" id="cb12-146" data-line-number="146"><span class="co">#&gt; [1] &quot;377&quot;</span></a>
+<a class="sourceLine" id="cb12-146" data-line-number="146"><span class="co">#&gt; [1] &quot;280&quot;</span></a>
 <a class="sourceLine" id="cb12-147" data-line-number="147"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb12-148" data-line-number="148"><span class="co">#&gt; Slot &quot;valid_start_date&quot;:</span></a>
 <a class="sourceLine" id="cb12-149" data-line-number="149"><span class="co">#&gt; [1] &quot;2019-05-27&quot;</span></a>
@@ -617,18 +617,18 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt; 11           35807526 FOLFIRINOX/modified FOLFIRINOX plus /- Chemoradiation</span></a>
 <a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; 12           35807526 FOLFIRINOX/modified FOLFIRINOX plus /- Chemoradiation</span></a>
 <a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt;    has_antineoplastic_concept_id has_antineoplastic_concept_name</span></a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; 1                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; 2                       35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; 3                       35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; 4                       35803077                    Fluorouracil</span></a>
-<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; 5                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="co">#&gt; 6                       35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="co">#&gt; 7                       35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb15-24" data-line-number="24"><span class="co">#&gt; 8                       35803077                    Fluorouracil</span></a>
-<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="co">#&gt; 9                       35803227                     Oxaliplatin</span></a>
-<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="co">#&gt; 10                      35803130                      Irinotecan</span></a>
-<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="co">#&gt; 11                      35803081                    Folinic acid</span></a>
-<a class="sourceLine" id="cb15-28" data-line-number="28"><span class="co">#&gt; 12                      35803077                    Fluorouracil</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; 1                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; 2                       35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; 3                       35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; 4                       35803227                     Oxaliplatin</span></a>
+<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; 5                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb15-22" data-line-number="22"><span class="co">#&gt; 6                       35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb15-23" data-line-number="23"><span class="co">#&gt; 7                       35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb15-24" data-line-number="24"><span class="co">#&gt; 8                       35803227                     Oxaliplatin</span></a>
+<a class="sourceLine" id="cb15-25" data-line-number="25"><span class="co">#&gt; 9                       35803077                    Fluorouracil</span></a>
+<a class="sourceLine" id="cb15-26" data-line-number="26"><span class="co">#&gt; 10                      35803081                    Folinic acid</span></a>
+<a class="sourceLine" id="cb15-27" data-line-number="27"><span class="co">#&gt; 11                      35803130                      Irinotecan</span></a>
+<a class="sourceLine" id="cb15-28" data-line-number="28"><span class="co">#&gt; 12                      35803227                     Oxaliplatin</span></a></code></pre></div>
 <p>Filtering for only the permutations that returned greater than zero rows, there are 3 potential regimens that a subset of 4 Components map to:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">new_regimens2 <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">bind_rows</span>(<span class="dt">.id =</span> <span class="st">&quot;add_on_component_name&quot;</span>) <span class="op">%&gt;%</span></a>

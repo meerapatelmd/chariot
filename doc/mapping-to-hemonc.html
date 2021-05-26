@@ -325,15 +325,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb3-2" data-line-number="2">                 <span class="dt">conn =</span> conn)</a></code></pre></div>
 <p>In this example, all Trastuzumab monotherapy regimens in HemOnc are searched for. The monotherapy is assumed by the length of the input (<code>1</code>), and the function first searches for “trastuzumab” and runs an additional search for the pattern “monotherapy” based on the value of <code>1</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">ex1</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 4 x 10</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 10</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;   concept_id concept_name               domain_id vocabulary_id concept_class_id</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 1   35804222 Trastuzumab monotherapy    Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 2   35805230 Ado-trastuzumab emtansine… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 3   42542261 Fam-trastuzumab deruxteca… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 4   35101639 Trastuzumab and hyaluroni… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 1   35805230 Ado-trastuzumab emtansine… Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></a></code></pre></div>
 <p>If the search was intended to be for all regimens containing trastuzumab with a known number of additional components, a <code>component_count</code> value can be provided. For example, if I want to know all the HemOnc regimens that contain 2 components, with 1 being trastuzumab:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">ex2 &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw">ho_grep_regimens</span>(<span class="st">&quot;Trastuzumab&quot;</span>,</a>
@@ -341,25 +338,20 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb5-4" data-line-number="4">                   <span class="dt">component_count =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p>The pattern matched is “Trastuzumab” with any HemOnc Regimens containing the pattern “and” for 2 components.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">ex2</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; # A tibble: 14 x 10</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;    concept_id concept_name              domain_id vocabulary_id concept_class_id</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;         &lt;dbl&gt; &lt;chr&gt;                     &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;  1   35804299 FEC and H                 Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;  2   35804302 T-DM1 and ET              Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;  3   35102010 FEC and H (SC)            Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;  4   35804305 Trastuzumab and ET        Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;  5   35805360 CF and Trastuzumab        Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  6   35805363 CX and Trastuzumab        Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  7   35804313 Pertuzumab and T-DM1      Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;  8   35804243 Lapatinib and Trastuzumab Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt;  9   35804314 Pertuzumab and Trastuzum… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 10   35101949 Gemcitabine and Trastuzu… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 11   35804291 Anastrozole and Trastuzu… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 12   35804312 Capecitabine and Trastuz… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 13   35101467 nab-Paclitaxel and Trast… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; 14   35101639 Trastuzumab and hyaluron… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"><span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; # A tibble: 9 x 10</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;   concept_id concept_name              domain_id vocabulary_id concept_class_id</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;        &lt;int&gt; &lt;chr&gt;                     &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; 1   35804299 FEC and H                 Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 2     911988 FEC and HP                Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 3   35804302 T-DM1 and ET              Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 4   35102010 FEC and H (SC)            Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 5     912073 VH and Everolimus         Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 6   35805360 CF and Trastuzumab        Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 7   35805363 CX and Trastuzumab        Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 8   35804313 Pertuzumab and T-DM1      Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 9     912067 TH (Taxol) and Everolimus Regimen   HemOnc        Regimen         </span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; # … with 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</span></a></code></pre></div>
 <p>For searches for component counts greater than 2, the pattern matched is the number of commas. HemOnc Regimens composed of greater than 2 components are named by a comma-separated string.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ex3 &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">ho_grep_regimens</span>(<span class="st">&quot;Trastuzumab&quot;</span>,</a>
@@ -367,23 +359,18 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb7-4" data-line-number="4">                   <span class="dt">component_count =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p>For trastuzumab regimens containing 3 components, 2 commas are searched for.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">ex3</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; # A tibble: 4 x 11</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   concept_id concept_name               domain_id vocabulary_id concept_class_id</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;        &lt;dbl&gt; &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           </span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; 1   35804293 Lapatinib, Letrozole, Tra… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 2   35804317 Capecitabine, Pertuzumab,… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 3   35804310 Capecitabine, Bevacizumab… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 4   35101451 Paclitaxel, Pertuzumab, A… Regimen   HemOnc        Regimen         </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; # … with 6 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; #   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;,</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; #   comma_count &lt;int&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; # A tibble: 0 x 11</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # … with 11 variables: concept_id &lt;int&gt;, concept_name &lt;chr&gt;, domain_id &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; #   vocabulary_id &lt;chr&gt;, concept_class_id &lt;chr&gt;, standard_concept &lt;chr&gt;,</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; #   concept_code &lt;chr&gt;, valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;,</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; #   invalid_reason &lt;chr&gt;, comma_count &lt;int&gt;</span></a></code></pre></div>
 <p>To get all the possible combinations in regimens containing the component, <code>component_count</code> can be set to infinity.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">ex4 &lt;-<span class="st"> </span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw">ho_grep_regimens</span>(<span class="st">&quot;Trastuzumab&quot;</span>,</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3">                   <span class="dt">conn =</span> conn, </a>
 <a class="sourceLine" id="cb9-4" data-line-number="4">                   <span class="dt">component_count =</span> <span class="ot">Inf</span>)</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; Warning in ho_grep_regimens(&quot;Trastuzumab&quot;, conn = conn, component_count = Inf):</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; &quot;component_count&quot; max is: 3 returning unfiltered output</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; &quot;component_count&quot; max is: 2 returning unfiltered output</span></a></code></pre></div>
 <p>For all HemOnc functions, guardrails are put in place to prevent searches for components that may have been misspelled or subject to a typo. Here, I have mistyped trastuzumab.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ho_grep_regimens</span>(<span class="st">&quot;tastuzumab&quot;</span>,</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">                 <span class="dt">conn =</span> conn)</a>
@@ -394,7 +381,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ex5</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 3</span></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;   regimen_concept_id has_antineoplastic_concept_… has_antineoplastic_concept_na…</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;                &lt;dbl&gt;                        &lt;dbl&gt; &lt;chr&gt;                         </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;                &lt;int&gt;                        &lt;int&gt; &lt;chr&gt;                         </span></a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 1           35804201                     35803229 Paclitaxel                    </span></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 2           35804201                     35803361 Trastuzumab</span></a></code></pre></div>
 <p>The inverse can also be done, where a Regimen comprised by a set of Component Concept Ids is derived.</p>
@@ -403,15 +390,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb13-3" data-line-number="3">                  <span class="dt">conn =</span> conn)</a></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">ex6</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">#&gt;   regimen_concept_id regimen_concept_name has_antineoplastic_concept_id</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 1           35804201           TH (Taxol)                      35803361</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2           35804201           TH (Taxol)                      35803229</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 3           35804234         ddTH (Taxol)                      35803361</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 4           35804234         ddTH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt; 1           35804201           TH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 2           35804201           TH (Taxol)                      35803361</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 3           35804234         ddTH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 4           35804234         ddTH (Taxol)                      35803361</span></a>
 <a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt;   has_antineoplastic_concept_name</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 1                     Trastuzumab</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 2                      Paclitaxel</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 3                     Trastuzumab</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 4                      Paclitaxel</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 1                      Paclitaxel</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 2                     Trastuzumab</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 3                      Paclitaxel</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 4                     Trastuzumab</span></a></code></pre></div>
 <p>These functions also allow Concept Class object support. For example, for the most recent example, using a Concept Class object may allow the user to stay informed with the Concept attributes when executing the function.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">Paclitaxel &lt;-<span class="st"> </span><span class="kw">get_concept</span>(<span class="dt">concept_id =</span> <span class="dv">35803229</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">Trastuzumab &lt;-<span class="st"> </span><span class="kw">get_concept</span>(<span class="dt">concept_id =</span> <span class="dv">35803361</span>)</a></code></pre></div>
@@ -496,15 +483,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb18-4" data-line-number="4">                  <span class="dt">conn =</span> conn)</a></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">ex7</a>
 <a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">#&gt;   regimen_concept_id regimen_concept_name has_antineoplastic_concept_id</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt; 1           35804201           TH (Taxol)                      35803361</span></a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt; 2           35804201           TH (Taxol)                      35803229</span></a>
-<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; 3           35804234         ddTH (Taxol)                      35803361</span></a>
-<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; 4           35804234         ddTH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="co">#&gt; 1           35804201           TH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">#&gt; 2           35804201           TH (Taxol)                      35803361</span></a>
+<a class="sourceLine" id="cb19-5" data-line-number="5"><span class="co">#&gt; 3           35804234         ddTH (Taxol)                      35803229</span></a>
+<a class="sourceLine" id="cb19-6" data-line-number="6"><span class="co">#&gt; 4           35804234         ddTH (Taxol)                      35803361</span></a>
 <a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;   has_antineoplastic_concept_name</span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt; 1                     Trastuzumab</span></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; 2                      Paclitaxel</span></a>
-<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt; 3                     Trastuzumab</span></a>
-<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; 4                      Paclitaxel</span></a></code></pre></div>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt; 1                      Paclitaxel</span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; 2                     Trastuzumab</span></a>
+<a class="sourceLine" id="cb19-10" data-line-number="10"><span class="co">#&gt; 3                      Paclitaxel</span></a>
+<a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; 4                     Trastuzumab</span></a></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">dcAthena</span>(<span class="dt">conn =</span> conn)</a></code></pre></div>
 
 
