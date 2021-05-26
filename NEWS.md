@@ -1,3 +1,8 @@
+
+# chariot 1.2.0.9000 (2021-05-26)  
+* 
+  
+
 # chariot 1.2.0 (2021-03-28)  
 * fixed bugs in `strip` and `label` formatting functions  
 * added vignettes for HemOnc functions (`ho_*`), pivoting Concept Relationship and 
