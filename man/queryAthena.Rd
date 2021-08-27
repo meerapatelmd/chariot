@@ -12,9 +12,9 @@ queryAthena(
   override_cache = FALSE,
   cache_only = FALSE,
   cache_resultset = TRUE,
-  render_sql = TRUE,
+  render_sql = FALSE,
   render_only = FALSE,
-  verbose = TRUE,
+  verbose = FALSE,
   sleepTime = 1
 )
 }

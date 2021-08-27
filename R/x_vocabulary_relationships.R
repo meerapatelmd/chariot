@@ -1,8 +1,8 @@
 #' @title
-#' Lookup a Source Vocabulary's Relationships
+#' Lookup Vocabulary's Relationships
 #'
 #' @details
-#' Lookup all of a Source Vocabulary's non-null relationships in the Concept Relationship Table.
+#' Lookup all of a Vocabulary's non-null relationships in the Concept Relationship Table.
 #'
 #' @inherit vocabulary_level_functions description
 #'
@@ -12,12 +12,12 @@
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname vocab_lookup_relationships
+#' @rdname lookup_vocab_relationships
 #' @export
 #' @importFrom SqlRender render
 #' @example inst/example/vocabulary_relationships.R
 
-vocab_lookup_relationships <-
+lookup_vocab_relationships <-
   function(vocabulary_id,
            conn,
            conn_fun = "connectAthena()",
@@ -83,12 +83,12 @@ vocab_lookup_relationships <-
 #' @seealso
 #'  \code{\link[SqlRender]{render}}
 #'
-#' @rdname vocab_lookup_interrelation
+#' @rdname lookup_relationships_bw_vocab
 #'
 #' @export
 #' @importFrom SqlRender render
 #' @example inst/example/vocabulary_relationships.R
-vocab_lookup_interrelation <-
+lookup_relationships_with_other_vocab <-
   function(vocabulary_id,
            conn,
            conn_fun = "connectAthena()",

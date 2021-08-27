@@ -1,0 +1,237 @@
+---
+title: "Classes and Concepts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Classes and Concepts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  results = 'hide',
+  cache   = TRUE,
+  comment = "#>"
+)
+
+print_dt <-
+  function(x,
+           rownames = FALSE,
+           filter = "top",
+           scrollX = TRUE) {
+    
+    x <-
+      x %>% 
+      dplyr::mutate_all(factor)
+    
+    DT::datatable(
+      x,
+      rownames = rownames,
+      filter = filter,
+      extensions = "Buttons",
+      options = 
+        list(dom = "Blfrtip", 
+             buttons = c("copy", "csv","excel", "pdf", "print"), 
+             lengthMenu = list(c(10, 25, 50, -1), c(10, 25, 50, "All")),
+             scrollX = scrollX
+            )
+      )
+  }
+```
+
+```{r setup}
+library(chariot)
+```
+
+```{r}
+sabs <- 
+  queryAthena("SELECT DISTINCT vocabulary_id FROM omop_vocabulary.CONCEPT WHERE invalid_reason IS NULL ORDER BY vocabulary_id;") %>%
+  unlist()
+
+output <- list()
+for (sab in sabs) {
+  output[[length(output)+1]] <-
+    queryAthena(
+      SqlRender::render(
+        "
+        SELECT domain_id, concept_class_id, standard_concept, COUNT(*) 
+        FROM omop_vocabulary.CONCEPT 
+        WHERE invalid_reason IS NULL 
+          AND vocabulary_id = '@sab' 
+        GROUP BY domain_id, concept_class_id, standard_concept 
+        ORDER BY domain_id, concept_class_id, standard_concept ;", 
+                sab = sab))
+  
+  names(output)[length(output)] <- sab
+}
+```
+
+```{r}
+output %>% 
+  keep(function(x) any(x$standard_concept %in% c("C")))
+```
+
+```{r}
+output %>% 
+  keep(function(x) any(x$standard_concept %in% c("C"))) %>% 
+  names()
+```
+
+```{r}
+rxnorm <- 
+output %>% 
+  pluck("RxNorm")
+rxnorm
+```
+
+How do each relate to each other?  
+
+```{r}
+rxnorm_edges <- 
+queryAthena(
+  "
+  WITH rxnorm AS (
+     SELECT * 
+    FROM omop_vocabulary.concept c 
+    WHERE 
+      c.invalid_reason IS NULL 
+      AND c.vocabulary_id = 'RxNorm' 
+  )
+  
+  SELECT DISTINCT
+    rx1.concept_class_id AS concept_class_id_1, 
+    rx1.standard_concept AS standard_concept_1, 
+    cr.relationship_id,  
+    rx2.concept_class_id AS concept_class_id_2, 
+    rx2.standard_concept AS standard_concept_2
+  FROM omop_vocabulary.concept_relationship cr 
+  INNER JOIN rxnorm rx1 
+  ON rx1.concept_id = cr.concept_id_1 
+  INNER JOIN rxnorm rx2 
+  ON rx2.concept_id = cr.concept_id_2  
+  WHERE cr.invalid_reason IS NULL 
+  "
+) %>%
+  # True NA values do not split out in list so needs to be replaced with N
+  mutate_at(vars(standard_concept_1,
+                 standard_concept_2), ~ifelse(is.na(.), "N", .))
+```
+
+Get a list of all nodes from the relationshiops  
+
+```{r}
+rxnorm_nodes <- 
+  bind_rows(rxnorm_edges %>% 
+              select(ends_with("1")) %>%
+              rename_all(str_remove_all, "_1$"),
+            rxnorm_edges %>% 
+              select(ends_with("2")) %>%
+              rename_all(str_remove_all,"_2$")) %>%
+  distinct() 
+
+
+rxnorm_ndf <- 
+  create_node_df(n = nrow(rxnorm_nodes), 
+                 type = rxnorm_nodes$standard_concept, 
+                 label = rxnorm_nodes$concept_class_id,
+                 style = "filled",
+                 fixedsize = TRUE) %>% 
+  mutate(fillcolor = 
+           case_when(type == "C" ~ "blue",
+                     type == "S" ~ "red", 
+                     type == "N" ~ "gray"),
+         shape = 
+           case_when(type == "C" ~ "box",
+                     TRUE ~ "circle")
+         )
+
+
+rxnorm_edf <- 
+  rxnorm_edges %>% 
+  left_join(rxnorm_ndf, 
+            by = c("standard_concept_1" = "type",
+                   "concept_class_id_1" = "label")) %>% 
+  rename(from = id) %>% 
+  left_join(rxnorm_ndf, 
+            by = c("standard_concept_2" = "type",
+                   "concept_class_id_2" = "label")) %>% 
+  rename(to = id) %>% 
+  select(from, 
+         to, 
+         rel = relationship_id) 
+
+rxnorm_edf <-
+  create_edge_df(from = rxnorm_edf$from,
+                 to   = rxnorm_edf$to,
+                 rel  = rxnorm_edf$rel,
+                 label = rxnorm_edf$rel,
+                 len   = 5,
+                 fontsize = 14)
+
+
+rxnorm_graph <- 
+DiagrammeR::create_graph(nodes_df = rxnorm_ndf,
+                         edges_df = rxnorm_edf)
+
+render_graph(rxnorm_graph)
+```
+
+
+
+
+
+```{r}
+library(DiagrammeR)
+  paste(
+"",
+"digraph boxes_and_circles {",
+"",
+"  # several 'node' statements",
+"  node [shape = box]",
+paste(sprintf("  '@@1-%s'", 1:length(rxnorm_nodes2$C$concept_class_id)), collapse = ";"),
+"",
+"  node [shape = circle, 
+         fillcolor = crimson]",
+paste(sprintf("  '@@2-%s'", 1:length(rxnorm_nodes2$S$concept_class_id)), collapse = ";"),
+"",
+"  node [shape = circle, 
+         fillcolor = gray]",
+paste(sprintf("  '@@3-%s'", 1:length(rxnorm_nodes2$N$concept_class_id)), collapse = ";"),
+"",
+"}",
+"[1]: rxnorm_nodes2$C$concept_class_id ",
+"[2]: rxnorm_nodes2$S$concept_class_id ",
+"[3]: rxnorm_nodes2$N$concept_class_id ",
+sep = "\n"
+) %>%
+    cat()
+
+```
+
+
+
+```{r}
+grViz(
+  "
+  digraph boxes_and_circles {
+
+  # several 'node' statements
+  node [shape = box]
+  '@@1-1';  '@@1-2';  '@@1-3'
+
+  node [shape = circle, color = Red]
+  '@@2-1';  '@@2-2';  '@@2-3';  '@@2-4';  '@@2-5';  '@@2-6';  '@@2-7';  '@@2-8';  '@@2-9';  '@@2-10';  '@@2-11'
+
+  node [shape = circle, 
+         color = gray]
+  '@@3-1';  '@@3-2';  '@@3-3';  '@@3-4';  '@@3-5'
+
+  }
+  [1]: rxnorm_nodes2$C$concept_class_id 
+  [2]: rxnorm_nodes2$S$concept_class_id 
+  [3]: rxnorm_nodes2$N$concept_class_id
+  "
+)
+```
+

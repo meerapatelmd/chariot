@@ -1,0 +1,79 @@
+---
+title: "Relationship Id Analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Relationship Id Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(chariot)
+library(tidyverse)
+library(SqlRender)
+```
+
+
+How do each of the `relationship_id` values relate to the 
+vocabulary, domain, and concept classes?  
+
+```{r}
+relationship_ids <- 
+  queryAthena(sql_statement = "SELECT DISTINCT relationship_id FROM omop_vocabulary.relationship ORDER BY relationship_id;") %>%
+  unlist() %>%
+  unname()
+```
+```{r}
+round <- 0
+for (relationship_id in relationship_ids) {
+  round <- round+1
+  secretary::typewrite_progress(iteration = round, 
+                                total = length(relationship_ids))
+  
+  sql_statement <- 
+    render(
+          "
+          SELECT 
+            cr.invalid_reason AS rel_invalid_reason,
+            c1.vocabulary_id AS vocabulary_id_1,
+            c1.concept_class_id AS concept_class_id_1,
+            c1.domain_id AS domain_id_1,
+            c1.standard_concept AS standard_concept_1,
+            c1.invalid_reason AS invalid_reason_1,
+            c2.vocabulary_id AS vocabulary_id_2,
+            c2.concept_class_id AS concept_class_id_2,
+            c2.domain_id AS domain_id_2,
+            c2.standard_concept AS standard_concept_2,
+            c2.invalid_reason AS invalid_reason_2
+           FROM omop_vocabulary.concept_relationship cr
+           INNER JOIN omop_vocabulary.concept c1 
+           ON c1.concept_id = cr.concept_id_1 
+           INNER JOIN omop_vocabulary.concept c2 
+           ON c2.concept_id = cr.concept_id_2 
+           WHERE 
+             cr.relationship_id = '@relationship_id'
+           ;", 
+           relationship_id = relationship_id)
+  
+    x <- queryAthena(sql_statement = sql_statement)
+    x <-
+      x %>% 
+      dplyr::filter(is.na(invalid_reason_2)) %>% 
+      group_by_all() %>% 
+      summarize(n = n())
+    
+    cat(sprintf("# %s", relationship_id),
+        jsonlite::toJSON(x,
+                         pretty = 2),
+        "",
+        sep = "  \n")
+}
+```
+

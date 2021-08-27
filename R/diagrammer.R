@@ -467,4 +467,60 @@ graph_concept <-
 
 
 
+graph_ancestry <-
+        function(concept_obj) {
 
+                if (class(!concept_obj) == "concept") {
+
+                        concept_obj <-
+                                get_concept(concept_id = concept_obj)
+
+                }
+
+                concept_id <-
+                        concept_obj@concept_id
+                vocabulary_id <-
+                        concept_obj@vocabulary_id
+
+
+                df <-
+                queryAthena(
+                        SqlRender::render(
+                        "
+                        WITH a AS (
+                                SELECT *
+                                FROM omop_vocabulary.CONCEPT_ANCESTOR ca1
+                                WHERE ca1.descendant_concept_id = @concept_id
+                        ),
+                        d AS (
+                        SELECT *
+                                FROM omop_vocabulary.CONCEPT_ANCESTOR ca2
+                                WHERE ca2.ancestor_concept_id = @concept_id
+                        ),
+                        ad AS (
+                                SELECT *
+                                FROM a
+                                UNION
+                                SELECT *
+                                FROM d
+                        )
+
+                        SELECT *
+                        FROM ad b
+                        WHERE b.ancestor_concept_id NOT IN (
+                          SELECT descendant_concept_id
+                          FROM omop_vocabulary.concept_ancestor
+                        )
+                        ;
+                        ",
+                        concept_id = concept_id
+                        )
+                )
+
+                if (nrow(df) == 0) {
+
+                        stop("concept does not have any ancestry.")
+                }
+
+
+        }
