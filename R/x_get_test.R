@@ -7,7 +7,7 @@
 #' @export
 #' @importFrom rlang parse_expr
 #' @importFrom SqlRender render
-#' @example inst/example/get_test.R
+
 get_test_data <-
         function(conn,
                  conn_fun = "connectAthena()",
