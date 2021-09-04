@@ -93,6 +93,7 @@ Other query functions:
 \code{\link{queryDescendants}()},
 \code{\link{queryRelationships}()},
 \code{\link{querySynonyms}()},
-\code{\link{queryVocabularyRelationships}()}
+\code{\link{queryVocabularyRelationships}()},
+\code{\link{query_athena}()}
 }
 \concept{query functions}

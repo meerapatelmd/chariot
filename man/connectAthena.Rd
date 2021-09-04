@@ -4,7 +4,12 @@
 \alias{connectAthena}
 \title{Connect Local Athena}
 \usage{
-connectAthena(port = 5432, dbname = "athena", verbose = FALSE)
+connectAthena(
+  port = 5432,
+  dbname = "athena",
+  pathToDriver = system.file(package = "pg13", "driver"),
+  verbose = FALSE
+)
 }
 \description{
 Connect Local Athena

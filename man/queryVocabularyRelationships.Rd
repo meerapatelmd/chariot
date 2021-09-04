@@ -50,6 +50,7 @@ Other query functions:
 \code{\link{queryConceptId}()},
 \code{\link{queryDescendants}()},
 \code{\link{queryRelationships}()},
-\code{\link{querySynonyms}()}
+\code{\link{querySynonyms}()},
+\code{\link{query_athena}()}
 }
 \concept{query functions}
