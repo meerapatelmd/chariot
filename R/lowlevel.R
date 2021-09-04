@@ -8,7 +8,7 @@ lowLevelCache <-
   function(data, query) {
     R.cache::saveCache(
       object = data, key = list(query),
-      dirs = "chariot_package"
+      dirs = "chariot"
     )
   }
 
@@ -20,5 +20,5 @@ lowLevelCache <-
 
 lowLevelLoadCache <-
   function(query) {
-    R.cache::loadCache(key = list(query), dirs = "chariot_package")
+    R.cache::loadCache(key = list(query), dirs = "chariot")
   }

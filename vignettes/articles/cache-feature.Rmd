@@ -1,0 +1,15 @@
+---
+title: "Cache Feature"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup,echo=FALSE}
+library(DiagrammeR)
+```
+

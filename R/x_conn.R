@@ -7,11 +7,13 @@
 connectAthena <-
   function(port    = 5432,
            dbname  = "athena",
+           pathToDriver = system.file(package = "pg13", "driver"),
            verbose = FALSE) {
     pg13::local_connect(
       dbname  = dbname,
       port    = port,
-      verbose = verbose
+      verbose = verbose,
+      pathToDriver = pathToDriver
     )
   }
 

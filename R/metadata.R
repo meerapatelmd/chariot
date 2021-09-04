@@ -22,7 +22,7 @@ read_cdm_wiki_table <-
 
     cache_file <-
     R.cache::findCache(key = list("read_cdm_wiki_table"),
-                       dirs = "chariot_package")
+                       dirs = "chariot")
 
     if (!is.null(cache_file)) {
     if (as.double(difftime(Sys.time(),file.info(cache_file)$mtime, units = "days")) >= 180) {
