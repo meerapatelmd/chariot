@@ -1,9 +1,26 @@
 
 # chariot 1.2.0.9000 (2021-05-26)  
+
 * added vignettes  
+* add version from the log or Vocabulary table as part of the 
+cache key as a `chariotVersionKey` S3 class.    
+* update `query_athena()` with version as key and `chariotResultset` 
+S3 class where the fetch method can be determined using `fetched_via()`.   
+
+## In Progress  
+
+* Created a YAML of a classification of relationships that is updated 
+by query need to figure out:  
+
+  - How to update the yaml string with the query of the derived relationships 
+  and then send to GH Pages with a lookup of the classification as a yaml.  
+  
+  - How to retrieve the same yaml string as an R list to be used within the 
+  package.  
   
 
 # chariot 1.2.0 (2021-03-28)  
+
 * fixed bugs in `strip` and `label` formatting functions  
 * added vignettes for HemOnc functions (`ho_*`), pivoting Concept Relationship and 
 Concept Ancestor resultsets, and manipulating strings for mapping purposes.  

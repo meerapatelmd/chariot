@@ -1,4 +1,7 @@
+require(magrittr)
 
+#' @export
+#' @importFrom magrittr %>%
 
 lateral_relationship_ids <-
 query_athena(
@@ -7,6 +10,8 @@ query_athena(
         unlist() %>%
         unname()
 
+#' @export
+#' @importFrom magrittr %>%
 
 foreign_relationship_ids <-
         query_athena(
@@ -14,6 +19,9 @@ foreign_relationship_ids <-
         dplyr::select(relationship_id) %>%
         unlist() %>%
         unname()
+
+#' @export
+#' @importFrom magrittr %>%
 
 relationship_classes <-
 glue::glue(
